@@ -1,0 +1,34 @@
+<div class="user-info">
+    <div class="info-box">
+        <div class="portrait">
+            <button type="button" class="btn btn-radius btn-primary" ui-sref=".imgupload" ui-sref-opts="{location:false}">更换头像</button>
+            <img ng-src="{{data.header_url}}" alt="">
+        </div>
+        <ul class="info">
+            <li class="clearfix">
+                <div class="label"><span class="red">*</span>姓名</div>
+                <div class="text"><input type="text" name="name" class="form-control" ng-model="data.name"  ng-disabled="form_status.disabled" maxlength="64" placeholder="姓名"></div>
+            </li>
+            <li class="clearfix">
+                <div class="label"><span class="red">*</span>性别</div>
+                <div class="text">
+                    <span class="sex male"><input type="radio" name="sex"  value="1" ng-model="data.sex" ng-disabled="form_status.disabled">男</span>
+                    <span class="sex female"><input type="radio" name="sex"  value="0" ng-model="data.sex" ng-disabled="form_status.disabled">女</span>
+                </div>
+            </li>
+            <li class="clearfix">
+                <div class="label"><span class="red">*</span>简介</div>
+                <div class="text"><textarea name="intro" class="form-control intro" ng-model="data.info" ng-disabled="form_status.disabled" maxlength="500"></textarea></div>
+            </li>
+        </ul>
+        <span class="msg-wrap n-error" ng-if="form_status.msg.length" >
+            <span class="n-icon"></span>
+            <span class="n-msg">{{form_status.msg}}</span>
+        </span>
+        <div class="tools">
+            <button class="btn btn-radius btn-disable" ng-click="cancel()">取消</button>
+            <button class="btn btn-radius btn-primary" ng-click="save()" ng-disabled="form_status.disabled">保存</button>
+        </div>
+    </div>
+</div>
+<div ui-view="imgupload"></div>

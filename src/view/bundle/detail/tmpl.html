@@ -1,0 +1,56 @@
+
+<div class="course detail-view" ng-show="detailVisible">
+
+  <div class="detail-view-header-wrapper">
+    <div class="container detail-view-header"
+      ui-scrollpoint
+      ui-scrollpoint-enabled="true"
+      ui-scrollpoint-class="fixed">
+      <div class="inner">
+        <!-- nav -->
+        <ul class="nav navbar-nav">
+          <li><a ng-click="goto('info')" ng-class="{active:currentView==='info'}">基本信息</a></li>
+          <li><a ng-click="goto('content')" ng-class="{active:currentView==='content'}">系列课程内容</a></li>
+          <li ng-show="action=='view' && data.price"><a ng-click="goto('price')" ng-class="{active:currentView==='price'}">售卖价格</a></li>
+        </ul>
+        <span class="status-desc" ng-if="!editable">当前状态: {{status_desc}}</span>
+        <!-- button -->
+        <div class="pull-right">
+          <a class="btn btn-radius btn-primary mr10"
+            ng-if="editable" ng-click="onSave()">保存</a>
+          <a class="btn btn-radius btn-primary mr10"
+            ng-if="!editable && data.status != 'auditing' && $scope.data.status != 'onshelves'"
+            ui-sref="bundle.detail.edit({id: data.id})"
+            ui-sref-opts="{reload:true}">编辑</a>
+          <a class="btn btn-radius btn-primary mr10"
+            ng-if="!editable && data.status != 'auditing' && $scope.data.status != 'onshelves'"
+            ui-sref="bundle.detail.onShelves({detailId: data.id})">上架申请</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- body -->
+  <div class="detail-view-body">
+    <section ui-view="info" id="info" class="info"
+      ui-scrollpoint
+      ui-scrollpoint-enabled="true"
+      ui-scrollpoint-edge="['top', 'bottom']"
+      ui-scrollpoint-action="trackView"></section>
+    <section ui-view="content" id="content" class="content"
+      ui-scrollpoint
+      ui-scrollpoint-enabled="true"
+      ui-scrollpoint-edge="['top', 'bottom']"
+      ui-scrollpoint-action="trackView"></section>
+    <section ui-view="price" id="price" class="price"
+             ng-show="action=='view' && data.price"
+      ui-scrollpoint
+      ui-scrollpoint-enabled="true"
+      ui-scrollpoint-edge="['top', 'bottom']"
+      ui-scrollpoint-action="trackView"></section>
+  </div>
+</div>
+
+<div ui-view="upload"></div>
+<div ui-view="scorm"></div>
+<div ui-view="onShelves"></div>

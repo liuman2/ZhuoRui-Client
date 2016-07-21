@@ -1,0 +1,24 @@
+<div class="sign sign-in">
+    <div class="sign-card">
+        <h2>登录备课系统</h2>
+        <div class="sign-item sign-phone mb20">
+            <label class="sign-icon sign-icon-phone"></label>
+            <input type="text" class="form-control" name="phone" ng-model="data.phone" ng-focus="focus($event)" ng-disabled="form_status.disabled" ng-keypress="keypress($event)" placeholder="手机号码" />
+        </div>
+        <div class="sign-item sign-password mb10">
+            <label class="sign-icon sign-icon-lock"></label>
+            <input type="password" class="form-control " name="password" ng-model="data.password" ng-focus="focus($event)" ng-disabled="form_status.disabled" ng-keypress="keypress($event)" placeholder="登录密码" />
+        </div>
+        <span class="msg-wrap n-error" ng-if="form_status.server_msg!=''">
+            <span class="n-icon"></span>
+            <span class="n-msg">{{form_status.server_msg}}</span>
+        </span>
+        <a class="recovery" ui-sref="recovery">忘记密码？</a>
+        <button type="button" class="btn btn-primary btn-login btn-radius p0" ng-click="login()" ng-disabled="form_status.disabled">
+            {{form_status.btn_text}}
+        </button>
+        <div class="create-account">
+            <a class="" ui-sref="signup">还没账号？马上注册！</a>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,69 @@
+<section class="content-header">
+    <h1>
+        预备客户
+        <small>客户跟踪日志</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a ui-sref="dashboard"><i class="fa fa-dashboard"></i>我的面板</a></li>
+        <li><a ui-sref="reserve">预备客户</a></li>
+        <li class="active">跟踪日志</li>
+    </ol>
+</section>
+<section class="content">
+    <div class="box box-info">
+        <div class="box-header with-border">
+            <h3 class="box-title">厦门xxx公司</h3>
+            <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" ui-sref=".add" ui-sref-opts="{location:false}">
+                    <i class="fa fa-plus-square"> 添加</i>
+                </button>                
+            </div>
+        </div>
+        <div class="box-body">
+            <ul class="timeline">
+                <li>
+                    <i class="fa fa-file-text-o bg-blue"></i>
+                    <div class="timeline-item">
+                        <span class="time"><i class="fa fa-clock-o"></i> 2016-08-10 08:35</span>
+                        <h3 class="timeline-header"><a href="#">生日祝福</a></h3>
+                        <div class="timeline-body">
+                            客户xxx生日，发了条短信祝福
+                        </div>
+                        <div class="timeline-footer">
+                            <a class="btn btn-primary btn-xs">详情</a>
+                            <a class="btn btn-danger btn-xs">删除</a>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <i class="fa fa-file-text-o bg-blue"></i>
+                    <div class="timeline-item">
+                        <span class="time"><i class="fa fa-clock-o"></i> 2016-07-10 13:05</span>
+                        <h3 class="timeline-header"><a href="#">邀请客户参加7月13日的视频讲座</a></h3>
+                        <div class="timeline-body">
+                            客户那天出差，没法参加
+                        </div>
+                        <div class="timeline-footer">
+                            <a class="btn btn-primary btn-xs">详情</a>
+                            <a class="btn btn-danger btn-xs">删除</a>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <i class="fa fa-file-text-o bg-blue"></i>
+                    <div class="timeline-item">
+                        <span class="time"><i class="fa fa-clock-o"></i> 2016-07-10 12:05</span>
+                        <h3 class="timeline-header"><a href="#">新建了客户资料</a></h3>
+                        <div class="timeline-body">
+                            业务员张三建立了客户资料
+                        </div>
+                        <div class="timeline-footer">
+                            <a class="btn btn-primary btn-xs">详情</a>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</section>
+<div ui-view="add"></div>

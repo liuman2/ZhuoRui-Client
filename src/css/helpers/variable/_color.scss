@@ -1,0 +1,37 @@
+// theme
+$default-theme-color: #008cd6;
+
+// global
+$body-bg: #fff;
+
+// mask
+$mask-default-color: rgba(0, 0, 0, .2);
+
+// color
+$color-black: #333;
+$color-white: #fff;
+$color-gray: #737373;
+$color-red: #fd2e2e;
+$color-orange: #F5683A;
+$color-green: #0fb432;
+//$color-blue: #008cd6;
+
+$color-light-gray: #aaa;
+
+// border
+$border-color: #dcdcdc;
+
+// background
+$background-color-gray: #f7f7f7;
+
+// button
+$button-default-color: $default-theme-color;
+$button-default-hover-color: darken($default-theme-color, 5%);
+$button-disabled-color: #a1a1a1;
+//$button-default-active-color: #1e8a55;
+
+// input
+$input-border-focus:             #66afe9 !default;
+$input-color-placeholder:        #999 !default;
+
+$link-color: $default-theme-color;

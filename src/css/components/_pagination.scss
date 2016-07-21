@@ -1,0 +1,75 @@
+.pagination {
+    display: inline-block;
+    color: $color-gray;
+    line-height: 30px;
+    margin: 0!important;
+    .pagination-pager {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        float: left;
+        li {
+            float: left;
+            margin-right: 8px;
+            a {
+                display: block;
+                width: 30px;
+                height: 30px;
+                line-height: 30px;
+                text-align: center;
+                background-color: $color-white;
+                border: $border-default;
+                color: $color-gray;
+                text-decoration: none;
+                &:hover {
+                    background-color: $default-theme-color;
+                    border: 1px solid $default-theme-color;
+                    color: $color-white;
+                }
+                &.active {
+                    cursor: default;
+                    background-color: $default-theme-color;
+                    border: 1px solid $default-theme-color;
+                    color: $color-white;
+                }
+                &.disabled {
+                    cursor: default;
+                    background-color: #ECEAEA;
+                    border: 1px solid #ECEAEA;
+                    color: $color-gray;
+                }
+            }
+        }
+    }
+    .pagination-jump {
+        float: left;
+        .total {
+            margin: 0 10px;
+        }
+        .jump {
+            margin-right: 5px;
+            input {
+                width: 46px;
+                height: 30px;
+                border: $border-default;
+                margin: 0 5px;
+                padding: 0 5px;
+            }
+        }
+        .btn {
+            width: 50px;
+            height: $lh30;
+            line-height: $lh30;
+            padding: 0;
+            border: $border-default;
+            color: $color-gray;
+            vertical-align: top;
+            border-radius: 0;
+            &:hover {
+                background-color: $default-theme-color;
+                border: 1px solid $default-theme-color;
+                color: $color-white;
+            }
+        }
+    }
+}

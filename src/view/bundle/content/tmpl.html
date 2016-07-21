@@ -1,0 +1,29 @@
+<form id="content" class="box content content-bundle">
+    <div class="box-header clearfix">
+        <div class="title">系列课程内容</div>
+    </div>
+    <dl class="box-body">
+        <dd>
+            <ul>
+                <li ng-repeat="item in data.items" class="pr15">
+                    <span class="mr15">第{{$index + 1}}课</span><a class="title" href="">{{item.name}}</a>
+                    <span class="pull-right" ng-if="editable">
+                        <a class="icon icon_edit mr10" href="" ui-sref="course.detail.view({id: item.id})"></a>
+                        <a class="icon icon_arrow_up mr10" href="" ng-if="!$first"
+                           ng-click="setLists('up',$index)"></a>
+                        <a class="icon icon_arrow_down mr10" href="" ng-if="!$last"
+                           ng-click="setLists('down',$index)"></a>
+                        <a class="icon icon_trash" href="" ng-click="setLists('delete',$index)"></a>
+                    </span>
+                </li>
+            </ul>
+        </dd>
+        <dd class="mt10 mb10 clearfix">
+            <div class="pull-right">
+                <a class="btn btn-radius btn-primary mr10" ui-sref="course.detail.add">新建课程</a>
+                <a class="btn btn-radius btn-primary" ng-click="goLibrary()" ng-if="editable">从课程库添加</a>
+            </div>
+        </dd>
+    </dl>
+</form>
+<div ui-view="courseware"></div>

@@ -1,0 +1,23 @@
+// Options
+//
+// Quickly modify global styling by enabling or disabling optional features.
+
+$enable-rounded:            false !default;
+
+// Cards
+$card-spacer-x:            8px !default;
+$card-spacer-y:            12px !default;
+$card-border-width:        1px !default;
+$card-border-radius:       4px !default;
+$card-border-color:        #e5e5e5 !default;
+$card-border-radius-inner: $card-border-radius !default;
+$card-cap-bg:              #f5f5f5 !default;
+$card-bg:                  #fff !default;
+
+$card-link-hover-color:    #fff !default;
+
+$brand-primary:             $default-theme-color !default;
+$brand-danger:              $color-red !default;
+
+$primary-bg:                 $brand-primary !default;
+$danger-bg:                  $brand-danger !default;

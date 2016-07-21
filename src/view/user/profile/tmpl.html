@@ -1,0 +1,21 @@
+<div class="profile">
+  <div class="profile-header">
+    <div class="portrait">
+      <div class="img">
+        <img ng-src="{{userInfo.header_url}}" alt="">
+      </div>
+    </div>
+    <div class="name">{{userInfo.name}}
+      <span class="male" ng-if="userInfo.sex===1"></span>
+      <span class="female"  ng-if="userInfo.sex===0"></span>
+    </div>
+    <div class="tools">
+      <a href="" class="btn btn-radius btn-primary" ui-sref="user.info">编辑资料</a>
+      <a href="" class="btn btn-radius btn-primary" ui-sref="user.password">修改密码</a>
+    </div>
+  </div>
+  <div class="profile-body">
+    <div class="title">讲师简介</div>
+    <div class="text">{{userInfo.info}}</div>
+  </div>
+</div>

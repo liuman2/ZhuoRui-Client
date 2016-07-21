@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html ng-app="app_login">
+
+<head>
+    <meta charset="UTF-8">
+    <title>备课系统</title>
+</head>
+
+<body ng-controller="BodyCtrl" ng-class="bodyClass" class="account-bg">
+    <header class="header">
+        <div class="container">
+            <!-- brand -->
+            <div class="brand">
+                <a ui-sref="course">
+                    <img src="./img/logo.png" alt="logo">
+                </a>
+            </div>
+        </div>
+    </header>
+    <div class="container main account">
+        <div ui-view></div>
+    </div>
+</body>
+
+</html>

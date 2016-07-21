@@ -1,0 +1,31 @@
+<div class="sign sign-re">
+    <div class="sign-card">
+        <h2>重置密码</h2>
+        <div class="sign-item sign-phone">
+            <label class="sign-icon sign-icon-phone"></label>
+            <input type="text" class="form-control" name="phone" ng-model="data.phone" ng-focus="focus($event)" ng-disabled="form_status.disabled" placeholder="手机号码" />
+        </div>
+        <div class="sign-item sign-code">
+            <input type="text" class="form-control" name="code" ng-focus="focus($event)" ng-model="data.code" ng-disabled="form_status.disabled" placeholder="填写手机收到的验证码" />
+            <button class="btn btn-primary btn-radius" ng-click="getCode()" ng-disabled="form_status.disabled || form_status.validation_disabled">{{form_status.validation_text}}</button>
+        </div>
+        <div class="sign-item sign-password">
+            <label class="sign-icon sign-icon-lock"></label>
+            <input type="password" class="form-control " name="password" ng-focus="focus($event)" ng-model="data.password" ng-disabled="form_status.disabled" placeholder="请输入新登录密码" />
+        </div>
+        <div class="sign-item sign-repwd mb10">
+            <label class="sign-icon sign-icon-lock"></label>
+            <input type="password" class="form-control " name="repwd" ng-focus="focus($event)" ng-model="data.repwd" ng-disabled="form_status.disabled" placeholder="再次输入新登录密码" />
+        </div>
+        <span class="msg-wrap n-error mt10" ng-if="form_status.msg!=''">
+            <span class="n-icon"></span>
+            <span class="n-msg">{{form_status.msg}}</span>
+        </span>
+        <button type="button" class="btn btn-primary btn-login mt5 p0 btn-radius" ng-click="recovery()" ng-disabled="form_status.disabled">
+            {{form_status.btn_text}}
+        </button>
+        <div class="exit-account">
+            <a class="" ui-sref="signin">又想起来了 ></a>
+        </div>
+    </div>
+</div>

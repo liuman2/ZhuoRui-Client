@@ -1,0 +1,91 @@
+<section class="content-header">
+    <h1>
+        注册业务
+        <small>境外</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a ui-sref="dashboard"><i class="fa fa-dashboard"></i>我的面板</a></li>
+        <li><a ui-sref="reserve">预备客户</a></li>
+        <li class="active" ng-bind="current_bread"></li>
+    </ol>
+</section>
+<section class="content">
+    <section class="invoice">
+        <div class="row">
+            <div class="col-xs-12">
+                <h2 class="page-header">
+                    <i class="fa fa-globe"></i> 厦门a公司
+                    <small class="pull-right">开单日期: 2016-07-19</small>
+                </h2>
+            </div>
+        </div>
+        <div class="row invoice-info">
+            <div class="col-xs-12 invoice-col">
+                <div class="form-group">
+                    <label>档案号：</label>
+                    <span>XM001</span>
+                </div>
+                <div class="form-group">
+                    <label>公司名称：</label>
+                    <span>厦门a公司</span>
+                </div>
+                <div class="form-group">
+                    <label>单据状态：</label>
+                    <span>未提交</span>
+                </div>
+                <div class="form-group">
+                    <label>订单金额：</label>
+                    <span>10000</span>
+                </div>
+                <div class="form-group">
+                    <label>已收款：</label>
+                    <span>3000</span>
+                </div>
+                <div class="form-group">
+                    <label>未收款：</label>
+                    <span>7000</span>
+                </div>
+
+                <div class="form-group">
+                    <label>业务员：</label>
+                    <span>张三</span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <p style="border-top: 1px solid #eee; margin: 0 0 20px"></p>
+                <p>附件：</p>
+                <div class="form-group" style="clear: both; overflow: hidden;">
+                    <div class="pull-left">
+                        附件1.doc
+                    </div>
+                    <div class="pull-right">
+                        <a href="javascript:;">下载</a>
+                    </div>
+                </div>
+                <div class="form-group" style="clear: both; overflow: hidden;">
+                    <div class="pull-left">
+                        附件2.jpg
+                    </div>
+                    <div class="pull-right">
+                        <a href="javascript:;">下载</a>
+                    </div>
+                </div>
+
+                <div>
+                    <a href="javascript:;">上传附件</a>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <p style="border-top: 1px solid #eee; margin: 0 0 20px"></p>
+            <div class="tar">
+                <button class="btn btn-primary">修改</button>
+                <button class="btn btn-primary">提交审核</button>
+                <button class="btn btn-success">审核通过</button>
+                <button class="btn btn-danger">审核不通过</button>
+            </div>
+        </div>
+    </section>
+</section>
