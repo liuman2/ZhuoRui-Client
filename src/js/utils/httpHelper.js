@@ -1,5 +1,5 @@
 
-var prefix = 'teacher';
+var prefix = '';
 var regPrefix = new RegExp(`^\/?${prefix}\/`, 'i');
 
 function addPrefix (url) {

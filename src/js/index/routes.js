@@ -3,6 +3,8 @@ var reserveRouter = require('./router/reserve');
 var customerRouter = require('./router/customer');
 var abroadRouter = require('./router/abroad');
 
+var organizationRouter = require('./router/organization');
+
 module.exports = function($stateProvider, $urlRouterProvider) {
 
     $urlRouterProvider.otherwise('/dashboard');
@@ -31,4 +33,5 @@ module.exports = function($stateProvider, $urlRouterProvider) {
     reserveRouter($stateProvider, $urlRouterProvider);
     customerRouter($stateProvider, $urlRouterProvider);
     abroadRouter($stateProvider, $urlRouterProvider);
+    organizationRouter($stateProvider, $urlRouterProvider);
 };

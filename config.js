@@ -4,8 +4,8 @@ var config = {
     port: process.env.SERVER_PORT || 8000
   },
   proxy: {
-    '/teacher/*': {
-      target: 'http://192.168.70.212:5555',
+    '/*': {
+      target: 'http://192.168.84.56:4696',
       secure: false
     }
   },

@@ -62,7 +62,14 @@ module.exports = function ($scope, $rootScope, $http) {
             name: '快件列表',
             icon: 'fa fa-list'
         }]
+    }, {
+        route: '',
+        name: '基本资料管理',
+        icon: 'fa fa-university',
+        children:[{
+            route: 'organization',
+            name: '组织架构',
+            icon: 'fa fa-sitemap'
+        }]
     }]
-
-
 };
