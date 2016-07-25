@@ -1,6 +1,7 @@
 module.exports = function($scope, $http, $state, $stateParams) {
     var jTree = $("#org-tree");
     var zTree = null;
+    var newCount = 1;
 
     $scope.form = {};
 
@@ -11,7 +12,21 @@ module.exports = function($scope, $http, $state, $stateParams) {
     });
 
     $scope.save = function() {
+        jForm.isValid(function(v) {
+            if (v) {
+                $http({
+                    method: 'POST',
+                    data: $scope.form,
+                    url: '/Organization/Update'
+                }).success(function(data) {
+                    if (!data.success) {
+                        return false;
+                    }
 
+                    load_tree($scope.form.id);
+                });
+            }
+        });
     }
 
     function _setting() {
@@ -84,10 +99,12 @@ module.exports = function($scope, $http, $state, $stateParams) {
 
         $http({
             method: 'GET',
-            url: '/Organization/List'
+            url: '/Organization/Delete',
+            params: {
+                id: treeNode.id
+            }
         }).success(function(data) {
-            zTree = $.fn.zTree.init(jTree, _setting(), data);
-            zTree.expandAll(true);
+            load_tree();
         })
     }
 
@@ -99,7 +116,7 @@ module.exports = function($scope, $http, $state, $stateParams) {
         var addStr = '<span class="button add" id="addBtn_' + treeNode.tId + '" title="添加子节点" onfocus="this.blur();"></span>';
         sObj.after(addStr);
         var btn = $('#addBtn_' + treeNode.tId);
-        var newCount = 1;
+
         if (btn) {
             btn.bind('click', function() {
                 var newNode = {
@@ -118,30 +135,25 @@ module.exports = function($scope, $http, $state, $stateParams) {
         $("#addBtn_" + treeNode.tId).unbind().remove();
     }
 
-    function _addNodes(parentNode, newNodes) {
-        // $.ajax({
-        //     url: _api + "/department/save",
-        //     type: 'post',
-        //     async: false,
-        //     data: {
-        //         parent_id: parentNode.id,
-        //         index: index,
-        //         name: newNodes.name
-        //     },
-        //     success: function(data) {
-        //         load_tree(data.id);
-        //     }
-        // });
+    function _addNodes(parentNode, newNode) {
         $http({
             method: 'POST',
             data: {
-                parent_id: parentNode.id,
-                name: newNodes.name
+                parent_id: parentNode.id || 0,
+                name: newNode.name
             },
             url: '/Organization/Add'
         }).success(function(data) {
-            // zTree.addNodes(treeNode, newNode);
-        })
+            console.log(data);
+            if (!data.success) {
+                return false;
+            }
+
+            newNode.id = data.result.id;
+            zTree.addNodes(parentNode, newNode);
+            // zTree.selectNode(newNode);
+            load_tree(data.result.id);
+        });
 
     }
 
