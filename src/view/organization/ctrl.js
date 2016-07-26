@@ -81,22 +81,6 @@ module.exports = function($scope, $http, $state, $stateParams) {
     }
 
     function onRemove(event, treeId, treeNode) {
-        // $.ajax({
-        //     url: _api + "/department/delete",
-        //     type: 'get',
-        //     async: false,
-        //     data: {
-        //         id: treeNode.id
-        //     },
-        //     success: function(data) {
-        //         load_tree(selectId);
-        //     },
-        //     error: function(data) {
-        //         alert(data.message);
-        //         load_tree(treeNode.id);
-        //     }
-        // });
-
         $http({
             method: 'GET',
             url: '/Organization/Delete',
@@ -190,7 +174,7 @@ module.exports = function($scope, $http, $state, $stateParams) {
                 // $("#" + treeNode.tId + "_a").click();
                 bindEditForm(treeNode);
             }
-        })
+        });
     }
 
     load_tree();

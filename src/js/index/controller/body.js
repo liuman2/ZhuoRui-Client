@@ -70,6 +70,10 @@ module.exports = function ($scope, $rootScope, $http) {
             route: 'organization',
             name: '组织架构',
             icon: 'fa fa-sitemap'
+        },{
+            route: 'area',
+            name: '区域设置',
+            icon: 'fa fa-crosshairs'
         }]
     }]
 };
