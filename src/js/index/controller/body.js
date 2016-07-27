@@ -78,6 +78,10 @@ module.exports = function ($scope, $rootScope, $http) {
             route: 'position',
             name: '职位设置',
             icon: 'fa fa-graduation-cap'
+        },{
+            route: 'member',
+            name: '用户管理',
+            icon: 'fa fa-user'
         }]
     }]
 };
