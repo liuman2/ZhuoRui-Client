@@ -5,7 +5,7 @@ module.exports = function($scope, $http, $state, $stateParams) {
     function load_data() {
         $http({
             method: 'GET',
-            url: '/Area/List'
+            url: '/Position/List'
         }).success(function(data) {
             $scope.data = data;
         });
@@ -18,7 +18,7 @@ module.exports = function($scope, $http, $state, $stateParams) {
 
         $http({
             method: 'GET',
-            url: '/Area/Delete',
+            url: '/Position/Delete',
             params: {
                 id: id
             }
@@ -27,7 +27,7 @@ module.exports = function($scope, $http, $state, $stateParams) {
         });
     }
 
-    $scope.$on('AREA_MODAL_DONE', function(e) {
+    $scope.$on('POSITION_MODAL_DONE', function(e) {
         load_data();
     });
 

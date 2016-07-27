@@ -131,6 +131,8 @@ if (config.isPro) {
         new webpack.optimize.UglifyJsPlugin({
             mangle: false,
             compress: {
+                drop_debugger: true,
+                drop_console: true,
                 warnings: false
             },
             output: {

@@ -5,6 +5,7 @@ var abroadRouter = require('./router/abroad');
 
 var organizationRouter = require('./router/organization');
 var areaRouter = require('./router/area');
+var positionRouter = require('./router/position');
 
 module.exports = function($stateProvider, $urlRouterProvider) {
 
@@ -36,4 +37,5 @@ module.exports = function($stateProvider, $urlRouterProvider) {
     abroadRouter($stateProvider, $urlRouterProvider);
     organizationRouter($stateProvider, $urlRouterProvider);
     areaRouter($stateProvider, $urlRouterProvider);
+    positionRouter($stateProvider, $urlRouterProvider);
 };

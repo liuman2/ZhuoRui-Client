@@ -25,7 +25,7 @@ module.exports = function($scope, $state, $http, $timeout) {
         });
     }
 
-    $scope.title = !!id ? '修改区域' : '添加区域'
+    $scope.title = !!id ? '修改职位' : '添加职位'
     if (id) {
         actionView();
     }
@@ -33,7 +33,7 @@ module.exports = function($scope, $state, $http, $timeout) {
     function actionView() {
         $http({
             method: 'GET',
-            url: '/Area/Get',
+            url: '/Position/Get',
             params: {
                 id: id
             }
@@ -46,10 +46,10 @@ module.exports = function($scope, $state, $http, $timeout) {
     function actionAdd() {
         $http({
             method: 'POST',
-            url: '/Area/Add',
+            url: '/Position/Add',
             data: $scope.area
         }).success(function(data) {
-            $scope.$emit('AREA_MODAL_DONE');
+            $scope.$emit('POSITION_MODAL_DONE');
             $state.go('^', { reload: true });
         });
     }
@@ -57,10 +57,10 @@ module.exports = function($scope, $state, $http, $timeout) {
     function actionUpdate() {
         $http({
             method: 'POST',
-            url: '/Area/Update',
+            url: '/Position/Update',
             data: $scope.area
         }).success(function(data) {
-            $scope.$emit('AREA_MODAL_DONE');
+            $scope.$emit('POSITION_MODAL_DONE');
             $state.go('^', { reload: true });
         });
     }

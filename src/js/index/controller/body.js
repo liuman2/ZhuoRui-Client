@@ -74,6 +74,10 @@ module.exports = function ($scope, $rootScope, $http) {
             route: 'area',
             name: '区域设置',
             icon: 'fa fa-crosshairs'
+        },{
+            route: 'position',
+            name: '职位设置',
+            icon: 'fa fa-graduation-cap'
         }]
     }]
 };
