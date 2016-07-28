@@ -5,96 +5,77 @@
     <form class="form-horizontal">
         <div class="box-body">
             <div class="form-group">
-                <label class="col-sm-2 control-label">客户编号</label>
+                <label class="col-sm-2 control-label">姓名<span class="required">*</span></label>
                 <div class="col-sm-8">
-                    <input type="text" class="form-control">
+                    <input type="text" class="form-control" name="name" ng-model="data.name" data-rule="required; length[~20];">
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-sm-2 control-label">客户名称<span class="required">*</span></label>
+                <label class="col-sm-2 control-label">英文名</label>
                 <div class="col-sm-8">
-                    <input type="text" class="form-control" name="name" data-rule="required; length[~100];">
+                    <input type="text" class="form-control" name="english_name" ng-model="data.english_name" data-rule="length[~20];">
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-sm-2 control-label">所在省</label>
+                <label class="col-sm-2 control-label">用户名<span class="required">*</span></label>
                 <div class="col-sm-8">
-                    <select class="form-control select2" style="width: 100%;">
+                    <input type="text" class="form-control" name="username" ng-model="data.username" placeholder="系统登录帐号">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">手机</label>
+                <div class="col-sm-8">
+                    <input type="tel" class="form-control" name="mobile" ng-model="data.mobile" data-rule="length[~20]; mobile;">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">出生日期</label>
+                <div class="col-sm-8">
+                    <input type="text" name="birthday" class="form-control date-input" ng-model="data.birthday">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-2 control-label">所属部门<span class="required">*</span></label>
+                <div class="col-sm-8">
+                    <select ui-select2 displayName class="form-control select2" name="organization_id" ng-model="data.organization_id" url="Organization/Search" ></select>
+                    <span id="department-validator" class="cust-validator"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">所属区域<span class="required">*</span></label>
+                <div class="col-sm-8">
+                    <select ui-select2 displayName class="form-control select2" name="area_id" ng-model="data.area_id" url="Area/Search" data-rule="required;"></select>
+                    <span id="area-validator" class="cust-validator"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">职位</label>
+                <div class="col-sm-8">
+                    <select ui-select2 displayName class="form-control select2" name="position_id" ng-model="data.position_id" url="Position/Search"></select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">入职日期</label>
+                <div class="col-sm-8">
+                    <input type="tel" class="form-control date-input" name="hiredate" ng-model="data.hiredate">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">就职状态</label>
+                <div class="col-sm-8">
+                    <select class="form-control select2" name="status" ng-model="data.status">
+                        <option value="">请选择</option>
+                        <option value="1">在职</option>
+                        <option value="0">离职职</option>
+                        <option value="2">停薪留职</option>
                     </select>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-2 control-label">所在市</label>
-                <div class="col-sm-8">
-                    <select class="form-control select2" style="width: 100%;">
-                    </select>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-2 control-label">所在县</label>
-                <div class="col-sm-8">
-                    <select class="form-control select2" style="width: 100%;">
-                    </select>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-2 control-label">详细地址</label>
-                <div class="col-sm-8">
-                    <input type="text" class="form-control">
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-2 control-label">联系人<span class="required">*</span></label>
-                <div class="col-sm-8">
-                    <input type="text" class="form-control" name="contact" data-rule="required; length[~20];">
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-2 control-label">手机<span class="required">*</span></label>
-                <div class="col-sm-8">
-                    <input type="text" class="form-control" name="mobile" data-rule="required; length[~20];">
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-2 control-label">座机</label>
-                <div class="col-sm-8">
-                    <input type="text" class="form-control">
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-2 control-label">传真</label>
-                <div class="col-sm-8">
-                    <input type="text" class="form-control">
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-2 control-label">邮箱</label>
-                <div class="col-sm-8">
-                    <input type="text" class="form-control">
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-2 control-label">QQ</label>
-                <div class="col-sm-8">
-                    <input type="text" class="form-control">
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-2 control-label">微信</label>
-                <div class="col-sm-8">
-                    <input type="text" class="form-control">
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-2 control-label">备注</label>
-                <div class="col-sm-8">
-                    <textarea class="form-control" rows="3"></textarea>
                 </div>
             </div>
         </div>
         <div class="box-footer">
-            <button type="submit" class="btn btn-default" ng-click="cancel()">取消</button>
-            <button type="submit" class="btn btn-info pull-right" ng-click="save()">保存</button>
+            <button type="button" class="btn btn-default" ng-click="cancel()">取消</button>
+            <button type="button" class="btn btn-info pull-right" ng-click="save()">保存</button>
         </div>
     </form>
 </div>

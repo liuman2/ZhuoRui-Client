@@ -52,6 +52,7 @@
     "normalize.css": "^4.1.1",
     "respond.js": "1.4.2",
     "select2": "4.0.3",
+    "jquery-datetimepicker": "^2.5.4",
     "ui-router-extras": "0.1.2"
   }
 }
