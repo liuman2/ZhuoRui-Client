@@ -42,7 +42,7 @@
                         <td ng-bind="item.department"></td>
                         <td ng-bind="item.area"></td>
                         <td ng-bind="item.position"></td>
-                        <td ng-bind="item.status"></td>
+                        <td ng-bind="getStatus(item.status)"></td>
                         <td class="opt-col">
                             <a class="fa fa-pencil green" ui-sref=".edit({id: {{item.id}}})" ui-sref-opts="{location:false}" title="修改"></a>
                         </td>

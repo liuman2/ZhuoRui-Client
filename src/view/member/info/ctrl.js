@@ -7,7 +7,10 @@ module.exports = function($scope, $state, $http, $timeout) {
     $.datetimepicker.setLocale('ch');
     dInput.datetimepicker({
         timepicker: false,
-        format: 'Y-m-d'
+        format: 'Y-m-d',
+        onChangeDateTime: function (current_time, $input) {
+            console.log(current_time)
+        }
     });
 
     $scope.data = {
@@ -44,6 +47,19 @@ module.exports = function($scope, $state, $http, $timeout) {
                 var isDeptOk = valid_department();
                 var isAreaOk = valid_area();
                 if (!isDeptOk || !isAreaOk) { return; }
+
+                $scope.data.birthday = $('#birthday').val();
+                $scope.data.hiredate = $('#hiredate').val();
+
+                var url = $scope.action == 'add' ? '/Member/Add' : '/Member/Update';
+
+                $http({
+                    method: 'POST',
+                    url: '/Member/Add',
+                    data: $scope.data
+                }).success(function(data) {
+                    $state.go('member');
+                });
             }
         });
     }

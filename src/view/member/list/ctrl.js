@@ -24,5 +24,16 @@ module.exports = function($scope, $http, $state, $stateParams) {
         });
     }
 
+    $scope.getStatus = function(status) {
+        switch(status) {
+            case 0:
+                return '离职';
+            case 1:
+                return '在职';
+            case 2:
+                return '停薪留职';
+        }
+    }
+
     load_data();
 }
