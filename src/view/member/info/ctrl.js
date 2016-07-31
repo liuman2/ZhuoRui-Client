@@ -36,6 +36,19 @@ module.exports = function($scope, $state, $http, $timeout) {
         }
     });
 
+    if ($scope.action != 'add') {
+        $http({
+            method: 'GET',
+            params: {
+                id: id
+            },
+            url: '/Member/Get'
+        }).success(function(data) {
+            console.log(data)
+            $scope.data = data;
+        });
+    }
+
     $scope.cancel = function() {
         $state.go('member');
     }

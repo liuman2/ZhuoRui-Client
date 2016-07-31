@@ -45,6 +45,7 @@
                         <td ng-bind="getStatus(item.status)"></td>
                         <td class="opt-col">
                             <a class="fa fa-pencil green" ui-sref=".edit({id: {{item.id}}})" ui-sref-opts="{location:false}" title="修改"></a>
+                            <a class="fa fa-info-circle green" ui-sref=".edit({id: {{item.id}}})" ui-sref-opts="{location:false}" title="查看"></a>
                         </td>
                     </tr>
                 </tbody>

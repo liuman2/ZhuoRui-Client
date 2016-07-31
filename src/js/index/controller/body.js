@@ -82,6 +82,10 @@ module.exports = function ($scope, $rootScope, $http) {
             route: 'member',
             name: '用户管理',
             icon: 'fa fa-user'
+        },{
+            route: 'dictionary',
+            name: '数据字典',
+            icon: 'fa fa-user'
         }]
     }]
 };

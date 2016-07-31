@@ -8,6 +8,8 @@ var areaRouter = require('./router/area');
 var positionRouter = require('./router/position');
 var memberRouter = require('./router/member');
 
+var dictionaryRouter = require('./router/dictionary');
+
 module.exports = function($stateProvider, $urlRouterProvider) {
 
     $urlRouterProvider.otherwise('/dashboard');
@@ -40,4 +42,5 @@ module.exports = function($stateProvider, $urlRouterProvider) {
     areaRouter($stateProvider, $urlRouterProvider);
     positionRouter($stateProvider, $urlRouterProvider);
     memberRouter($stateProvider, $urlRouterProvider);
+    dictionaryRouter($stateProvider, $urlRouterProvider);
 };
