@@ -7,10 +7,10 @@ module.exports = function($scope, $state, $http, $timeout) {
         fields: {}
     });
 
-    $scope.area = {
+    $scope.dictionary = {
         id: null,
-        name: '',
-        description: ''
+        group: $state.params['group'],
+        name: ''
     }
 
     $scope.save = function() {
@@ -24,8 +24,8 @@ module.exports = function($scope, $state, $http, $timeout) {
             }
         });
     }
-
-    $scope.title = !!id ? '修改区域' : '添加区域'
+    console.log($scope.dictionary.group)
+    $scope.title = !!id ? ($scope.dictionary.group + '-修改') : ($scope.dictionary.group + '-添加');
     if (id) {
         actionView();
     }
@@ -33,23 +33,22 @@ module.exports = function($scope, $state, $http, $timeout) {
     function actionView() {
         $http({
             method: 'GET',
-            url: '/Area/Get',
+            url: '/Dictionary/Get',
             params: {
                 id: id
             }
         }).success(function(data) {
-            console.log(data)
-            $scope.area = data;
+            $scope.dictionary = data;
         });
     }
 
     function actionAdd() {
         $http({
             method: 'POST',
-            url: '/Area/Add',
-            data: $scope.area
+            url: '/Dictionary/Add',
+            data: $scope.dictionary
         }).success(function(data) {
-            $scope.$emit('AREA_MODAL_DONE');
+            $scope.$emit('DICT_MODAL_DONE');
             $state.go('^', { reload: true });
         });
     }
@@ -57,10 +56,10 @@ module.exports = function($scope, $state, $http, $timeout) {
     function actionUpdate() {
         $http({
             method: 'POST',
-            url: '/Area/Update',
-            data: $scope.area
+            url: '/Dictionary/Update',
+            data: $scope.dictionary
         }).success(function(data) {
-            $scope.$emit('AREA_MODAL_DONE');
+            $scope.$emit('DICT_MODAL_DONE');
             $state.go('^', { reload: true });
         });
     }

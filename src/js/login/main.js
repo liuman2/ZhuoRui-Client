@@ -1,18 +1,33 @@
+// require('normalize.css/normalize.css');
+// require('css/main.scss');
+// require('nice-validator/dist/jquery.validator.css');
+// require('libs/jquery-confirm/jquery-confirm.min.css');
+// var routing = require('./routes');
+
+// require('libs/H5Uploader/H5Uploader')
+// var httpHelper = require('js/utils/httpHelper');
+// require('libs/jquery-confirm/jquery-confirm.min');
 
 
-require('normalize.css/normalize.css');
+// angular
+//   .module('app_login', ['ui.router'])
+//   .config(httpHelper)
+//   .config(routing)
+//   .controller('BodyCtrl', require('./controller/body'));
+
+require('bootstrap/dist/css/bootstrap.min.css');
+
 require('css/main.scss');
 require('nice-validator/dist/jquery.validator.css');
-require('libs/jquery-confirm/jquery-confirm.min.css');
+
 var routing = require('./routes');
 
-require('libs/H5Uploader/H5Uploader')
 var httpHelper = require('js/utils/httpHelper');
-require('libs/jquery-confirm/jquery-confirm.min');
-
+require('bootstrap/dist/js/bootstrap.min');
+require('libs/lte/js/app');
 
 angular
-  .module('app_login', ['ui.router'])
-  .config(httpHelper)
-  .config(routing)
-  .controller('BodyCtrl', require('./controller/body'));
+    .module('app', ['ui.router'])
+    .config(httpHelper)
+    .config(routing)
+    .controller('BodyCtrl', require('./controller/body'));

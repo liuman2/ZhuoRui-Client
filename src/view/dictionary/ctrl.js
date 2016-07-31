@@ -1,7 +1,8 @@
 module.exports = function($scope, $http, $state, $stateParams) {
     var jTree = $("#org-tree");
     var zTree = null;
-    
+
+    $scope.group = '';
 
     function _setting() {
         return {
@@ -26,61 +27,72 @@ module.exports = function($scope, $http, $state, $stateParams) {
         };
     }
 
-
     function onClick(event, treeId, treeNode) {
-        
+        $scope.group = treeNode.group;
+        if (!treeNode.group) {
+            return;
+        }
+
+        getDataByGroup();
+    }
+
+    function getDataByGroup() {
+        $http({
+            method: 'GET',
+            url: '/Dictionary/GetDictionaryByGroup',
+            params: {
+                group: $scope.group
+            }
+        }).success(function(data) {
+            console.log(data)
+            $scope.data = data;
+        });
     }
 
     function load_tree() {
-        var data=[{
-            id: 1,
-            parent_id: 0,
-            type: 'industry',
-            name: '行业类别'
-        },{
-            id: 2,
-            parent_id: 0,
-            type: 'customer_source',
-            name: '客户来源'
-        },{
-            id: 3,
-            parent_id: 0,
-            type: 'customer_source',
-            name: '客户来源'
-        },{
-            id: 4,
-            parent_id: 0,
-            type: 'trade_way',
-            name: '贸易方式'
-        },{
-            id: 5,
-            parent_id: 0,
-            type: 'register_way',
-            name: '注册方式'
-        },{
-            id: 6,
-            parent_id: 0,
-            type: 'patent_type',
-            name: '专利类型'
-        },{
-            id: 7,
-            parent_id: 0,
-            type: 'patent_way',
-            name: '专利用途'
-        }];
-
-        zTree = $.fn.zTree.init(jTree, _setting(), data);
+        $http({
+            method: 'GET',
+            url: '/Dictionary/Groups'
+        }).success(function(data) {
+            zTree = $.fn.zTree.init(jTree, _setting(), data);
             zTree.expandAll(true);
             if (!data.length) {
                 return;
             }
 
-            var treeNode = zTree.getNodeByParam("id", 1);
+            var nodeid = data[0].id;
+            var treeNode = zTree.getNodeByParam("id", nodeid);
             if (treeNode) {
                 zTree.selectNode(treeNode);
-                
+                $scope.group = treeNode.group;
+                getDataByGroup();
             }
+        });
     }
+
+    $scope.add = function() {
+        $state.go('.add', { group: $scope.group }, { location: false });
+    }
+
+    $scope.delete = function(id) {
+        if (!confirm('您确认要删除吗？')) {
+            return false;
+        }
+
+        $http({
+            method: 'GET',
+            url: '/Dictionary/Delete',
+            params: {
+                id: id
+            }
+        }).success(function(data) {
+            getDataByGroup();
+        });
+    }
+
+    $scope.$on('DICT_MODAL_DONE', function(e) {
+        getDataByGroup();
+    });
 
     load_tree();
 }

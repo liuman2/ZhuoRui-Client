@@ -19,7 +19,7 @@
         <div class="col-md-9">
             <div class="box box-info">
                 <div class="box-header with-border">
-                    <h3 class="box-title">行业类别</h3>
+                    <h3 class="box-title" ng-bind="group"></h3>
                 </div>
                 <div class="box-body">
                     <table class="table table-hover">
@@ -30,19 +30,10 @@
                                 <th>说明</th>
                                 <th class="opt-col">操作</th>
                             </tr>
-                            <!-- <tr ng-repeat="item in data">
+                            <tr ng-repeat="item in data">
                                 <td ng-bind="($index+1)+'.'"></td>
                                 <td ng-bind="item.name"></td>
                                 <td ng-bind="item.description"></td>
-                                <td class="opt-col">
-                                    <a class="fa fa-pencil green" ui-sref=".edit({id: {{item.id}}})" ui-sref-opts="{location:false}" title="修改"></a>
-                                    <a class="fa fa-trash-o red" title="删除" ng-click="delete(item.id)"></a>
-                                </td>
-                            </tr> -->
-                            <tr>
-                                <td>1</td>
-                                <td>字典1</td>
-                                <td>说明。。。</td>
                                 <td class="opt-col">
                                     <a class="fa fa-pencil green" ui-sref=".edit({id: {{item.id}}})" ui-sref-opts="{location:false}" title="修改"></a>
                                     <a class="fa fa-trash-o red" title="删除" ng-click="delete(item.id)"></a>
@@ -52,9 +43,11 @@
                     </table>
                 </div>
                 <div class="box-footer clearfix">
-                    <a  ui-sref=".add" ui-sref-opts="{location:false}" class="btn btn-sm btn-info btn-flat pull-left">新增</a>
+                    <a class="btn btn-sm btn-info btn-flat pull-left" ng-click="add()">新增</a>
                 </div>
             </div>
         </div>
     </div>
+
+    <div ui-view="add"></div>
 </section>
