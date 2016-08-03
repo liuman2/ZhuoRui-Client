@@ -6,6 +6,6 @@ module.exports = function ($stateProvider, $urlRouterProvider) {
         .state('signin', {
             url: '/signin',
             template: require('view/signin/tmpl.html'),
-            // controller: require('view/signin/ctrl')
+            controller: require('view/signin/ctrl')
         })
 };

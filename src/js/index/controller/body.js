@@ -3,6 +3,18 @@ module.exports = function ($scope, $rootScope, $http) {
 
     $scope.userInfo = {};
 
+    $http({
+        method: 'GET',
+        url: '/Account/GetProfile'
+    }).success(function (data) {
+        $scope.userInfo = data.user;
+        if (!data.user) {
+            location.href = '/login.html';
+        }
+    }).error(function() {
+        console.log(arguments)
+    });
+
     $scope.menus = [{
         route: '',
         name: '客户管理',

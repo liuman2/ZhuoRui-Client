@@ -13,7 +13,7 @@ var router = function ($stateProvider, $urlRouterProvider) {
             url: '/reserve',
             stateName: '预备客户列表',
             template: require('view/reserve/list/tmpl.html'),
-            // controller: require('view/reserve/list/ctrl')
+            controller: require('view/reserve/list/ctrl')
         })
         .state('reserve.detail', { // detail
             abstract: true,

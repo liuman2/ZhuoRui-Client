@@ -13,7 +13,6 @@ var ngAnnotatePlugin = require('ng-annotate-webpack-plugin');
 var nodeModulesPath = path.join(__dirname, 'node_modules');
 
 var vendor = [
-
 ];
 
 var vendor2IE8 = [
@@ -29,7 +28,7 @@ var webpackConfig = {
             'angular/angular.js',
             'angular-ui-router',
             'angular-ui-scrollpoint',
-            'jaaulde-cookies',
+            'angular-loading-bar',
             'select2',
             'select2/dist/js/i18n/zh-CN.js',
             'nice-validator/dist/jquery.validator.js',

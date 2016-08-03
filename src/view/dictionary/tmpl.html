@@ -36,7 +36,7 @@
                                 <td ng-bind="item.description"></td>
                                 <td class="opt-col">
                                     <a class="fa fa-pencil green" ui-sref=".edit({id: {{item.id}}})" ui-sref-opts="{location:false}" title="修改"></a>
-                                    <a class="fa fa-trash-o red" title="删除" ng-click="delete(item.id)"></a>
+                                    <a href="javascript:;" class="fa fa-trash-o red" title="删除" ng-click="delete(item.id)"></a>
                                 </td>
                             </tr>
                         </tbody>
