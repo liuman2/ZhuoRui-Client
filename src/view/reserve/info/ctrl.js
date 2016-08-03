@@ -16,4 +16,19 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
     $scope.changeCity = function() {
         $scope.county = '';
     }
+
+    $scope.save = function() {
+        var jForm = $('.form-horizontal');
+        jForm.isValid(function(v) {
+            if (v) {
+                $http({
+                    method: 'POST',
+                    url: '/Reserve/Add',
+                    data: $scope.data
+                }).success(function(data) {
+                    $state.go('reserve');
+                });
+            }
+        });
+    }
 };

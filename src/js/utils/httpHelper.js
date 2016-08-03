@@ -37,7 +37,7 @@ module.exports = exports = function($httpProvider) {
             },
             'responseError': function(rejection) {
                 if (rejection.config.errorHandler !== false) {
-                    if (rejection.status == 401) {
+                    if (rejection.status == 401 || rejection.status == 404) {
                         location.href = '/login.html';
                         return;
                     } else {
