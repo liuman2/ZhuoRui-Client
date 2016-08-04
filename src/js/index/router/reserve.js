@@ -44,7 +44,8 @@ var router = function ($stateProvider, $urlRouterProvider) {
         .state('timeline', {
             parent: 'list',
             url: '/view/reserve/timeline/{id:.*}',
-            template: require('view/reserve/timeline/tmpl.html')
+            template: require('view/reserve/timeline/tmpl.html'),
+            controller: require('view/reserve/timeline/ctrl')
         })
         .state('timeline.add', {
             url: '/new',

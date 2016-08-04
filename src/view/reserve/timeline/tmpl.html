@@ -12,30 +12,29 @@
 <section class="content">
     <div class="box box-info">
         <div class="box-header with-border">
-            <h3 class="box-title">厦门xxx公司</h3>
+            <h3 class="box-title" ng-bind="data.customer.name"></h3>
             <div class="box-tools pull-right">
                 <button type="button" class="btn btn-box-tool" ui-sref=".add" ui-sref-opts="{location:false}">
                     <i class="fa fa-plus-square"> 添加</i>
-                </button>                
+                </button>
             </div>
         </div>
         <div class="box-body">
             <ul class="timeline">
-                <li>
+                <li ng-repeat="item in data.items">
                     <i class="fa fa-file-text-o bg-blue"></i>
                     <div class="timeline-item">
-                        <span class="time"><i class="fa fa-clock-o"></i> 2016-08-10 08:35</span>
-                        <h3 class="timeline-header"><a href="#">生日祝福</a></h3>
-                        <div class="timeline-body">
-                            客户xxx生日，发了条短信祝福
+                        <span class="time"><i class="fa fa-clock-o"></i> <span ng-bind="item.date_business"></span></span>
+                        <h3 class="timeline-header"><a href="javascript:;" ng-bind="item.title"></a></h3>
+                        <div class="timeline-body" ng-bind="item.content">
                         </div>
-                        <div class="timeline-footer">
+                        <div class="timeline-footer" ng-if="item.is_system == '0'">
                             <a class="btn btn-primary btn-xs">详情</a>
                             <a class="btn btn-danger btn-xs">删除</a>
                         </div>
                     </div>
                 </li>
-                <li>
+                <!-- <li>
                     <i class="fa fa-file-text-o bg-blue"></i>
                     <div class="timeline-item">
                         <span class="time"><i class="fa fa-clock-o"></i> 2016-07-10 13:05</span>
@@ -61,7 +60,7 @@
                             <a class="btn btn-primary btn-xs">详情</a>
                         </div>
                     </div>
-                </li>
+                </li> -->
             </ul>
         </div>
     </div>

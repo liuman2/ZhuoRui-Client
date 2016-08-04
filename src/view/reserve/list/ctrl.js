@@ -61,7 +61,6 @@ module.exports = function($scope, $http, $state, $stateParams) {
     }
 
     function load_data() {
-        console.log($scope.userInfo)
         $http({
             method: 'GET',
             url: '/Reserve/Search',
