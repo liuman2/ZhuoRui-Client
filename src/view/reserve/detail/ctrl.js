@@ -24,13 +24,4 @@ module.exports = function($scope, $state, $stateParams, $element, $http) {
     $scope.cancel = function() {
         $state.go('reserve');
     }
-
-    $scope.save = function() {
-        var jForm = $('.form-horizontal');
-        jForm.isValid(function(v) {
-            if (v) {
-                
-            }
-        });
-    }
 };

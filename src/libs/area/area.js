@@ -8,13 +8,13 @@ window.AREA_Module.area = (function($) {
     // 区域序列
     var areaList = [];
 
-/*
+
     // 省市区三级联动初始化
-    var addressInit = function(_cmbAddress, defaultProvince, defaultCity, defaultArea) {
+    var addressInit = function(_cmbAddress, defaultProvince, defaultCity, defaultArea, $scope) {
         var cmbAddress = _cmbAddress instanceof $ ? _cmbAddress : $('#' + _cmbAddress);
-        var cmbProvince = cmbAddress.find('[name*=_province]');
-        var cmbCity = cmbAddress.find('[name*=_city]');
-        var cmbCounty = cmbAddress.find('[name*=_county]').eq(0);
+        var cmbProvince = cmbAddress.find('[name*=province]');
+        var cmbCity = cmbAddress.find('[name*=city]');
+        var cmbCounty = cmbAddress.find('[name*=county]').eq(0);
 
         // 顺序执行
         var valProvince = provinceIndex(defaultProvince);
@@ -29,6 +29,7 @@ window.AREA_Module.area = (function($) {
         var valCity = cityIndex(defaultCity);
         if (valCity) {
             cmbCity.val(valCity).trigger('change');
+            console.log($scope.province)
         } else {
             return false;
         }
@@ -40,7 +41,6 @@ window.AREA_Module.area = (function($) {
         } else {
             return false;
         }
-
     }
 
     // 获取省份序号
@@ -74,7 +74,6 @@ window.AREA_Module.area = (function($) {
     // 获取县城序号
     var areaIndex = function(defaultArea) {
         var index = '';
-
         $.each(areaList, function(key, item) {
             if (item == defaultArea) {
                 index = String(key);
@@ -84,7 +83,7 @@ window.AREA_Module.area = (function($) {
 
         return index;
     }
-*/
+
 
     var provinceList = [{
         name: '请选择省份',
@@ -1286,9 +1285,10 @@ window.AREA_Module.area = (function($) {
     }];
 
     return {
-        // addressInit: addressInit,
-        provinceList: provinceList
+        addressInit: addressInit,
+        provinceList: provinceList,
+        provinceIndex: provinceIndex,
+        cityIndex: cityIndex,
+        areaIndex: areaIndex
     }
-
-
 })(jQuery)

@@ -4,3 +4,10 @@
     margin-left: 5px;
     vertical-align: middle;
 }
+a:focus, a:hover {
+    text-decoration: none!important;
+}
+.form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control {
+    background-color: #fff;
+    opacity: 1;
+}

@@ -1,5 +1,6 @@
 var httpHelper = require('js/utils/httpHelper');
 module.exports = function($scope, $state, $http, $timeout) {
+
     var id = $state.params.id || null,
         dInput = $('.date-input'),
         jForm = $('.form-horizontal');

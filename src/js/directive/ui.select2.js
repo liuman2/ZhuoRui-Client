@@ -8,7 +8,13 @@ angular.module('ui.select2', []).directive('uiSelect2', ['$timeout', function($t
         //     displayName: "@"
         // },
         link: function(scope, element, attrs, ngModel) {
-            var url = attrs['url'];
+            var url = attrs['url'],
+                param_value = attrs['paramvalue'] || '',
+                param_field = attrs['paramfield'] || '',
+                ngView = attrs['ngView'] || '',
+                ispagging = attrs['paging'];
+
+
             $(element).select2({
                 language: "zh-CN",
                 placeholder: "",
@@ -19,17 +25,28 @@ angular.module('ui.select2', []).directive('uiSelect2', ['$timeout', function($t
                     type: 'GET',
                     dataType: 'json',
                     data: function(params) {
-                        return {
-                            name: params.term || '',
-                            index: params.page || 1,
-                            size: 10
-                        };
+                        var _params = {};
+                        _params['name'] = params.term || '';
+                        if (ispagging === 'true') {
+                            _params['index'] = params.page || 1;
+                            _params['size'] = 20;
+                        }
+                        if (param_field) {
+                            _params[param_field] = param_value;
+                        }
+                        return _params;
                     },
                     processResults: function(data, params) {
                         params.page = params.page || 1;
                         $.map(data.items, function(item) {
                             item.text = item.name;
                         });
+
+                        if (!data.page) {
+                            data.page = {
+                                total_page: 1
+                            }
+                        }
                         return {
                             results: data.items,
                             pagination: {
@@ -42,27 +59,25 @@ angular.module('ui.select2', []).directive('uiSelect2', ['$timeout', function($t
 
             $(element).on("change", function() {
                 ngModel.$modelValue = element.val();
-                scope.data[ngModel.$name] = ngModel.$modelValue;
-                // for (var o in scope.data) {
-                //     console.log(o)
-                //     console.log(scope.data[o])
-                // }
-
-                // var arr = $(element).select2("data");
-                // if (arr.length >= 1) {
-                //     scope.displayName = arr[0].text;
-                // }
+                if (scope.data) {
+                    scope.data[ngModel.$name] = ngModel.$modelValue;
+                }
             });
             // attrs.$observe("displayName", function(value) {
-            //     console.log(value)
-            //     // if (value) {
-            //     //     var option = "<option value='" + ngModel.$modelValue + "'>" + scope.displayName + "</option>";
-            //     //     element.append(option).val(ngModel.$modelValue).trigger('change');
-            //     // }
+            //     console.log(value);
             // });
-            // $timeout(function() {
-            //     $(element).val(ngModel.$modelValue).trigger("change");
-            // }, 400);
+            $timeout(function() {
+                // $(element).val(ngModel.$modelValue).trigger("change");
+
+                if (ngModel.$modelValue) {
+                    var viewValue = ngModel.$viewValue;
+                    if (ngView) {
+                        viewValue = scope.data[ngView];
+                    }
+                    var option = "<option value='" + ngModel.$modelValue + "'>" + viewValue + "</option>";
+                    $(element).append(option).val(ngModel.$modelValue).trigger('change');
+                }
+            }, 400);
         }
     }
 }]);
