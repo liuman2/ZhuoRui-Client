@@ -27,11 +27,11 @@ module.exports = function ($scope, $rootScope, $http) {
             route: 'customer',
             name: '正式客户',
             icon: 'fa fa-user-secret'
-        },{
+        }/*,{
             route: 'import',
             name: '导入正式客户',
             icon: 'fa fa-cloud-upload'
-        }]
+        }*/]
     }, {
         route: '',
         name: '业务管理',

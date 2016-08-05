@@ -19,9 +19,6 @@ var router = function ($stateProvider, $urlRouterProvider) {
             abstract: true,
             parent: 'detail',
             url: '/reserve',
-            params: {
-                scorm: null
-            },
             template: require('view/reserve/detail/tmpl.html'),
             controller: require('view/reserve/detail/ctrl')
         })
@@ -51,7 +48,17 @@ var router = function ($stateProvider, $urlRouterProvider) {
             url: '/new',
             views: {
                 'add': {
-                    template: require('view/reserve/timeline/modal.html')
+                    template: require('view/reserve/timeline/modal.html'),
+                    controller: require('view/reserve/timeline/modal')
+                }
+            }
+        })
+        .state('timeline.edit', {
+            url: '/edit/{tid:.*}',
+            views: {
+                'add': {
+                    template: require('view/reserve/timeline/modal.html'),
+                    controller: require('view/reserve/timeline/modal')
                 }
             }
         })

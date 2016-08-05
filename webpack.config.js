@@ -34,9 +34,7 @@ var webpackConfig = {
             'nice-validator/dist/jquery.validator.js',
             'nice-validator/dist/local/zh-CN.js',
             'jquery-datetimepicker',
-            'libs/fontawesome/css/font-awesome.css',
-            'libs/lte/css/AdminLTE.css',
-            'libs/lte/css/skins/skin-blue.css'
+            'moment'
         ]
     },
     output: {

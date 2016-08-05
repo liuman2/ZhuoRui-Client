@@ -16,6 +16,12 @@ require('libs/area/area');
 require('libs/zTree/js/jquery.ztree.all');
 require('../directive/ui.select2');
 
+
+
+require('libs/fontawesome/css/font-awesome.css');
+require('libs/lte/css/AdminLTE.css');
+require('libs/lte/css/skins/skin-blue.css');
+
 angular
     .module('app', ['ui.router', 'ui.scrollpoint', 'ui.select2', 'angular-loading-bar'])
     .config(httpHelper)

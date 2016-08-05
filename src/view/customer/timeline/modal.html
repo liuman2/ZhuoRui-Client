@@ -4,44 +4,33 @@
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close" ui-sref="^">
                     <span aria-hidden="true">×</span></button>
-                <h4 class="modal-title">添加日志</h4>
+                <h4 class="modal-title" ng-bind="title">添加日志</h4>
             </div>
             <div class="modal-body">
                 <form class="form-horizontal">
                     <div class="form-group">
                         <label class="col-sm-2 control-label">主题<span class="required">*</span></label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" name="name" data-rule="required; length[~20];" placeholder="活动的主题">
+                            <input type="text" class="form-control" name="title" ng-model="timeline.title" data-rule="required; length[~100];" placeholder="活动的主题">
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-2 control-label">日期<span class="required">*</span></label>
                         <div class="col-sm-8">
-                            <div class="input-group">
-                                <div class="input-group-addon">
-                                    <i class="fa fa-calendar"></i>
-                                </div>
-                                <input type="text" class="form-control" data-inputmask="'alias': 'yyyy-mm-dd'" data-mask>
-                            </div>
+                            <input type="text" id="date_business" name="date_business" class="form-control date-input" ng-model="timeline.date_business" data-rule="required;">
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-2 control-label">内容<span class="required">*</span></label>
                         <div class="col-sm-8">
-                            <textarea class="form-control" rows="3" data-rule="required; length[~100];" placeholder="活动的主要内容"></textarea>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label">结果</label>
-                        <div class="col-sm-8">
-                            <textarea class="form-control" rows="3" placeholder="活动取得的结果，成绩等"></textarea>
+                            <textarea class="form-control" rows="3" name="content" ng-model="timeline.content" data-rule="required; length[~100];" placeholder="活动的主要内容"></textarea>
                         </div>
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default pull-left" data-dismiss="modal" ui-sref="^">取消</button>
-                <button type="button" class="btn btn-primary">保存</button>
+                <button type="button" class="btn btn-primary" ng-click="save()">保存</button>
             </div>
         </div>
     </div>
