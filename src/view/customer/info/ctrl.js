@@ -3,6 +3,20 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
     var id = $state.params.id || null,
         jForm = $('.form-horizontal');
 
+    $scope.action = null;
+    switch ($state.current.name) {
+        case 'customer_add':
+            $scope.action = 'add';
+            $scope.current_bread = '新增';
+            break;
+        case 'customer_edit':
+            $scope.action = 'update';
+            $scope.current_bread = '修改';
+            break;
+        default:
+            break;
+    }
+
     jForm.validator({
         rules: {},
         fields: {}
@@ -71,14 +85,18 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
                     url: url,
                     data: data
                 }).success(function(data) {
-                    $state.go('customer');
+                    $state.go("customer_view", {id: data.id});
                 });
             }
         });
     }
 
     $scope.edit = function() {
-        $state.go('customer.detail.edit({id: ' + id + '})')
+        $state.go("customer_edit", {id: id});
+    }
+
+    $scope.cancel = function() {
+        $state.go("customer_view", {id: id});
     }
 
     function actionView() {

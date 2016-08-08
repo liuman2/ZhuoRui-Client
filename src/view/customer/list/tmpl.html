@@ -38,8 +38,8 @@
                         <td ng-bind="item.contact"></td>
                         <td ng-bind="item.mobile"></td>
                         <td class="opt-col">
-                            <a class="fa fa-info-circle" ui-sref="customer.detail.view({id: item.id})" title="详情"></a>
-                            <a class="fa fa-pencil orange" ui-sref="customer.detail.edit({id: item.id})" title="修改"></a>
+                            <a class="fa fa-info-circle" ui-sref="customer_view({id: item.id})" title="详情"></a>
+                            <a class="fa fa-pencil orange" ui-sref="customer_edit({id: item.id})" title="修改"></a>
                             <a class="fa fa-eye green" ui-sref="customer_timeline({id: item.id})" title="查看日志"></a>
                         </td>
                     </tr>
@@ -47,7 +47,7 @@
             </table>
         </div>
         <div class="box-footer clearfix">
-            <a ui-sref="customer.detail.add" class="btn btn-sm btn-info btn-flat pull-left">新增客户</a>
+            <a ui-sref="customer_add" class="btn btn-sm btn-info btn-flat pull-left">新增客户</a>
             <div pagination page-data="data.page" page-click="go(idx)"></div>
         </div>
     </div>

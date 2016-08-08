@@ -15,28 +15,44 @@ var router = function ($stateProvider, $urlRouterProvider) {
             template: require('view/customer/list/tmpl.html'),
             controller: require('view/customer/list/ctrl')
         })
-        .state('customer.detail', { // detail
-            abstract: true,
-            parent: 'detail',
-            url: '/customer',
-            template: require('view/customer/detail/tmpl.html'),
-            controller: require('view/customer/detail/ctrl')
+        .state('customer_add', {
+            parent: 'list',
+            url: '/customer/add',
+            template: require('view/customer/info/tmpl.html'),
+            controller: require('view/customer/info/ctrl')
         })
-        .state('customer.detail.add', {
-            url: '/new',
-            stateName: '新建客户',
-            views: views_customer
-        })
-        .state('customer.detail.edit', {
-            url: '/edit/{id:.*}',
+        .state('customer_edit', {
+            url: '/customer/edit/{id:.*}',
             stateName: '编辑客户',
-            views: views_customer
+            template: require('view/customer/info/tmpl.html'),
+            controller: require('view/customer/info/ctrl')
         })
-        .state('customer.detail.view', {
-            url: '/view/{id:.*}',
+        .state('customer_view', {
+            url: '/customer/view/{id:.*}',
             stateName: '查看客户',
-            views: views_customer
+            template: require('view/customer/view/tmpl.html'),
+            controller: require('view/customer/view/ctrl')
         })
+        .state('customer_view.bank_add', {
+            url: '/new',
+            views: {
+                'modal': {
+                    template: require('view/customer/view/modal.html'),
+                    controller: require('view/customer/view/modal')
+                }
+            }
+        })
+        .state('customer_view.bank_edit', {
+            url: '/edit/{tid:.*}',
+            views: {
+                'modal': {
+                    template: require('view/customer/view/modal.html'),
+                    controller: require('view/customer/view/modal')
+                }
+            }
+        })
+
+
         .state('customer_timeline', {
             parent: 'list',
             url: '/view/customer/timeline/{id:.*}',
