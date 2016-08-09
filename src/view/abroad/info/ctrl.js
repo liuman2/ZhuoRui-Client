@@ -1,7 +1,18 @@
 var httpHelper = require('js/utils/httpHelper');
 module.exports = function($scope, $state, $http, $timeout) {
     var id = $state.params.id || null,
+        dInput = $('.date-input'),
         jForm = $('.form-horizontal');
+
+    $.datetimepicker.setLocale('ch');
+    dInput.datetimepicker({
+        timepicker: false,
+        format: 'Y-m-d',
+        // maxDate: new Date(),
+        onChangeDateTime: function (current_time, $input) {
+            console.log(current_time)
+        }
+    });
 
     $scope.action = null;
 
@@ -26,7 +37,8 @@ module.exports = function($scope, $state, $http, $timeout) {
         contact: '',
         mobile: '',
         customer_address: '',
-        tel: ''
+        tel: '',
+        is_open_bank: 0
     }
 
     $('#customerSelect2').on("change", function(e) {
