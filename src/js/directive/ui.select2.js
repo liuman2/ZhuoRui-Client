@@ -66,6 +66,9 @@ angular.module('ui.select2', []).directive('uiSelect2', ['$timeout', function($t
             // attrs.$observe("displayName", function(value) {
             //     console.log(value);
             // });
+            scope.$watch(attrs.ngModel, function(opts) {
+                console.log(arguments)
+            }, true);
             $timeout(function() {
                 // $(element).val(ngModel.$modelValue).trigger("change");
 

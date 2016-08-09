@@ -20,7 +20,6 @@ module.exports = exports = function() {
 
         // data watch
         $scope.$watch('data', function(value) {
-            console.log(value)
             if (value) {
                 getPages(value);
             }
