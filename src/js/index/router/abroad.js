@@ -32,7 +32,7 @@ var router = function ($stateProvider, $urlRouterProvider) {
         })
 
         .state('abroad_view.income_add', {
-            url: '/new/{source_name:.*}',
+            url: '/new/{source_name:.*}/{customer_id:.*}',
             views: {
                 'modal': {
                     template: require('view/common/income/modal.html'),

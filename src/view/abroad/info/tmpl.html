@@ -11,6 +11,13 @@
 </section>
 <section class="content">
     <form class="form-horizontal" id="abroad_form">
+        <div class="detail-view-header-wrapper">
+            <div class="box-footer detail-view-header" ui-scrollpoint ui-scrollpoint-enabled="true" ui-scrollpoint-class="fixed">
+                <button type="button" class="btn btn-default" style="margin-right: 10px;" ng-click="cancel()">取消</button>
+                <button type="button" class="btn btn-info pull-right" ng-click="save()">保存</button>
+            </div>
+        </div>
+
         <div class="box box-info">
             <div class="box-header with-border">
                 <h3 class="box-title">客户基本信息</h3>
@@ -259,11 +266,6 @@
                     </div>
                 </div>
             </div>
-        </div>
-
-        <div class="box-footer">
-            <button type="button" class="btn btn-default" ng-click="cancel()">取消</button>
-            <button type="button" class="btn btn-info pull-right" ng-click="save()">保存</button>
         </div>
     </form>
 </section>

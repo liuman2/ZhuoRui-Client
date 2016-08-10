@@ -40,7 +40,7 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
         $state.go('abroad');
     }
 
-    $scope.$on('BANK_MODAL_DONE', function(e) {
+    $scope.$on('INCOME_MODAL_DONE', function(e) {
         actionView();
     });
 

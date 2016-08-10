@@ -1,24 +1,41 @@
 module.exports = function($scope, $state, $http, $timeout) {
-    var source_id =  $state.params.id,
+    var source_id = $state.params.id,
+        customer_id = $state.params.customer_id,
         source_name = $state.params.source_name,
+        dInput = $('.date-input'),
         tid = $state.params.tid || null;
 
-    console.log($state.params)
+    $.datetimepicker.setLocale('ch');
+    dInput.datetimepicker({
+        timepicker: false,
+        maxDate: new Date(),
+        format: 'Y-m-d',
+        onChangeDateTime: function(current_time, $input) {
+            console.log(current_time)
+        }
+    });
+
     var jForm = $('#income_modal');
     jForm.validator({
         rules: {},
         fields: {}
     });
 
-    $scope.data = {
+    $scope.income = {
         id: null,
-        // customer_id: customer_id,
-        bank: '',
-        holder: '',
-        account: ''
+        source_id: source_id,
+        source_name: source_name,
+        customer_id: customer_id,
+        payer: '',
+        account: '',
+        amount: '',
+        date_pay: '',
+        attachment_url: '',
+        description: ''
     }
 
     $scope.save = function() {
+        $scope.income.date_pay = $('#date_pay').val();
         jForm.isValid(function(v) {
             if (v) {
                 if (tid) {
@@ -30,7 +47,7 @@ module.exports = function($scope, $state, $http, $timeout) {
         });
     }
 
-    $scope.title = !!tid ? '修改开户行' : '添加开户行'
+    $scope.title = !!tid ? '修改收款' : '添加收款'
     if (tid) {
         actionView();
     }
@@ -38,7 +55,7 @@ module.exports = function($scope, $state, $http, $timeout) {
     function actionView() {
         $http({
             method: 'GET',
-            url: '/Customer/Bank',
+            url: '/Income/Get',
             params: {
                 id: tid
             }
@@ -50,10 +67,15 @@ module.exports = function($scope, $state, $http, $timeout) {
     function actionAdd() {
         $http({
             method: 'POST',
-            url: '/Customer/AddBank',
-            data: $scope.data
+            url: '/Income/Add',
+            data: $scope.income
         }).success(function(data) {
-            $scope.$emit('BANK_MODAL_DONE');
+            if (!data.success) {
+                alert(data.message || '保存失败')
+                return;
+            }
+
+            $scope.$emit('INCOME_MODAL_DONE');
             $state.go('^', { reload: true });
         });
     }
@@ -61,10 +83,15 @@ module.exports = function($scope, $state, $http, $timeout) {
     function actionUpdate() {
         $http({
             method: 'POST',
-            url: '/Customer/UpdateBank',
-            data: $scope.data
+            url: '/Income/Update',
+            data: $scope.income
         }).success(function(data) {
-            $scope.$emit('BANK_MODAL_DONE');
+            if (!data.success) {
+                alert(data.message || '保存失败')
+                return;
+            }
+
+            $scope.$emit('INCOME_MODAL_DONE');
             $state.go('^', { reload: true });
         });
     }

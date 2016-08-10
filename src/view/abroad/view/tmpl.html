@@ -284,28 +284,45 @@
                             <th>备注</th>
                             <th class="opt-col">操作</th>
                         </tr>
-                        <tr ng-repeat="item in data.incomes.items">
+                        <tr ng-repeat="item in incomes.items">
                             <td ng-bind="($index+1)+'.'"></td>
                             <td ng-bind="item.payer"></td>
                             <td ng-bind="item.account"></td>
                             <td ng-bind="item.amount"></td>
                             <td ng-bind="item.date_pay"></td>
                             <td>
-                                <a href="{{item.attachment_url}}" target="_blank">
+                                <a href="{{item.attachment_url}}" target="_blank" ng-if="item.attachment_url.length">
                                     <img ng-src="{{att.attachment_url}}" width="22" height="22">
                                 </a>
                             </td>
                             <td ng-bind="item.description"></td>
                             <td class="opt-col">
-                                <a class="fa fa-pencil orange" ui-sref=".bank_edit({tid: {{item.id}}})" ui-sref-opts="{location:false}" title="修改"></a>
+                                <a class="fa fa-pencil orange" ui-sref=".income_edit({tid: {{item.id}}})" ui-sref-opts="{location:false}" title="修改"></a>
                                 <a href="javascript:;" class="fa fa-trash-o red" ng-click="delete(item)" title="删除"></a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td class="summary" colspan="7">
+                                <div>
+                                    <span>应收款: </span>
+                                    <span class="num receivable" ng-bind="data.amount_transaction"></span>
+                                </div>
+                                <div>
+                                    <span>已收款: </span>
+                                    <span class="num received" ng-bind="incomes.total"></span>
+                                </div>
+                                <div>
+                                    <span>未收款: </span>
+                                    <span class="num balance" ng-bind="incomes.balance"></span>
+                                </div>
                             </td>
                         </tr>
                     </tbody>
                 </table>
             </div>
             <div class="box-footer clearfix">
-                <button type="button" class="btn btn-info" ui-sref=".income_add({source_name: 'reg_abroad'})" ui-sref-opts="{location:false}" ng-attr-title="{{data.status > 0 ? '已经提交审核，不能再新增' : ''}}" ng-disabled="data.status > 0">新增</button>
+                <button type="button" class="btn btn-info" ui-sref=".income_add({source_name: 'reg_abroad', customer_id: data.customer_id})" ui-sref-opts="{location:false}" ng-attr-title="{{data.status > 0 ? '已经提交审核，不能再新增' : '新增收款记录'}}" ng-disabled="data.status > 0">新增</button>
             </div>
         </div>
     </form>
