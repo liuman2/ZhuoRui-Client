@@ -2,14 +2,13 @@ var httpHelper = require('js/utils/httpHelper');
 module.exports = function($scope, $state, $http, $timeout) {
     var id = $state.params.id || null,
         dInput = $('.date-input'),
-        jForm = $('.form-horizontal');
+        jForm = $('#abroad_form');
 
     $.datetimepicker.setLocale('ch');
     dInput.datetimepicker({
         timepicker: false,
         format: 'Y-m-d',
-        // maxDate: new Date(),
-        onChangeDateTime: function (current_time, $input) {
+        onChangeDateTime: function(current_time, $input) {
             console.log(current_time)
         }
     });
@@ -30,6 +29,7 @@ module.exports = function($scope, $state, $http, $timeout) {
     }
 
     $scope.data = {
+        id: '',
         industry: '',
         province: '',
         city: '',
@@ -38,7 +38,60 @@ module.exports = function($scope, $state, $http, $timeout) {
         mobile: '',
         customer_address: '',
         tel: '',
-        is_open_bank: 0
+        is_open_bank: 0,
+        salesman: $scope.userInfo.name,
+        waiter_id: '',
+        customer_id: '',
+        invoice_name: '',
+        invoice_tax: '',
+        invoice_address: '',
+        invoice_tel: '',
+        invoice_bank: '',
+        invoice_account: ''
+    }
+
+    if (!!id) {
+        $scope.data.id = id;
+        actionView();
+    }
+
+    $scope.save = function() {
+        var isCustomerValid = valid_customer();
+        var isWaiterVaild = valid_waiter();
+        var isRegionValid = valid_region();
+        jForm.isValid(function(v) {
+            if (v) {
+                if (!isCustomerValid || !isWaiterVaild || !isRegionValid) {
+                    return;
+                }
+
+                var submitData = angular.copy($scope.data);
+
+                submitData.date_setup = $('#date_setup').val();
+                submitData.date_transaction = $('#date_transaction').val();
+
+                var url = $scope.action == 'add' ? '/RegAbroad/Add' : '/RegAbroad/Update';
+                $http({
+                    method: 'POST',
+                    url: url,
+                    data: submitData
+                }).success(function(data) {
+                    $state.go("abroad_view", {
+                        id: data.id
+                    });
+                });
+            }
+        });
+    }
+
+    $scope.cancel = function() {
+        if ($scope.action == 'add') {
+            $state.go("abroad");
+        } else {
+            $state.go("abroad_view", {
+                id: id
+            });
+        }
     }
 
     $('#customerSelect2').on("change", function(e) {
@@ -56,7 +109,7 @@ module.exports = function($scope, $state, $http, $timeout) {
             return c.id == customer_id;
         });
 
-        if (select_customers.length) {
+        if (select_customers.length && select_customers[0].industry != undefined) {
             $scope.data.industry = select_customers[0].industry;
             $scope.data.province = select_customers[0].province;
             $scope.data.city = select_customers[0].city;
@@ -65,6 +118,17 @@ module.exports = function($scope, $state, $http, $timeout) {
             $scope.data.contact = select_customers[0].contact;
             $scope.data.mobile = select_customers[0].mobile;
             $scope.data.tel = select_customers[0].tel;
+
+            // if (!$scope.data.invoice_name.length) {
+            //     $scope.data.invoice_name = select_customers[0].name;
+            // }
+            // if (!$scope.data.invoice_address) {
+            //     $scope.data.invoice_address = select_customers[0].address;
+            // }
+            // if (!$scope.data.invoice_tel) {
+            //     $scope.data.invoice_tel = select_customers[0].tel || select_customers[0].mobile;
+            // }
+
             $scope.$apply();
         }
     });
@@ -83,6 +147,18 @@ module.exports = function($scope, $state, $http, $timeout) {
             $scope.$apply();
         }
     });
+
+    function actionView() {
+        $http({
+            method: 'GET',
+            url: '/RegAbroad/Get',
+            params: {
+                id: id
+            }
+        }).success(function(data) {
+            $scope.data = data;
+        });
+    }
 
     function setBanks() {
         $('#customerBankSelect2').select2({
@@ -113,5 +189,44 @@ module.exports = function($scope, $state, $http, $timeout) {
                 }
             }
         });
+    }
+
+    function valid_customer() {
+        if (!$scope.data.customer_id) {
+            jForm.validator('showMsg', '#customerSelect2-validator', {
+                type: "error",
+                msg: "此处不能为空"
+            });
+            return false;
+        } else {
+            jForm.validator('hideMsg', '#customerSelect2-validator');
+            return true;
+        }
+    }
+
+    function valid_waiter() {
+        if (!$scope.data.waiter_id) {
+            jForm.validator('showMsg', '#waiterSelect2-validator', {
+                type: "error",
+                msg: "此处不能为空"
+            });
+            return false;
+        } else {
+            jForm.validator('hideMsg', '#waiterSelect2-validator');
+            return true;
+        }
+    }
+
+    function valid_region() {
+        if (!$scope.data.region) {
+            jForm.validator('showMsg', '#regionSelect2-validator', {
+                type: "error",
+                msg: "此处不能为空"
+            });
+            return false;
+        } else {
+            jForm.validator('hideMsg', '#regionSelect2-validator');
+            return true;
+        }
     }
 };

@@ -81,17 +81,17 @@
                             <span class="label label-warning" ng-bind="getOrderStatus(item.status)"></span>
                         </td>
                         <td>
-                            <span class="label label-warning" ng-bind="getOrderStatus(item.review_status)"></span>
+                            <span class="label label-warning" ng-bind="getReviewStatus(item.status, item.review_status)"></span>
                         </td>
                         <td ng-bind="item.date_transaction"></td>
                         <td class="tar" ng-bind="item.amount_transaction"></td>
                         <td class="tar" ng-bind="item.amount_income"></td>
                         <td class="tar" ng-bind="item.amount_unreceive"></td>
                         <td class="opt-col">
-                            <a class="fa fa-info-circle" ui-sref="abroad_view({id: 1})" title="详情"></a>
-                            <a class="fa fa-pencil orange" ui-sref="abroad_edit({id: 1})" title="修改"></a>
-                            <a class="fa fa-trash-o red" title="删除"></a>
-                            <a class="fa fa-eye green" ui-sref="timeline({id: 1})" title="日志"></a>
+                            <a class="fa fa-info-circle" ui-sref="abroad_view({id: item.id})" title="详情"></a>
+                            <a href="javascript:;" class="fa fa-pencil orange" ng-click="edit(item)" title="修改"></a>
+                            <a href="javascript:;" class="fa fa-trash-o red" ng-click="delete(item)" title="删除"></a>
+                            <a class="fa fa-eye green" ui-sref="timeline({id: item.id})" title="日志"></a>
                         </td>
                     </tr>
                 </tbody>

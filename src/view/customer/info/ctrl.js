@@ -33,7 +33,7 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
     init();
 
     if (!!id) {
-        $scope.id = id;
+        $scope.data.id = id;
         actionView();
     }
 

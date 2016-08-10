@@ -17,12 +17,12 @@
                 </button>
             </div>
         </div>
-        <form class="form-horizontal">
+        <form class="form-horizontal view-form">
             <div class="box-body">
-                <div class="form-group" ng-if="data.code.length > 0">
+                <div class="form-group">
                     <label class="col-sm-2 control-label">客户编号:</label>
                     <div class="col-sm-8">
-                        <span class="form-span">XM001</span>
+                        <span class="form-span" ng-bind="data.code">XM001</span>
                     </div>
                 </div>
                 <div class="form-group" ng-if="data.name.length > 0">

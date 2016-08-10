@@ -5,87 +5,309 @@
     </h1>
     <ol class="breadcrumb">
         <li><a ui-sref="dashboard"><i class="fa fa-dashboard"></i>我的面板</a></li>
-        <li><a ui-sref="reserve">预备客户</a></li>
-        <li class="active" ng-bind="current_bread"></li>
+        <li><a ui-sref="abroad">列表</a></li>
+        <li class="active">查看</li>
     </ol>
 </section>
 <section class="content">
-    <section class="invoice">
-        <div class="row">
-            <div class="col-xs-12">
-                <h2 class="page-header">
-                    <i class="fa fa-globe"></i> 厦门a公司
-                    <small class="pull-right">开单日期: 2016-07-19</small>
-                </h2>
+    <form class="form-horizontal view-form" id="abroad_form">
+        <div class="detail-view-header-wrapper">
+            <div class="box-footer detail-view-header" ui-scrollpoint ui-scrollpoint-enabled="true" ui-scrollpoint-class="fixed">
+                <button type="button" class="btn" ui-sref="abroad_edit({id: id})" ng-class="{'btn-info':data.status == 0}" ng-attr-title="{{data.status > 0 ? '已经提交审核，不能修改' : ''}}" ng-disabled="data.status > 0" ui-sref-opts="{reload:true}">修改</button>
+                <button class="btn btn-primary" ng-if="data.status == 0">提交审核</button>
+                <button class="btn btn-success" ng-if="data.status > 0 && data.status != 4">审核通过</button>
+                <button class="btn btn-danger" ng-if="data.status > 0 && data.status != 4">审核不通过</button>
             </div>
         </div>
-        <div class="row invoice-info">
-            <div class="col-xs-12 invoice-col">
+        <div class="box box-info">
+            <div class="box-header with-border">
+                <h3 class="box-title">客户基本信息</h3>
+                <div class="box-tools">
+                    <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="box-body">
                 <div class="form-group">
-                    <label>档案号：</label>
-                    <span>XM001</span>
+                    <label class="col-sm-2 control-label">档案号</label>
+                    <div class="col-sm-8">
+                        <span class="form-span" ng-bind="data.code">XM001</span>
+                    </div>
                 </div>
                 <div class="form-group">
-                    <label>公司名称：</label>
-                    <span>厦门a公司</span>
+                    <label class="col-sm-2 control-label">客户名称</label>
+                    <div class="col-sm-8">
+                        <span class="form-span" ng-bind="data.customer_name"></span>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label>单据状态：</label>
-                    <span>未提交</span>
+                <div class="form-group" ng-if="data.industry.length > 0">
+                    <label class="col-sm-2 control-label">所属行业</label>
+                    <div class="col-sm-8">
+                        <span class="form-span" ng-bind="data.industry"></span>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label>订单金额：</label>
-                    <span>10000</span>
+                <div class="form-group" ng-if="data.province.length > 0">
+                    <label class="col-sm-2 control-label">所属省</label>
+                    <div class="col-sm-8">
+                        <span class="form-span" ng-bind="data.province"></span>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label>已收款：</label>
-                    <span>3000</span>
+                <div class="form-group" ng-if="data.city.length > 0">
+                    <label class="col-sm-2 control-label">所属市</label>
+                    <div class="col-sm-8">
+                        <span class="form-span" ng-bind="data.city"></span>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label>未收款：</label>
-                    <span>7000</span>
+                <div class="form-group" ng-if="data.county.length > 0">
+                    <label class="col-sm-2 control-label">所属县</label>
+                    <div class="col-sm-8">
+                        <span class="form-span" ng-bind="data.county"></span>
+                    </div>
                 </div>
-
-                <div class="form-group">
-                    <label>业务员：</label>
-                    <span>张三</span>
+                <div class="form-group" ng-if="data.customer_address.length > 0">
+                    <label class="col-sm-2 control-label">地址</label>
+                    <div class="col-sm-8">
+                        <span class="form-span" ng-bind="data.customer_address"></span>
+                    </div>
+                </div>
+                <div class="form-group" ng-if="data.contact.length > 0">
+                    <label class="col-sm-2 control-label">联系人</label>
+                    <div class="col-sm-8">
+                        <span class="form-span" ng-bind="data.contact"></span>
+                    </div>
+                </div>
+                <div class="form-group" ng-if="data.mobile.length > 0">
+                    <label class="col-sm-2 control-label">手机</label>
+                    <div class="col-sm-8">
+                        <span class="form-span" ng-bind="data.mobile"></span>
+                    </div>
+                </div>
+                <div class="form-group" ng-if="data.tel.length > 0">
+                    <label class="col-sm-2 control-label">座机</label>
+                    <div class="col-sm-8">
+                        <span class="form-span" ng-bind="data.tel"></span>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-xs-12">
-                <p style="border-top: 1px solid #eee; margin: 0 0 20px"></p>
-                <p>附件：</p>
-                <div class="form-group" style="clear: both; overflow: hidden;">
-                    <div class="pull-left">
-                        附件1.doc
-                    </div>
-                    <div class="pull-right">
-                        <a href="javascript:;">下载</a>
+        <div class="box box-info">
+            <div class="box-header with-border">
+                <h3 class="box-title">注册信息</h3>
+                <div class="box-tools">
+                    <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                        </button>
                     </div>
                 </div>
-                <div class="form-group" style="clear: both; overflow: hidden;">
-                    <div class="pull-left">
-                        附件2.jpg
-                    </div>
-                    <div class="pull-right">
-                        <a href="javascript:;">下载</a>
+            </div>
+            <div class="box-body">
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">公司中文名称</label>
+                    <div class="col-sm-8">
+                        <span class="form-span" ng-bind="data.name_cn"></span>
                     </div>
                 </div>
-
-                <div>
-                    <a href="javascript:;">上传附件</a>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">公司英文名称</label>
+                    <div class="col-sm-8">
+                        <span class="form-span" ng-bind="data.name_en"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">公司成立日期</label>
+                    <div class="col-sm-8">
+                        <span class="form-span" ng-bind="data.date_setup"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">公司注册编号</label>
+                    <div class="col-sm-8">
+                        <span class="form-span" ng-bind="data.reg_no"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">公司注册地区</label>
+                    <div class="col-sm-8">
+                        <span class="form-span" ng-bind="data.region"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">公司注册地址</label>
+                    <div class="col-sm-8">
+                        <span class="form-span" ng-bind="data.address"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">成交日期</label>
+                    <div class="col-sm-8">
+                        <span class="form-span" ng-bind="data.date_transaction"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">成交金额</label>
+                    <div class="col-sm-8">
+                        <span class="form-span" ng-bind="data.amount_transaction"></span>
+                    </div>
+                </div>
+                <div class="form-group" ng-if="data.director.length > 0">
+                    <label class="col-sm-2 control-label">公司懂事</label>
+                    <div class="col-sm-8">
+                        <span class="form-span" ng-bind="data.director"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">是否开户</label>
+                    <div class="col-sm-8">
+                        <span class="form-span" ng-bind="(data.is_open_bank==0) ? '否' : '是'"></span>
+                    </div>
+                </div>
+                <div class="form-group" ng-if="data.bank_name.length > 0">
+                    <label class="col-sm-2 control-label">开户行</label>
+                    <div class="col-sm-8">
+                        <span class="form-span" ng-bind="data.bank_name"></span>
+                    </div>
+                </div>
+                <div class="form-group" ng-if="data.holder.length > 0">
+                    <label class="col-sm-2 control-label">开户人</label>
+                    <div class="col-sm-8">
+                        <span class="form-span" ng-bind="data.holder"></span>
+                    </div>
+                </div>
+                <div class="form-group" ng-if="data.account.length > 0">
+                    <label class="col-sm-2 control-label">银行账号</label>
+                    <div class="col-sm-8">
+                        <span class="form-span" ng-bind="data.account"></span>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="row">
-            <p style="border-top: 1px solid #eee; margin: 0 0 20px"></p>
-            <div class="tar">
-                <button class="btn btn-primary">修改</button>
-                <button class="btn btn-primary">提交审核</button>
-                <button class="btn btn-success">审核通过</button>
-                <button class="btn btn-danger">审核不通过</button>
+        <div class="box box-info">
+            <div class="box-header with-border">
+                <h3 class="box-title">开票信息</h3>
+                <div class="box-tools">
+                    <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="box-body">
+                <div class="form-group" ng-if="data.invoice_name.length > 0">
+                    <label class="col-sm-2 control-label">名称</label>
+                    <div class="col-sm-8">
+                        <span class="form-span" ng-bind="data.invoice_name"></span>
+                    </div>
+                </div>
+                <div class="form-group" ng-if="data.invoice_tax.length > 0">
+                    <label class="col-sm-2 control-label">纳税人识别号</label>
+                    <div class="col-sm-8">
+                        <span class="form-span" ng-bind="data.invoice_tax"></span>
+                    </div>
+                </div>
+                <div class="form-group" ng-if="data.invoice_address.length > 0">
+                    <label class="col-sm-2 control-label">地址</label>
+                    <div class="col-sm-8">
+                        <span class="form-span" ng-bind="data.invoice_address"></span>
+                    </div>
+                </div>
+                <div class="form-group" ng-if="data.invoice_tel.length > 0">
+                    <label class="col-sm-2 control-label">电话</label>
+                    <div class="col-sm-8">
+                        <span class="form-span" ng-bind="data.invoice_tel"></span>
+                    </div>
+                </div>
+                <div class="form-group" ng-if="data.invoice_bank.length > 0">
+                    <label class="col-sm-2 control-label">开户行</label>
+                    <div class="col-sm-8">
+                        <span class="form-span" ng-bind="data.invoice_bank"></span>
+                    </div>
+                </div>
+                <div class="form-group" ng-if="data.invoice_account.length > 0">
+                    <label class="col-sm-2 control-label">开户行账号</label>
+                    <div class="col-sm-8">
+                        <span class="form-span" ng-bind="data.invoice_account"></span>
+                    </div>
+                </div>
             </div>
         </div>
-    </section>
+        <div class="box box-info">
+            <div class="box-header with-border">
+                <h3 class="box-title">其他信息</h3>
+                <div class="box-tools">
+                    <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="box-body">
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">业务员</label>
+                    <div class="col-sm-8">
+                        <span class="form-span" ng-bind="data.salesman"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">年检客服<span class="required">*</span></label>
+                    <div class="col-sm-8">
+                        <span class="form-span" ng-bind="data.waiter_name"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">经理</label>
+                    <div class="col-sm-8">
+                        <span class="form-span" ng-bind="data.manager_name"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="box box-info">
+            <div class="box-header with-border">
+                <h3 class="box-title">收款记录</h3>
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="box-body table-responsive no-padding">
+                <table class="table table-hover">
+                    <tbody>
+                        <tr>
+                            <th style="width: 10px">#</th>
+                            <th>付款人</th>
+                            <th>付款账号</th>
+                            <th>付款金额</th>
+                            <th>付款时间</th>
+                            <th>附件</th>
+                            <th>备注</th>
+                            <th class="opt-col">操作</th>
+                        </tr>
+                        <tr ng-repeat="item in data.incomes.items">
+                            <td ng-bind="($index+1)+'.'"></td>
+                            <td ng-bind="item.payer"></td>
+                            <td ng-bind="item.account"></td>
+                            <td ng-bind="item.amount"></td>
+                            <td ng-bind="item.date_pay"></td>
+                            <td>
+                                <a href="{{item.attachment_url}}" target="_blank">
+                                    <img ng-src="{{att.attachment_url}}" width="22" height="22">
+                                </a>
+                            </td>
+                            <td ng-bind="item.description"></td>
+                            <td class="opt-col">
+                                <a class="fa fa-pencil orange" ui-sref=".bank_edit({tid: {{item.id}}})" ui-sref-opts="{location:false}" title="修改"></a>
+                                <a href="javascript:;" class="fa fa-trash-o red" ng-click="delete(item)" title="删除"></a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="box-footer clearfix">
+                <button type="button" class="btn btn-info" ui-sref=".income_add({source_name: 'reg_abroad'})" ui-sref-opts="{location:false}" ng-attr-title="{{data.status > 0 ? '已经提交审核，不能再新增' : ''}}" ng-disabled="data.status > 0">新增</button>
+            </div>
+        </div>
+    </form>
 </section>
+<div ui-view="modal"></div>

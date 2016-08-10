@@ -27,9 +27,29 @@ var router = function ($stateProvider, $urlRouterProvider) {
         })
         .state('abroad_view', {
             url: '/abroad/view/{id:.*}',
-            stateName: '查看境外注册业务',
-            template: require('view/abroad/view/tmpl.html')
+            template: require('view/abroad/view/tmpl.html'),
+            controller: require('view/abroad/view/ctrl')
         })
+
+        .state('abroad_view.income_add', {
+            url: '/new/{source_name:.*}',
+            views: {
+                'modal': {
+                    template: require('view/common/income/modal.html'),
+                    controller: require('view/common/income/modal')
+                }
+            }
+        })
+        .state('abroad_view.income_edit', {
+            url: '/edit/{tid:.*}',
+            views: {
+                'modal': {
+                    template: require('view/customer/view/modal.html'),
+                    controller: require('view/customer/view/modal')
+                }
+            }
+        })
+
         .state('abroad_timeline', {
             parent: 'list',
             url: '/view/abroad/timeline/{id:.*}',

@@ -63,15 +63,12 @@ angular.module('ui.select2', []).directive('uiSelect2', ['$timeout', function($t
                     scope.data[ngModel.$name] = ngModel.$modelValue;
                 }
             });
-            // attrs.$observe("displayName", function(value) {
-            //     console.log(value);
-            // });
+
             scope.$watch(attrs.ngModel, function(opts) {
                 console.log(arguments)
             }, true);
-            $timeout(function() {
-                // $(element).val(ngModel.$modelValue).trigger("change");
 
+            $timeout(function() {
                 if (ngModel.$modelValue) {
                     var viewValue = ngModel.$viewValue;
                     if (ngView) {

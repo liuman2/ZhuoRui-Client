@@ -1,13 +1,18 @@
 .required {
-	color: $color-red;
+    color: $color-red;
     display: inline-block;
     margin-left: 5px;
     vertical-align: middle;
 }
-a:focus, a:hover {
+
+a:focus,
+a:hover {
     text-decoration: none!important;
 }
-.form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control {
+
+.form-control[disabled],
+.form-control[readonly],
+fieldset[disabled] .form-control {
     // background-color: #fff;
     opacity: 1;
 }
@@ -19,4 +24,32 @@ a:focus, a:hover {
     font-size: 14px;
     color: #555;
     display: inline-block;
+}
+
+.mb-0 {
+    margin-bottom: 0px !important;
+}
+
+.view-form {
+    .form-group {
+        margin-bottom: 0px !important;
+    }
+}
+
+.detail-view {
+    &-header {
+        &-wrapper {
+            margin-bottom: 5px;
+        }
+        & > .inner {
+            position: relative;
+            width: 100%;
+        }
+        &.fixed {
+            position: fixed;
+            top: 0;
+            z-index: 1;
+            box-shadow: 0 3px 5px #eee;
+        }
+    }
 }
