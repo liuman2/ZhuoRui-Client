@@ -40,11 +40,11 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label>开始日期</label>
-                        <input type="text" class="form-control" ng-model="search.start_time" placeholder="成交日期">
+                        <input type="text" class="form-control date-input" id="start_time" ng-model="search.start_time" placeholder="开始成交日期">
                     </div>
                     <div class="form-group">
                         <label>结束日期</label>
-                        <input type="text" class="form-control" ng-model="search.end_time" placeholder="成交日期">
+                        <input type="text" class="form-control date-input" id="end_time" ng-model="search.end_time" placeholder="结束成交日期">
                     </div>
                 </div>
             </div>
@@ -67,8 +67,8 @@
                         <th>审核状态</th>
                         <th>成交日期</th>
                         <th class="tar">成交金额</th>
-                        <th class="tar">已收款</th>
-                        <th class="tar">未收款</th>
+                        <!-- <th class="tar">已收款</th> -->
+                        <!-- <th class="tar">未收款</th> -->
                         <th class="opt-col">操作</th>
                     </tr>
                     <tr ng-repeat="item in data.items">
@@ -78,20 +78,20 @@
                         <td ng-bind="item.name_cn"></td>
                         <td ng-bind="item.name_en"></td>
                         <td>
-                            <span class="label" ng-class="{'label-warning': (item.status==0), 'label-success': (item.status==4), 'label-info': (item.review_status != 0 && item.review_status != 4)}" ng-bind="getOrderStatus(item.status)"></span>
+                            <span class="label" ng-class="{'label-warning': (item.status==0), 'label-success': (item.status==4), 'label-info': (item.status != 0 && item.status != 4)}" ng-bind="getOrderStatus(item.status)"></span>
                         </td>
                         <td>
                             <span class="label" ng-class="{'label-warning': (item.review_status==-1), 'label-success': (item.review_status==1), 'label-danger': (item.review_status==0)}" ng-bind="getReviewStatus(item.status, item.review_status)"></span>
                         </td>
-                        <td ng-bind="item.date_transaction"></td>
+                        <td ng-bind="format(item.date_transaction, 'YYYY-MM-DD')"></td>
                         <td class="tar" ng-bind="item.amount_transaction"></td>
-                        <td class="tar" ng-bind="item.amount_income"></td>
-                        <td class="tar" ng-bind="item.amount_unreceive"></td>
+                        <!-- <td class="tar" ng-bind="item.amount_income"></td> -->
+                        <!-- <td class="tar" ng-bind="item.amount_unreceive"></td> -->
                         <td class="opt-col">
                             <a class="fa fa-info-circle" ui-sref="abroad_view({id: item.id})" title="详情"></a>
                             <a href="javascript:;" class="fa fa-pencil orange" ng-click="edit(item)" title="修改"></a>
                             <a href="javascript:;" class="fa fa-trash-o red" ng-click="delete(item)" title="删除"></a>
-                            <a class="fa fa-eye green" ui-sref="abroad_timeline({id: item.id, name: 'reg_abroad', code: item.code, source: 'list'})" title="日志"></a>
+                            <a class="fa fa-file-text-o green" ui-sref="abroad_timeline({id: item.id, name: 'reg_abroad', code: item.code, source: 'list'})" title="日志"></a>
                         </td>
                     </tr>
                 </tbody>

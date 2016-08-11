@@ -121,13 +121,9 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
             case -1:
                 return '未审核';
             case 0:
-                if (status == 2) {
-                    return '财务审核未通过';
-                } else　{
-                    return '提交审核未通过';
-                }
+                return '驳回';
             case 1:
-                return '审核已通过';
+                return '审核通过';
         }
     }
 

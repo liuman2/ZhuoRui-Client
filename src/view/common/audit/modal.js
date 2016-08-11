@@ -28,7 +28,7 @@ module.exports = function($scope, $state, $http, $timeout) {
         $http({
             method: 'POST',
             url: '/'+ module_name +'/RefuseAudit',
-            data: $scope.income
+            data: $scope.audit
         }).success(function(data) {
             if (!data.success) {
                 alert(data.message || '保存失败')

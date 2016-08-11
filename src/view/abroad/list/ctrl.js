@@ -1,6 +1,18 @@
 var dateHelper = require('js/utils/dateHelper');
-
+var moment = require('moment');
+moment.locale('zh-cn');
 module.exports = function($scope, $http, $state, $stateParams) {
+    var dInput = $('.date-input');
+
+    $.datetimepicker.setLocale('ch');
+    dInput.datetimepicker({
+        timepicker: false,
+        maxDate: new Date(),
+        format: 'Y-m-d',
+        onChangeDateTime: function(current_time, $input) {
+            console.log(current_time)
+        }
+    });
 
     $scope.search = {
         index: 1,
@@ -89,17 +101,21 @@ module.exports = function($scope, $http, $state, $stateParams) {
             case -1:
                 return '未审核';
             case 0:
-                if (status == 2) {
-                    return '财务审核未通过';
-                } else　{
-                    return '提交审核未通过';
-                }
+                return '驳回';
             case 1:
-                return '审核已通过';
+                return '审核通过';
         }
     }
 
+    $scope.format = function(dt, str) {
+        return moment(dt).format(str);
+    }
+
     function load_data() {
+
+        $scope.search.start_time = $('#start_time').val();
+        $scope.search.end_time = $('#end_time').val();
+
         $http({
             method: 'GET',
             url: '/RegAbroad/Search',
