@@ -1,3 +1,6 @@
+var moment = require('moment');
+moment.locale('zh-cn');
+
 module.exports = function($scope, $state, $http, $q, $timeout) {
 
     var id = $state.params.id || null;
@@ -6,22 +9,41 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
         $scope.id = id;
         actionView();
     }
+    $scope.data = {
+        status: 0,
+        review_status: -1
+    }
+    $scope.deleteIncome = function(item) {
+        if ($scope.data.status > 0) {
+            alert('已提交审核不能删除')
+            return;
+        }
 
-    // $scope.delete = function(item) {
-    //     if (!confirm('您确认要删除吗？')) {
-    //         return false;
-    //     }
+        if ($scope.data.status == 4) {
+            alert('订单已完成不能删除')
+            return;
+        }
 
-    //     $http({
-    //         method: 'GET',
-    //         url: '/Customer/DeleteBank',
-    //         params: {
-    //             id: item.id
-    //         }
-    //     }).success(function(data) {
-    //         actionView();
-    //     });
-    // }
+        if ($scope.data.review_status == 1) {
+            var msg = $scope.data.status == 2 ? '已通过财务审核不能删除' : '已通过提交人审核不能删除';
+            alert(msg);
+            return;
+        }
+
+        if (!confirm('您确认要删除吗？')) {
+            return false;
+        }
+
+        $http({
+            method: 'GET',
+            url: '/Income/Delete',
+            params: {
+                id: item.id
+            }
+        }).success(function(data) {
+            actionView();
+        });
+    }
 
     $scope.incomes = {
         items: [],
@@ -30,17 +52,90 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
     };
 
     $scope.edit = function() {
-        // $state.go('customer_edit({id: ' + id + '})');
         $state.go("abroad_edit", {
             id: id
         });
+    }
+
+     $scope.format = function(dt, str) {
+        return moment(dt).format(str);
     }
 
     $scope.cancel = function() {
         $state.go('abroad');
     }
 
+    $scope.submitAudit = function() {
+        if (!confirm('您确认要提交审核？提交后不可再编辑')) {
+            return false;
+        }
+
+        $http({
+            method: 'GET',
+            url: '/RegAbroad/Submit',
+            params: {
+                id: $scope.data.id
+            }
+        }).success(function(data) {
+            actionView();
+        });
+    }
+
+    $scope.passAudit = function() {
+        if (!confirm('您确认通过审核？')) {
+            return false;
+        }
+
+        $http({
+            method: 'GET',
+            url: '/RegAbroad/PassAudit',
+            params: {
+                id: $scope.data.id
+            }
+        }).success(function(data) {
+            actionView();
+        });
+    }
+
+    $scope.refuseAudit = function() {
+        $state.go(".audit", {module_name: 'RegAbroad'}, { location:false });
+    }
+
+    $scope.getOrderStatus = function() {
+        switch($scope.data.status) {
+            case 0:
+                return '未提交';
+            case 1:
+                return '已提交';
+            case 2:
+                return '财务已审核';
+            case 3:
+                return '提交人已审核';
+            case 4:
+                return '完成';
+        }
+    }
+
+    $scope.getReviewStatus = function() {
+        switch($scope.data.review_status) {
+            case -1:
+                return '未审核';
+            case 0:
+                if (status == 2) {
+                    return '财务审核未通过';
+                } else　{
+                    return '提交审核未通过';
+                }
+            case 1:
+                return '审核已通过';
+        }
+    }
+
     $scope.$on('INCOME_MODAL_DONE', function(e) {
+        actionView();
+    });
+
+    $scope.$on('REFUSE_MODAL_DONE', function(e) {
         actionView();
     });
 

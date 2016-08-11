@@ -31,10 +31,6 @@ module.exports = function($scope, $http, $state, $stateParams) {
     };
 
     $scope.delete = function(item) {
-        if (!confirm('您确认要删除吗？')) {
-            return false;
-        }
-
         if (item.status == 4) {
             alert('订单已完成不能删除');
             return;
@@ -43,6 +39,10 @@ module.exports = function($scope, $http, $state, $stateParams) {
         if (item.status > 0) {
             alert('已提交审核不能删除');
             return;
+        }
+
+        if (!confirm('您确认要删除吗？')) {
+            return false;
         }
 
         $http({

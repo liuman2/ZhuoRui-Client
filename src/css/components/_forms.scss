@@ -51,5 +51,12 @@ fieldset[disabled] .form-control {
             z-index: 1;
             box-shadow: 0 3px 5px #eee;
         }
+
+        .btn, span {
+            margin-right: 10px;
+        }
+        // span {
+        //     color:#00c0ef;
+        // }
     }
 }

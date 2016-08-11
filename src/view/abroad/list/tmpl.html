@@ -78,10 +78,10 @@
                         <td ng-bind="item.name_cn"></td>
                         <td ng-bind="item.name_en"></td>
                         <td>
-                            <span class="label label-warning" ng-bind="getOrderStatus(item.status)"></span>
+                            <span class="label" ng-class="{'label-warning': (item.status==0), 'label-success': (item.status==4), 'label-info': (item.review_status != 0 && item.review_status != 4)}" ng-bind="getOrderStatus(item.status)"></span>
                         </td>
                         <td>
-                            <span class="label label-warning" ng-bind="getReviewStatus(item.status, item.review_status)"></span>
+                            <span class="label" ng-class="{'label-warning': (item.review_status==-1), 'label-success': (item.review_status==1), 'label-danger': (item.review_status==0)}" ng-bind="getReviewStatus(item.status, item.review_status)"></span>
                         </td>
                         <td ng-bind="item.date_transaction"></td>
                         <td class="tar" ng-bind="item.amount_transaction"></td>
@@ -91,7 +91,7 @@
                             <a class="fa fa-info-circle" ui-sref="abroad_view({id: item.id})" title="详情"></a>
                             <a href="javascript:;" class="fa fa-pencil orange" ng-click="edit(item)" title="修改"></a>
                             <a href="javascript:;" class="fa fa-trash-o red" ng-click="delete(item)" title="删除"></a>
-                            <a class="fa fa-eye green" ui-sref="timeline({id: item.id})" title="日志"></a>
+                            <a class="fa fa-eye green" ui-sref="abroad_timeline({id: item.id, name: 'reg_abroad', code: item.code, source: 'list'})" title="日志"></a>
                         </td>
                     </tr>
                 </tbody>

@@ -1,0 +1,37 @@
+<section class="content-header">
+    <h1>
+        订单日志
+        <small>{{timeline.title}}</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a ui-sref="dashboard"><i class="fa fa-dashboard"></i>我的面板</a></li>
+        <li><a ui-sref="{{timeline.sref}}">{{timeline.title}}</a></li>
+        <li class="active">日志查看</li>
+    </ol>
+</section>
+<section class="content">
+    <div class="box box-info">
+        <div class="box-header with-border">
+           <h3 class="box-title" ng-bind="'单号: '+timeline.code"></h3>
+            <!--  <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" ui-sref=".add" ui-sref-opts="{location:false}">
+                    <i class="fa fa-plus-square"> 添加</i>
+                </button>
+            </div> -->
+        </div>
+        <div class="box-body">
+            <ul class="timeline">
+                <li ng-repeat="item in data.items">
+                    <i class="fa fa-file-text-o bg-blue"></i>
+                    <div class="timeline-item">
+                        <span class="time"><i class="fa fa-clock-o"></i> <span ng-bind="format(item.date_created, 'YYYY-MM-DD HH:mm:ss')"></span></span>
+                        <h3 class="timeline-header"><a href="javascript:;" ng-bind="item.title"></a></h3>
+                        <div class="timeline-body">
+                            <span ng-bind="item.content"></span>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</section>

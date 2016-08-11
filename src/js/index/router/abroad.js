@@ -5,7 +5,7 @@ var views_abroad = {
     }
 };
 
-var router = function ($stateProvider, $urlRouterProvider) {
+var router = function($stateProvider, $urlRouterProvider) {
 
     $stateProvider
         .state('abroad', {
@@ -30,7 +30,6 @@ var router = function ($stateProvider, $urlRouterProvider) {
             template: require('view/abroad/view/tmpl.html'),
             controller: require('view/abroad/view/ctrl')
         })
-
         .state('abroad_view.income_add', {
             url: '/new/{source_name:.*}/{customer_id:.*}',
             views: {
@@ -44,24 +43,24 @@ var router = function ($stateProvider, $urlRouterProvider) {
             url: '/edit/{tid:.*}',
             views: {
                 'modal': {
-                    template: require('view/customer/view/modal.html'),
-                    controller: require('view/customer/view/modal')
+                    template: require('view/common/income/modal.html'),
+                    controller: require('view/common/income/modal')
                 }
             }
         })
-
-        .state('abroad_timeline', {
-            parent: 'list',
-            url: '/view/abroad/timeline/{id:.*}',
-            template: require('view/abroad/timeline/tmpl.html')
-        })
-        .state('abroad_timeline.add', {
-            url: '/new',
+        .state('abroad_view.audit', {
+            url: '/audit/{module_name:.*}',
             views: {
-                'add': {
-                    template: require('view/abroad/timeline/modal.html')
+                'modal': {
+                    template: require('view/common/audit/modal.html'),
+                    controller: require('view/common/audit/modal')
                 }
             }
+        })
+        .state('abroad_timeline', {
+            url: '/view/abroad/timeline/{source:.*}/{id:.*}/{name:.*}/{code:.*}',
+            template: require('view/common/timeline/tmpl.html'),
+            controller: require('view/common/timeline/ctrl')
         })
 };
 
