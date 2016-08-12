@@ -76,6 +76,15 @@ var router = function($stateProvider, $urlRouterProvider) {
             template: require('view/abroad/history/tmpl.html'),
             controller: require('view/abroad/history/ctrl')
         })
+        .state('abroad_history.add', {
+            url: '/new',
+            views: {
+                'add': {
+                    template: require('view/abroad/history/modal.html'),
+                    controller: require('view/abroad/history/modal')
+                }
+            }
+        })
 };
 
 module.exports = router;

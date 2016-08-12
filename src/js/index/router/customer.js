@@ -51,8 +51,6 @@ var router = function ($stateProvider, $urlRouterProvider) {
                 }
             }
         })
-
-
         .state('customer_timeline', {
             parent: 'list',
             url: '/view/customer/timeline/{id:.*}',

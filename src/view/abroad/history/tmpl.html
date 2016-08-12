@@ -37,14 +37,14 @@
                     </tr>
                     <tr ng-repeat="item in data.items">
                         <td ng-bind="($index+1)+'.'"></td>
-                        <td ng-bind="item.name_cn"></td>
-                        <td ng-bind="item.name_en"></td>
+                        <td ng-attr-title="{{item.name_cn}}" ng-bind="item.name_cn"></td>
+                        <td ng-attr-title="{{item.name_en}}" ng-bind="item.name_en"></td>
                         <td ng-bind="format(item.date_transaction, 'YYYY-MM-DD')"></td>
                         <td ng-bind="item.reg_no"></td>
                         <td ng-bind="item.region"></td>
-                        <td ng-bind="item.address"></td>
+                        <td ng-attr-title="{{item.address}}" ng-bind="item.address"></td>
                         <td ng-bind="item.director"></td>
-                        <td ng-bind="format(item.date_created, 'YYYY-MM-DD')"></td>
+                        <td ng-bind="format(item.date_created, 'YYYY-MM-DD HH:mm:ss')"></td>
                         <td class="opt-col">
                             <div class="btn-group" ng-if="$index==0">
                                 <button type="button" class="btn btn-box-tool dropdown-toggle" data-toggle="dropdown">
@@ -60,8 +60,9 @@
             </table>
         </div>
         <div class="box-footer clearfix">
-            <a ui-sref="abroad_add" class="btn btn-sm btn-info btn-flat pull-left">新增</a>
+            <a  ui-sref=".add" ui-sref-opts="{location:false}" class="btn btn-sm btn-info btn-flat pull-left">新增</a>
             <div pagination page-data="data.page" page-click="go(idx)"></div>
         </div>
     </div>
 </section>
+<div ui-view="add"></div>

@@ -2,7 +2,7 @@ var dateHelper = require('js/utils/dateHelper');
 var moment = require('moment');
 moment.locale('zh-cn');
 module.exports = function($scope, $http, $state, $stateParams) {
-    var id = $state.params.id || null;
+    $scope.reg_abroad_id = $state.params.id || null;
 
     $scope.data = {
         items: [],
@@ -27,12 +27,16 @@ module.exports = function($scope, $http, $state, $stateParams) {
         return moment(dt).format(str);
     }
 
+    $scope.$on('HISTORY_MODAL_DONE', function(e) {
+        load_data();
+    });
+
     function load_data() {
         $http({
             method: 'GET',
             url: '/RegAbroad/History',
             params: {
-                id: id
+                id: $scope.reg_abroad_id
             }
         }).success(function(data) {
             $scope.data = data;
