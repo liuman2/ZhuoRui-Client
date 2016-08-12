@@ -1,0 +1,67 @@
+<section class="content-header">
+    <h1>
+        变更记录
+        <small>境外</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a ui-sref="dashboard"><i class="fa fa-dashboard"></i>我的面板</a></li>
+        <li><a ui-sref="abroad">境外业务</a></li>
+        <li><a class="active">变更记录</a></li>
+    </ol>
+</section>
+<section class="content">
+    <div class="box box-info">
+        <div class="box-header with-border">
+            <h3 class="box-title">单号: xxx</h3>
+            <div class="box-tools">
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="box-body table-responsive no-padding">
+            <table class="table table-hover">
+                <tbody>
+                    <tr>
+                        <th style="width: 10px">#</th>
+                        <th>公司中文名称</th>
+                        <th>公司英文名称</th>
+                        <th>成立日期</th>
+                        <th>注册编号</th>
+                        <th>注册地区</th>
+                        <th>注册地址</th>
+                        <th>公司董事</th>
+                        <th>记录时间</th>
+                        <th class="opt-col">操作</th>
+                    </tr>
+                    <tr ng-repeat="item in data.items">
+                        <td ng-bind="($index+1)+'.'"></td>
+                        <td ng-bind="item.name_cn"></td>
+                        <td ng-bind="item.name_en"></td>
+                        <td ng-bind="format(item.date_transaction, 'YYYY-MM-DD')"></td>
+                        <td ng-bind="item.reg_no"></td>
+                        <td ng-bind="item.region"></td>
+                        <td ng-bind="item.address"></td>
+                        <td ng-bind="item.director"></td>
+                        <td ng-bind="format(item.date_created, 'YYYY-MM-DD')"></td>
+                        <td class="opt-col">
+                            <div class="btn-group" ng-if="$index==0">
+                                <button type="button" class="btn btn-box-tool dropdown-toggle" data-toggle="dropdown">
+                                    <i class="fa fa-wrench"></i>
+                                </button>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a href="javascript:;" class="fa fa-pencil" ng-click="edit(item)"> 修改</a></li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="box-footer clearfix">
+            <a ui-sref="abroad_add" class="btn btn-sm btn-info btn-flat pull-left">新增</a>
+            <div pagination page-data="data.page" page-click="go(idx)"></div>
+        </div>
+    </div>
+</section>

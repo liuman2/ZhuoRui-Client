@@ -1,6 +1,30 @@
 .opt-col {
-	text-align: center;
-	a {
-		padding: 0 8px;
-	}
+    text-align: center;
+    a {
+        padding: 0 8px;
+    }
+    .btn-group {
+        position: absolute!important;
+        .btn {
+            padding: 0px!important;
+            margin: 0px!important;
+        }
+        .divider {
+            margin: 2px 0!important;
+        }
+    }
+    .dropdown-menu {
+        right: 0!important;
+        left: inherit!important;
+        border: 1px solid #ccc;
+    }
+}
+
+.table {
+    td {
+        max-width: 200px;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+    }
 }

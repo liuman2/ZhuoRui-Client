@@ -82,6 +82,15 @@ module.exports = function($scope, $http, $state, $stateParams) {
         $state.go("abroad_edit", {id: item.id});
     }
 
+    $scope.history= function(item) {
+        if (item.status != 4) {
+            alert('还未完成的订单没法做变更记录，请直接修改。');
+            return;
+        }
+
+        $state.go("abroad_history", {id: item.id});
+    }
+
     $scope.getOrderStatus = function(status) {
         switch(status) {
             case 0:
@@ -96,6 +105,7 @@ module.exports = function($scope, $http, $state, $stateParams) {
                 return '完成';
         }
     }
+
     $scope.getReviewStatus= function(status, review_status) {
         switch(review_status) {
             case -1:
@@ -112,7 +122,6 @@ module.exports = function($scope, $http, $state, $stateParams) {
     }
 
     function load_data() {
-
         $scope.search.start_time = $('#start_time').val();
         $scope.search.end_time = $('#end_time').val();
 

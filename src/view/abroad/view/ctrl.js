@@ -101,6 +101,10 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
         $state.go(".audit", {module_name: 'RegAbroad'}, { location:false });
     }
 
+    $scope.done = function() {
+        $state.go(".done", {module_name: 'RegAbroad'}, { location:false });
+    }
+
     $scope.getOrderStatus = function() {
         switch($scope.data.status) {
             case 0:
@@ -132,6 +136,10 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
     });
 
     $scope.$on('REFUSE_MODAL_DONE', function(e) {
+        actionView();
+    });
+
+    $scope.$on('FINISH_MODAL_DONE', function(e) {
         actionView();
     });
 

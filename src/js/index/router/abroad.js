@@ -57,10 +57,24 @@ var router = function($stateProvider, $urlRouterProvider) {
                 }
             }
         })
+        .state('abroad_view.done', {
+            url: '/done/{module_name:.*}',
+            views: {
+                'modal': {
+                    template: require('view/common/orderDone/modal.html'),
+                    controller: require('view/common/orderDone/modal')
+                }
+            }
+        })
         .state('abroad_timeline', {
             url: '/view/abroad/timeline/{source:.*}/{id:.*}/{name:.*}/{code:.*}',
             template: require('view/common/timeline/tmpl.html'),
             controller: require('view/common/timeline/ctrl')
+        })
+        .state('abroad_history', {
+            url: '/view/abroad/history/{id:.*}',
+            template: require('view/abroad/history/tmpl.html'),
+            controller: require('view/abroad/history/ctrl')
         })
 };
 

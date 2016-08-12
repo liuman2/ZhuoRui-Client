@@ -50,13 +50,14 @@ fieldset[disabled] .form-control {
             top: 0;
             z-index: 1;
             box-shadow: 0 3px 5px #eee;
+            background-color: rgba(0, 0, 0, .5);
+            span {
+                color: #fff;
+            }
         }
-
-        .btn, span {
+        .btn,
+        span {
             margin-right: 10px;
         }
-        // span {
-        //     color:#00c0ef;
-        // }
     }
 }
