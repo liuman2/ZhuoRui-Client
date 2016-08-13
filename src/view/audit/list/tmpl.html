@@ -1,0 +1,119 @@
+<section class="content-header">
+    <h1>
+        注册业务
+        <small>境外</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a ui-sref="dashboard"><i class="fa fa-dashboard"></i>我的面板</a></li>
+        <li><a class="active">列表</a></li>
+    </ol>
+</section>
+<section class="content">
+    <div class="box box-info">
+        <div class="box-header with-border">
+            <h3 class="box-title">查询条件</h3>
+            <div class="box-tools">
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="box-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>客户名称</label>
+                        <select ui-select2 class="form-control select2" name="customer_id" ng-model="search.customer_id" url=" Customer/Search" paging="true" style="width: 100%;"></select>
+                    </div>
+                    <div class="form-group">
+                        <label>订单状态</label>
+                        <select class="form-control" ng-model="search.status">
+                            <option value="">全部</option>
+                            <option value="0">未提交</option>
+                            <option value="1">未审核</option>
+                            <option value="2">已审核</option>
+                            <option value="4">完成</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>开始日期</label>
+                        <input type="text" class="form-control date-input" id="start_time" ng-model="search.start_time" placeholder="开始成交日期">
+                    </div>
+                    <div class="form-group">
+                        <label>结束日期</label>
+                        <input type="text" class="form-control date-input" id="end_time" ng-model="search.end_time" placeholder="结束成交日期">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="box-footer">
+            <a class="btn btn-sm btn-info btn-flat pull-right" ng-click="query()">查询</a>
+        </div>
+    </div>
+    <div class="box box-info">
+        <div class="box-body table-responsive no-padding">
+            <table class="table table-hover">
+                <tbody>
+                    <tr>
+                        <th style="width: 10px">#</th>
+                        <th>档案号</th>
+                        <th>客户名称</th>
+                        <th>公司中文名称</th>
+                        <th>公司英文名称</th>
+                        <th>订单状态</th>
+                        <th>审核状态</th>
+                        <th>成交日期</th>
+                        <th class="tar">成交金额</th>
+                        <!-- <th class="tar">已收款</th> -->
+                        <!-- <th class="tar">未收款</th> -->
+                        <th class="opt-col">操作</th>
+                    </tr>
+                    <tr ng-repeat="item in data.items">
+                        <td ng-bind="($index+1)+'.'"></td>
+                        <td ng-bind="item.code"></td>
+                        <td ng-bind="item.customer_name" ng-attr-title="{{item.customer_name}}"></td>
+                        <td ng-bind="item.name_cn" ng-attr-title="{{item.name_cn}}"></td>
+                        <td ng-bind="item.name_en" ng-attr-title="{{item.name_en}}"></td>
+                        <td>
+                            <span class="label" ng-class="{'label-warning': (item.status==0), 'label-success': (item.status==4), 'label-info': (item.status != 0 && item.status != 4)}" ng-bind="getOrderStatus(item.status)"></span>
+                        </td>
+                        <td>
+                            <span class="label" ng-class="{'label-warning': (item.review_status==-1), 'label-success': (item.review_status==1), 'label-danger': (item.review_status==0)}" ng-bind="getReviewStatus(item.status, item.review_status)"></span>
+                        </td>
+                        <td ng-bind="format(item.date_transaction, 'YYYY-MM-DD')"></td>
+                        <td class="tar" ng-bind="item.amount_transaction"></td>
+                        <!-- <td class="tar" ng-bind="item.amount_income"></td> -->
+                        <!-- <td class="tar" ng-bind="item.amount_unreceive"></td> -->
+                        <td class="opt-col">
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-box-tool dropdown-toggle" data-toggle="dropdown">
+                                    <i class="fa fa-wrench"></i>
+                                  </button>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a class="fa fa-info-circle" ui-sref="abroad_view({id: item.id})"> 详情</a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="javascript:;" class="fa fa-pencil" ng-click="edit(item)"> 修改</a></li>
+                                    <li><a href="javascript:;" class="fa fa-trash-o" ng-click="delete(item)"> 删除</a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="javascript:;" class="fa fa-history" ng-click="history(item)"> 变更记录</a></li>
+                                    <li><a class="fa fa-clock-o" ui-sref="abroad_timeline({id: item.id, name: 'reg_abroad', code: item.code, source: 'list'})"> 操作日志</a></li>
+                                </ul>
+                            </div>
+                            <!-- <a class="fa fa-info-circle" ui-sref="abroad_view({id: item.id})" title="详情"></a>
+                            <a href="javascript:;" class="fa fa-pencil orange" ng-click="edit(item)" title="修改"></a>
+                            <a href="javascript:;" class="fa fa-trash-o red" ng-click="delete(item)" title="删除"></a>
+                            <a class="fa fa-clock-o green" ui-sref="abroad_timeline({id: item.id, name: 'reg_abroad', code: item.code, source: 'list'})" title="日志"></a> -->
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="box-footer clearfix">
+            <a ui-sref="abroad_add" class="btn btn-sm btn-info btn-flat pull-left">新增</a>
+            <div pagination page-data="data.page" page-click="go(idx)"></div>
+        </div>
+    </div>
+</section>

@@ -2,7 +2,7 @@ var httpHelper = require('js/utils/httpHelper');
 module.exports = function($scope, $state, $http, $timeout) {
     var id = $state.params.id || null,
         dInput = $('.date-input'),
-        jForm = $('#abroad_form');
+        jForm = $('#internal_form');
 
     $.datetimepicker.setLocale('ch');
     dInput.datetimepicker({
@@ -16,11 +16,11 @@ module.exports = function($scope, $state, $http, $timeout) {
     $scope.action = null;
 
     switch ($state.current.name) {
-        case 'abroad_add':
+        case 'internal_add':
             $scope.action = 'add';
             $scope.current_bread = '新增';
             break;
-        case 'abroad_edit':
+        case 'internal_edit':
             $scope.action = 'update';
             $scope.current_bread = '修改';
             break;
@@ -38,9 +38,10 @@ module.exports = function($scope, $state, $http, $timeout) {
         mobile: '',
         customer_address: '',
         tel: '',
-        is_open_bank: 0,
         salesman: $scope.userInfo.name,
         waiter_id: '',
+        outworker_id: '',
+        manager_id: '',
         customer_id: '',
         invoice_name: '',
         invoice_tax: '',
@@ -58,26 +59,22 @@ module.exports = function($scope, $state, $http, $timeout) {
     $scope.save = function() {
         var isCustomerValid = valid_customer();
         var isWaiterVaild = valid_waiter();
-        var isRegionValid = valid_region();
         var isCurrencyValid = valid_currency();
         jForm.isValid(function(v) {
             if (v) {
-                if (!isCustomerValid || !isWaiterVaild || !isRegionValid || !isCurrencyValid) {
+                if (!isCustomerValid || !isWaiterVaild || !isCurrencyValid) {
                     return;
                 }
-
                 var submitData = angular.copy($scope.data);
-
                 submitData.date_setup = $('#date_setup').val();
                 submitData.date_transaction = $('#date_transaction').val();
-
-                var url = $scope.action == 'add' ? '/RegAbroad/Add' : '/RegAbroad/Update';
+                var url = $scope.action == 'add' ? '/RegInternal/Add' : '/RegInternal/Update';
                 $http({
                     method: 'POST',
                     url: url,
                     data: submitData
                 }).success(function(data) {
-                    $state.go("abroad_view", {
+                    $state.go("internal_view", {
                         id: data.id
                     });
                 });
@@ -87,9 +84,9 @@ module.exports = function($scope, $state, $http, $timeout) {
 
     $scope.cancel = function() {
         if ($scope.action == 'add') {
-            $state.go("abroad");
+            $state.go("internal");
         } else {
-            $state.go("abroad_view", {
+            $state.go("internal_view", {
                 id: id
             });
         }
@@ -152,7 +149,7 @@ module.exports = function($scope, $state, $http, $timeout) {
     function actionView() {
         $http({
             method: 'GET',
-            url: '/RegAbroad/Get',
+            url: '/RegInternal/Get',
             params: {
                 id: id
             }
@@ -163,7 +160,6 @@ module.exports = function($scope, $state, $http, $timeout) {
             if (data.date_transaction.indexOf('T') > -1) {
                 data.date_transaction = data.date_transaction.split('T')[0];
             }
-
             $scope.data = data;
         });
     }
@@ -221,19 +217,6 @@ module.exports = function($scope, $state, $http, $timeout) {
             return false;
         } else {
             jForm.validator('hideMsg', '#waiterSelect2-validator');
-            return true;
-        }
-    }
-
-    function valid_region() {
-        if (!$scope.data.region) {
-            jForm.validator('showMsg', '#regionSelect2-validator', {
-                type: "error",
-                msg: "此处不能为空"
-            });
-            return false;
-        } else {
-            jForm.validator('hideMsg', '#regionSelect2-validator');
             return true;
         }
     }

@@ -1,24 +1,24 @@
 <section class="content-header">
     <h1>
         注册业务
-        <small>境外</small>
+        <small>境内</small>
     </h1>
     <ol class="breadcrumb">
         <li><a ui-sref="dashboard"><i class="fa fa-dashboard"></i>我的面板</a></li>
-        <li><a ui-sref="abroad">列表</a></li>
+        <li><a ui-sref="internal">列表</a></li>
         <li class="active">查看</li>
     </ol>
 </section>
 <section class="content">
-    <form class="form-horizontal view-form" id="abroad_form">
+    <form class="form-horizontal view-form" id="internal_form">
         <div class="detail-view-header-wrapper">
             <div class="box-footer detail-view-header" ui-scrollpoint ui-scrollpoint-enabled="true" ui-scrollpoint-class="fixed">
-                <button type="button" class="btn" ui-sref="abroad_edit({id: id})"  ng-if="data.status == 0" ng-class="{'btn-info':data.status == 0}" ng-attr-title="{{data.status > 0 ? '已经提交审核，不能修改' : ''}}" ng-disabled="data.status > 0" ui-sref-opts="{reload:true}">修改</button>
+                <button type="button" class="btn" ui-sref="internal_edit({id: id})"  ng-if="data.status == 0" ng-class="{'btn-info':data.status == 0}" ng-attr-title="{{data.status > 0 ? '已经提交审核，不能修改' : ''}}" ng-disabled="data.status > 0" ui-sref-opts="{reload:true}">修改</button>
                 <button type="button" class="btn btn-primary" ng-click="submitAudit()" ng-if="data.status == 0">提交审核</button>
                 <button type="button" class="btn btn-success" ng-click="passAudit()" ng-if="data.status > 0 && data.status < 3">审核通过</button>
                 <button type="button" class="btn btn-danger" ng-click="refuseAudit()" ng-if="data.status > 0 && data.status < 3">审核不通过</button>
                 <button type="button" class="btn btn-success" ng-click="done()" ng-if="data.status == 3 && data.review_status==1">完成</button>
-                <button type="button" class="btn btn-info" ui-sref="abroad_timeline({id: data.id, name: 'reg_abroad', code: data.code, source: 'view'})" ><span class="fa fa-clock-o"></span>日志</button>
+                <button type="button" class="btn btn-info" ui-sref="internal_timeline({id: data.id, name: 'reg_internal', code: data.code, source: 'view'})" ><span class="fa fa-clock-o"></span>日志</button>
                 <span>状态: </span>
                 <span ng-if="data.status != 4" ng-bind="getOrderStatus() + ' | ' + getReviewStatus()"></span>
                 <span ng-if="data.status == 4" ng-bind="'已完成 | ' + format(data.date_finish, 'YYYY-MM-DD')"></span>
@@ -109,39 +109,63 @@
             </div>
             <div class="box-body">
                 <div class="form-group">
-                    <label class="col-sm-2 control-label">公司中文名称</label>
+                    <label class="col-sm-2 control-label">公司名称</label>
                     <div class="col-sm-8">
                         <span class="form-span" ng-bind="data.name_cn"></span>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-2 control-label">公司英文名称</label>
-                    <div class="col-sm-8">
-                        <span class="form-span" ng-bind="data.name_en"></span>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">公司成立日期</label>
+                    <label class="col-sm-2 control-label">成立日期</label>
                     <div class="col-sm-8">
                         <span class="form-span" ng-bind="format(data.date_setup, 'YYYY-MM-DD')"></span>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-2 control-label">公司注册编号</label>
+                    <label class="col-sm-2 control-label">统一信用编号</label>
                     <div class="col-sm-8">
                         <span class="form-span" ng-bind="data.reg_no"></span>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-2 control-label">公司注册地区</label>
+                    <label class="col-sm-2 control-label">注册地址</label>
                     <div class="col-sm-8">
-                        <span class="form-span" ng-bind="data.region"></span>
+                        <span class="form-span" ng-bind="data.address"></span>
+                    </div>
+                </div>
+                <div class="form-group" ng-if="data.director.length > 0">
+                    <label class="col-sm-2 control-label">公司法人</label>
+                    <div class="col-sm-8">
+                        <span class="form-span" ng-bind="data.legal"></span>
+                    </div>
+                </div>
+                <div class="form-group" ng-if="data.director.length > 0">
+                    <label class="col-sm-2 control-label">公司监事</label>
+                    <div class="col-sm-8">
+                        <span class="form-span" ng-bind="data.director"></span>
+                    </div>
+                </div>
+                <div class="form-group" ng-if="data.taxpayer.length > 0">
+                    <label class="col-sm-2 control-label">纳税人资格</label>
+                    <div class="col-sm-8">
+                        <span class="form-span" ng-bind="data.taxpayer"></span>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-2 control-label">公司注册地址</label>
+                    <label class="col-sm-2 control-label">是否海关备案</label>
                     <div class="col-sm-8">
-                        <span class="form-span" ng-bind="data.address"></span>
+                        <span class="form-span" ng-bind="(data.is_customs==0) ? '否' : '是'"></span>
+                    </div>
+                </div>
+                <div class="form-group" ng-if="data.customs_name.length > 0">
+                    <label class="col-sm-2 control-label">海关备案英文名称</label>
+                    <div class="col-sm-8">
+                        <span class="form-span" ng-bind="data.customs_name"></span>
+                    </div>
+                </div>
+                <div class="form-group" ng-if="data.customs_address.length > 0">
+                    <label class="col-sm-2 control-label">海关备案英文地址</label>
+                    <div class="col-sm-8">
+                        <span class="form-span" ng-bind="data.customs_address"></span>
                     </div>
                 </div>
                 <div class="form-group">
@@ -162,16 +186,16 @@
                         <span class="form-span" ng-bind="data.currency"></span>
                     </div>
                 </div>
-                <div class="form-group" ng-if="data.director.length > 0">
-                    <label class="col-sm-2 control-label">公司董事</label>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">是否在我司代理记账</label>
                     <div class="col-sm-8">
-                        <span class="form-span" ng-bind="data.director"></span>
+                        <span class="form-span" ng-bind="(data.is_bookkeeping==0) ? '否' : '是'"></span>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">是否开户</label>
+                <div class="form-group" ng-if="data.is_bookkeeping == 1">
+                    <label class="col-sm-2 control-label">代理记账费用</label>
                     <div class="col-sm-8">
-                        <span class="form-span" ng-bind="(data.is_open_bank==0) ? '否' : '是'"></span>
+                        <span class="form-span" ng-bind="data.amount_bookkeeping"></span>
                     </div>
                 </div>
                 <div class="form-group" ng-if="data.bank_name.length > 0">
@@ -267,6 +291,12 @@
                     </div>
                 </div>
                 <div class="form-group">
+                    <label class="col-sm-2 control-label">外勤</label>
+                    <div class="col-sm-8">
+                        <span class="form-span" ng-bind="data.outworker_name"></span>
+                    </div>
+                </div>
+                <div class="form-group">
                     <label class="col-sm-2 control-label">经理</label>
                     <div class="col-sm-8">
                         <span class="form-span" ng-bind="data.manager_name"></span>
@@ -316,10 +346,6 @@
                             <td></td>
                             <td class="summary" colspan="7">
                                 <div>
-                                    <span>币别: </span>
-                                    <span class="num" ng-bind="data.currency"></span>
-                                </div>
-                                <div>
                                     <span>应收款: </span>
                                     <span class="num receivable" ng-bind="data.amount_transaction"></span>
                                 </div>
@@ -337,7 +363,7 @@
                 </table>
             </div>
             <div class="box-footer clearfix" ng-if="data.status == 0">
-                <button type="button" class="btn btn-info" ui-sref=".income_add({source_name: 'reg_abroad', customer_id: data.customer_id})" ui-sref-opts="{location:false}" ng-attr-title="{{data.status > 0 ? '已经提交审核，不能再新增' : '新增收款记录'}}" ng-disabled="data.status > 0">新增</button>
+                <button type="button" class="btn btn-info" ui-sref=".income_add({source_name: 'reg_internal', customer_id: data.customer_id})" ui-sref-opts="{location:false}" ng-attr-title="{{data.status > 0 ? '已经提交审核，不能再新增' : '新增收款记录'}}" ng-disabled="data.status > 0">新增</button>
             </div>
         </div>
     </form>

@@ -41,11 +41,11 @@ module.exports = function ($scope, $rootScope, $http) {
             name: '境外注册',
             icon: 'fa fa-globe'
         },{
-            route: 'reserve',
+            route: 'internal',
             name: '境内注册',
             icon: 'fa fa-street-view'
         },{
-            route: 'reserve',
+            route: 'audit',
             name: '审计业务',
             icon: 'fa fa-calculator'
         },{

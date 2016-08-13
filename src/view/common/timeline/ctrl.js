@@ -21,6 +21,15 @@ module.exports = function($scope, $state, $http, $timeout) {
                 $scope.timeline.sref = 'abroad_view({id: ' + source_id + '})';
             }
             break;
+        case 'reg_internal':
+            $scope.timeline.title = '境内注册';
+            if (from == 'list') {
+                $scope.timeline.sref = 'internal';
+            } else {
+                $scope.timeline.sref = 'internal_view({id: ' + source_id + '})';
+            }
+            break;
+
     }
 
     $scope.data = {
