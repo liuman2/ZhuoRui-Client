@@ -59,7 +59,7 @@ module.exports = function($scope, $http, $state, $stateParams) {
 
         $http({
             method: 'GET',
-            url: '/RegAbroad/Delete',
+            url: '/Audit/Delete',
             params: {
                 id: item.id
             }
@@ -79,16 +79,7 @@ module.exports = function($scope, $http, $state, $stateParams) {
             return;
         }
 
-        $state.go("abroad_edit", {id: item.id});
-    }
-
-    $scope.history= function(item) {
-        if (item.status != 4) {
-            alert('还未完成的订单没法做变更记录，请直接修改。');
-            return;
-        }
-
-        $state.go("abroad_history", {id: item.id});
+        $state.go("audit_edit", {id: item.id});
     }
 
     $scope.getOrderStatus = function(status) {
@@ -127,7 +118,7 @@ module.exports = function($scope, $http, $state, $stateParams) {
 
         $http({
             method: 'GET',
-            url: '/RegAbroad/Search',
+            url: '/Audit/Search',
             params: $scope.search
         }).success(function(data) {
             $scope.data = data;
