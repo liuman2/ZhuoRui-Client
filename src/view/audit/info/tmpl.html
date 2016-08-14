@@ -9,7 +9,7 @@
     </ol>
 </section>
 <section class="content">
-    <form class="form-horizontal" id="abroad_form">
+    <form class="form-horizontal" id="audit_form">
         <div class="detail-view-header-wrapper">
             <div class="box-footer detail-view-header" ui-scrollpoint ui-scrollpoint-enabled="true" ui-scrollpoint-class="fixed">
                 <button type="button" class="btn btn-default" ng-click="cancel()">取消</button>
@@ -247,9 +247,9 @@
                             <th>开户人</th>
                             <th>银行账号</th>
                         </tr>
-                        <tr ng-repeat="item in data.banks">
+                        <tr ng-repeat="item in banks">
                             <td ng-bind="($index+1)+'.'"></td>
-                             <td ng-bind="item.bank"></td>
+                             <td ng-bind="item.name"></td>
                             <td ng-bind="item.holder"></td>
                             <td ng-bind="item.account"></td>
                         </tr>

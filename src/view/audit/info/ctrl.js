@@ -2,7 +2,7 @@ var httpHelper = require('js/utils/httpHelper');
 module.exports = function($scope, $state, $http, $timeout) {
     var id = $state.params.id || null,
         dInput = $('.date-input'),
-        jForm = $('#abroad_form');
+        jForm = $('#audit_form');
 
     $.datetimepicker.setLocale('ch');
     dInput.datetimepicker({
@@ -16,11 +16,11 @@ module.exports = function($scope, $state, $http, $timeout) {
     $scope.action = null;
 
     switch ($state.current.name) {
-        case 'abroad_add':
+        case 'audit_add':
             $scope.action = 'add';
             $scope.current_bread = '新增';
             break;
-        case 'abroad_edit':
+        case 'audit_edit':
             $scope.action = 'update';
             $scope.current_bread = '修改';
             break;
@@ -30,17 +30,19 @@ module.exports = function($scope, $state, $http, $timeout) {
 
     $scope.data = {
         id: '',
+        type: '',
         industry: '',
         province: '',
         city: '',
         county: '',
+        business_nature: '',
         contact: '',
         mobile: '',
         customer_address: '',
         tel: '',
         is_open_bank: 0,
         salesman: $scope.userInfo.name,
-        waiter_id: '',
+        accountant_id: '',
         customer_id: '',
         invoice_name: '',
         invoice_tax: '',
@@ -57,27 +59,28 @@ module.exports = function($scope, $state, $http, $timeout) {
 
     $scope.save = function() {
         var isCustomerValid = valid_customer();
-        var isWaiterVaild = valid_waiter();
-        var isRegionValid = valid_region();
+        var isAccountantVaild = valid_accountant();
         var isCurrencyValid = valid_currency();
         jForm.isValid(function(v) {
             if (v) {
-                if (!isCustomerValid || !isWaiterVaild || !isRegionValid || !isCurrencyValid) {
+                if (!isCustomerValid || !isAccountantVaild || !isCurrencyValid) {
                     return;
                 }
 
                 var submitData = angular.copy($scope.data);
 
                 submitData.date_setup = $('#date_setup').val();
+                submitData.account_period = $('#account_period').val();
+                submitData.date_year_end = $('#date_year_end').val();
                 submitData.date_transaction = $('#date_transaction').val();
 
-                var url = $scope.action == 'add' ? '/RegAbroad/Add' : '/RegAbroad/Update';
+                var url = $scope.action == 'add' ? '/Audit/Add' : '/Audit/Update';
                 $http({
                     method: 'POST',
                     url: url,
                     data: submitData
                 }).success(function(data) {
-                    $state.go("abroad_view", {
+                    $state.go("audit_view", {
                         id: data.id
                     });
                 });
@@ -87,9 +90,9 @@ module.exports = function($scope, $state, $http, $timeout) {
 
     $scope.cancel = function() {
         if ($scope.action == 'add') {
-            $state.go("abroad");
+            $state.go("audit");
         } else {
-            $state.go("abroad_view", {
+            $state.go("audit_view", {
                 id: id
             });
         }
@@ -98,12 +101,8 @@ module.exports = function($scope, $state, $http, $timeout) {
     $('#customerSelect2').on("change", function(e) {
         var customer_id = $(e.target).val();
 
-        $('#customerBankSelect2').attr('paramvalue', customer_id);
-        setBanks();
-
-        $('#customerBankSelect2').val(null).trigger("change");
-        $scope.data.holder = '';
-        $scope.data.account = '';
+        $scope.banks = [];
+        setBanks(customer_id);
 
         var customers = $('#customerSelect2').select2('data');
         var select_customers = $.grep(customers, function(c) {
@@ -112,6 +111,7 @@ module.exports = function($scope, $state, $http, $timeout) {
 
         if (select_customers.length && select_customers[0].industry != undefined) {
             $scope.data.industry = select_customers[0].industry;
+            $scope.data.business_nature = select_customers[0].business_nature;
             $scope.data.province = select_customers[0].province;
             $scope.data.city = select_customers[0].city;
             $scope.data.county = select_customers[0].county;
@@ -134,25 +134,10 @@ module.exports = function($scope, $state, $http, $timeout) {
         }
     });
 
-    $('#customerBankSelect2').on("change", function(e) {
-        var bank_id = $(e.target).val();
-
-        var banks = $('#customerBankSelect2').select2('data');
-        var select_banks = $.grep(banks, function(b) {
-            return b.id == bank_id;
-        });
-
-        if (select_banks.length) {
-            $scope.data.holder = select_banks[0].holder;
-            $scope.data.account = select_banks[0].account;
-            $scope.$apply();
-        }
-    });
-
     function actionView() {
         $http({
             method: 'GET',
-            url: '/RegAbroad/Get',
+            url: '/Audit/Get',
             params: {
                 id: id
             }
@@ -163,39 +148,25 @@ module.exports = function($scope, $state, $http, $timeout) {
             if (data.date_transaction.indexOf('T') > -1) {
                 data.date_transaction = data.date_transaction.split('T')[0];
             }
+            if (data.account_period.indexOf('T') > -1) {
+                data.account_period = data.account_period.split('T')[0];
+            }
+            if (data.date_year_end.indexOf('T') > -1) {
+                data.date_year_end = data.date_year_end.split('T')[0];
+            }
 
             $scope.data = data;
         });
     }
 
-    function setBanks() {
-        $('#customerBankSelect2').select2({
-            language: "zh-CN",
-            placeholder: "",
-            maximumSelectionSize: 8,
-            ajax: {
-                url: httpHelper.url('Customer/Banks'),
-                type: 'GET',
-                dataType: 'json',
-                data: function(params) {
-                    return {
-                        customer_id: $('#customerBankSelect2').attr('paramvalue'),
-                        name: params.term || ''
-                    };
-                },
-                processResults: function(data, params) {
-                    params.page = params.page || 1;
-                    $.map(data.items, function(item) {
-                        item.text = item.name;
-                    });
-                    return {
-                        results: data.items,
-                        pagination: {
-                            more: false
-                        }
-                    };
-                }
+    function setBanks(customer_id) {
+        $http({
+            url: 'Customer/Banks',
+            params: {
+                customer_id: customer_id
             }
+        }).success(function(data) {
+            $scope.banks = data.items || [];
         });
     }
 
@@ -212,8 +183,8 @@ module.exports = function($scope, $state, $http, $timeout) {
         }
     }
 
-    function valid_waiter() {
-        if (!$scope.data.waiter_id) {
+    function valid_accountant() {
+        if (!$scope.data.accountant_id) {
             jForm.validator('showMsg', '#waiterSelect2-validator', {
                 type: "error",
                 msg: "此处不能为空"
@@ -221,19 +192,6 @@ module.exports = function($scope, $state, $http, $timeout) {
             return false;
         } else {
             jForm.validator('hideMsg', '#waiterSelect2-validator');
-            return true;
-        }
-    }
-
-    function valid_region() {
-        if (!$scope.data.region) {
-            jForm.validator('showMsg', '#regionSelect2-validator', {
-                type: "error",
-                msg: "此处不能为空"
-            });
-            return false;
-        } else {
-            jForm.validator('hideMsg', '#regionSelect2-validator');
             return true;
         }
     }
