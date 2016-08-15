@@ -10,7 +10,7 @@ var dictionaryRouter = require('./router/dictionary');
 var internalRouter = require('./router/internal');
 var auditRouter = require('./router/audit');
 var trademarkRouter = require('./router/trademark');
-var patentRouter = require('./router/patent');
+// var patentRouter = require('./router/patent');
 
 module.exports = function($stateProvider, $urlRouterProvider) {
 
@@ -48,5 +48,5 @@ module.exports = function($stateProvider, $urlRouterProvider) {
     internalRouter($stateProvider, $urlRouterProvider);
     auditRouter($stateProvider, $urlRouterProvider);
     trademarkRouter($stateProvider, $urlRouterProvider);
-    patentRouter($stateProvider, $urlRouterProvider);
+    // patentRouter($stateProvider, $urlRouterProvider);
 };

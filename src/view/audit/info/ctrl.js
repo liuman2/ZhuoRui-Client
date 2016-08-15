@@ -148,10 +148,10 @@ module.exports = function($scope, $state, $http, $timeout) {
             if (data.date_transaction.indexOf('T') > -1) {
                 data.date_transaction = data.date_transaction.split('T')[0];
             }
-            if (data.account_period.indexOf('T') > -1) {
+            if (data.account_period && data.account_period.indexOf('T') > -1) {
                 data.account_period = data.account_period.split('T')[0];
             }
-            if (data.date_year_end.indexOf('T') > -1) {
+            if (data.date_year_end && data.date_year_end.indexOf('T') > -1) {
                 data.date_year_end = data.date_year_end.split('T')[0];
             }
 
@@ -185,13 +185,13 @@ module.exports = function($scope, $state, $http, $timeout) {
 
     function valid_accountant() {
         if (!$scope.data.accountant_id) {
-            jForm.validator('showMsg', '#waiterSelect2-validator', {
+            jForm.validator('showMsg', '#accountantSelect2-validator', {
                 type: "error",
                 msg: "此处不能为空"
             });
             return false;
         } else {
-            jForm.validator('hideMsg', '#waiterSelect2-validator');
+            jForm.validator('hideMsg', '#accountantSelect2-validator');
             return true;
         }
     }

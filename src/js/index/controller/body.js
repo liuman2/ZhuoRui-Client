@@ -49,7 +49,7 @@ module.exports = function ($scope, $rootScope, $http) {
             name: '审计业务',
             icon: 'fa fa-calculator'
         },{
-            route: 'reserve',
+            route: 'trademark',
             name: '商标业务',
             icon: 'fa fa-trademark'
         },{

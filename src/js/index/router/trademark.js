@@ -71,20 +71,6 @@ var router = function($stateProvider, $urlRouterProvider) {
             template: require('view/common/timeline/tmpl.html'),
             controller: require('view/common/timeline/ctrl')
         })
-        .state('trademark_history', {
-            url: '/view/trademark/history/{id:.*}',
-            template: require('view/trademark/history/tmpl.html'),
-            controller: require('view/trademark/history/ctrl')
-        })
-        .state('trademark_history.add', {
-            url: '/new',
-            views: {
-                'add': {
-                    template: require('view/trademark/history/modal.html'),
-                    controller: require('view/trademark/history/modal')
-                }
-            }
-        })
 };
 
 module.exports = router;
