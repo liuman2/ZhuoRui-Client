@@ -52,7 +52,7 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
     };
 
     $scope.edit = function() {
-        $state.go("audit_edit", {
+        $state.go("abroad_edit", {
             id: id
         });
     }
@@ -62,7 +62,7 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
     }
 
     $scope.cancel = function() {
-        $state.go('audit');
+        $state.go('abroad');
     }
 
     $scope.submitAudit = function() {
@@ -72,7 +72,7 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
 
         $http({
             method: 'GET',
-            url: '/Audit/Submit',
+            url: '/RegAbroad/Submit',
             params: {
                 id: $scope.data.id
             }
@@ -88,7 +88,7 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
 
         $http({
             method: 'GET',
-            url: '/Audit/PassAudit',
+            url: '/RegAbroad/PassAudit',
             params: {
                 id: $scope.data.id
             }
@@ -98,11 +98,11 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
     }
 
     $scope.refuseAudit = function() {
-        $state.go(".audit", {module_name: 'Audit'}, { location:false });
+        $state.go(".audit", {module_name: 'RegAbroad'}, { location:false });
     }
 
     $scope.done = function() {
-        $state.go(".done", {module_name: 'Audit'}, { location:false });
+        $state.go(".done", {module_name: 'RegAbroad'}, { location:false });
     }
 
     $scope.getOrderStatus = function() {
@@ -146,11 +146,12 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
     function actionView() {
         $http({
             method: 'GET',
-            url: '/Audit/GetView',
+            url: '/RegAbroad/GetView',
             params: {
                 id: id
             }
         }).success(function(data) {
+            console.log(data);
             $scope.data = data.order;
             $scope.incomes = data.incomes;
         });

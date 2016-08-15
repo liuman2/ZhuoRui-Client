@@ -1,6 +1,6 @@
 <section class="content-header">
     <h1>
-        审计业务
+        商标业务
     </h1>
     <ol class="breadcrumb">
         <li><a ui-sref="dashboard"><i class="fa fa-dashboard"></i>我的面板</a></li>
@@ -36,6 +36,17 @@
                         </select>
                     </div>
                 </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>商标名称</label>
+                        <input type="search.name" class="form-control" name="name" ng-model="search.name">
+                    </div>
+                    <div class="form-group">
+                        <label>申请人</label>
+                        <input type="search.applicant" class="form-control" name="applicant" ng-model="search.applicant">
+                    </div>
+                </div>
                 <div class="col-md-6">
                     <div class="form-group">
                         <label>开始日期</label>
@@ -61,8 +72,9 @@
                         <th>档案号</th>
                         <th>客户名称</th>
                         <th>订单类别</th>
-                        <th>公司中文名称</th>
-                        <th>公司英文名称</th>
+                        <th>商标名称</th>
+                        <th>商标类别</th>
+                        <th>商标申请人</th>
                         <th>订单状态</th>
                         <th>审核状态</th>
                         <th>成交日期</th>
@@ -76,8 +88,9 @@
                         <td ng-bind="item.code"></td>
                         <td ng-bind="item.customer_name" ng-attr-title="{{item.customer_name}}"></td>
                         <td ng-bind="item.type"></td>
-                        <td ng-bind="item.name_cn" ng-attr-title="{{item.name_cn}}"></td>
-                        <td ng-bind="item.name_en" ng-attr-title="{{item.name_en}}"></td>
+                        <td ng-bind="item.name" ng-attr-title="{{item.name_cn}}"></td>
+                        <td ng-bind="item.trademark_type" ng-attr-title="{{item.trademark_type}}"></td>
+                        <td ng-bind="item.applicant" ng-attr-title="{{item.applicant}}"></td>
                         <td>
                             <span class="label" ng-class="{'label-warning': (item.status==0), 'label-success': (item.status==4), 'label-info': (item.status != 0 && item.status != 4)}" ng-bind="getOrderStatus(item.status)"></span>
                         </td>
@@ -94,21 +107,25 @@
                                     <i class="fa fa-wrench"></i>
                                   </button>
                                 <ul class="dropdown-menu" role="menu">
-                                    <li><a class="fa fa-info-circle" ui-sref="audit_view({id: item.id})"> 详情</a></li>
+                                    <li><a class="fa fa-info-circle" ui-sref="trademark_view({id: item.id})"> 详情</a></li>
                                     <li class="divider"></li>
                                     <li><a href="javascript:;" class="fa fa-pencil" ng-click="edit(item)"> 修改</a></li>
                                     <li><a href="javascript:;" class="fa fa-trash-o" ng-click="delete(item)"> 删除</a></li>
                                     <li class="divider"></li>
-                                    <li><a class="fa fa-clock-o" ui-sref="audit_timeline({id: item.id, name: 'reg_audit', code: item.code, source: 'list'})"> 操作日志</a></li>
+                                    <li><a class="fa fa-clock-o" ui-sref="trademark_timeline({id: item.id, name: 'reg_trademark', code: item.code, source: 'list'})"> 操作日志</a></li>
                                 </ul>
                             </div>
-                       </td>
+                            <!-- <a class="fa fa-info-circle" ui-sref="trademark_view({id: item.id})" title="详情"></a>
+                            <a href="javascript:;" class="fa fa-pencil orange" ng-click="edit(item)" title="修改"></a>
+                            <a href="javascript:;" class="fa fa-trash-o red" ng-click="delete(item)" title="删除"></a>
+                            <a class="fa fa-clock-o green" ui-sref="trademark_timeline({id: item.id, name: 'reg_trademark', code: item.code, source: 'list'})" title="日志"></a> -->
+                        </td>
                     </tr>
                 </tbody>
             </table>
         </div>
         <div class="box-footer clearfix">
-            <a ui-sref="audit_add" class="btn btn-sm btn-info btn-flat pull-left">新增</a>
+            <a ui-sref="trademark_add" class="btn btn-sm btn-info btn-flat pull-left">新增</a>
             <div pagination page-data="data.page" page-click="go(idx)"></div>
         </div>
     </div>
