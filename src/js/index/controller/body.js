@@ -99,5 +99,14 @@ module.exports = function ($scope, $rootScope, $http) {
             name: '数据字典',
             icon: 'fa fa-user'
         }]
+    }, {
+        route: '',
+        name: '系统设置',
+        icon: 'fa fa-cog',
+        children:[{
+            route: 'organization',
+            name: '编码规则',
+            icon: 'fa fa-file-text-o'
+        }]
     }]
 };

@@ -36,20 +36,20 @@ module.exports = function($scope, $state, $http, $timeout) {
     }
 
     switch(module_name) {
-        case 'reg_abroad':
-        case 'reg_internal':
+        case 'RegAbroad':
+        case 'RegInternal':
             $scope.progress.title = '注册进度';
             break;
         case 'audit':
             $scope.progress.title = '审计进度';
             break;
-        case 'trademark':
+        case 'Trademark':
             $scope.progress.title = '商标进度';
             break;
-        case 'patent':
+        case 'Patent':
             $scope.progress.title = '专利进度';
             break;
-        case 'inspection':
+        case 'Inspection':
             $scope.progress.title = '年检进度';
             break;
     }
@@ -78,7 +78,7 @@ module.exports = function($scope, $state, $http, $timeout) {
         $http({
             method: 'POST',
             url: '/'+ module_name +'/UpdateProgress',
-            data: $scope.done
+            data: $scope.progress
         }).success(function(data) {
             if (!data.success) {
                 alert(data.message || '保存失败')
