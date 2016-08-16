@@ -65,6 +65,7 @@
                         <th>公司英文名称</th>
                         <th>订单状态</th>
                         <th>审核状态</th>
+                        <th>注册进度</th>
                         <th>成交日期</th>
                         <th class="tar">成交金额</th>
                         <!-- <th class="tar">已收款</th> -->
@@ -83,6 +84,9 @@
                         <td>
                             <span class="label" ng-class="{'label-warning': (item.review_status==-1), 'label-success': (item.review_status==1), 'label-danger': (item.review_status==0)}" ng-bind="getReviewStatus(item.status, item.review_status)"></span>
                         </td>
+                        <td title="点击可设置进度">
+                            <a href="javascript:;" class="fa fa-hourglass-half" ng-click="progress(item)" ng-bind="!!item.progress? (' ' + item.progress) : ' 无进度信息'"></a>
+                        </td>
                         <td ng-bind="format(item.date_transaction, 'YYYY-MM-DD')"></td>
                         <td class="tar" ng-bind="item.amount_transaction"></td>
                         <!-- <td class="tar" ng-bind="item.amount_income"></td> -->
@@ -94,6 +98,7 @@
                                   </button>
                                 <ul class="dropdown-menu" role="menu">
                                     <li><a class="fa fa-info-circle" ui-sref="abroad_view({id: item.id})"> 详情</a></li>
+                                    <li><a href="javascript:;" class="fa fa-hourglass-half" ng-click="progress(item)"> 进度反馈</a></li>
                                     <li class="divider"></li>
                                     <li><a href="javascript:;" class="fa fa-pencil" ng-click="edit(item)"> 修改</a></li>
                                     <li><a href="javascript:;" class="fa fa-trash-o" ng-click="delete(item)"> 删除</a></li>
@@ -117,3 +122,4 @@
         </div>
     </div>
 </section>
+<div ui-view="progress"></div>

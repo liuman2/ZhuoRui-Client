@@ -18,6 +18,8 @@ module.exports = function($scope, $http, $state, $stateParams) {
         index: 1,
         size: 10,
         customer_id: '',
+        name: '',
+        applicant: '',
         status: '',
         start_time: '',
         end_time: ''
@@ -59,7 +61,7 @@ module.exports = function($scope, $http, $state, $stateParams) {
 
         $http({
             method: 'GET',
-            url: '/RegInternal/Delete',
+            url: '/Patent/Delete',
             params: {
                 id: item.id
             }
@@ -79,16 +81,7 @@ module.exports = function($scope, $http, $state, $stateParams) {
             return;
         }
 
-        $state.go("internal_edit", {id: item.id});
-    }
-
-    $scope.history= function(item) {
-        if (item.status != 4) {
-            alert('还未完成的订单没法做变更记录，请直接修改。');
-            return;
-        }
-
-        $state.go("internal_history", {id: item.id});
+        $state.go("patent_edit", {id: item.id});
     }
 
     $scope.progress = function(item) {
@@ -107,7 +100,7 @@ module.exports = function($scope, $http, $state, $stateParams) {
             return;
         }
 
-        $state.go(".progress", {id: item.id, module_name: 'RegInternal'}, {location: false});
+        $state.go(".progress", {id: item.id, module_name: 'Patent'}, {location: false});
     }
 
     $scope.$on('PROGRESS_MODAL_DONE', function(e) {
@@ -150,7 +143,7 @@ module.exports = function($scope, $http, $state, $stateParams) {
 
         $http({
             method: 'GET',
-            url: '/RegInternal/Search',
+            url: '/Patent/Search',
             params: $scope.search
         }).success(function(data) {
             $scope.data = data;

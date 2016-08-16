@@ -52,7 +52,7 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
     };
 
     $scope.edit = function() {
-        $state.go("abroad_edit", {
+        $state.go("trademark_edit", {
             id: id
         });
     }
@@ -62,7 +62,7 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
     }
 
     $scope.cancel = function() {
-        $state.go('abroad');
+        $state.go('trademark');
     }
 
     $scope.submitAudit = function() {
@@ -72,7 +72,7 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
 
         $http({
             method: 'GET',
-            url: '/RegAbroad/Submit',
+            url: '/Trademark/Submit',
             params: {
                 id: $scope.data.id
             }
@@ -88,7 +88,7 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
 
         $http({
             method: 'GET',
-            url: '/RegAbroad/PassAudit',
+            url: '/Trademark/PassAudit',
             params: {
                 id: $scope.data.id
             }
@@ -98,11 +98,11 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
     }
 
     $scope.refuseAudit = function() {
-        $state.go(".audit", {module_name: 'RegAbroad'}, { location:false });
+        $state.go(".audit", {module_name: 'Trademark'}, { location:false });
     }
 
     $scope.done = function() {
-        $state.go(".done", {module_name: 'RegAbroad'}, { location:false });
+        $state.go(".done", {module_name: 'Trademark'}, { location:false });
     }
 
     $scope.getOrderStatus = function() {
@@ -147,7 +147,7 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
             return;
         }
 
-        $state.go(".progress", {id: $scope.data.id, module_name: 'reg_abroad'}, {location: false});
+        $state.go(".progress", {id: $scope.data.id, module_name: 'patent'}, {location: false});
     }
 
     $scope.$on('PROGRESS_MODAL_DONE', function(e) {
@@ -169,7 +169,7 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
     function actionView() {
         $http({
             method: 'GET',
-            url: '/RegAbroad/GetView',
+            url: '/Trademark/GetView',
             params: {
                 id: id
             }

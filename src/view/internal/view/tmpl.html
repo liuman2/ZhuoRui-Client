@@ -18,6 +18,7 @@
                 <button type="button" class="btn btn-success" ng-click="passAudit()" ng-if="data.status > 0 && data.status < 3">审核通过</button>
                 <button type="button" class="btn btn-danger" ng-click="refuseAudit()" ng-if="data.status > 0 && data.status < 3">审核不通过</button>
                 <button type="button" class="btn btn-success" ng-click="done()" ng-if="data.status == 3 && data.review_status==1">完成</button>
+                <button type="button" class="btn btn-success" ng-click="progress()"><span class="fa fa-hourglass-half"></span>进度反馈</button>
                 <button type="button" class="btn btn-info" ui-sref="internal_timeline({id: data.id, name: 'reg_internal', code: data.code, source: 'view'})" ><span class="fa fa-clock-o"></span>日志</button>
                 <span>状态: </span>
                 <span ng-if="data.status != 4" ng-bind="getOrderStatus() + ' | ' + getReviewStatus()"></span>
@@ -216,6 +217,12 @@
                         <span class="form-span" ng-bind="data.account"></span>
                     </div>
                 </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">注册进度</label>
+                    <div class="col-sm-8">
+                        <span class="form-span" ng-bind="!!data.progress? (' ' + data.progress) : ' 无进度信息'"></span>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="box box-info">
@@ -369,3 +376,4 @@
     </form>
 </section>
 <div ui-view="modal"></div>
+<div ui-view="progress"></div>

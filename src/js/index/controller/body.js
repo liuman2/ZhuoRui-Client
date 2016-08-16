@@ -53,7 +53,7 @@ module.exports = function ($scope, $rootScope, $http) {
             name: '商标业务',
             icon: 'fa fa-trademark'
         },{
-            route: 'reserve',
+            route: 'patent',
             name: '专利业务',
             icon: 'fa fa-cube'
         },{

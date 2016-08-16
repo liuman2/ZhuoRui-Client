@@ -2,7 +2,7 @@ var httpHelper = require('js/utils/httpHelper');
 module.exports = function($scope, $state, $http, $timeout) {
     var id = $state.params.id || null,
         dInput = $('.date-input'),
-        jForm = $('#audit_form');
+        jForm = $('#patent_form');
 
     $.datetimepicker.setLocale('ch');
     dInput.datetimepicker({
@@ -13,26 +13,14 @@ module.exports = function($scope, $state, $http, $timeout) {
         }
     });
 
-    jForm.validator({
-        rules: {},
-        fields: {
-            account_period: {
-                rule: "账期:match[lt, date_year_end, date];"
-            },
-            date_year_end: {
-                rule: "年结日:match[gt, account_period, date]"
-            }
-        }
-    });
-
     $scope.action = null;
 
     switch ($state.current.name) {
-        case 'audit_add':
+        case 'patent_add':
             $scope.action = 'add';
             $scope.current_bread = '新增';
             break;
-        case 'audit_edit':
+        case 'patent_edit':
             $scope.action = 'update';
             $scope.current_bread = '修改';
             break;
@@ -42,26 +30,17 @@ module.exports = function($scope, $state, $http, $timeout) {
 
     $scope.data = {
         id: '',
-        type: '',
         industry: '',
         province: '',
         city: '',
         county: '',
-        business_nature: '',
         contact: '',
         mobile: '',
         customer_address: '',
         tel: '',
-        is_open_bank: 0,
         salesman: $scope.userInfo.name,
-        accountant_id: '',
-        customer_id: '',
-        invoice_name: '',
-        invoice_tax: '',
-        invoice_address: '',
-        invoice_tel: '',
-        invoice_bank: '',
-        invoice_account: ''
+        waiter_id: '',
+        customer_id: ''
     }
 
     if (!!id) {
@@ -71,28 +50,34 @@ module.exports = function($scope, $state, $http, $timeout) {
 
     $scope.save = function() {
         var isCustomerValid = valid_customer();
-        var isAccountantVaild = valid_accountant();
+        var isWaiterVaild = valid_waiter();
+        var isPatentPurposeValid = patent_purpose();
         var isCurrencyValid = valid_currency();
+        var isPatentType = valid_patent_type();
+        var isRegMode = valid_reg_mode();
+
         jForm.isValid(function(v) {
             if (v) {
-                if (!isCustomerValid || !isAccountantVaild || !isCurrencyValid) {
+                if (!isCustomerValid || !isWaiterVaild || !isPatentPurposeValid || !isCurrencyValid || !isPatentType || !isRegMode) {
                     return;
                 }
 
                 var submitData = angular.copy($scope.data);
 
-                submitData.date_setup = $('#date_setup').val();
-                submitData.account_period = $('#account_period').val();
-                submitData.date_year_end = $('#date_year_end').val();
                 submitData.date_transaction = $('#date_transaction').val();
+                submitData.date_receipt = $('#date_receipt').val();
+                submitData.date_accept = $('#date_accept').val();
+                submitData.date_trial = $('#date_trial').val();
+                submitData.date_regit = $('#date_regit').val();
+                submitData.date_exten = $('#date_exten').val();
 
-                var url = $scope.action == 'add' ? '/Audit/Add' : '/Audit/Update';
+                var url = $scope.action == 'add' ? '/Patent/Add' : '/Patent/Update';
                 $http({
                     method: 'POST',
                     url: url,
                     data: submitData
                 }).success(function(data) {
-                    $state.go("audit_view", {
+                    $state.go("patent_view", {
                         id: data.id
                     });
                 });
@@ -102,9 +87,9 @@ module.exports = function($scope, $state, $http, $timeout) {
 
     $scope.cancel = function() {
         if ($scope.action == 'add') {
-            $state.go("audit");
+            $state.go("patent");
         } else {
-            $state.go("audit_view", {
+            $state.go("patent_view", {
                 id: id
             });
         }
@@ -113,9 +98,6 @@ module.exports = function($scope, $state, $http, $timeout) {
     $('#customerSelect2').on("change", function(e) {
         var customer_id = $(e.target).val();
 
-        $scope.banks = [];
-        setBanks(customer_id);
-
         var customers = $('#customerSelect2').select2('data');
         var select_customers = $.grep(customers, function(c) {
             return c.id == customer_id;
@@ -123,7 +105,6 @@ module.exports = function($scope, $state, $http, $timeout) {
 
         if (select_customers.length && select_customers[0].industry != undefined) {
             $scope.data.industry = select_customers[0].industry;
-            $scope.data.business_nature = select_customers[0].business_nature;
             $scope.data.province = select_customers[0].province;
             $scope.data.city = select_customers[0].city;
             $scope.data.county = select_customers[0].county;
@@ -149,36 +130,25 @@ module.exports = function($scope, $state, $http, $timeout) {
     function actionView() {
         $http({
             method: 'GET',
-            url: '/Audit/Get',
+            url: '/Patent/Get',
             params: {
                 id: id
             }
         }).success(function(data) {
-            if (data.date_setup.indexOf('T') > -1) {
-                data.date_setup = data.date_setup.split('T')[0];
+            if (data.date_empower.indexOf('T') > -1) {
+                data.date_empower = data.date_empower.split('T')[0];
+            }
+            if (data.date_accept.indexOf('T') > -1) {
+                data.date_accept = data.date_accept.split('T')[0];
+            }
+            if (data.date_inspection.indexOf('T') > -1) {
+                data.date_inspection = data.date_inspection.split('T')[0];
             }
             if (data.date_transaction.indexOf('T') > -1) {
                 data.date_transaction = data.date_transaction.split('T')[0];
             }
-            if (data.account_period && data.account_period.indexOf('T') > -1) {
-                data.account_period = data.account_period.split('T')[0];
-            }
-            if (data.date_year_end && data.date_year_end.indexOf('T') > -1) {
-                data.date_year_end = data.date_year_end.split('T')[0];
-            }
 
             $scope.data = data;
-        });
-    }
-
-    function setBanks(customer_id) {
-        $http({
-            url: 'Customer/Banks',
-            params: {
-                customer_id: customer_id
-            }
-        }).success(function(data) {
-            $scope.banks = data.items || [];
         });
     }
 
@@ -195,15 +165,28 @@ module.exports = function($scope, $state, $http, $timeout) {
         }
     }
 
-    function valid_accountant() {
-        if (!$scope.data.accountant_id) {
-            jForm.validator('showMsg', '#accountantSelect2-validator', {
+    function valid_waiter() {
+        if (!$scope.data.waiter_id) {
+            jForm.validator('showMsg', '#waiterSelect2-validator', {
                 type: "error",
                 msg: "此处不能为空"
             });
             return false;
         } else {
-            jForm.validator('hideMsg', '#accountantSelect2-validator');
+            jForm.validator('hideMsg', '#waiterSelect2-validator');
+            return true;
+        }
+    }
+
+    function patent_purpose() {
+        if (!$scope.data.patent_purpose) {
+            jForm.validator('showMsg', '#patentPurposeSelect2-validator', {
+                type: "error",
+                msg: "此处不能为空"
+            });
+            return false;
+        } else {
+            jForm.validator('hideMsg', '#patentPurposeSelect2-validator');
             return true;
         }
     }
@@ -217,6 +200,31 @@ module.exports = function($scope, $state, $http, $timeout) {
             return false;
         } else {
             jForm.validator('hideMsg', '#currencySelect2-validator');
+            return true;
+        }
+    }
+
+    function valid_patent_type() {
+        if (!$scope.data.patent_type) {
+            jForm.validator('showMsg', '#patentTypeSelect2-validator', {
+                type: "error",
+                msg: "此处不能为空"
+            });
+            return false;
+        } else {
+            jForm.validator('hideMsg', '#patentTypeSelect2-validator');
+            return true;
+        }
+    }
+    function valid_reg_mode() {
+        if (!$scope.data.reg_mode) {
+            jForm.validator('showMsg', '#regModeSelect2-validator', {
+                type: "error",
+                msg: "此处不能为空"
+            });
+            return false;
+        } else {
+            jForm.validator('hideMsg', '#regModeSelect2-validator');
             return true;
         }
     }

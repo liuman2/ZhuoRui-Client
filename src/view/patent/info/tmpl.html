@@ -1,15 +1,15 @@
 <section class="content-header">
     <h1>
-        商标业务
+        专利业务
     </h1>
     <ol class="breadcrumb">
         <li><a ui-sref="dashboard"><i class="fa fa-dashboard"></i>我的面板</a></li>
-        <li><a ui-sref="trademark">商标业务</a></li>
+        <li><a ui-sref="patent">专利业务</a></li>
         <li class="active" ng-bind="current_bread"></li>
     </ol>
 </section>
 <section class="content">
-    <form class="form-horizontal" id="trademark_form">
+    <form class="form-horizontal" id="patent_form">
         <div class="detail-view-header-wrapper">
             <div class="box-footer detail-view-header" ui-scrollpoint ui-scrollpoint-enabled="true" ui-scrollpoint-class="fixed">
                 <button type="button" class="btn btn-default" ng-click="cancel()">取消</button>
@@ -113,7 +113,7 @@
             </div>
             <div class="box-body">
                 <div class="form-group">
-                    <label class="col-sm-2 control-label">商标名称<span class="required">*</span></label>
+                    <label class="col-sm-2 control-label">专利名称<span class="required">*</span></label>
                     <div class="col-sm-8">
                         <input type="text" class="form-control" name="name" ng-model="data.name"  data-rule="required; length[~100];">
                     </div>
@@ -131,23 +131,35 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-2 control-label">商标类别<span class="required">*</span></label>
+                    <label class="col-sm-2 control-label">申请人证件号码<span class="required">*</span></label>
                     <div class="col-sm-8">
-                        <select ui-select2 class="form-control select2" name="trademark_type" ng-model="data.trademark_type" url=" Dictionary/DroplistByGroup" paging="false" paramfield="group" paramvalue="商标类别" ata-rule="required;"></select>
-                        <span id="trademarkTypeSelect2-validator" class="select-validator"></span>
+                        <input type="text" class="form-control" name="card_no" ng-model="data.card_no" data-rule="required; length[~100];">
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-2 control-label">商标注册地区<span class="required">*</span></label>
+                    <label class="col-sm-2 control-label">专利设计人<span class="required">*</span></label>
                     <div class="col-sm-8">
-                        <select ui-select2 class="form-control select2" name="region" ng-model="data.region" url=" Dictionary/DroplistByGroup" paging="false" paramfield="group" paramvalue="注册地区" ata-rule="required;"></select>
-                        <span id="regionSelect2-validator" class="select-validator"></span>
+                        <input type="text" class="form-control" name="designer" ng-model="data.designer" data-rule="required; length[~50];">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">专利类型<span class="required">*</span></label>
+                    <div class="col-sm-8">
+                        <select ui-select2 class="form-control select2" name="patent_type" ng-model="data.patent_type" url=" Dictionary/DroplistByGroup" paging="false" paramfield="group" paramvalue="专利类型" ata-rule="required;"></select>
+                        <span id="patentTypeSelect2-validator" class="select-validator"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">专利用途<span class="required">*</span></label>
+                    <div class="col-sm-8">
+                        <select ui-select2 class="form-control select2" name="patent_purpose" ng-model="data.patent_purpose" url=" Dictionary/DroplistByGroup" paging="false" paramfield="group" paramvalue="专利用途" ata-rule="required;"></select>
+                        <span id="patentPurposeSelect2-validator" class="select-validator"></span>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-2 control-label">注册方式<span class="required">*</span></label>
                     <div class="col-sm-8">
-                        <select ui-select2 class="form-control select2" name="reg_mode" ng-model="data.reg_mode" url=" Dictionary/DroplistByGroup" paging="false" paramfield="group" paramvalue="商标注册方式" ata-rule="required;"></select>
+                        <select ui-select2 class="form-control select2" name="reg_mode" ng-model="data.reg_mode" url=" Dictionary/DroplistByGroup" paging="false" paramfield="group" paramvalue="专利注册方式" ata-rule="required;"></select>
                         <span id="regModeSelect2-validator" class="select-validator"></span>
                     </div>
                 </div>
@@ -164,14 +176,18 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-2 control-label">币别<span class="required">*</span></label>
+                    <label class="col-sm-2 control-label">成交币别<span class="required">*</span></label>
                     <div class="col-sm-8">
                         <select ui-select2 class="form-control select2" name="currency" ng-model="data.currency" url=" Dictionary/DroplistByGroup" paging="false" paramfield="group" paramvalue="币别" ata-rule="required;"></select>
                         <span id="currencySelect2-validator" class="select-validator"></span>
                     </div>
                 </div>
-
-
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">年检时间</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control date-input" id="date_inspection" name="date_inspection" ng-model="data.date_inspection">
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -187,15 +203,9 @@
             </div>
             <div class="box-body">
                 <div class="form-group">
-                    <label class="col-sm-2 control-label">商标进度</label>
+                    <label class="col-sm-2 control-label">专利进度</label>
                     <div class="col-sm-8">
                         <input type="text" class="form-control" name="progress" ng-model="data.progress" disabled>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">回执时间</label>
-                    <div class="col-sm-8">
-                        <input type="text" class="form-control date-input" id="date_receipt" name="date_receipt" ng-model="data.date_receipt" disabled>
                     </div>
                 </div>
                 <div class="form-group">
@@ -205,21 +215,15 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-2 control-label">初审时间</label>
+                    <label class="col-sm-2 control-label">授权时间</label>
                     <div class="col-sm-8">
-                        <input type="text" class="form-control date-input" id="date_trial" name="date_trial" ng-model="data.date_trial" disabled>
+                        <input type="text" class="form-control date-input" id="date_empower" name="date_empower" ng-model="data.date_empower" disabled>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-2 control-label">注册时间</label>
                     <div class="col-sm-8">
                         <input type="text" class="form-control date-input" id="date_regit" name="date_regit" ng-model="data.date_regit" disabled>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">续展时间</label>
-                    <div class="col-sm-8">
-                        <input type="text" class="form-control date-input" id="date_exten" name="date_exten" ng-model="data.date_exten" disabled>
                     </div>
                 </div>
             </div>

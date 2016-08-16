@@ -1,7 +1,6 @@
 <section class="content-header">
     <h1>
-        注册业务
-        <small>境内</small>
+        专利业务
     </h1>
     <ol class="breadcrumb">
         <li><a ui-sref="dashboard"><i class="fa fa-dashboard"></i>我的面板</a></li>
@@ -39,9 +38,25 @@
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
+                        <label>专利名称</label>
+                        <input type="search.name" class="form-control" name="name" ng-model="search.name">
+                    </div>
+                    <div class="form-group">
+                        <label>申请人</label>
+                        <input type="search.applicant" class="form-control" name="applicant" ng-model="search.applicant">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
                         <label>开始日期</label>
                         <input type="text" class="form-control date-input" id="start_time" ng-model="search.start_time" placeholder="开始成交日期">
                     </div>
+                </div>
+                <div class="col-md-6">
                     <div class="form-group">
                         <label>结束日期</label>
                         <input type="text" class="form-control date-input" id="end_time" ng-model="search.end_time" placeholder="结束成交日期">
@@ -61,23 +76,27 @@
                         <th style="width: 10px">#</th>
                         <th>档案号</th>
                         <th>客户名称</th>
-                        <th>名称</th>
-                        <th>注册地址</th>
-                        <th>法人</th>
+                        <th>订单类别</th>
+                        <th>专利名称</th>
+                        <th>专利类型</th>
+                        <th>专利申请人</th>
                         <th>订单状态</th>
                         <th>审核状态</th>
-                        <th>注册进度</th>
+                        <th>专利进度</th>
                         <th>成交日期</th>
                         <th class="tar">成交金额</th>
+                        <!-- <th class="tar">已收款</th> -->
+                        <!-- <th class="tar">未收款</th> -->
                         <th class="opt-col">操作</th>
                     </tr>
                     <tr ng-repeat="item in data.items">
                         <td ng-bind="($index+1)+'.'"></td>
                         <td ng-bind="item.code"></td>
                         <td ng-bind="item.customer_name" ng-attr-title="{{item.customer_name}}"></td>
-                        <td ng-bind="item.name_cn" ng-attr-title="{{item.name_cn}}"></td>
-                        <td ng-bind="item.address" ng-attr-title="{{item.address}}"></td>
-                        <td ng-bind="item.legal" ng-attr-title="{{item.legal}}"></td>
+                        <td ng-bind="item.type"></td>
+                        <td ng-bind="item.name" ng-attr-title="{{item.name_cn}}"></td>
+                        <td ng-bind="item.patent_type" ng-attr-title="{{item.patent_type}}"></td>
+                        <td ng-bind="item.applicant" ng-attr-title="{{item.applicant}}"></td>
                         <td>
                             <span class="label" ng-class="{'label-warning': (item.status==0), 'label-success': (item.status==4), 'label-info': (item.status != 0 && item.status != 4)}" ng-bind="getOrderStatus(item.status)"></span>
                         </td>
@@ -89,30 +108,34 @@
                         </td>
                         <td ng-bind="format(item.date_transaction, 'YYYY-MM-DD')"></td>
                         <td class="tar" ng-bind="item.amount_transaction"></td>
-
+                        <!-- <td class="tar" ng-bind="item.amount_income"></td> -->
+                        <!-- <td class="tar" ng-bind="item.amount_unreceive"></td> -->
                         <td class="opt-col">
                             <div class="btn-group">
                                 <button type="button" class="btn btn-box-tool dropdown-toggle" data-toggle="dropdown">
                                     <i class="fa fa-wrench"></i>
                                   </button>
                                 <ul class="dropdown-menu" role="menu">
-                                    <li><a class="fa fa-info-circle" ui-sref="internal_view({id: item.id})"> 详情</a></li>
+                                    <li><a class="fa fa-info-circle" ui-sref="patent_view({id: item.id})"> 详情</a></li>
                                     <li><a href="javascript:;" class="fa fa-hourglass-half" ng-click="progress(item)"> 进度反馈</a></li>
                                     <li class="divider"></li>
                                     <li><a href="javascript:;" class="fa fa-pencil" ng-click="edit(item)"> 修改</a></li>
                                     <li><a href="javascript:;" class="fa fa-trash-o" ng-click="delete(item)"> 删除</a></li>
                                     <li class="divider"></li>
-                                    <li><a href="javascript:;" class="fa fa-history" ng-click="history(item)"> 变更记录</a></li>
-                                    <li><a class="fa fa-clock-o" ui-sref="internal_timeline({id: item.id, name: 'reg_internal', code: item.code, source: 'list'})"> 操作日志</a></li>
+                                    <li><a class="fa fa-clock-o" ui-sref="patent_timeline({id: item.id, name: 'patent', code: item.code, source: 'list'})"> 操作日志</a></li>
                                 </ul>
                             </div>
+                            <!-- <a class="fa fa-info-circle" ui-sref="patent_view({id: item.id})" title="详情"></a>
+                            <a href="javascript:;" class="fa fa-pencil orange" ng-click="edit(item)" title="修改"></a>
+                            <a href="javascript:;" class="fa fa-trash-o red" ng-click="delete(item)" title="删除"></a>
+                            <a class="fa fa-clock-o green" ui-sref="patent_timeline({id: item.id, name: 'patent', code: item.code, source: 'list'})" title="日志"></a> -->
                         </td>
                     </tr>
                 </tbody>
             </table>
         </div>
         <div class="box-footer clearfix">
-            <a ui-sref="internal_add" class="btn btn-sm btn-info btn-flat pull-left">新增</a>
+            <a ui-sref="patent_add" class="btn btn-sm btn-info btn-flat pull-left">新增</a>
             <div pagination page-data="data.page" page-click="go(idx)"></div>
         </div>
     </div>

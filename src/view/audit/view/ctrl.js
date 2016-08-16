@@ -131,6 +131,29 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
         }
     }
 
+    $scope.progress = function() {
+        if ($scope.data.status == 4) {
+            alert('订单已完成，无需再更新进度');
+            return;
+        }
+
+        if ($scope.data.status < 3) {
+            alert('提交人还未提交该订单，无法更新进度');
+            return;
+        }
+
+        if ($scope.data.review_status != 1) {
+            alert('订单未通过审核，无法更新进度');
+            return;
+        }
+
+        $state.go(".progress", {id: $scope.data.id, module_name: 'audit'}, {location: false});
+    }
+
+    $scope.$on('PROGRESS_MODAL_DONE', function(e) {
+        actionView();
+    });
+
     $scope.$on('INCOME_MODAL_DONE', function(e) {
         actionView();
     });

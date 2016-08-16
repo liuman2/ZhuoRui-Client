@@ -71,6 +71,25 @@ var router = function($stateProvider, $urlRouterProvider) {
             template: require('view/common/timeline/tmpl.html'),
             controller: require('view/common/timeline/ctrl')
         })
+
+        .state('trademark.progress', {
+            url: '/progress/{id:.*}/{module_name:.*}',
+            views: {
+                'progress': {
+                    template: require('view/common/progress/modal.html'),
+                    controller: require('view/common/progress/modal')
+                }
+            }
+        })
+        .state('trademark_view.progress', {
+            url: '/progress/{id:.*}/{module_name:.*}',
+            views: {
+                'progress': {
+                    template: require('view/common/progress/modal.html'),
+                    controller: require('view/common/progress/modal')
+                }
+            }
+        })
 };
 
 module.exports = router;

@@ -1,25 +1,24 @@
 <section class="content-header">
     <h1>
-        注册业务
-        <small>境外</small>
+        专利业务
     </h1>
     <ol class="breadcrumb">
         <li><a ui-sref="dashboard"><i class="fa fa-dashboard"></i>我的面板</a></li>
-        <li><a ui-sref="audit">列表</a></li>
+        <li><a ui-sref="patent">列表</a></li>
         <li class="active">查看</li>
     </ol>
 </section>
 <section class="content">
-    <form class="form-horizontal view-form" id="audit_form">
+    <form class="form-horizontal view-form" id="patent_form">
         <div class="detail-view-header-wrapper">
             <div class="box-footer detail-view-header" ui-scrollpoint ui-scrollpoint-enabled="true" ui-scrollpoint-class="fixed">
-                <button type="button" class="btn" ui-sref="audit_edit({id: id})"  ng-if="data.status == 0" ng-class="{'btn-info':data.status == 0}" ng-attr-title="{{data.status > 0 ? '已经提交审核，不能修改' : ''}}" ng-disabled="data.status > 0" ui-sref-opts="{reload:true}">修改</button>
+                <button type="button" class="btn" ui-sref="patent_edit({id: id})"  ng-if="data.status == 0" ng-class="{'btn-info':data.status == 0}" ng-attr-title="{{data.status > 0 ? '已经提交审核，不能修改' : ''}}" ng-disabled="data.status > 0" ui-sref-opts="{reload:true}">修改</button>
                 <button type="button" class="btn btn-primary" ng-click="submitAudit()" ng-if="data.status == 0">提交审核</button>
                 <button type="button" class="btn btn-success" ng-click="passAudit()" ng-if="data.status > 0 && data.status < 3">审核通过</button>
                 <button type="button" class="btn btn-danger" ng-click="refuseAudit()" ng-if="data.status > 0 && data.status < 3">审核不通过</button>
                 <button type="button" class="btn btn-success" ng-click="done()" ng-if="data.status == 3 && data.review_status==1">完成</button>
                 <button type="button" class="btn btn-success" ng-click="progress()"><span class="fa fa-hourglass-half"></span>进度反馈</button>
-                <button type="button" class="btn btn-info" ui-sref="audit_timeline({id: data.id, name: 'audit', code: data.code, source: 'view'})" ><span class="fa fa-clock-o"></span>日志</button>
+                <button type="button" class="btn btn-info" ui-sref="patent_timeline({id: data.id, name: 'patent', code: data.code, source: 'view'})" ><span class="fa fa-clock-o"></span>日志</button>
                 <span>状态: </span>
                 <span ng-if="data.status != 4" ng-bind="getOrderStatus() + ' | ' + getReviewStatus()"></span>
                 <span ng-if="data.status == 4" ng-bind="'已完成 | ' + format(data.date_finish, 'YYYY-MM-DD')"></span>
@@ -39,7 +38,7 @@
                 <div class="form-group">
                     <label class="col-sm-2 control-label">档案号</label>
                     <div class="col-sm-8">
-                        <span class="form-span" ng-bind="data.code"></span>
+                        <span class="form-span" ng-bind="data.code">XM001</span>
                     </div>
                 </div>
                 <div class="form-group">
@@ -55,7 +54,7 @@
                     </div>
                 </div>
                 <div class="form-group" ng-if="data.industry.length > 0">
-                    <label class="col-sm-2 control-label">所属行业</label>
+                    <label class="col-sm-2 control-label">行业类别</label>
                     <div class="col-sm-8">
                         <span class="form-span" ng-bind="data.industry"></span>
                     </div>
@@ -116,105 +115,51 @@
             </div>
             <div class="box-body">
                 <div class="form-group">
-                    <label class="col-sm-2 control-label">公司中文名称</label>
+                    <label class="col-sm-2 control-label">专利名称</label>
                     <div class="col-sm-8">
-                        <span class="form-span" ng-bind="data.name_cn"></span>
+                        <span class="form-span" ng-bind="data.name"></span>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-2 control-label">公司英文名称</label>
+                    <label class="col-sm-2 control-label">申请人</label>
                     <div class="col-sm-8">
-                        <span class="form-span" ng-bind="data.name_en"></span>
+                        <span class="form-span" ng-bind="data.applicant"></span>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-2 control-label">公司成立日期</label>
-                    <div class="col-sm-8">
-                        <span class="form-span" ng-bind="format(data.date_setup, 'YYYY-MM-DD')"></span>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">公司注册地址</label>
+                    <label class="col-sm-2 control-label">申请人地址</label>
                     <div class="col-sm-8">
                         <span class="form-span" ng-bind="data.address"></span>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-2 control-label">业务性质</label>
+                    <label class="col-sm-2 control-label">申请人证件号码</label>
                     <div class="col-sm-8">
-                        <span class="form-span" ng-bind="data.business_nature"></span>
+                        <span class="form-span" ng-bind="data.card_no"></span>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-2 control-label">行业类别</label>
+                    <label class="col-sm-2 control-label">专利设计人</label>
                     <div class="col-sm-8">
-                        <span class="form-span" ng-bind="data.industry"></span>
+                        <span class="form-span" ng-bind="data.designer"></span>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-2 control-label">业务范围</label>
+                    <label class="col-sm-2 control-label">专利类型</label>
                     <div class="col-sm-8">
-                        <span class="form-span" ng-bind="data.business_area"></span>
+                        <span class="form-span" ng-bind="data.patent_type"></span>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-2 control-label">贸易方式</label>
+                    <label class="col-sm-2 control-label">专利用途</label>
                     <div class="col-sm-8">
-                        <span class="form-span" ng-bind="data.trade_mode"></span>
+                        <span class="form-span" ng-bind="data.patent_purpose"></span>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-2 control-label">有无子母公司</label>
+                    <label class="col-sm-2 control-label">注册方式</label>
                     <div class="col-sm-8">
-                        <span class="form-span" ng-bind="(data.has_parent==0) ? '否' : '是'"></span>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">做账次数</label>
-                    <div class="col-sm-8">
-                        <span class="form-span" ng-bind="data.account_number"></span>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">账期</label>
-                    <div class="col-sm-8">
-                        <span class="form-span" ng-bind="format(data.account_period, 'YYYY-MM-DD')"></span>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">年结日</label>
-                    <div class="col-sm-8">
-                        <span class="form-span" ng-bind="format(data.date_year_end, 'YYYY-MM-DD')"></span>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">营业额</label>
-                    <div class="col-sm-8">
-                        <span class="form-span" ng-bind="data.turnover"></span>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">银行入账金额</label>
-                    <div class="col-sm-8">
-                        <span class="form-span" ng-bind="data.amount_bank"></span>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">单据量</label>
-                    <div class="col-sm-8">
-                        <span class="form-span" ng-bind="data.bill_number"></span>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">会计准则</label>
-                    <div class="col-sm-8">
-                        <span class="form-span" ng-bind="data.accounting_standard"></span>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">做账费用</label>
-                    <div class="col-sm-8">
-                        <span class="form-span" ng-bind="data.cost_accounting"></span>
+                        <span class="form-span" ng-bind="data.reg_mode"></span>
                     </div>
                 </div>
                 <div class="form-group">
@@ -236,45 +181,45 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-2 control-label">注册进度</label>
+                    <label class="col-sm-2 control-label">年检时间</label>
                     <div class="col-sm-8">
-                        <span class="form-span" ng-bind="!!data.progress? (' ' + data.progress) : ' 无进度信息'"></span>
+                        <span class="form-span" ng-bind="format(data.date_inspection, 'YYYY-MM-DD')"></span>
                     </div>
                 </div>
             </div>
         </div>
-
         <div class="box box-info">
             <div class="box-header with-border">
-                <h3 class="box-title">开户行</h3>
-                <div class="box-tools pull-right">
-                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                    </button>
+                <h3 class="box-title">注册进度</h3>
+                <div class="box-tools">
+                    <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                        </button>
+                    </div>
                 </div>
             </div>
-            <div class="box-body table-responsive no-padding">
-                <table class="table table-hover">
-                    <tbody>
-                        <tr>
-                            <th style="width: 10px">#</th>
-                            <th>开户行</th>
-                            <th>开户人</th>
-                            <th>银行账号</th>
-                        </tr>
-                        <tr ng-repeat="item in banks">
-                            <td ng-bind="($index+1)+'.'"></td>
-                             <td ng-bind="item.name"></td>
-                            <td ng-bind="item.holder"></td>
-                            <td ng-bind="item.account"></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div class="box-footer clearfix">
-                <span style="color:#f39c12;">可到正式客户中添加开户行</span>
+            <div class="box-body">
+                <div class="form-group" ng-if="data.invoice_name.length > 0">
+                    <label class="col-sm-2 control-label">专利进度</label>
+                    <div class="col-sm-8">
+                        <span class="form-span" ng-bind="!!data.progress? (' ' + data.progress) : ' 无进度信息'"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">受理时间</label>
+                    <div class="col-sm-8">
+                        <span class="form-span" ng-bind="format(data.date_accept, 'YYYY-MM-DD')"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">授权时间</label>
+                    <div class="col-sm-8">
+                        <span class="form-span" ng-bind="format(data.date_empower, 'YYYY-MM-DD')"></span>
+                    </div>
+                </div>
+
             </div>
         </div>
-
         <div class="box box-info">
             <div class="box-header with-border">
                 <h3 class="box-title">其他信息</h3>
@@ -293,9 +238,9 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-2 control-label">会计<span class="required">*</span></label>
+                    <label class="col-sm-2 control-label">年检客服<span class="required">*</span></label>
                     <div class="col-sm-8">
-                        <span class="form-span" ng-bind="data.accountant_name"></span>
+                        <span class="form-span" ng-bind="data.waiter_name"></span>
                     </div>
                 </div>
                 <div class="form-group">
@@ -369,7 +314,7 @@
                 </table>
             </div>
             <div class="box-footer clearfix" ng-if="data.status == 0">
-                <button type="button" class="btn btn-info" ui-sref=".income_add({source_name: 'audit', customer_id: data.customer_id})" ui-sref-opts="{location:false}" ng-attr-title="{{data.status > 0 ? '已经提交审核，不能再新增' : '新增收款记录'}}" ng-disabled="data.status > 0">新增</button>
+                <button type="button" class="btn btn-info" ui-sref=".income_add({source_name: 'patent', customer_id: data.customer_id})" ui-sref-opts="{location:false}" ng-attr-title="{{data.status > 0 ? '已经提交审核，不能再新增' : '新增收款记录'}}" ng-disabled="data.status > 0">新增</button>
             </div>
         </div>
     </form>
