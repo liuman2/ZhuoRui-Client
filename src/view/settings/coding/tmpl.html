@@ -17,42 +17,18 @@
                 <div class="form-group">
                     <label class="col-sm-2 control-label">流水号</label>
                     <div class="col-sm-3">
-                        <input type="number" class="form-control">
+                        <input type="number" class="form-control" name="suffix1" ng-model="data.customer.suffix" data-rule="required; integer[+]; range[4~8]">
                     </div>
                     <label class="control-label">位数</label>
                 </div>
-                <div class="form-group">
+                <div class="form-group" ng-repeat="item in data.customer.area_code">
                     <div class="col-sm-2">
-                        <select class="form-control select2" name="type" data-rule="required;">
-                            <option value="厦门">厦门</option>
-                        </select>
+                        <input type="text" class="form-control" ng-model="item.name" readonly style="background:#fff;">
                     </div>
                     <div class="col-sm-3">
-                        <input type="text" class="form-control" placeholder="区域代码">
+                        <input type="text" class="form-control" name="area_code{{$index}}" ng-model="item.value" data-rule="required; length[2~4]" placeholder="区域代码">
                     </div>
-                    <label class="control-label">(例：XM0001)</label>
-                </div>
-                <div class="form-group">
-                    <div class="col-sm-2">
-                        <select class="form-control select2" name="type" data-rule="required;">
-                            <option value="泉州">泉州</option>
-                        </select>
-                    </div>
-                    <div class="col-sm-3">
-                        <input type="text" class="form-control" placeholder="区域代码">
-                    </div>
-                    <label class="control-label">(例：QZ0001)</label>
-                </div>
-                <div class="form-group">
-                    <div class="col-sm-2">
-                        <select class="form-control select2" name="type" data-rule="required;">
-                            <option value="青岛">青岛</option>
-                        </select>
-                    </div>
-                    <div class="col-sm-3">
-                        <input type="text" class="form-control" placeholder="区域代码">
-                    </div>
-                    <label class="control-label">(例：QD0001)</label>
+                    <label class="control-label" ng-bind="getExample(data.customer.suffix, item.value)"></label>
                 </div>
             </div>
         </div>
@@ -64,69 +40,23 @@
                 <div class="form-group">
                     <label class="col-sm-2 control-label">流水号</label>
                     <div class="col-sm-3">
-                        <input type="number" class="form-control">
+                        <input type="number" class="form-control" name="suffix2" ng-model="data.order.suffix" data-rule="required; integer[+]; range[4~8]">
                     </div>
                     <label class="control-label">位数</label>
                 </div>
-                <div class="form-group">
+                <div class="form-group" ng-repeat="item in data.order.code">
                     <div class="col-sm-2">
-                        <select class="form-control select2" name="type" data-rule="required;">
-                            <option value="ZW">境外注册</option>
-                        </select>
+                        <input type="text" class="form-control" ng-model="item.module_name" readonly style="background:#fff;">
                     </div>
                     <div class="col-sm-3">
-                        <input type="text" class="form-control" placeholder="业务代码">
+                        <input type="text" class="form-control" name="area_code{{$index}}" ng-model="item.value" data-rule="required; length[2~4]" placeholder="业务代码">
                     </div>
-                    <label class="control-label">(例：ZW0001)</label>
-                </div>
-                <div class="form-group">
-                    <div class="col-sm-2">
-                        <select class="form-control select2" name="type" data-rule="required;">
-                            <option value="ZN">境内注册</option>
-                        </select>
-                    </div>
-                    <div class="col-sm-3">
-                        <input type="text" class="form-control" placeholder="业务代码">
-                    </div>
-                    <label class="control-label">(例：ZN0001)</label>
-                </div>
-                <div class="form-group">
-                    <div class="col-sm-2">
-                        <select class="form-control select2" name="type" data-rule="required;">
-                            <option value="SJ">审计</option>
-                        </select>
-                    </div>
-                    <div class="col-sm-3">
-                        <input type="text" class="form-control" placeholder="业务代码">
-                    </div>
-                    <label class="control-label">(例：SJ0001)</label>
-                </div>
-                <div class="form-group">
-                    <div class="col-sm-2">
-                        <select class="form-control select2" name="type" data-rule="required;">
-                            <option value="SB">商标</option>
-                        </select>
-                    </div>
-                    <div class="col-sm-3">
-                        <input type="text" class="form-control" placeholder="业务代码">
-                    </div>
-                    <label class="control-label">(例：SB0001)</label>
-                </div>
-                <div class="form-group">
-                    <div class="col-sm-2">
-                        <select class="form-control select2" name="type" data-rule="required;">
-                            <option value="ZL">专利</option>
-                        </select>
-                    </div>
-                    <div class="col-sm-3">
-                        <input type="text" class="form-control" placeholder="业务代码">
-                    </div>
-                    <label class="control-label">(例：ZL0001)</label>
+                    <label class="control-label" ng-bind="getExample(data.order.suffix, item.value)"></label>
                 </div>
             </div>
         </div>
         <div class="box-footer clearfix">
-            <a  class="btn btn-sm btn-info btn-flat pull-left">保存</a>
+            <a class="btn btn-sm btn-info btn-flat pull-left" ng-click="save()">保存</a>
         </div>
     </form>
 </section>

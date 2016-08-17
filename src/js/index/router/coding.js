@@ -4,6 +4,6 @@ module.exports = function($stateProvider, $urlRouterProvider) {
         .state('coding', {
             url: '/settings/coding',
             template: require('view/settings/coding/tmpl.html'),
-            // controller: require('view/settings/coding/ctrl')
+            controller: require('view/settings/coding/ctrl')
         })
 };
