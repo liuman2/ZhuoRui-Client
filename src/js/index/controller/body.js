@@ -104,7 +104,7 @@ module.exports = function ($scope, $rootScope, $http) {
         name: '系统设置',
         icon: 'fa fa-cog',
         children:[{
-            route: 'organization',
+            route: 'coding',
             name: '编码规则',
             icon: 'fa fa-file-text-o'
         }]
