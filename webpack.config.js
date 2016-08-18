@@ -25,7 +25,9 @@ var webpackConfig = {
     entry: {
         common: [
             'jquery',
-            'angular/angular.js',
+            // 'angular/angular.js',
+            'angular',
+            'angular-cookies',
             'angular-ui-router',
             'angular-ui-scrollpoint',
             'angular-loading-bar',

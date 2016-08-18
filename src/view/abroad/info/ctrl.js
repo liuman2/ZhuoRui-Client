@@ -1,5 +1,5 @@
 var httpHelper = require('js/utils/httpHelper');
-module.exports = function($scope, $state, $http, $timeout) {
+module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
     var id = $state.params.id || null,
         dInput = $('.date-input'),
         jForm = $('#abroad_form');
@@ -28,6 +28,8 @@ module.exports = function($scope, $state, $http, $timeout) {
             break;
     }
 
+    var user = $cookieStore.get('USER_INFO');
+
     $scope.data = {
         id: '',
         industry: '',
@@ -39,7 +41,8 @@ module.exports = function($scope, $state, $http, $timeout) {
         customer_address: '',
         tel: '',
         is_open_bank: 0,
-        salesman: $scope.userInfo.name,
+        salesman_id: user.id,
+        salesman: user.name,
         waiter_id: '',
         customer_id: '',
         invoice_name: '',

@@ -1,4 +1,4 @@
-module.exports = function($scope, $state, $http) {
+module.exports = function($scope, $state, $http, $cookieStore) {
     var jForm = $('#login-form');
 
     jForm.validator({
@@ -24,6 +24,7 @@ module.exports = function($scope, $state, $http) {
                         return;
                     }
 
+                    $cookieStore.put('USER_INFO', xhr.data.user);
                     location.href = '/index.html';
                 }, function(xhr) {
 

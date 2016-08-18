@@ -15,7 +15,7 @@ require('libs/lte/js/app');
 
 
 angular
-    .module('app', ['ui.router', 'angular-loading-bar'])
+    .module('login_app', ['ui.router', 'angular-loading-bar', 'ngCookies'])
     .config(httpHelper)
     .config(routing)
     .controller('BodyCtrl', require('./controller/body'));

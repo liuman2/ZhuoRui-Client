@@ -1,4 +1,4 @@
-module.exports = function($scope, $state, $http, $q, $timeout) {
+module.exports = function($scope, $state, $http, $cookieStore, $q, $timeout) {
 
     var id = $state.params.id || null,
         jForm = $('.form-horizontal');
@@ -8,10 +8,14 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
         fields: {}
     });
 
+    var user = $cookieStore.get('USER_INFO');
+
     $scope.data = {
         province: '',
         city: '',
         county: '',
+        salesman_id: user.id,
+        salesman: user.name,
         source: '',
         source_id: ''
     }

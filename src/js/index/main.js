@@ -21,7 +21,7 @@ require('libs/lte/css/AdminLTE.css');
 require('libs/lte/css/skins/skin-blue.css');
 
 angular
-    .module('app', ['ui.router', 'ui.scrollpoint', 'ui.select2', 'angular-loading-bar'])
+    .module('app', ['ui.router', 'ui.scrollpoint', 'ui.select2', 'angular-loading-bar', 'ngCookies'])
     .config(httpHelper)
     .config(routing)
     .directive('pagination', require('../directive/pagination'))
