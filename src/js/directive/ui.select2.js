@@ -14,8 +14,9 @@ angular.module('ui.select2', []).directive('uiSelect2', ['$timeout', function($t
                 ngView = attrs['ngView'] || '',
                 ispagging = attrs['paging'];
 
-
-            $(element).select2({
+            var display_fields = attrs['formatfields'] || ''
+            var format_captions = attrs['formatcaptions'] || ''
+            var options = {
                 language: "zh-CN",
                 placeholder: "",
                 // allowClear: true,
@@ -55,7 +56,34 @@ angular.module('ui.select2', []).directive('uiSelect2', ['$timeout', function($t
                         };
                     }
                 }
-            });
+            };
+
+            function formatState(state) {
+                if (!state.id) {
+                    return state.text;
+                }
+
+                var fields = display_fields.split(',');
+                var captions = format_captions.split(',');
+
+                var $state = $(
+                    '<div class="custom-select-item">\
+                        <div>\
+                            <label class="caption">' + captions[0] + ': </label><span>' + state[fields[0]] + '</span>\
+                        </div>\
+                        <div>\
+                            <label class="caption">' + captions[1] + ': </label><span>' + state[fields[1]] + '</span>\
+                        </div>\
+                    </div>'
+                );
+                return $state;
+            };
+
+            if (display_fields) {
+                options.templateResult = formatState
+            }
+
+            $(element).select2(options);
 
             $(element).on("change", function() {
                 ngModel.$modelValue = element.val();
