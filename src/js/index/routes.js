@@ -12,6 +12,7 @@ var auditRouter = require('./router/audit');
 var trademarkRouter = require('./router/trademark');
 var patentRouter = require('./router/patent');
 var codingRouter = require('./router/coding');
+var annualRouter = require('./router/annual');
 
 module.exports = function($stateProvider, $urlRouterProvider) {
 
@@ -51,4 +52,5 @@ module.exports = function($stateProvider, $urlRouterProvider) {
     trademarkRouter($stateProvider, $urlRouterProvider);
     patentRouter($stateProvider, $urlRouterProvider);
     codingRouter($stateProvider, $urlRouterProvider);
+    annualRouter($stateProvider, $urlRouterProvider);
 };

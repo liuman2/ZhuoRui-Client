@@ -57,6 +57,10 @@ module.exports = function ($scope, $rootScope, $http) {
             name: '专利业务',
             icon: 'fa fa-cube'
         },{
+            route: 'annual_warning',
+            name: '年检预警',
+            icon: 'fa fa-cube'
+        },{
             route: 'reserve',
             name: '业务审核',
             icon: 'fa fa-check-square-o'
