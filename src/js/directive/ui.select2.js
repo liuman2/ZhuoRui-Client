@@ -87,8 +87,11 @@ angular.module('ui.select2', []).directive('uiSelect2', ['$timeout', function($t
 
             $(element).on("change", function() {
                 ngModel.$modelValue = element.val();
-                if (scope.data) {
+                if (scope.data && typeof(scope.data[ngModel.$name]) != 'undefined') {
                     scope.data[ngModel.$name] = ngModel.$modelValue;
+                }
+                if (scope.search && typeof(scope.search[ngModel.$name]) != 'undefined') {
+                     scope.search[ngModel.$name] = ngModel.$modelValue;
                 }
             });
 

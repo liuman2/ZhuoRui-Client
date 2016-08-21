@@ -24,8 +24,6 @@ module.exports = function($scope, $http, $state, $stateParams) {
         }
     });
 
-
-
     $scope.data = {
         items: [],
         page: {
@@ -62,7 +60,7 @@ module.exports = function($scope, $http, $state, $stateParams) {
 
         $http({
             method: 'GET',
-            url: '/RegAbroad/Delete',
+            url: '/Annual/Delete',
             params: {
                 id: item.id
             }
@@ -82,7 +80,7 @@ module.exports = function($scope, $http, $state, $stateParams) {
             return;
         }
 
-        $state.go("abroad_edit", {id: item.id});
+        $state.go("annual_edit", {id: item.id});
     }
 
     $scope.history = function(item) {
@@ -91,7 +89,7 @@ module.exports = function($scope, $http, $state, $stateParams) {
             return;
         }
 
-        $state.go("abroad_history", {id: item.id});
+        $state.go("annual_history", {id: item.id});
     }
 
     $scope.progress = function(item) {
@@ -110,7 +108,7 @@ module.exports = function($scope, $http, $state, $stateParams) {
             return;
         }
 
-        $state.go(".progress", {id: item.id, module_name: 'RegAbroad'}, {location: false});
+        $state.go(".progress", {id: item.id, module_name: 'Annual'}, {location: false});
     }
 
     $scope.$on('PROGRESS_MODAL_DONE', function(e) {
@@ -147,13 +145,28 @@ module.exports = function($scope, $http, $state, $stateParams) {
         return moment(dt).format(str);
     }
 
+    $scope.getTypeName = function(t) {
+        switch(t) {
+            case 'reg_abroad':
+                return "境外注册";
+            case 'reg_internal':
+                return "境内注册";
+            case 'audit':
+                return "年审业务";
+            case 'trademark':
+                return "商标注册";
+            case 'patent':
+                return "专利注册";
+        }
+    }
+
     function load_data() {
         $scope.search.start_time = $('#start_time').val();
         $scope.search.end_time = $('#end_time').val();
 
         $http({
             method: 'GET',
-            url: '/RegAbroad/Search',
+            url: '/Annual/Search',
             params: $scope.search
         }).success(function(data) {
             $scope.data = data;

@@ -24,7 +24,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label>客户名称</label>
-                        <select ui-select2 class="form-control select2" name="customer_id" ng-model="search.customer_id" url=" Customer/Search" paging="true" style="width: 100%;"></select>
+                        <select ui-select2 class="form-control select2" name="customer_id" ng-view="customer_name" ng-model="search.customer_id" url=" Customer/Search" paging="true" style="width: 100%;"></select>
                     </div>
                     <div class="form-group">
                         <label>订单状态</label>
@@ -59,7 +59,7 @@
                 <tbody>
                     <tr>
                         <th style="width: 10px">#</th>
-                        <th>档案号</th>
+                        <th>单号</th>
                         <th>客户名称</th>
                         <th>公司中文名称</th>
                         <th>公司英文名称</th>

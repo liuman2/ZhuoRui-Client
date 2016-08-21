@@ -1,9 +1,9 @@
-module.exports = function ($scope, $rootScope, $http) {
+module.exports = function ($scope, $rootScope, $http, $cookieStore) {
     $scope.bodyClass = '';
 
     $scope.userInfo = {};
 
-    $http({
+    /*$http({
         method: 'GET',
         url: '/Account/GetProfile'
     }).success(function (data) {
@@ -13,7 +13,12 @@ module.exports = function ($scope, $rootScope, $http) {
         }
     }).error(function() {
         console.log(arguments)
-    });
+    });*/
+
+    var user = $cookieStore.get('USER_INFO');
+    if (!user) {
+        location.href = '/login.html';
+    }
 
     $scope.menus = [{
         route: '',
@@ -59,6 +64,10 @@ module.exports = function ($scope, $rootScope, $http) {
         },{
             route: 'annual_warning',
             name: '年检预警',
+            icon: 'fa fa-cube'
+        },{
+            route: 'annual',
+            name: '年检列表',
             icon: 'fa fa-cube'
         },{
             route: 'reserve',
