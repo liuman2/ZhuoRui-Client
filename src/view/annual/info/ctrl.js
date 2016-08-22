@@ -89,7 +89,7 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
 
     $scope.cancel = function() {
         if ($scope.action == 'add') {
-            $state.go("annual");
+            $state.go("annual_warning");
         } else {
             $state.go("annual_view", {
                 id: id
@@ -131,6 +131,27 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
         }).success(function(data) {
             if (data.date_transaction.indexOf('T') > -1) {
                 data.date_transaction = data.date_transaction.split('T')[0];
+            }
+
+            switch (data.type)
+            {
+                case "reg_abroad":
+                    data.order_type_name = "境外注册";
+                    break;
+                case "reg_internal":
+                    data.order_type_name = "境内注册";
+                    break;
+                case "audit":
+                    data.order_type_name = "年审";
+                    break;
+                case "trademark":
+                    data.order_type_name = "商标注册";
+                    break;
+                case "patent":
+                    data.order_type_name = "专利注册";
+                    break;
+                default:
+                    break;
             }
 
             $scope.data = data;

@@ -39,7 +39,7 @@ module.exports = function ($scope, $rootScope, $http, $cookieStore) {
         }*/]
     }, {
         route: '',
-        name: '业务管理',
+        name: '订单管理',
         icon: 'fa fa-cart-arrow-down',
         children:[{
             route: 'abroad',
@@ -51,15 +51,15 @@ module.exports = function ($scope, $rootScope, $http, $cookieStore) {
             icon: 'fa fa-street-view'
         },{
             route: 'audit',
-            name: '审计业务',
+            name: '审计订单',
             icon: 'fa fa-calculator'
         },{
             route: 'trademark',
-            name: '商标业务',
+            name: '商标订单',
             icon: 'fa fa-trademark'
         },{
             route: 'patent',
-            name: '专利业务',
+            name: '专利订单',
             icon: 'fa fa-cube'
         },{
             route: 'annual_warning',
@@ -71,11 +71,11 @@ module.exports = function ($scope, $rootScope, $http, $cookieStore) {
             icon: 'fa fa-cube'
         },{
             route: 'reserve',
-            name: '业务审核',
+            name: '订单审核',
             icon: 'fa fa-check-square-o'
         },{
             route: 'reserve',
-            name: '业务汇总表',
+            name: '订单汇总表',
             icon: 'fa fa-area-chart'
         }]
     }, {

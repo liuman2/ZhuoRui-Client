@@ -49,7 +49,7 @@ module.exports = function($scope, $state, $http, $timeout) {
         case 'Patent':
             $scope.progress.title = '专利进度';
             break;
-        case 'Inspection':
+        case 'Annual':
             $scope.progress.title = '年检进度';
             break;
     }
