@@ -93,6 +93,9 @@ angular.module('ui.select2', []).directive('uiSelect2', ['$timeout', function($t
                 if (scope.search && typeof(scope.search[ngModel.$name]) != 'undefined') {
                      scope.search[ngModel.$name] = ngModel.$modelValue;
                 }
+                if (scope.income && typeof(scope.income[ngModel.$name]) != 'undefined') {
+                     scope.income[ngModel.$name] = ngModel.$modelValue;
+                }
             });
 
             scope.$watch(attrs.ngModel, function(opts) {

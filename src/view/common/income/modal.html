@@ -26,6 +26,15 @@
                             <input type="text" class="form-control" name="amount" ng-model="income.amount" data-rule="required; range[0~9999999]">
                         </div>
                     </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">付款方式<span class="required">*</span></label>
+                        <div class="col-sm-8">
+                            <select ui-select2 class="form-control select2" name="pay_way" ng-model="income.pay_way" url="Dictionary/DroplistByGroup" paging="false" paramfield="group" paramvalue="付款方式" data-rule="required;"></select>
+                            <span id="payWaySelect2-validator" class="select-validator"></span>
+                        </div>
+                    </div>
+
                     <div class="form-group">
                         <label class="col-sm-2 control-label">付款日期<span class="required">*</span></label>
                         <div class="col-sm-8">

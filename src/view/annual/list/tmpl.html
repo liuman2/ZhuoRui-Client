@@ -94,13 +94,12 @@
                                     <i class="fa fa-wrench"></i>
                                   </button>
                                 <ul class="dropdown-menu" role="menu">
-                                    <li><a class="fa fa-info-circle" ui-sref="abroad_view({id: item.id})"> 详情</a></li>
+                                    <li><a class="fa fa-info-circle" ui-sref="annual_view({id: item.id})"> 详情</a></li>
                                     <li><a href="javascript:;" class="fa fa-hourglass-half" ng-click="progress(item)"> 进度反馈</a></li>
                                     <li class="divider"></li>
                                     <li><a href="javascript:;" class="fa fa-pencil" ng-click="edit(item)"> 修改</a></li>
                                     <li><a href="javascript:;" class="fa fa-trash-o" ng-click="delete(item)"> 删除</a></li>
                                     <li class="divider"></li>
-                                    <li><a href="javascript:;" class="fa fa-history" ng-click="history(item)"> 变更记录</a></li>
                                     <li><a class="fa fa-clock-o" ui-sref="annual_timeline({id: item.id, name: 'annual', code: item.code, source: 'list'})"> 操作日志</a></li>
                                 </ul>
                             </div>

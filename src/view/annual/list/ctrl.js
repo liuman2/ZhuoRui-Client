@@ -83,15 +83,6 @@ module.exports = function($scope, $http, $state, $stateParams) {
         $state.go("annual_edit", {id: item.id});
     }
 
-    $scope.history = function(item) {
-        if (item.status != 4) {
-            alert('还未完成的订单没法做变更记录，请直接修改。');
-            return;
-        }
-
-        $state.go("annual_history", {id: item.id});
-    }
-
     $scope.progress = function(item) {
         if (item.status == 4) {
             alert('订单已完成，无需再更新进度');

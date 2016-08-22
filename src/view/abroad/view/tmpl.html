@@ -297,6 +297,7 @@
                             <th>付款人</th>
                             <th>付款账号</th>
                             <th>付款金额</th>
+                            <th>付款方式</th>
                             <th>付款时间</th>
                             <th>附件</th>
                             <th>备注</th>
@@ -307,6 +308,7 @@
                             <td ng-bind="item.payer"></td>
                             <td ng-bind="item.account"></td>
                             <td ng-bind="item.amount"></td>
+                            <td ng-bind="item.pay_way"></td>
                             <td ng-bind="format(item.date_pay, 'YYYY-MM-DD')"></td>
                             <td>
                                 <a href="{{item.attachment_url}}" target="_blank" ng-if="item.attachment_url.length">

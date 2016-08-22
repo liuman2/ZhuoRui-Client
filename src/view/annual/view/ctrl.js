@@ -131,6 +131,19 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
         }
     }
 
+    $scope.getTypeName = function(type) {
+        switch(type) {
+            case 'reg_abroad':
+                return '境外注册';
+            case 'reg_internal':
+                return '境内注册';
+            case 'trademark':
+                return '商标注册';
+            case 'patent':
+                return '专利注册';
+        }
+    }
+
     $scope.progress = function() {
         if ($scope.data.status == 4) {
             alert('订单已完成，无需再更新进度');

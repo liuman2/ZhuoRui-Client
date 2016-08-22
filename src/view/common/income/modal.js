@@ -32,6 +32,7 @@ module.exports = function($scope, $state, $http, $timeout) {
         account: '',
         amount: '',
         date_pay: '',
+        pay_way: '',
         attachment_url: '',
         description: ''
     }
@@ -40,8 +41,13 @@ module.exports = function($scope, $state, $http, $timeout) {
 
     $scope.save = function() {
         $scope.income.date_pay = $('#date_pay').val();
+        var isPaywayValid = valid_payway();
         jForm.isValid(function(v) {
             if (v) {
+                if (!isPaywayValid) {
+                    return;
+                }
+
                 if (tid) {
                     actionUpdate();
                 } else {
@@ -91,23 +97,36 @@ module.exports = function($scope, $state, $http, $timeout) {
     }
 
     function actionUpdate() {
-            $http({
-                method: 'POST',
-                url: '/Income/Update',
-                data: $scope.income
-            }).success(function(data) {
-                if (!data.success) {
-                    alert(data.message || '保存失败')
-                    return;
-                }
+        $http({
+            method: 'POST',
+            url: '/Income/Update',
+            data: $scope.income
+        }).success(function(data) {
+            if (!data.success) {
+                alert(data.message || '保存失败')
+                return;
+            }
 
-                $scope.$emit('INCOME_MODAL_DONE');
-                $state.go('^', {
-                    reload: true
-                });
+            $scope.$emit('INCOME_MODAL_DONE');
+            $state.go('^', {
+                reload: true
             });
+        });
+    }
+
+    function valid_payway() {
+        if (!$scope.income.pay_way) {
+            jForm.validator('showMsg', '#payWaySelect2-validator', {
+                type: "error",
+                msg: "此处不能为空"
+            });
+            return false;
+        } else {
+            jForm.validator('hideMsg', '#payWaySelect2-validator');
+            return true;
         }
-        //
+    }
+
     var h5Uploader = new H5Uploader({
         placeholder: '#btnUpload',
         uploadUrl: httpHelper.url('/Common/Upload'),

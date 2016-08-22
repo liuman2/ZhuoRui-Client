@@ -61,13 +61,13 @@
                 <div class="form-group">
                     <label class="col-sm-2 control-label">订单名称</label>
                     <div class="col-sm-8">
-                        <input type="text" class="form-control" name="order_name_cn" ng-model="data.order_name_cn" disabled >
+                        <input type="text" class="form-control" name="name_cn" ng-model="data.name_cn" disabled >
                     </div>
                 </div>
                 <div class="form-group" ng-if="data.order_name_en.length > 0">
                     <label class="col-sm-2 control-label">英文名</label>
                     <div class="col-sm-8">
-                        <input type="text" class="form-control" name="order_name_en" ng-model="data.order_name_en" disabled >
+                        <input type="text" class="form-control" name="name_en" ng-model="data.name_en" disabled >
                     </div>
                 </div>
 
@@ -86,7 +86,7 @@
                 <div class="form-group">
                     <label class="col-sm-2 control-label">成交币别<span class="required">*</span></label>
                     <div class="col-sm-8">
-                        <select ui-select2 class="form-control select2" name="currency" ng-model="data.currency" url="Dictionary/DroplistByGroup" paging="false" paramfield="group" paramvalue="币别" ata-rule="required;"></select>
+                        <select ui-select2 class="form-control select2" name="currency" ng-model="data.currency" url="Dictionary/DroplistByGroup" paging="false" paramfield="group" paramvalue="币别" data-rule="required;"></select>
                         <span id="currencySelect2-validator" class="select-validator"></span>
                     </div>
                 </div>

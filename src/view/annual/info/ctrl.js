@@ -46,8 +46,8 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
         type: order_type,
         order_type_name: '',
         order_code: '',
-        order_name_cn: '',
-        order_name_en: '',
+        name_cn: '',
+        name_en: '',
         salesman_id: user.id,
         salesman: user.name,
         currency: '',
@@ -55,10 +55,11 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
     }
 
 
-    // if (!!id) {
-    //     $scope.data.id = id;
-    //     actionView();
-    // }
+    if (!!id) {
+        $scope.action = 'update';
+        $scope.data.id = id;
+        actionView();
+    }
 
     $scope.save = function() {
         var isCurrencyValid = valid_currency();
@@ -114,8 +115,8 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
             $scope.data.order_id = data.order_id;
             $scope.data.order_type_name = data.order_type_name;
             $scope.data.order_code = data.order_code;
-            $scope.data.order_name_cn = data.order_name_cn;
-            $scope.data.order_name_en = data.order_name_en;
+            $scope.data.name_cn = data.name_cn;
+            $scope.data.name_en = data.name_en;
 
         });
     }
@@ -128,9 +129,6 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
                 id: id
             }
         }).success(function(data) {
-            if (data.date_setup.indexOf('T') > -1) {
-                data.date_setup = data.date_setup.split('T')[0];
-            }
             if (data.date_transaction.indexOf('T') > -1) {
                 data.date_transaction = data.date_transaction.split('T')[0];
             }
