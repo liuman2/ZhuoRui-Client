@@ -114,6 +114,23 @@ module.exports = function ($scope, $rootScope, $http, $cookieStore) {
         }]
     }, {
         route: '',
+        name: '权限管理',
+        icon: 'fa fa-lock',
+        children:[{
+            route: 'role',
+            name: '角色管理',
+            icon: 'fa fa-graduation-cap'
+        },{
+            route: 'role',
+            name: '角色权限',
+            icon: 'fa fa-key'
+        },{
+            route: 'role',
+            name: '用户角色',
+            icon: 'fa fa-unlock-alt'
+        }]
+    }, {
+        route: '',
         name: '系统设置',
         icon: 'fa fa-cog',
         children:[{
