@@ -1,0 +1,36 @@
+<section class="content-header">
+    <h1>
+        组织架构
+    </h1>
+    <ol class="breadcrumb">
+        <li><a ui-sref="dashboard"><i class="fa fa-dashboard"></i>我的面板</a></li>
+        <li><a class="active">组织架构</a></li>
+    </ol>
+</section>
+<section class="content">
+    <div class="row">
+        <div class="col-md-3">
+            <div class="box box-info">
+                <div class="box-header with-border">
+                    <h3 class="box-title">角色列表</h3>
+                </div>
+                <div class="box-body table-responsive no-padding">
+                    <div id="role-tree" class="ztree"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-9">
+            <div class="box box-info">
+                <div class="box-header with-border">
+                    <h3 class="box-title">权限列表</h3>
+                </div>
+                <div class="box-body table-responsive no-padding">
+                    <div id="menu-tree" class="ztree"></div>
+                </div>
+                <div class="box-footer clearfix">
+                    <a class="btn btn-sm btn-info btn-flat pull-left" ng-click="save()">保存</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

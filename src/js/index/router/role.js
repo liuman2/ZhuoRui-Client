@@ -24,4 +24,10 @@ module.exports = function($stateProvider, $urlRouterProvider) {
                 }
             }
         })
+
+        .state('role_assign', {
+            url: '/permission',
+            template: require('view/permission/assign/tmpl.html'),
+            controller: require('view/permission/assign/ctrl')
+        })
 };
