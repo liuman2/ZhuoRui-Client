@@ -102,7 +102,7 @@ module.exports = function($scope, $http, $state, $stateParams) {
                 return;
             }
 
-            var nodeid = data[0].id;
+            nodeid = nodeid || data[0].id;
             var treeNode = roleTree.getNodeByParam("id", nodeid);
             if (treeNode) {
                 roleTree.selectNode(treeNode);

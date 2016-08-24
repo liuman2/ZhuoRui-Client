@@ -1,0 +1,57 @@
+<section class="content-header">
+    <h1>
+        用户角色
+    </h1>
+    <ol class="breadcrumb">
+        <li><a ui-sref="dashboard"><i class="fa fa-dashboard"></i>我的面板</a></li>
+        <li><a class="active">用户角色</a></li>
+    </ol>
+</section>
+<section class="content">
+    <div class="row">
+        <div class="col-md-3">
+            <div class="box box-info">
+                <div class="box-header with-border">
+                    <h3 class="box-title">角色列表</h3>
+                </div>
+                <div class="box-body table-responsive no-padding">
+                    <div id="role-tree" class="ztree"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-9">
+            <div class="box box-info">
+                <div class="box-header with-border">
+                    <h3 class="box-title">用户角色</h3>
+                </div>
+                <div class="box-body table-responsive no-padding">
+                    <table class="table table-hover">
+                <tbody>
+                    <tr>
+                        <th style="width: 10px">#</th>
+                        <th>姓名</th>
+                        <th>英文名</th>
+                        <th>部门</th>
+                        <th>区域</th>
+                        <th class="opt-col">操作</th>
+                    </tr>
+                    <!-- <tr ng-repeat="item in data">
+                        <td ng-bind="($index+1)"></td>
+                        <td ng-bind="item.name"></td>
+                        <td ng-bind="item.is_system==1 ? '是' : '否'"></td>
+                        <td ng-bind="item.description"></td>
+                        <td class="opt-col">
+                            <a href="javascript:;" class="fa fa-trash-o red" title="删除" ng-click="delete(item)"></a>
+                        </td>
+                    </tr> -->
+                </tbody>
+            </table>
+                </div>
+                <div class="box-footer clearfix">
+                    <a class="btn btn-sm btn-info btn-flat pull-left" ng-click="select()">添加</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div ui-view="add"></div>

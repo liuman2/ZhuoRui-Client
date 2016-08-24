@@ -24,10 +24,23 @@ module.exports = function($stateProvider, $urlRouterProvider) {
                 }
             }
         })
-
         .state('role_assign', {
-            url: '/permission',
+            url: '/role/assign',
             template: require('view/permission/assign/tmpl.html'),
             controller: require('view/permission/assign/ctrl')
+        })
+        .state('role_user', {
+            url: '/role/member',
+            template: require('view/permission/member/tmpl.html'),
+            controller: require('view/permission/member/ctrl')
+        })
+        .state('role_user.add', {
+            url: '/new/{role_id:.*}',
+            views: {
+                'add': {
+                    template: require('view/common/member/modal.html'),
+                    controller: require('view/common/member/modal')
+                }
+            }
         })
 };

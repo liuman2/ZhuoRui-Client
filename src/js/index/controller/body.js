@@ -125,7 +125,7 @@ module.exports = function ($scope, $rootScope, $http, $cookieStore) {
             name: '角色权限',
             icon: 'fa fa-key'
         },{
-            route: 'role',
+            route: 'role_user',
             name: '用户角色',
             icon: 'fa fa-unlock-alt'
         }]
