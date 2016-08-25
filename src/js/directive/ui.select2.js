@@ -87,13 +87,22 @@ angular.module('ui.select2', []).directive('uiSelect2', ['$timeout', function($t
 
             $(element).on("change", function() {
                 ngModel.$modelValue = element.val();
-                if (scope.data && typeof(scope.data[ngModel.$name]) != 'undefined') {
+                /*if (scope.data && typeof(scope.data[ngModel.$name]) != 'undefined') {
                     scope.data[ngModel.$name] = ngModel.$modelValue;
                 }
                 if (scope.search && typeof(scope.search[ngModel.$name]) != 'undefined') {
                      scope.search[ngModel.$name] = ngModel.$modelValue;
                 }
                 if (scope.income && typeof(scope.income[ngModel.$name]) != 'undefined') {
+                     scope.income[ngModel.$name] = ngModel.$modelValue;
+                }*/
+                if (scope.data) {
+                    scope.data[ngModel.$name] = ngModel.$modelValue;
+                }
+                if (scope.search) {
+                     scope.search[ngModel.$name] = ngModel.$modelValue;
+                }
+                if (scope.income) {
                      scope.income[ngModel.$name] = ngModel.$modelValue;
                 }
             });

@@ -14,6 +14,7 @@ var patentRouter = require('./router/patent');
 var codingRouter = require('./router/coding');
 var annualRouter = require('./router/annual');
 var roleRouter = require('./router/role');
+var checkRouter = require('./router/order_check');
 
 module.exports = function($stateProvider, $urlRouterProvider) {
 
@@ -55,4 +56,5 @@ module.exports = function($stateProvider, $urlRouterProvider) {
     codingRouter($stateProvider, $urlRouterProvider);
     annualRouter($stateProvider, $urlRouterProvider);
     roleRouter($stateProvider, $urlRouterProvider);
+    checkRouter($stateProvider, $urlRouterProvider);
 };

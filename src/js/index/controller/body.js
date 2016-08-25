@@ -2,24 +2,26 @@ module.exports = function ($scope, $rootScope, $http, $cookieStore) {
     $scope.bodyClass = '';
 
     $scope.userInfo = {};
-
-    /*$http({
-        method: 'GET',
-        url: '/Account/GetProfile'
-    }).success(function (data) {
-        $scope.userInfo = data.user;
-        if (!data.user) {
-            location.href = '/login.html';
-        }
-    }).error(function() {
-        console.log(arguments)
-    });*/
+    $scope.menus = [];
 
     var user = $cookieStore.get('USER_INFO');
     if (!user) {
         location.href = '/login.html';
     }
 
+    $http({
+        method: 'GET',
+        url: '/Account/GetProfile'
+    }).success(function (data) {
+        $scope.menus = data.menus;
+        $scope.userInfo = data.user;
+        if (!data.user) {
+            location.href = '/login.html';
+        }
+    }).error(function() {
+        console.log(arguments)
+    });
+/*
     $scope.menus = [{
         route: '',
         name: '客户管理',
@@ -32,11 +34,7 @@ module.exports = function ($scope, $rootScope, $http, $cookieStore) {
             route: 'customer',
             name: '正式客户',
             icon: 'fa fa-user-secret'
-        }/*,{
-            route: 'import',
-            name: '导入正式客户',
-            icon: 'fa fa-cloud-upload'
-        }*/]
+        }]
     }, {
         route: '',
         name: '订单管理',
@@ -138,5 +136,5 @@ module.exports = function ($scope, $rootScope, $http, $cookieStore) {
             name: '编码规则',
             icon: 'fa fa-file-text-o'
         }]
-    }]
+    }]*/
 };
