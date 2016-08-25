@@ -8,9 +8,9 @@
                 <h4 class="modal-title">用户选择</h4>
                 <div class="box-tools">
                     <div class="input-group input-group-sm pull-right" style="width: 150px;">
-                        <input type="text" name="table_search" class="form-control pull-right" placeholder="姓名">
+                        <input type="text" name="table_search" class="form-control pull-right" ng-model="search.name" placeholder="姓名">
                         <div class="input-group-btn">
-                            <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+                            <button type="button" class="btn btn-default"  ng-click="query()"><i class="fa fa-search"></i></button>
                         </div>
                     </div>
                 </div>
@@ -38,10 +38,12 @@
                         </tr>
                     </tbody>
                 </table>
+                <div pagination page-data="data.page" page-click="go(idx)" style="bottom: 10px;position: absolute;right: 0;"></div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default pull-left" data-dismiss="modal" ui-sref="^">取消</button>
                 <button type="button" class="btn btn-primary" ng-click="save()">确定</button>
+
             </div>
         </div>
     </div>

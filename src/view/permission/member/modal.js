@@ -5,7 +5,7 @@ module.exports = function ($scope, $http, $state) {
 
      $scope.search = {
         index: 1,
-        size: 500,
+        size: 10,
         name: ""
     }
 
@@ -17,6 +17,10 @@ module.exports = function ($scope, $http, $state) {
             total_page: 0,
             total_size: 0
         }
+    };
+
+    $scope.query = function() {
+        load_data();
     };
 
     $scope.selectAll = function($event) {
@@ -38,7 +42,6 @@ module.exports = function ($scope, $http, $state) {
             })
             $scope.currentIndexChecked = 0;
         }
-
     };
 
     $scope.isSelected = (id) => {
@@ -70,11 +73,35 @@ module.exports = function ($scope, $http, $state) {
         }
     }
 
+    $scope.save = function() {
+        var ids = [];
+        $.each($scope.selectedMembers, function (k, v) {
+            ids.push(v.id);
+        });
+
+        if (!ids.length) {
+            $state.go('^', { reload: false });
+            return;
+        }
+
+        $http({
+            method: 'POST',
+            url: '/Role/SaveRoleMember',
+            data: {
+                roleId: role_id,
+                memberIds: ids
+            }
+        }).success(function(data) {
+            $scope.$emit('ROLE_MEMBER_MODAL_DONE');
+            $state.go('^', { reload: true });
+        });
+    }
+
     function load_data() {
         $http({
             method: 'GET',
             params: $scope.search,
-            url: '/Member/List'
+            url: '/Member/GetMembersForRole'
         }).success(function(data) {
             console.log(data)
             $scope.data = data;

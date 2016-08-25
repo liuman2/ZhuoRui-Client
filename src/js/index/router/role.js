@@ -38,8 +38,8 @@ module.exports = function($stateProvider, $urlRouterProvider) {
             url: '/new/{role_id:.*}',
             views: {
                 'add': {
-                    template: require('view/common/member/modal.html'),
-                    controller: require('view/common/member/modal')
+                    template: require('view/permission/member/modal.html'),
+                    controller: require('view/permission/member/modal')
                 }
             }
         })
