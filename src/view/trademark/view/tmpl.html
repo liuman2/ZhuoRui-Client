@@ -12,6 +12,18 @@
     <form class="form-horizontal view-form" id="trademark_form">
         <div class="detail-view-header-wrapper">
             <div class="box-footer detail-view-header" ui-scrollpoint ui-scrollpoint-enabled="true" ui-scrollpoint-class="fixed">
+                <button type="button" class="btn btn-info" ui-sref="trademark_edit({id: id})"  ng-if="data.status == 0 || data.review_status == 0" ui-sref-opts="{reload:true}">修改</button>
+                <button type="button" class="btn btn-primary" ng-click="submitAudit()" ng-if="data.status == 0 || data.review_status == 0">提交审核</button>
+                <button type="button" class="btn btn-success" ng-click="passAudit()" ng-if="data.status > 0 && data.status < 3" ng-bind="data.status==1?'财务审核通过':'提交审核通过'"></button>
+                <button type="button" class="btn btn-danger" ng-click="refuseAudit()" ng-if="data.status > 0 && data.status < 3" ng-bind="data.status==1?'财务审核驳回':'提交审核驳回'"></button>
+                <button type="button" class="btn btn-success" ng-click="progress()" ng-if="data.status == 3 && data.review_status==1">进度反馈</button>
+                <button type="button" class="btn btn-info" ui-sref="trademark_timeline({id: data.id, name: 'trademark', code: data.code, source: 'view'})" ><span class="fa fa-clock-o"></span>日志</button>
+                <span>状态: </span>
+                <span ng-if="data.status != 4" ng-bind="getOrderStatus() + ' | ' + getReviewStatus()" ng-attr-title="{{getTitle(data)}}" style="cursor: default;"></span>
+                <span ng-if="data.status == 4" ng-bind="'已完成 | ' + format(data.date_finish, 'YYYY-MM-DD')"></span>
+            </div>
+
+            <!-- <div class="box-footer detail-view-header" ui-scrollpoint ui-scrollpoint-enabled="true" ui-scrollpoint-class="fixed">
                 <button type="button" class="btn" ui-sref="trademark_edit({id: id})"  ng-if="data.status == 0" ng-class="{'btn-info':data.status == 0}" ng-attr-title="{{data.status > 0 ? '已经提交审核，不能修改' : ''}}" ng-disabled="data.status > 0" ui-sref-opts="{reload:true}">修改</button>
                 <button type="button" class="btn btn-primary" ng-click="submitAudit()" ng-if="data.status == 0">提交审核</button>
                 <button type="button" class="btn btn-success" ng-click="passAudit()" ng-if="data.status > 0 && data.status < 3">审核通过</button>
@@ -22,7 +34,7 @@
                 <span>状态: </span>
                 <span ng-if="data.status != 4" ng-bind="getOrderStatus() + ' | ' + getReviewStatus()"></span>
                 <span ng-if="data.status == 4" ng-bind="'已完成 | ' + format(data.date_finish, 'YYYY-MM-DD')"></span>
-            </div>
+            </div> -->
         </div>
         <div class="box box-info">
             <div class="box-header with-border">
@@ -36,7 +48,7 @@
             </div>
             <div class="box-body">
                 <div class="form-group">
-                    <label class="col-sm-2 control-label">单号</label>
+                    <label class="col-sm-2 control-label">档案号</label>
                     <div class="col-sm-8">
                         <span class="form-span" ng-bind="data.code"></span>
                     </div>
@@ -181,7 +193,7 @@
                 </div>
             </div>
             <div class="box-body">
-                <div class="form-group" ng-if="data.invoice_name.length > 0">
+                <div class="form-group">
                     <label class="col-sm-2 control-label">商标进度</label>
                     <div class="col-sm-8">
                         <span class="form-span" ng-bind="!!data.progress? (' ' + data.progress) : ' 无进度信息'"></span>

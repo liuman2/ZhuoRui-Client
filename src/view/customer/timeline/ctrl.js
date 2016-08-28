@@ -32,6 +32,9 @@ module.exports = function($scope, $state, $http, $timeout) {
     }
 
     $scope.format = function(dt, str) {
+        if (!dt) {
+            return '';
+        }
         return moment(dt).format(str);
     }
 

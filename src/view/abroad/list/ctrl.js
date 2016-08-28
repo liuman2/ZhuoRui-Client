@@ -24,7 +24,12 @@ module.exports = function($scope, $http, $state, $stateParams) {
         }
     });
 
-
+    $scope.getTitle = function(item) {
+        if (item.review_status == 0) {
+            return item.finance_review_moment || item.submit_review_moment;
+        }
+        return '';
+    }
 
     $scope.data = {
         items: [],
@@ -144,6 +149,9 @@ module.exports = function($scope, $http, $state, $stateParams) {
     }
 
     $scope.format = function(dt, str) {
+        if (!dt) {
+            return '';
+        }
         return moment(dt).format(str);
     }
 

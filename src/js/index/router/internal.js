@@ -95,12 +95,30 @@ var router = function($stateProvider, $urlRouterProvider) {
                 }
             }
         })
+        .state('internal.progress.bank_add', {
+            url: '/progress/bank/{customer_id:.*}',
+            views: {
+                'bank': {
+                    template: require('view/common/bank/modal.html'),
+                    controller: require('view/common/bank/modal')
+                }
+            }
+        })
         .state('internal_view.progress', {
             url: '/progress/{id:.*}/{module_name:.*}',
             views: {
                 'progress': {
                     template: require('view/common/progress/modal.html'),
                     controller: require('view/common/progress/modal')
+                }
+            }
+        })
+        .state('internal_view.progress.bank_add', {
+            url: '/progress/bank/{customer_id:.*}',
+            views: {
+                'bank': {
+                    template: require('view/common/bank/modal.html'),
+                    controller: require('view/common/bank/modal')
                 }
             }
         })

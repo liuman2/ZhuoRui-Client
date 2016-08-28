@@ -20,7 +20,7 @@
         <form class="form-horizontal view-form">
             <div class="box-body">
                 <div class="form-group">
-                    <label class="col-sm-2 control-label">档案号:</label>
+                    <label class="col-sm-2 control-label">客户编号:</label>
                     <div class="col-sm-8">
                         <span class="form-span" ng-bind="data.code"></span>
                     </div>
@@ -164,7 +164,7 @@
                         <td ng-bind="item.account"></td>
                         <td class="opt-col">
                             <a class="fa fa-pencil orange" ui-sref=".bank_edit({tid: {{item.id}}})" ui-sref-opts="{location:false}" title="修改"></a>
-                            <a href="javascript:;" class="fa fa-trash-o red" ng-click="delete(item)" title="删除"></a>
+                            <!-- <a href="javascript:;" class="fa fa-trash-o red" ng-click="delete(item)" title="删除"></a> -->
                         </td>
                     </tr>
                 </tbody>

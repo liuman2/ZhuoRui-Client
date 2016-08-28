@@ -31,6 +31,7 @@ var webpackConfig = {
             'angular-ui-router',
             'angular-ui-scrollpoint',
             'angular-loading-bar',
+            'ui-router-extras',
             'select2',
             'select2/dist/js/i18n/zh-CN.js',
             'nice-validator/dist/jquery.validator.js',

@@ -58,6 +58,9 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
     }
 
      $scope.format = function(dt, str) {
+        if (!dt) {
+            return '';
+        }
         return moment(dt).format(str);
     }
 
@@ -101,10 +104,6 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
         $state.go(".audit", {module_name: 'RegAbroad'}, { location:false });
     }
 
-    $scope.done = function() {
-        $state.go(".done", {module_name: 'RegAbroad'}, { location:false });
-    }
-
     $scope.getOrderStatus = function() {
         switch($scope.data.status) {
             case 0:
@@ -118,6 +117,13 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
             case 4:
                 return '完成';
         }
+    }
+
+    $scope.getTitle = function(item) {
+        if (item.review_status == 0) {
+            return item.finance_review_moment || item.submit_review_moment;
+        }
+        return '';
     }
 
     $scope.getReviewStatus = function() {
@@ -147,7 +153,7 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
             return;
         }
 
-        $state.go(".progress", {id: $scope.data.id, module_name: 'reg_abroad'}, {location: false});
+        $state.go(".progress", {id: $scope.data.id, module_name: 'RegAbroad'}, {location: false});
     }
 
     $scope.$on('PROGRESS_MODAL_DONE', function(e) {

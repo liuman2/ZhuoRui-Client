@@ -58,6 +58,9 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
     }
 
      $scope.format = function(dt, str) {
+        if (!dt) {
+            return '';
+        }
         return moment(dt).format(str);
     }
 
@@ -105,6 +108,25 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
         $state.go(".done", {module_name: 'Trademark'}, { location:false });
     }
 
+    $scope.progress = function() {
+        if ($scope.data.status == 4) {
+            alert('订单已完成，无需再更新进度');
+            return;
+        }
+
+        if ($scope.data.status < 3) {
+            alert('提交人还未提交该订单，无法更新进度');
+            return;
+        }
+
+        if ($scope.data.review_status != 1) {
+            alert('订单未通过审核，无法更新进度');
+            return;
+        }
+
+        $state.go(".progress", {id: $scope.data.id, module_name: 'Trademark'}, {location: false});
+    }
+
     $scope.getOrderStatus = function() {
         switch($scope.data.status) {
             case 0:
@@ -118,6 +140,13 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
             case 4:
                 return '完成';
         }
+    }
+
+    $scope.getTitle = function(item) {
+        if (item.review_status == 0) {
+            return item.finance_review_moment || item.submit_review_moment;
+        }
+        return '';
     }
 
     $scope.getReviewStatus = function() {
@@ -140,6 +169,10 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
     });
 
     $scope.$on('FINISH_MODAL_DONE', function(e) {
+        actionView();
+    });
+
+    $scope.$on('PROGRESS_MODAL_DONE', function(e) {
         actionView();
     });
 

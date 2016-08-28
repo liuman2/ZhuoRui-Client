@@ -129,6 +129,13 @@ module.exports = function($scope, $http, $state, $stateParams) {
         }
     }
 
+    $scope.getTitle = function(item) {
+        if (item.review_status == 0) {
+            return item.finance_review_moment || item.submit_review_moment;
+        }
+        return '';
+    }
+
     $scope.getReviewStatus= function(status, review_status) {
         switch(review_status) {
             case -1:
@@ -141,6 +148,9 @@ module.exports = function($scope, $http, $state, $stateParams) {
     }
 
     $scope.format = function(dt, str) {
+        if (!dt) {
+            return '';
+        }
         return moment(dt).format(str);
     }
 

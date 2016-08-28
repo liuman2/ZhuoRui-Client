@@ -43,6 +43,7 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
         salesman_id: user.id,
         salesman: user.name,
         waiter_id: '',
+        rate: '',
         customer_id: ''
     }
 
@@ -68,11 +69,13 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
                 var submitData = angular.copy($scope.data);
 
                 submitData.date_transaction = $('#date_transaction').val();
-                submitData.date_receipt = $('#date_receipt').val();
-                submitData.date_accept = $('#date_accept').val();
-                submitData.date_trial = $('#date_trial').val();
-                submitData.date_regit = $('#date_regit').val();
-                submitData.date_exten = $('#date_exten').val();
+                submitData.date_inspection = $('#date_inspection').val();
+
+                // submitData.date_receipt = $('#date_receipt').val();
+                // submitData.date_accept = $('#date_accept').val();
+                // submitData.date_trial = $('#date_trial').val();
+                // submitData.date_regit = $('#date_regit').val();
+                // submitData.date_exten = $('#date_exten').val();
 
                 var url = $scope.action == 'add' ? '/Patent/Add' : '/Patent/Update';
                 $http({
@@ -130,6 +133,17 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
         }
     });
 
+    $('#currencySelect2').on("change", function(e) {
+        var currency = $(e.target).val();
+        if (currency == "人民币") {
+            $scope.data.rate = 1;
+        } else {
+            $scope.data.rate = '';
+        }
+
+        $scope.$apply();
+    });
+
     function actionView() {
         $http({
             method: 'GET',
@@ -138,12 +152,13 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
                 id: id
             }
         }).success(function(data) {
-            if (data.date_empower.indexOf('T') > -1) {
+            /*if (data.date_empower.indexOf('T') > -1) {
                 data.date_empower = data.date_empower.split('T')[0];
             }
             if (data.date_accept.indexOf('T') > -1) {
                 data.date_accept = data.date_accept.split('T')[0];
-            }
+            }*/
+
             if (data.date_inspection.indexOf('T') > -1) {
                 data.date_inspection = data.date_inspection.split('T')[0];
             }

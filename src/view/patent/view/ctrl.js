@@ -52,17 +52,20 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
     };
 
     $scope.edit = function() {
-        $state.go("trademark_edit", {
+        $state.go("patent_edit", {
             id: id
         });
     }
 
      $scope.format = function(dt, str) {
+        if (!dt) {
+            return '';
+        }
         return moment(dt).format(str);
     }
 
     $scope.cancel = function() {
-        $state.go('trademark');
+        $state.go('patent');
     }
 
     $scope.submitAudit = function() {
@@ -72,7 +75,7 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
 
         $http({
             method: 'GET',
-            url: '/Trademark/Submit',
+            url: '/Patent/Submit',
             params: {
                 id: $scope.data.id
             }
@@ -88,7 +91,7 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
 
         $http({
             method: 'GET',
-            url: '/Trademark/PassAudit',
+            url: '/Patent/PassAudit',
             params: {
                 id: $scope.data.id
             }
@@ -98,11 +101,11 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
     }
 
     $scope.refuseAudit = function() {
-        $state.go(".audit", {module_name: 'Trademark'}, { location:false });
+        $state.go(".audit", {module_name: 'Patent'}, { location:false });
     }
 
     $scope.done = function() {
-        $state.go(".done", {module_name: 'Trademark'}, { location:false });
+        $state.go(".done", {module_name: 'Patent'}, { location:false });
     }
 
     $scope.getOrderStatus = function() {
@@ -118,6 +121,13 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
             case 4:
                 return '完成';
         }
+    }
+
+    $scope.getTitle = function(item) {
+        if (item.review_status == 0) {
+            return item.finance_review_moment || item.submit_review_moment;
+        }
+        return '';
     }
 
     $scope.getReviewStatus = function() {
@@ -147,7 +157,7 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
             return;
         }
 
-        $state.go(".progress", {id: $scope.data.id, module_name: 'patent'}, {location: false});
+        $state.go(".progress", {id: $scope.data.id, module_name: 'Patent'}, {location: false});
     }
 
     $scope.$on('PROGRESS_MODAL_DONE', function(e) {
@@ -169,7 +179,7 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
     function actionView() {
         $http({
             method: 'GET',
-            url: '/Trademark/GetView',
+            url: '/Patent/GetView',
             params: {
                 id: id
             }

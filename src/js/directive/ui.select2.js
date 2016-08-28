@@ -105,6 +105,9 @@ angular.module('ui.select2', []).directive('uiSelect2', ['$timeout', function($t
                 if (scope.income) {
                      scope.income[ngModel.$name] = ngModel.$modelValue;
                 }
+                if (scope.progress) {
+                     scope.progress[ngModel.$name] = ngModel.$modelValue;
+                }
             });
 
             scope.$watch(attrs.ngModel, function(opts) {

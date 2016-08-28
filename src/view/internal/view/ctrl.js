@@ -13,6 +13,21 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
         status: 0,
         review_status: -1
     }
+
+    $scope.getTitle = function(item) {
+        if (item.review_status == 0) {
+            return item.finance_review_moment || item.submit_review_moment;
+        }
+        return '';
+    }
+
+    $scope.getTrueOrFalse = function(isBool) {
+        if (isBool === null) {
+            return '-';
+        }
+        return isBool === 1 ? '是' : '否';
+    }
+
     $scope.deleteIncome = function(item) {
         if ($scope.data.status > 0) {
             alert('已提交审核不能删除')
@@ -58,6 +73,9 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
     }
 
      $scope.format = function(dt, str) {
+        if (!dt) {
+            return '';
+        }
         return moment(dt).format(str);
     }
 
@@ -147,7 +165,7 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
             return;
         }
 
-        $state.go(".progress", {id: $scope.data.id, module_name: 'reg_internal'}, {location: false});
+        $state.go(".progress", {id: $scope.data.id, module_name: 'RegInternal'}, {location: false});
     }
 
     $scope.$on('PROGRESS_MODAL_DONE', function(e) {

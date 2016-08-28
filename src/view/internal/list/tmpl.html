@@ -82,7 +82,7 @@
                             <span class="label" ng-class="{'label-warning': (item.status==0), 'label-success': (item.status==4), 'label-info': (item.status != 0 && item.status != 4)}" ng-bind="getOrderStatus(item.status)"></span>
                         </td>
                         <td>
-                            <span class="label" ng-class="{'label-warning': (item.review_status==-1), 'label-success': (item.review_status==1), 'label-danger': (item.review_status==0)}" ng-bind="getReviewStatus(item.status, item.review_status)"></span>
+                            <span class="label"  ng-attr-title="{{getTitle(item)}}" ng-class="{'label-warning': (item.review_status==-1), 'label-success': (item.review_status==1), 'label-danger': (item.review_status==0)}" ng-bind="getReviewStatus(item.status, item.review_status)"></span>
                         </td>
                         <td title="点击可设置进度">
                             <a href="javascript:;" class="fa fa-hourglass-half" ng-click="progress(item)" ng-bind="!!item.progress? (' ' + item.progress) : ' 无进度信息'"></a>

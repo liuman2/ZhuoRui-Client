@@ -64,6 +64,7 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
         invoice_address: '',
         invoice_tel: '',
         invoice_bank: '',
+        rate: '',
         invoice_account: ''
     }
 
@@ -147,6 +148,17 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
 
             $scope.$apply();
         }
+    });
+
+    $('#currencySelect2').on("change", function(e) {
+        var currency = $(e.target).val();
+        if (currency == "人民币") {
+            $scope.data.rate = 1;
+        } else {
+            $scope.data.rate = '';
+        }
+
+        $scope.$apply();
     });
 
     function actionView() {

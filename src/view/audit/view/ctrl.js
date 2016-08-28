@@ -58,6 +58,9 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
     }
 
      $scope.format = function(dt, str) {
+        if (!dt) {
+            return '';
+        }
         return moment(dt).format(str);
     }
 
@@ -120,6 +123,13 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
         }
     }
 
+    $scope.getTitle = function(item) {
+        if (item.review_status == 0) {
+            return item.finance_review_moment || item.submit_review_moment;
+        }
+        return '';
+    }
+
     $scope.getReviewStatus = function() {
         switch($scope.data.review_status) {
             case -1:
@@ -147,7 +157,7 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
             return;
         }
 
-        $state.go(".progress", {id: $scope.data.id, module_name: 'audit'}, {location: false});
+        $state.go(".progress", {id: $scope.data.id, module_name: 'Audit'}, {location: false});
     }
 
     $scope.$on('PROGRESS_MODAL_DONE', function(e) {

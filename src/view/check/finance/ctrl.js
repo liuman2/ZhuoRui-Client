@@ -43,6 +43,9 @@ module.exports = function($scope, $http, $state, $stateParams) {
     };
 
     $scope.format = function(dt, str) {
+        if (!dt) {
+            return '';
+        }
         return moment(dt).format(str);
     }
 

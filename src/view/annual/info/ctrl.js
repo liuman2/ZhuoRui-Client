@@ -51,6 +51,7 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
         salesman_id: user.id,
         salesman: user.name,
         currency: '',
+        rate: '',
         accountant_id: ''
     }
 
@@ -120,6 +121,17 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
 
         });
     }
+
+    $('#currencySelect2').on("change", function(e) {
+        var currency = $(e.target).val();
+        if (currency == "人民币") {
+            $scope.data.rate = 1;
+        } else {
+            $scope.data.rate = '';
+        }
+
+        $scope.$apply();
+    });
 
     function actionView() {
         $http({

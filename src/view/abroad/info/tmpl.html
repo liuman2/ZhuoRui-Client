@@ -30,7 +30,7 @@
             </div>
             <div class="box-body">
                 <div class="form-group">
-                    <label class="col-sm-2 control-label">单号<span class="required">*</span></label>
+                    <label class="col-sm-2 control-label">档案号<span class="required">*</span></label>
                     <div class="col-sm-8">
                         <input type="text" class="form-control" placeholder="系统自动生成" readonly>
                     </div>
@@ -38,7 +38,7 @@
                 <div class="form-group">
                     <label class="col-sm-2 control-label">客户名称<span class="required">*</span></label>
                     <div class="col-sm-8">
-                        <select ui-select2 class="form-control select2" id="customerSelect2" name="customer_id" ng-view="customer_name" ng-model="data.customer_id" data-formatfields="code,text" data-formatcaptions="档案号,名称" data-rule="required;" url=" Customer/Search" paging="true" style="width: 100%;"></select>
+                        <select ui-select2 class="form-control select2" id="customerSelect2" name="customer_id" ng-view="customer_name" ng-model="data.customer_id" data-formatfields="code,text" data-formatcaptions="编号,名称" data-rule="required;" url=" Customer/Search" paging="true" style="width: 100%;"></select>
                         <span id="customerSelect2-validator" class="select-validator"></span>
                     </div>
                 </div>
@@ -105,27 +105,15 @@
             </div>
             <div class="box-body">
                 <div class="form-group">
-                    <label class="col-sm-2 control-label">公司中文名称<span class="required">*</span></label>
+                    <label class="col-sm-2 control-label">公司中文名称</label>
                     <div class="col-sm-8">
-                        <input type="text" class="form-control" name="name_cn" ng-model="data.name_cn"  data-rule="required; length[~100];">
+                        <input type="text" class="form-control" name="name_cn" ng-model="data.name_cn"  data-rule="length[~100];">
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-2 control-label">公司英文名称<span class="required">*</span></label>
                     <div class="col-sm-8">
                         <input type="text" class="form-control" name="name_en" ng-model="data.name_en"  data-rule="required; length[~100];">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">公司成立日期<span class="required">*</span></label>
-                    <div class="col-sm-8">
-                        <input type="text" class="form-control date-input" id="date_setup" name="date_setup" ng-model="data.date_setup"  data-rule="required;">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">公司注册编号<span class="required">*</span></label>
-                    <div class="col-sm-8">
-                        <input type="text" class="form-control" name="reg_no" ng-model="data.reg_no" data-rule="required; length[~100];">
                     </div>
                 </div>
                 <div class="form-group">
@@ -136,34 +124,28 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-2 control-label">公司注册地址<span class="required">*</span></label>
-                    <div class="col-sm-8">
-                        <input type="text" class="form-control" name="address" ng-model="data.address" data-rule="required; length[~300];">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">成交日期<span class="required">*</span></label>
-                    <div class="col-sm-8">
-                        <input type="text" class="form-control date-input" id="date_transaction" name="date_transaction" ng-model="data.date_transaction" data-rule="required;">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">成交金额<span class="required">*</span></label>
-                    <div class="col-sm-8">
-                        <input type="text" class="form-control" name="amount_transaction" ng-model="data.amount_transaction" data-rule-money="[/^(([1-9]\d{0,9})|0)(\.\d{1,2})?$/, '请填写2位数的数值']" data-rule="required;money;">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">币别<span class="required">*</span></label>
-                    <div class="col-sm-8">
-                        <select ui-select2 class="form-control select2" name="currency" ng-model="data.currency" url=" Dictionary/DroplistByGroup" paging="false" paramfield="group" paramvalue="币别" ata-rule="required;"></select>
-                        <span id="currencySelect2-validator" class="select-validator"></span>
-                    </div>
-                </div>
-                <div class="form-group">
                     <label class="col-sm-2 control-label">公司董事</label>
                     <div class="col-sm-8">
                         <input type="text" class="form-control" name="director" ng-model="data.director">
+                    </div>
+                </div>
+
+                <!-- <div class="form-group">
+                    <label class="col-sm-2 control-label">公司成立日期</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control date-input" id="date_setup" name="date_setup" ng-model="data.date_setup">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">公司注册编号</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" name="reg_no" ng-model="data.reg_no" data-rule="length[~100];">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">公司注册地址</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" name="address" ng-model="data.address" data-rule="length[~300];">
                     </div>
                 </div>
                 <div class="form-group">
@@ -188,6 +170,33 @@
                     <label class="col-sm-2 control-label">银行账号</label>
                     <div class="col-sm-8">
                         <input type="text" class="form-control" ng-model="data.account" disabled>
+                    </div>
+                </div> -->
+
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">成交日期<span class="required">*</span></label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control date-input" id="date_transaction" name="date_transaction" ng-model="data.date_transaction" data-rule="required;">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">成交金额<span class="required">*</span></label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" name="amount_transaction" ng-model="data.amount_transaction" data-rule-money="[/^(([1-9]\d{0,9})|0)(\.\d{1,2})?$/, '请填写2位数的数值']" data-rule="required;money;">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">币别<span class="required">*</span></label>
+                    <div class="col-sm-8">
+                        <select ui-select2 class="form-control select2" id="currencySelect2" name="currency" ng-model="data.currency" url="Dictionary/DroplistByGroup" paging="false" paramfield="group" paramvalue="币别" ata-rule="required;"></select>
+                        <span id="currencySelect2-validator" class="select-validator"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">汇率<span class="required">*</span></label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" name="rate" ng-model="data.rate" data-rule-money="[/^(([1-9]\d{0,9})|0)(\.\d{1,2})?$/, '请填写2位数的数值']" data-rule="required;money;">
                     </div>
                 </div>
             </div>

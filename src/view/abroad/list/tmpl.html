@@ -68,8 +68,6 @@
                         <th>注册进度</th>
                         <th>成交日期</th>
                         <th class="tar">成交金额</th>
-                        <!-- <th class="tar">已收款</th> -->
-                        <!-- <th class="tar">未收款</th> -->
                         <th class="opt-col">操作</th>
                     </tr>
                     <tr ng-repeat="item in data.items">
@@ -82,15 +80,16 @@
                             <span class="label" ng-class="{'label-warning': (item.status==0), 'label-success': (item.status==4), 'label-info': (item.status != 0 && item.status != 4)}" ng-bind="getOrderStatus(item.status)"></span>
                         </td>
                         <td>
-                            <span class="label" ng-class="{'label-warning': (item.review_status==-1), 'label-success': (item.review_status==1), 'label-danger': (item.review_status==0)}" ng-bind="getReviewStatus(item.status, item.review_status)"></span>
+                            <span style="cursor: default;" class="label" ng-attr-title="{{getTitle(item)}}"
+                            ng-class="{'label-warning': (item.review_status==-1), 'label-success': (item.review_status==1), 'label-danger': (item.review_status==0)}"
+                            ng-bind="getReviewStatus(item.status, item.review_status)">
+                            </span>
                         </td>
                         <td title="点击可设置进度">
                             <a href="javascript:;" class="fa fa-hourglass-half" ng-click="progress(item)" ng-bind="!!item.progress? (' ' + item.progress) : ' 无进度信息'"></a>
                         </td>
                         <td ng-bind="format(item.date_transaction, 'YYYY-MM-DD')"></td>
                         <td class="tar" ng-bind="item.amount_transaction"></td>
-                        <!-- <td class="tar" ng-bind="item.amount_income"></td> -->
-                        <!-- <td class="tar" ng-bind="item.amount_unreceive"></td> -->
                         <td class="opt-col">
                             <div class="btn-group">
                                 <button type="button" class="btn btn-box-tool dropdown-toggle" data-toggle="dropdown">
@@ -107,10 +106,6 @@
                                     <li><a class="fa fa-clock-o" ui-sref="abroad_timeline({id: item.id, name: 'reg_abroad', code: item.code, source: 'list'})"> 操作日志</a></li>
                                 </ul>
                             </div>
-                            <!-- <a class="fa fa-info-circle" ui-sref="abroad_view({id: item.id})" title="详情"></a>
-                            <a href="javascript:;" class="fa fa-pencil orange" ng-click="edit(item)" title="修改"></a>
-                            <a href="javascript:;" class="fa fa-trash-o red" ng-click="delete(item)" title="删除"></a>
-                            <a class="fa fa-clock-o green" ui-sref="abroad_timeline({id: item.id, name: 'reg_abroad', code: item.code, source: 'list'})" title="日志"></a> -->
                         </td>
                     </tr>
                 </tbody>

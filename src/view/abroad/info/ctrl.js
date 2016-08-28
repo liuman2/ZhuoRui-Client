@@ -14,7 +14,6 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
     });
 
     $scope.action = null;
-
     switch ($state.current.name) {
         case 'abroad_add':
             $scope.action = 'add';
@@ -50,6 +49,7 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
         invoice_address: '',
         invoice_tel: '',
         invoice_bank: '',
+        rate: '',
         invoice_account: ''
     }
 
@@ -71,7 +71,7 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
 
                 var submitData = angular.copy($scope.data);
 
-                submitData.date_setup = $('#date_setup').val();
+                // submitData.date_setup = $('#date_setup').val();
                 submitData.date_transaction = $('#date_transaction').val();
 
                 var url = $scope.action == 'add' ? '/RegAbroad/Add' : '/RegAbroad/Update';
@@ -150,6 +150,17 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
             $scope.data.account = select_banks[0].account;
             $scope.$apply();
         }
+    });
+
+    $('#currencySelect2').on("change", function(e) {
+        var currency = $(e.target).val();
+        if (currency == "人民币") {
+            $scope.data.rate = 1;
+        } else {
+            $scope.data.rate = '';
+        }
+
+        $scope.$apply();
     });
 
     function actionView() {

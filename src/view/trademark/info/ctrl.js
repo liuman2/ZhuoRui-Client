@@ -69,11 +69,11 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
                 var submitData = angular.copy($scope.data);
 
                 submitData.date_transaction = $('#date_transaction').val();
-                submitData.date_receipt = $('#date_receipt').val();
-                submitData.date_accept = $('#date_accept').val();
-                submitData.date_trial = $('#date_trial').val();
-                submitData.date_regit = $('#date_regit').val();
-                submitData.date_exten = $('#date_exten').val();
+                // submitData.date_receipt = $('#date_receipt').val();
+                // submitData.date_accept = $('#date_accept').val();
+                // submitData.date_trial = $('#date_trial').val();
+                // submitData.date_regit = $('#date_regit').val();
+                // submitData.date_exten = $('#date_exten').val();
 
                 var url = $scope.action == 'add' ? '/Trademark/Add' : '/Trademark/Update';
                 $http({
@@ -139,21 +139,21 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
                 id: id
             }
         }).success(function(data) {
-            if (data.date_receipt.indexOf('T') > -1) {
-                data.date_receipt = data.date_receipt.split('T')[0];
-            }
-            if (data.date_accept.indexOf('T') > -1) {
-                data.date_accept = data.date_accept.split('T')[0];
-            }
-            if (data.date_trial.indexOf('T') > -1) {
-                data.date_trial = data.date_trial.split('T')[0];
-            }
-            if (data.date_regit.indexOf('T') > -1) {
-                data.date_regit = data.date_regit.split('T')[0];
-            }
-            if (data.date_exten.indexOf('T') > -1) {
-                data.date_exten = data.date_exten.split('T')[0];
-            }
+            // if (data.date_receipt.indexOf('T') > -1) {
+            //     data.date_receipt = data.date_receipt.split('T')[0];
+            // }
+            // if (data.date_accept.indexOf('T') > -1) {
+            //     data.date_accept = data.date_accept.split('T')[0];
+            // }
+            // if (data.date_trial.indexOf('T') > -1) {
+            //     data.date_trial = data.date_trial.split('T')[0];
+            // }
+            // if (data.date_regit.indexOf('T') > -1) {
+            //     data.date_regit = data.date_regit.split('T')[0];
+            // }
+            // if (data.date_exten.indexOf('T') > -1) {
+            //     data.date_exten = data.date_exten.split('T')[0];
+            // }
             if (data.date_transaction.indexOf('T') > -1) {
                 data.date_transaction = data.date_transaction.split('T')[0];
             }
@@ -161,6 +161,17 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
             $scope.data = data;
         });
     }
+
+    $('#currencySelect2').on("change", function(e) {
+        var currency = $(e.target).val();
+        if (currency == "人民币") {
+            $scope.data.rate = 1;
+        } else {
+            $scope.data.rate = '';
+        }
+
+        $scope.$apply();
+    });
 
     function valid_customer() {
         if (!$scope.data.customer_id) {
@@ -226,6 +237,7 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
             return true;
         }
     }
+
     function valid_reg_mode() {
         if (!$scope.data.reg_mode) {
             jForm.validator('showMsg', '#regModeSelect2-validator', {

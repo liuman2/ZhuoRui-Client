@@ -40,9 +40,9 @@ module.exports = function($scope, $state, $http, $timeout) {
         case 'audit':
             $scope.timeline.title = '审计业务';
             if (from == 'list') {
-                $scope.timeline.sref = 'internal';
+                $scope.timeline.sref = 'audit';
             } else {
-                $scope.timeline.sref = 'internal_view({id: ' + source_id + '})';
+                $scope.timeline.sref = 'audit_view({id: ' + source_id + '})';
             }
             break;
         case 'patent':
@@ -69,6 +69,9 @@ module.exports = function($scope, $state, $http, $timeout) {
     };
 
     $scope.format = function(dt, str) {
+        if (!dt) {
+            return '';
+        }
         return moment(dt).format(str);
     }
 

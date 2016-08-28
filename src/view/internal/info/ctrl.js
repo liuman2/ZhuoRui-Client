@@ -51,12 +51,20 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
         invoice_address: '',
         invoice_tel: '',
         invoice_bank: '',
-        invoice_account: ''
+        invoice_account: '',
+        rate: ''
     }
 
     if (!!id) {
         $scope.data.id = id;
         actionView();
+    }
+
+    $scope.getTitle = function(item) {
+        if (item.review_status == 0) {
+            return item.finance_review_moment || item.submit_review_moment;
+        }
+        return '';
     }
 
     $scope.save = function() {
@@ -69,7 +77,7 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
                     return;
                 }
                 var submitData = angular.copy($scope.data);
-                submitData.date_setup = $('#date_setup').val();
+                // submitData.date_setup = $('#date_setup').val();
                 submitData.date_transaction = $('#date_transaction').val();
                 var url = $scope.action == 'add' ? '/RegInternal/Add' : '/RegInternal/Update';
                 $http({
@@ -157,9 +165,9 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
                 id: id
             }
         }).success(function(data) {
-            if (data.date_setup.indexOf('T') > -1) {
-                data.date_setup = data.date_setup.split('T')[0];
-            }
+            // if (data.date_setup.indexOf('T') > -1) {
+            //     data.date_setup = data.date_setup.split('T')[0];
+            // }
             if (data.date_transaction.indexOf('T') > -1) {
                 data.date_transaction = data.date_transaction.split('T')[0];
             }
@@ -197,6 +205,17 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
             }
         });
     }
+
+    $('#currencySelect2').on("change", function(e) {
+        var currency = $(e.target).val();
+        if (currency == "人民币") {
+            $scope.data.rate = 1;
+        } else {
+            $scope.data.rate = '';
+        }
+
+        $scope.$apply();
+    });
 
     function valid_customer() {
         if (!$scope.data.customer_id) {
