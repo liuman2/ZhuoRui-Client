@@ -89,11 +89,18 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-2 control-label">币别</label>
+                    <label class="col-sm-2 control-label">交易币别</label>
                     <div class="col-sm-8">
                         <span class="form-span" ng-bind="data.currency"></span>
                     </div>
                 </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">汇率</label>
+                    <div class="col-sm-8">
+                        <span class="form-span" ng-bind="data.rate"></span>
+                    </div>
+                </div>
+
                 <div class="form-group">
                     <label class="col-sm-2 control-label">其他事项</label>
                     <div class="col-sm-8">
@@ -165,7 +172,7 @@
                             <td></td>
                             <td class="summary" colspan="7">
                                 <div>
-                                    <span>币别: </span>
+                                    <span>交易币别: </span>
                                     <span class="num" ng-bind="data.currency"></span>
                                 </div>
                                 <div>
