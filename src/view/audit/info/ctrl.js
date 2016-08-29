@@ -154,12 +154,27 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
         var currency = $(e.target).val();
         if (currency == "人民币") {
             $scope.data.rate = 1;
+            $('input[name="rate"]').attr('disabled', true);
         } else {
-            $scope.data.rate = '';
+            if (!id) {
+                $scope.data.rate = '';
+            } else {
+                if (currency != rate_obj.currency) {
+                    $scope.data.rate = '';
+                } else {
+                    $scope.data.rate = rate_obj.rate;
+                }
+            }
+            $('input[name="rate"]').attr('disabled', false);
         }
 
         $scope.$apply();
     });
+
+    var rate_obj = {
+        rate: '',
+        currency: ''
+    }
 
     function actionView() {
         $http({
@@ -183,6 +198,13 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
             }
 
             $scope.data = data;
+
+            var temp_rate = {
+                rate: $scope.data.rate,
+                currency: $scope.data.currency
+            }
+
+            angular.copy(temp_rate, rate_obj);
         });
     }
 

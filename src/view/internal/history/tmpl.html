@@ -31,17 +31,19 @@
                         <th>注册地址</th>
                         <th>公司法人</th>
                         <th>公司董事</th>
+                        <th>其他变更</th>
                         <th>记录时间</th>
                         <th class="opt-col">操作</th>
                     </tr>
                     <tr ng-repeat="item in data.items">
                         <td ng-bind="($index+1)+'.'"></td>
                         <td ng-attr-title="{{item.name_cn}}" ng-bind="item.name_cn"></td>
-                        <td ng-bind="format(item.date_transaction, 'YYYY-MM-DD')"></td>
+                        <td ng-bind="format(item.date_setup, 'YYYY-MM-DD')"></td>
                         <td ng-bind="item.reg_no"></td>
                         <td ng-attr-title="{{item.address}}" ng-bind="item.address"></td>
                         <td ng-bind="item.legal"></td>
                         <td ng-bind="item.director"></td>
+                        <td ng-attr-title="{{item.others}}" ng-bind="item.others"></td>
                         <td ng-bind="format(item.date_created, 'YYYY-MM-DD HH:mm:ss')"></td>
                         <td class="opt-col">
                             <div class="btn-group" ng-if="$index==0">

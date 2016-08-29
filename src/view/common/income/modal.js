@@ -17,6 +17,8 @@ module.exports = function($scope, $state, $http, $timeout) {
         }
     });
 
+    console.log($scope.data.currency)
+
     var jForm = $('#income_modal');
     jForm.validator({
         rules: {},
@@ -28,6 +30,8 @@ module.exports = function($scope, $state, $http, $timeout) {
         source_id: source_id,
         source_name: source_name,
         customer_id: customer_id,
+        currency: $scope.data.currency,
+        rate: $scope.data.rate,
         payer: '',
         account: '',
         amount: '',

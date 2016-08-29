@@ -40,7 +40,7 @@ module.exports = function($scope, $state, $http, $timeout) {
                 id: reg_id
             }
         }).success(function(data) {
-            if (data.date_setup.indexOf('T') > -1) {
+            if (data.date_setup && data.date_setup.indexOf('T') > -1) {
                 data.date_setup = data.date_setup.split('T')[0];
             }
 

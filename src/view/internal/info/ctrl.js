@@ -157,6 +157,32 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
         }
     });
 
+    $('#currencySelect2').on("change", function(e) {
+        var currency = $(e.target).val();
+        if (currency == "人民币") {
+            $scope.data.rate = 1;
+            $('input[name="rate"]').attr('disabled', true);
+        } else {
+            if (!id) {
+                $scope.data.rate = '';
+            } else {
+                if (currency != rate_obj.currency) {
+                    $scope.data.rate = '';
+                } else {
+                    $scope.data.rate = rate_obj.rate;
+                }
+            }
+            $('input[name="rate"]').attr('disabled', false);
+        }
+
+        $scope.$apply();
+    });
+
+    var rate_obj = {
+        rate: '',
+        currency: ''
+    }
+
     function actionView() {
         $http({
             method: 'GET',
@@ -172,6 +198,13 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
                 data.date_transaction = data.date_transaction.split('T')[0];
             }
             $scope.data = data;
+
+            var temp_rate = {
+                rate: $scope.data.rate,
+                currency: $scope.data.currency
+            }
+
+            angular.copy(temp_rate, rate_obj);
         });
     }
 
@@ -205,17 +238,6 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
             }
         });
     }
-
-    $('#currencySelect2').on("change", function(e) {
-        var currency = $(e.target).val();
-        if (currency == "人民币") {
-            $scope.data.rate = 1;
-        } else {
-            $scope.data.rate = '';
-        }
-
-        $scope.$apply();
-    });
 
     function valid_customer() {
         if (!$scope.data.customer_id) {

@@ -248,7 +248,7 @@
                         </tr>
                         <tr>
                             <td></td>
-                            <td class="summary" colspan="8">
+                            <td class="summary" colspan="2">
                                 <div>
                                     <span>交易币别: </span>
                                     <span class="num" ng-bind="data.currency"></span>
@@ -265,6 +265,33 @@
                                     <span>未收款: </span>
                                     <span class="num balance" ng-bind="incomes.balance"></span>
                                 </div>
+                                <div ng-if="data.currency !='人民币'">
+                                    <span>汇率: </span>
+                                    <span class="num" ng-bind="data.rate"></span>
+                                </div>
+                            </td>
+                            <td class="summary" colspan="2">
+                                <div ng-if="data.currency !='人民币'">
+                                    <div>
+                                        <span>本币: </span>
+                                        <span class="num">人民币</span>
+                                    </div>
+                                    <div>
+                                        <span>应收款: </span>
+                                        <span class="num receivable" ng-bind="incomes.local_amount"></span>
+                                    </div>
+                                    <div>
+                                        <span>已收款: </span>
+                                        <span class="num received" ng-bind="incomes.local_total"></span>
+                                    </div>
+                                    <div>
+                                        <span>未收款: </span>
+                                        <span class="num balance" ng-bind="incomes.local_balance"></span>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="summary" colspan="4">
+
                             </td>
                         </tr>
                     </tbody>
