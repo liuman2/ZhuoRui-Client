@@ -20,19 +20,25 @@
         </div>
         <div class="box-body">
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <div class="form-group">
                         <label>客户名称</label>
                         <select ui-select2 class="form-control select2" name="customer_id" ng-model="search.customer_id" url="Customer/DropDownSearch" paging="true" style="width: 100%;">
                         </select>
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <div class="form-group">
                         <label>年检客服</label>
                         <select ui-select2 class="form-control select2" name="waiter_id" ng-model="search.waiter_id" url="Member/List" paging="true" style="width: 100%;"></select>
                     </div>
                 </div>
+                <!-- <div class="col-md-4">
+                    <div class="form-group">
+                        <label>业务员</label>
+                        <select ui-select2 class="form-control select2" name="salesman_id" ng-model="search.salesman_id" url="Member/List" paging="true" style="width: 100%;"></select>
+                    </div>
+                </div> -->
             </div>
         </div>
         <div class="box-footer">
@@ -45,11 +51,11 @@
                 <tbody>
                     <tr>
                         <th style="width: 10px">#</th>
-                        <th>客户档案号</th>
+                        <th>档案号</th>
                         <th>客户名称</th>
                         <th>订单类型</th>
-                        <th>单号</th>
                         <th>名称</th>
+                        <th>业务员</th>
                         <th>提交日期</th>
                         <th>完成日期</th>
 
@@ -57,11 +63,11 @@
                     </tr>
                     <tr ng-repeat="item in data.items">
                         <td ng-bind="($index+1)+'.'"></td>
-                        <td ng-bind="item.customer_code"></td>
+                        <td ng-bind="item.order_code"></td>
                         <td ng-bind="item.customer_name" ng-attr-title="{{item.customer_name}}"></td>
                         <td ng-bind="item.order_type_name"></td>
-                        <td ng-bind="item.order_code"></td>
                         <td ng-bind="item.order_name" ng-attr-title="{{item.order_name}}"></td>
+                        <td ng-bind="item.saleman"></td>
                         <td ng-bind="format(item.submit_review_date, 'YYYY-MM-DD')"></td>
                         <td ng-bind="format(item.date_finish, 'YYYY-MM-DD')"></td>
 

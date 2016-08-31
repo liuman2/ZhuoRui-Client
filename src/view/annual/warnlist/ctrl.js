@@ -5,7 +5,8 @@ module.exports = function($scope, $http, $state, $stateParams) {
 
     $scope.search = {
         customer_id: '',
-        waiter_id: ''
+        waiter_id: ''/*,
+        salesman_id: ''*/
     }
 
     $scope.data = {
