@@ -100,7 +100,7 @@ module.exports = function($scope, $state, $http, $cookieStore, $q, $timeout) {
     }
 
     $scope.cancel = function() {
-        $state.go("customer_view", {id: id});
+        $state.go("customer");
     }
 
     function actionView() {

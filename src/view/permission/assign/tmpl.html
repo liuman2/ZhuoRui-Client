@@ -22,14 +22,36 @@
         <div class="col-md-9">
             <div class="box box-info">
                 <div class="box-header with-border">
-                    <h3 class="box-title">权限列表</h3>
+                    <h3 class="box-title">菜单权限</h3>
+                    <div class="box-tools">
+                        <div class="box-tools pull-right">
+                            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                            </button>
+                        </div>
+                    </div>
                 </div>
                 <div class="box-body table-responsive no-padding">
                     <div id="menu-tree" class="ztree"></div>
                 </div>
-                <div class="box-footer clearfix">
-                    <a class="btn btn-sm btn-info btn-flat pull-left" ng-click="save()">保存</a>
+            </div>
+
+            <div class="box box-info">
+                <div class="box-header with-border">
+                    <h3 class="box-title">数据权限</h3>
+                    <div class="box-tools">
+                        <div class="box-tools pull-right">
+                            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                            </button>
+                        </div>
+                    </div>
                 </div>
+                <div class="box-body table-responsive no-padding">
+                    <div id="oper-tree" class="ztree"></div>
+                </div>
+            </div>
+
+            <div class="box-footer clearfix">
+                <a class="btn btn-sm btn-info btn-flat pull-left" ng-click="save()">保存</a>
             </div>
         </div>
     </div>

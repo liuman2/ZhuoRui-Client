@@ -1,6 +1,7 @@
 module.exports = function($scope, $http, $state, $stateParams) {
     var roleTree = null;
     var menuTree = null;
+    var operTree = null;
 
     $scope.save = function() {
         var nodes = roleTree.getSelectedNodes();
@@ -12,9 +13,19 @@ module.exports = function($scope, $http, $state, $stateParams) {
 
         var menuIds = [];
         var menuNodes = menuTree.getCheckedNodes(true);
+
+        var operIds = [];
+        var operNodes = operTree.getCheckedNodes(true);
+
         if (menuNodes.length) {
             $.map(menuNodes, function(menu) {
                 menuIds.push(menu.id);
+            });
+        }
+
+        if (operNodes.length) {
+            $.map(operNodes, function(oper) {
+                operIds.push(oper.id);
             });
         }
 
@@ -23,12 +34,12 @@ module.exports = function($scope, $http, $state, $stateParams) {
             url: '/Role/SaveRoleMenu',
             data: {
                 roleId: roleId,
-                menuIds: menuIds
+                menuIds: menuIds,
+                operIds: operIds
             }
         }).success(function() {
             load_tree(roleId);
         });
-
     }
 
     function _setting() {
@@ -119,8 +130,11 @@ module.exports = function($scope, $http, $state, $stateParams) {
                 roleId: roleId
             }
         }).success(function(data) {
-            menuTree = $.fn.zTree.init($("#menu-tree"), _menuSetting(), data);
+            menuTree = $.fn.zTree.init($("#menu-tree"), _menuSetting(), data.menus);
             menuTree.expandAll(true);
+
+            operTree = $.fn.zTree.init($("#oper-tree"), _menuSetting(), data.opers);
+            operTree.expandAll(true);
         });
     }
 

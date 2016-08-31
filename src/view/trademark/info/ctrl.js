@@ -57,12 +57,11 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
         var isWaiterVaild = valid_waiter();
         var isRegionValid = valid_region();
         var isCurrencyValid = valid_currency();
-        var isTrademarkType = valid_trademark_type();
         var isRegMode = valid_reg_mode();
 
         jForm.isValid(function(v) {
             if (v) {
-                if (!isCustomerValid || !isWaiterVaild || !isRegionValid || !isCurrencyValid || !isTrademarkType || !isRegMode) {
+                if (!isCustomerValid || !isWaiterVaild || !isRegionValid || !isCurrencyValid || !isRegMode) {
                     return;
                 }
 
@@ -243,19 +242,6 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
             return false;
         } else {
             jForm.validator('hideMsg', '#currencySelect2-validator');
-            return true;
-        }
-    }
-
-    function valid_trademark_type() {
-        if (!$scope.data.trademark_type) {
-            jForm.validator('showMsg', '#trademarkTypeSelect2-validator', {
-                type: "error",
-                msg: "此处不能为空"
-            });
-            return false;
-        } else {
-            jForm.validator('hideMsg', '#trademarkTypeSelect2-validator');
             return true;
         }
     }
