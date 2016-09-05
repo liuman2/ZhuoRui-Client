@@ -15,9 +15,12 @@ module.exports = function ($scope, $rootScope, $http, $cookieStore) {
     }).success(function (data) {
         $scope.menus = data.menus;
         $scope.userInfo = data.user;
+        $scope.opers = data.opers;
         if (!data.user) {
             location.href = '/login.html';
         }
+
+        $cookieStore.put('USER_OPERS', data.opers);
     }).error(function() {
         console.log(arguments)
     });

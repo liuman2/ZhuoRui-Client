@@ -23,7 +23,7 @@
                 <div class="col-md-3">
                     <div class="form-group">
                         <label>客户名称</label>
-                        <select ui-select2 class="form-control select2" name="customer_id" data-formatfields="code,text" data-formatcaptions="档案号,名称" ng-model="search.customer_id" url="Customer/DropDownSearch" paging="true" style="width: 100%;">
+                        <select ui-select2 class="form-control select2" name="customer_id" data-formatfields="code,text" data-formatcaptions="编号,名称" ng-model="search.customer_id" url="Customer/DropDownSearch" paging="true" style="width: 100%;">
                         </select>
                     </div>
                 </div>
@@ -70,10 +70,9 @@
                 <tbody>
                     <tr>
                         <th style="width: 10px">#</th>
-                        <th>档案号</th>
                         <th>客户名称</th>
                         <th>订单类型</th>
-                        <th>单号</th>
+                        <th>档案号</th>
                         <th>名称</th>
                         <th>成交金额</th>
                         <th>业务员(客服)</th>
@@ -82,7 +81,6 @@
                     </tr>
                     <tr ng-repeat="item in data.items">
                         <td ng-bind="($index+1)+'.'"></td>
-                        <td ng-bind="item.customer_code"></td>
                         <td ng-bind="item.customer_name" ng-attr-title="{{item.customer_name}}"></td>
                         <td ng-bind="item.order_type_name"></td>
                         <td ng-bind="item.order_code"></td>
@@ -91,7 +89,8 @@
                         <td ng-bind="item.salesman"></td>
                         <td ng-bind="getStatus(item)"></td>
                         <td class="opt-col">
-                            <a href="javascript:;" ng-click="detail(item)" ng-bind="getOpt(item)"> 马上审核</a>
+                            <a href="javascript:;" ng-click="detail(item)" ng-bind="getOpt(item)" ng-if="opers.indexOf(3) > -1"> 马上审核</a>
+                            <span ng-if="opers.indexOf(3) == -1"> 无审核权限</span>
                         </td>
                     </tr>
                 </tbody>

@@ -1,6 +1,6 @@
 <section class="content-header">
     <h1>
-        提交审核
+        订单汇总表
     </h1>
     <ol class="breadcrumb">
         <li><a ui-sref="dashboard"><i class="fa fa-dashboard"></i>我的面板</a></li>
@@ -29,8 +29,8 @@
                 </div>
                 <div class="col-md-3">
                     <div class="form-group">
-                        <label>业务员(客服)</label>
-                        <select ui-select2 class="form-control select2" name="salesman_id" ng-model="search.salesman_id" url="Member/List" paging="true" style="width: 100%;"></select>
+                        <label>业务员(年检客服)</label>
+                        <select ui-select2 allowclear="true" class="form-control select2" name="salesman_id" ng-view="salesman" ng-model="search.salesman_id" url="Member/List" paging="true" ng-disabled="opers.indexOf(1) == -1" style="width: 100%;"></select>
                     </div>
                 </div>
                 <div class="col-md-3">
@@ -44,7 +44,6 @@
                             <option value="trademark">商标</option>
                             <option value="patent">专利</option>
                             <option value="annual_exam">年检</option>
-
                         </select>
                     </div>
                 </div>
@@ -53,9 +52,36 @@
                         <label>状态</label>
                         <select class="form-control select2" name="order_status" ng-model="search.order_status">
                             <option value="">全部</option>
-                            <option value="0">未审核</option>
-                            <option value="1">已审核</option>
+                            <option value="0">未提交审核</option>
+                            <option value="1">未审核</option>
+                            <option value="2">审核中</option>
+                            <option value="3">已提交</option>
+                            <option value="4">已完成</option>
                          </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>订单范围</label>
+                        <select class="form-control select2" name="range" ng-model="search.range">
+                            <option value="0" ng-disabled="opers.indexOf(1) == -1">全公司</option>
+                            <option value="1" ng-disabled="opers.indexOf(1) == -1 && opers.indexOf(2) == -1">所属部门</option>
+                            <option value="2">个人订单</option>
+                         </select>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>成交开始日期</label>
+                        <input type="text" class="form-control date-input" id="start_time" ng-model="search.start_time" placeholder="成交开始日期">
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>成交结束日期</label>
+                        <input type="text" class="form-control date-input" id="end_time" ng-model="search.end_time" placeholder="成交结束日期">
                     </div>
                 </div>
             </div>
@@ -74,9 +100,12 @@
                         <th>订单类型</th>
                         <th>档案号</th>
                         <th>名称</th>
-                        <th>成交金额</th>
-                        <th>业务员(客服)</th>
-                        <th>状态</th>
+
+                        <th>业务员</th>
+                        <th>年检客服</th>
+                        <th>订单状态</th>
+                        <th>审核状态</th>
+                        <th>成交日期</th>
                         <th class="opt-col">操作</th>
                     </tr>
                     <tr ng-repeat="item in data.items">
@@ -85,12 +114,14 @@
                         <td ng-bind="item.order_type_name"></td>
                         <td ng-bind="item.order_code"></td>
                         <td ng-bind="item.order_name" ng-attr-title="{{item.order_name}}"></td>
-                        <td ng-bind="item.amount_transaction"></td>
+
                         <td ng-bind="item.salesman"></td>
+                        <td ng-bind="item.waitor"></td>
                         <td ng-bind="getStatus(item)"></td>
+                        <td ng-bind="getReviewStatus(item)"></td>
+                        <td ng-bind="format(item.date_transaction, 'YYYY-MM-DD')"></td>
                         <td class="opt-col">
-                            <a href="javascript:;" ng-click="detail(item)" ng-bind="getOpt(item)" ng-if="opers.indexOf(4) > -1"> 马上审核</a>
-                            <span ng-if="opers.indexOf(4) == -1"> 无审核权限</span>
+                            <a href="javascript:;" ng-click="detail(item)"> 详情</a>
                         </td>
                     </tr>
                 </tbody>

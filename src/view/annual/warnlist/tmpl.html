@@ -74,7 +74,9 @@
                         <td ng-bind="format(item.date_finish, 'YYYY-MM-DD')"></td>
 
                         <td class="opt-col">
-                            <a href="javascript:;" class="fa fa-pencil-square-o" ng-click="new_annual(item)"> 写年检单</a>
+                            <a href="javascript:;" class="fa fa-pencil-square-o" ng-click="new_annual(item)" ng-if="opers.indexOf(5) > -1"> 马上年检</a>
+                            <span ng-if="opers.indexOf(5) == -1"> 无年检权限</span>
+
                         </td>
                     </tr>
                 </tbody>

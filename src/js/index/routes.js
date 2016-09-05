@@ -15,6 +15,7 @@ var codingRouter = require('./router/coding');
 var annualRouter = require('./router/annual');
 var roleRouter = require('./router/role');
 var checkRouter = require('./router/order_check');
+var reportRouter = require('./router/report');
 
 module.exports = function($stateProvider, $urlRouterProvider) {
 
@@ -57,4 +58,5 @@ module.exports = function($stateProvider, $urlRouterProvider) {
     annualRouter($stateProvider, $urlRouterProvider);
     roleRouter($stateProvider, $urlRouterProvider);
     checkRouter($stateProvider, $urlRouterProvider);
+    reportRouter($stateProvider, $urlRouterProvider);
 };

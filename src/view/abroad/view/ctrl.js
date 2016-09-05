@@ -13,6 +13,11 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
         status: 0,
         review_status: -1
     }
+
+    if ($scope.opers == undefined) {
+        $scope.opers = $cookieStore.get('USER_OPERS');
+    }
+
     $scope.deleteIncome = function(item) {
         if ($scope.data.status > 0) {
             alert('已提交审核不能删除')
@@ -57,7 +62,7 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
         });
     }
 
-     $scope.format = function(dt, str) {
+    $scope.format = function(dt, str) {
         if (!dt) {
             return '';
         }

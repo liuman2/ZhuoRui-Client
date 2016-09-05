@@ -12,14 +12,15 @@ angular.module('ui.select2', []).directive('uiSelect2', ['$timeout', function($t
                 param_value = attrs['paramvalue'] || '',
                 param_field = attrs['paramfield'] || '',
                 ngView = attrs['ngView'] || '',
-                ispagging = attrs['paging'];
+                ispagging = attrs['paging'],
+                allowclear = attrs['allowclear']==="true" || false;
 
             var display_fields = attrs['formatfields'] || ''
             var format_captions = attrs['formatcaptions'] || ''
             var options = {
                 language: "zh-CN",
                 placeholder: "",
-                // allowClear: true,
+                allowClear: allowclear,
                 maximumSelectionSize: 8,
                 ajax: {
                     url: httpHelper.url(url),
@@ -111,15 +112,21 @@ angular.module('ui.select2', []).directive('uiSelect2', ['$timeout', function($t
             });
 
             scope.$watch(attrs.ngModel, function(opts) {
-                console.log(arguments)
+                // console.log(arguments)
             }, true);
 
             $timeout(function() {
                 if (ngModel.$modelValue) {
                     var viewValue = ngModel.$viewValue;
                     if (ngView) {
-                        viewValue = scope.data[ngView];
+                        if (scope.data && scope.data[ngView] !== undefined) {
+                            viewValue = scope.data[ngView];
+                        }
+                        if (scope.search && scope.search[ngView] !== undefined) {
+                            viewValue = scope.search[ngView];
+                        }
                     }
+
                     var option = "<option value='" + ngModel.$modelValue + "'>" + viewValue + "</option>";
                     $(element).append(option).val(ngModel.$modelValue).trigger('change');
                 }

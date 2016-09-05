@@ -71,7 +71,7 @@ module.exports = function($scope, $http, $state, $stateParams) {
     }
 
     $scope.getOpt = function(item) {
-        if (item.status == 1) {
+        if (item.status == 2) {
             return '马上审核';
         }
         return '查看详情';
