@@ -1,0 +1,93 @@
+<section class="content-header">
+    <h1>
+        讲座管理
+    </h1>
+    <ol class="breadcrumb">
+        <li><a ui-sref="dashboard"><i class="fa fa-dashboard"></i>我的面板</a></li>
+        <li><a class="active">列表</a></li>
+    </ol>
+</section>
+<section class="content">
+    <div class="box box-info">
+        <div class="box-header with-border">
+            <h3 class="box-title">查询条件</h3>
+            <div class="box-tools">
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="box-body">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>主题</label>
+                        <input type="text" class="form-control" name="title" ng-model="search.title">
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>形式</label>
+                        <select class="form-control select2" name="order_type" ng-model="search.form">
+                            <option value="">全部</option>
+                            <option value="视频">视频</option>
+                            <option value="现场">现场</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>开始时间</label>
+                        <input type="text" class="form-control date-input" id="start_time" ng-model="search.start_time" placeholder="开始时间">
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>结束时间</label>
+                        <input type="text" class="form-control date-input" id="end_time" ng-model="search.end_time" placeholder="结束时间">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="box-footer">
+            <a class="btn btn-sm btn-info btn-flat pull-right" ng-click="query()">查询</a>
+        </div>
+    </div>
+    <div class="box box-info">
+        <div class="box-body table-responsive no-padding">
+            <table class="table table-hover">
+                <tbody>
+                    <tr>
+                        <th style="width: 10px">#</th>
+                        <th>形式</th>
+                        <th>主题</th>
+                        <th>讲师</th>
+                        <th>时间</th>
+                        <th>城市</th>
+                        <th>地址</th>
+                        <th>主办方</th>
+                        <th class="opt-col">操作</th>
+                    </tr>
+                    <tr ng-repeat="item in data.items">
+                        <td ng-bind="($index+1)+'.'"></td>
+                        <td ng-bind="item.form" ng-attr-title="{{item.form}}"></td>
+                        <td ng-bind="item.title" ng-attr-title="{{item.title}}"></td>
+                        <td ng-bind="item.teacher"></td>
+                        <td ng-bind="format(item.date_at, 'YYYY-MM-DD HH:mm')"></td>
+                        <td ng-bind="item.city"></td>
+                        <td ng-bind="item.address" ng-attr-title="{{item.address}}"></td>
+                        <td ng-bind="item.sponsor" ng-attr-title="{{item.sponsor}}"></td>
+                        <td class="opt-col">
+                            <a href="javascript:;" ui-sref="lecture_view({id: item.id})"> 详情</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="box-footer clearfix">
+            <a ui-sref="lecture_add" class="btn btn-sm btn-info btn-flat pull-left">新增</a>
+            <div pagination page-data="data.page" page-click="go(idx)"></div>
+        </div>
+    </div>
+</section>
