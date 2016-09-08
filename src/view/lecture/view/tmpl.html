@@ -109,9 +109,9 @@
                             <th>业务员</th>
                             <th class="opt-col">操作</th>
                         </tr>
-                        <tr ng-repeat="item in customers">
+                        <tr ng-repeat="item in customers.items">
                             <td ng-bind="($index+1)+'.'"></td>
-                            <td ng-bind="item.name" ui-sref="customer_view({id: item.id})"></td>
+                            <td ng-bind="item.name" ui-sref="customer_view({id: item.customer_id})"></td>
                             <td ng-bind="item.business_nature"></td>
                             <td ng-bind="item.industry"></td>
                             <td ng-bind="item.contact"></td>
@@ -130,7 +130,7 @@
             </div>
             <div class="box-footer clearfix">
                 <button type="button" class="btn btn-info" ui-sref=".customer_add" ui-sref-opts="{location:false}">添加</button>
-                <div pagination page-data="data.page" page-click="go(idx)"></div>
+                <div pagination page-data="customers.page" page-click="go(idx)"></div>
             </div>
         </div>
     </form>

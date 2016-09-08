@@ -1,0 +1,77 @@
+<section class="content-header">
+    <h1>
+        信件管理
+    </h1>
+    <ol class="breadcrumb">
+        <li><a ui-sref="dashboard"><i class="fa fa-dashboard"></i>我的面板</a></li>
+        <li><a ui-sref="letter">列表</a></li>
+        <li class="active">查看</li>
+    </ol>
+</section>
+<section class="content">
+    <form class="form-horizontal view-form" id="abroad_form">
+        <div class="detail-view-header-wrapper">
+            <div class="box-footer detail-view-header" ui-scrollpoint ui-scrollpoint-enabled="true" ui-scrollpoint-class="fixed">
+                <button type="button" class="btn btn-info" ui-sref="letter_edit({id: id})" ui-sref-opts="{reload:true}">修改</button>
+            </div>
+        </div>
+        <div class="box box-info">
+            <div class="box-header with-border">
+                <h3 class="box-title">基本信息</h3>
+                <div class="box-tools">
+                    <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="box-body">
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">收寄类型</label>
+                    <div class="col-sm-8">
+                        <span class="form-span" ng-bind="data.type"></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" ng-bind="data.type=='收件' ? '收件人' : '寄件人'">收/寄人</label>
+                    <div class="col-sm-8">
+                        <span class="form-span" ng-bind="data.owner"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">信件类型</label>
+                    <div class="col-sm-8">
+                        <span class="form-span" ng-bind="data.letter_type"></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" ng-bind="data.type=='收件' ? '收件日期' : '寄件日期'"></label>
+                    <div class="col-sm-8">
+                        <span class="form-span" ng-bind="format(data.date_at, 'YYYY-MM-DD')"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">信件单号</label>
+                    <div class="col-sm-8">
+                        <span class="form-span" ng-bind="data.code"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">快递公司</label>
+                    <div class="col-sm-8">
+                        <span class="form-span" ng-bind="data.merchant"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">备注:</label>
+                    <div class="col-sm-8">
+                        <span class="form-span" ng-bind="data.description"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</section>
+<div ui-view="modal"></div>

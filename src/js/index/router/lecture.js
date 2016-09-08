@@ -1,10 +1,3 @@
-var views_abroad = {
-    'info': {
-        template: require('view/lecture/info/tmpl.html'),
-        controller: require('view/lecture/info/ctrl')
-    }
-};
-
 var router = function($stateProvider, $urlRouterProvider) {
 
     $stateProvider

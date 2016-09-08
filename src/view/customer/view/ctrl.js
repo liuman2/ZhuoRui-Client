@@ -1,3 +1,6 @@
+var moment = require('moment');
+moment.locale('zh-cn');
+
 module.exports = function($scope, $state, $http, $q, $timeout) {
 
     var id = $state.params.id || null;
@@ -36,6 +39,13 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
         actionView();
     });
 
+    $scope.format = function(dt, str) {
+        if (!dt) {
+            return '';
+        }
+        return moment(dt).format(str);
+    }
+
     function actionView() {
         $http({
             method: 'GET',
@@ -45,6 +55,20 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
             }
         }).success(function(data) {
             $scope.data = data;
+
+            getOrders();
+        });
+    }
+
+    function getOrders() {
+        $http({
+            method: 'GET',
+            url: '/Customer/GetBusinessByCustomerId',
+            params: {
+                customerId: id
+            }
+        }).success(function(data) {
+            $scope.orders = data;
         });
     }
 };

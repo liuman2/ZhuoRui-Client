@@ -189,26 +189,14 @@
                     <tr>
                         <th style="width: 10px">#</th>
                         <th>业务名称</th>
-                        <th>业务员</th>
-                        <th>成交日期</th>
+                        <th>订单数量</th>
+                        <th>最近成交日期</th>
                     </tr>
-                    <tr>
-                        <td>1.</td>
-                        <td>境外注册业务</td>
-                        <td>张三</td>
-                        <td>2015-08-08</td>
-                    </tr>
-                    <tr>
-                        <td>2.</td>
-                        <td>国内注册业务</td>
-                        <td>张三</td>
-                        <td>2015-08-08</td>
-                    </tr>
-                    <tr>
-                        <td>3.</td>
-                        <td>审计业务</td>
-                        <td>张三</td>
-                        <td>2015-08-08</td>
+                    <tr ng-repeat="item in orders">
+                        <td ng-bind="($index+1)+'.'"></td>
+                         <td ng-bind="item.order_name"></td>
+                        <td ng-bind="item.count"></td>
+                        <td ng-bind="format(item.last_date, 'YYYY-MM-DD')"></td>
                     </tr>
                 </tbody>
             </table>

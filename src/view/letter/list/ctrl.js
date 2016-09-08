@@ -37,27 +37,6 @@ module.exports = function($scope, $http, $state, $stateParams) {
         load_data();
     };
 
-    $scope.delete = function(item) {
-
-        if (!confirm('您确认要删除吗？')) {
-            return false;
-        }
-
-        $http({
-            method: 'GET',
-            url: '/Lecture/Delete',
-            params: {
-                id: item.id
-            }
-        }).success(function(data) {
-            load_data();
-        });
-    }
-
-    $scope.edit = function(item) {
-        $state.go("lecture_edit", {id: item.id});
-    }
-
     $scope.format = function(dt, str) {
         if (!dt) {
             return '';
@@ -76,7 +55,7 @@ module.exports = function($scope, $http, $state, $stateParams) {
 
         $http({
             method: 'GET',
-            url: '/Lecture/Search',
+            url: '/Letter/Search',
             params: $scope.search
         }).success(function(data) {
             $scope.data = data;

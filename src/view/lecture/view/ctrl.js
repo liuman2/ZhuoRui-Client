@@ -18,7 +18,16 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
     }
 
     $scope.data = {}
-    $scope.customers = [];
+
+    $scope.customers = {
+        items: [],
+        page: {
+            current_index: 0,
+            current_size: 0,
+            total_page: 0,
+            total_size: 0
+        }
+    };
 
     $scope.edit = function() {
         $state.go("abroad_edit", {
@@ -74,7 +83,7 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
             url: '/Lecture/GetDetails',
             params: $scope.search
         }).success(function(data) {
-            $scope.customers = data.items || [];
+            $scope.customers = data;
         });
     }
 };
