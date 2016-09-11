@@ -85,6 +85,15 @@ var router = function($stateProvider, $urlRouterProvider) {
                 }
             }
         })
+        .state('abroad_history.edit', {
+            url: '/edit',
+            views: {
+                'add': {
+                    template: require('view/abroad/history/modal.html'),
+                    controller: require('view/abroad/history/modal')
+                }
+            }
+        })
         .state('abroad.progress', {
             url: '/progress/{id:.*}/{module_name:.*}',
             views: {

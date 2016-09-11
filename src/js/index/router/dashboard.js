@@ -4,8 +4,8 @@ var router = function ($stateProvider, $urlRouterProvider) {
         .state('dashboard', {
             url: '/dashboard',
             stateName: '我的桌面',
-            template: require('view/dashboard/tmpl.html')
-            // controller: require('view/dashboard/ctrl')
+            template: require('view/dashboard/tmpl.html'),
+            controller: require('view/dashboard/ctrl')
         })
 };
 

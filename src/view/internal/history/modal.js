@@ -23,7 +23,12 @@ module.exports = function($scope, $state, $http, $timeout) {
     $scope.save = function() {
         jForm.isValid(function(v) {
             if (v) {
-                actionAdd();
+
+                if ($state.current.name == 'internal_history.edit') {
+                    actionUpdate();
+                } else {
+                    actionAdd();
+                }
             }
         });
     }
@@ -55,6 +60,19 @@ module.exports = function($scope, $state, $http, $timeout) {
         $http({
             method: 'POST',
             url: '/RegInternal/AddHistory',
+            data: $scope.data
+        }).success(function(data) {
+            $scope.$emit('HISTORY_MODAL_DONE');
+            $state.go('^', { reload: true });
+        });
+    }
+
+    function actionUpdate() {
+        $scope.data.date_setup = $('#date_setup').val();
+
+        $http({
+            method: 'POST',
+            url: '/RegInternal/UpdateHistory',
             data: $scope.data
         }).success(function(data) {
             $scope.$emit('HISTORY_MODAL_DONE');

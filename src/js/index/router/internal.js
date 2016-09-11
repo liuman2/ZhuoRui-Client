@@ -85,6 +85,15 @@ var router = function($stateProvider, $urlRouterProvider) {
                 }
             }
         })
+        .state('internal_history.edit', {
+            url: '/edit',
+            views: {
+                'add': {
+                    template: require('view/internal/history/modal.html'),
+                    controller: require('view/internal/history/modal')
+                }
+            }
+        })
 
         .state('internal.progress', {
             url: '/progress/{id:.*}/{module_name:.*}',

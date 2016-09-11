@@ -1,0 +1,51 @@
+<section class="content-header">
+    <h1>
+        个人资料
+    </h1>
+    <ol class="breadcrumb">
+        <li><a ui-sref="dashboard"><i class="fa fa-dashboard"></i>我的面板</a></li>
+        <li><a class="active">个人资料</a></li>
+    </ol>
+</section>
+<section class="content">
+    <div class="box box-primary">
+        <div class="box-body box-profile ">
+
+            <div class="profile-picture">
+                <div>
+                    <img ng-src="{{userInfo.url}}" width="100%" height="100%">
+                </div>
+                <div class="img-tips" ng-class="userInfo.url==''?'tips-show':''" id="btnHeadUrl">
+                    <div class="tips">
+                        <div class="tips-icon"></div>
+                        <span>点击更换头像</span>
+                    </div>
+                </div>
+            </div>
+
+            <h3 class="profile-username text-center" ng-bind="userInfo.name"></h3>
+            <p class="text-muted text-center" ng-bind="userInfo.position"></p>
+            <form class="form-horizontal" id="form_profile">
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">旧密码</label>
+                    <div class="col-sm-8">
+                        <input type="password" class="form-control" name="old_password" ng-model="data.old_password" data-rule="required; length[~16];" autocomplete="off">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">新密码</label>
+                    <div class="col-sm-8">
+                        <input type="password" class="form-control" name="new_password" ng-model="data.new_password" data-rule="新密码:required; length[~16]; password;">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">确认密码</label>
+                    <div class="col-sm-8">
+                        <input type="password" class="form-control" name="repeat_password" ng-model="data.repeat_password" data-rule="确认密码:required; match(new_password); ">
+                    </div>
+                </div>
+            </form>
+            <a href="javascript:;" class="btn btn-primary btn-block col-sm-10" ng-click="save()">保存</a>
+        </div>
+    </div>
+</section>

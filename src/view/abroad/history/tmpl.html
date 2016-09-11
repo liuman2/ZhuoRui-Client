@@ -48,14 +48,7 @@
                         <td ng-attr-title="{{item.others}}" ng-bind="item.others"></td>
                         <td ng-bind="format(item.date_created, 'YYYY-MM-DD HH:mm:ss')"></td>
                         <td class="opt-col">
-                            <div class="btn-group" ng-if="$index==0">
-                                <button type="button" class="btn btn-box-tool dropdown-toggle" data-toggle="dropdown">
-                                    <i class="fa fa-wrench"></i>
-                                </button>
-                                <ul class="dropdown-menu" role="menu">
-                                    <li><a href="javascript:;" class="fa fa-pencil" ng-click="edit(item)"> 修改</a></li>
-                                </ul>
-                            </div>
+                            <a class="fa fa-pencil" ng-if="$index==0" ui-sref=".edit" ui-sref-opts="{location:false}"> 修改</a>
                         </td>
                     </tr>
                 </tbody>
