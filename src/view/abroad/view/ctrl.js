@@ -1,7 +1,7 @@
 var moment = require('moment');
 moment.locale('zh-cn');
 
-module.exports = function($scope, $state, $http, $q, $timeout) {
+module.exports = function($scope, $state, $http, $q, $timeout, $cookieStore) {
 
     var id = $state.params.id || null;
 
@@ -159,6 +159,13 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
         }
 
         $state.go(".progress", {id: $scope.data.id, module_name: 'RegAbroad'}, {location: false});
+    }
+
+    $scope.onPrint = function () {
+        // var url = $state.href('print', {parameter: "parameter"});
+        // window.open(url,'_blank');
+
+        $state.go('.print', null, {location: false});
     }
 
     $scope.$on('PROGRESS_MODAL_DONE', function(e) {

@@ -30,14 +30,9 @@ module.exports = function($stateProvider, $urlRouterProvider) {
             url: '',
             template: '<div ui-view></div>'
         })
-
-    //--- template -------------------------------------
-
-    // layout - list
-    .state('list', {
+        .state('list', {
             abstract: true,
-            template: require('view/common/list/tmpl.html'),
-            // controller: require('view/common/list/ctrl')
+            template: require('view/common/list/tmpl.html')
         })
         .state('detail', {
             abstract: true,

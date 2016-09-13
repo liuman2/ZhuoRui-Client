@@ -130,6 +130,16 @@ var router = function($stateProvider, $urlRouterProvider) {
                 }
             }
         })
+
+        .state('abroad_view.print', {
+            url: '/print',
+            views: {
+                'print': {
+                    template: require('view/common/print/tmpl.html'),
+                    controller: require('view/common/print/ctrl')
+                }
+            }
+        })
 };
 
 module.exports = router;

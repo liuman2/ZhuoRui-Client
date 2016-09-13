@@ -27,6 +27,7 @@
                 <span>状态: </span>
                 <span ng-if="data.status != 4" ng-bind="getOrderStatus() + ' | ' + getReviewStatus()" ng-attr-title="{{getTitle(data)}}" style="cursor: default;"></span>
                 <span ng-if="data.status == 4" ng-bind="'已完成 | ' + format(data.date_finish, 'YYYY-MM-DD')"></span>
+                <button type="button" class="btn btn-info" ng-click="onPrint()">打印</button>
             </div>
         </div>
         <div class="box box-info">
@@ -390,3 +391,4 @@
 </section>
 <div ui-view="modal"></div>
 <div ui-view="progress"></div>
+<div ui-view="print"></div>
