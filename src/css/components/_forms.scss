@@ -130,7 +130,10 @@ fieldset[disabled] .form-control {
         height: 100px!important;
     }
 }
-
+// @page {
+//   size: A4;
+//   margin: 0;
+// }
 @media print {
   body * {
     visibility: hidden;
@@ -143,4 +146,38 @@ fieldset[disabled] .form-control {
     left: 0;
     top: 0;
   }
+}
+
+#section-to-print {
+    table {
+        width:100%;
+        text-align: center;
+
+        .header {
+            height: 36px;
+        }
+
+        .td-1 {
+            width: 15%; text-align:center;
+        }
+        .company {
+            font-weight:bold;
+        }
+        .td-2 {
+            width: 65%;
+        }
+
+        .sub {
+            width:70%;
+            letter-spacing:8px;
+        }
+
+        .td-3 {
+            width: 20%
+        }
+
+        td {
+            text-align: center;
+        }
+    }
 }
