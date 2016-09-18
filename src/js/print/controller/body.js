@@ -1,43 +1,41 @@
 module.exports = function($scope, $http, $state, $stateParams, $location, $timeout) {
     $scope.bodyClass = '';
-    console.log($state)
-    console.log($stateParams)
-    console.log($location.search())
-    /*$timeout(function() {
-        window.print();
-    });*/
+    $scope.printData = {
+        received: 0
+    }
 
-    // $http({
-    //     method: 'GET',
-    //     params: {
-    //         id: $scope.reg_abroad_id
-    //     },
-    //     url: '/Common/GetPrintData'
-    // }).success(function(data) {
+    $http({
+        method: 'GET',
+        params: {
+            id: urlParam('id'),
+            name: urlParam('m')
+        },
+        url: '/Common/GetPrintData'
+    }).success(function(data) {
+        $scope.printData = data;
+        console.log(data)
+        $timeout(function() {
+            window.print();
+        }, 400);
 
+    }).error(function() {});
 
-
-    // }).error(function() {});
-
-    function Arabia_to_Chinese(Num) {
+    $scope.currenct2Chinese = function(Num) {
+        Num = Num + '';
         for (var i = Num.length - 1; i >= 0; i--) {
-            Num = Num.replace(",", "") //替换tomoney()中的“,”
-            Num = Num.replace(" ", "") //替换tomoney()中的空格
+            Num = Num.replace(",", "");
+            Num = Num.replace(" ", "");
         }
-        Num = Num.replace("￥", "") //替换掉可能出现的￥字符
-        if (isNaN(Num)) { //验证输入的字符是否为数字
-            alert("请检查小写金额是否正确");
+        Num = Num.replace("￥", "");
+        if (isNaN(Num)) {
             return;
         }
-        //字符处理完毕后开始转换，采用前后两部分分别转换
         var part = String(Num).split(".");
         var newchar = "";
-        //小数点前进行转化
         for (var i = part[0].length - 1; i >= 0; i--) {
             if (part[0].length > 10) {
-                alert("位数过大，无法计算");
                 return "";
-            } //若数量超过拾亿单位，提示
+            }
             var tmpnewchar = ""
             var perchar = part[0].charAt(i);
             switch (perchar) {
@@ -106,7 +104,7 @@ module.exports = function($scope, $http, $state, $stateParams, $location, $timeo
             }
             newchar = tmpnewchar + newchar;
         }
-        //小数点之后进行转化
+
         if (Num.indexOf(".") != -1) {
             if (part[1].length > 2) {
                 alert("小数点之后只能保留两位,系统将自动截断");
@@ -152,7 +150,7 @@ module.exports = function($scope, $http, $state, $stateParams, $location, $timeo
                 newchar = newchar + tmpnewchar;
             }
         }
-        //替换所有无用汉字
+
         while (newchar.search("零零") != -1)
             newchar = newchar.replace("零零", "零");
         newchar = newchar.replace("零亿", "亿");
@@ -164,5 +162,14 @@ module.exports = function($scope, $http, $state, $stateParams, $location, $timeo
         if (newchar.charAt(newchar.length - 1) == "元" || newchar.charAt(newchar.length - 1) == "角")
             newchar = newchar + "整"
         return newchar;
+    }
+
+    function urlParam(name) {
+        var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+        if (results == null) {
+            return null;
+        } else {
+            return results[1] || 0;
+        }
     }
 };

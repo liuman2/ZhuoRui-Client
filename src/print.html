@@ -33,6 +33,12 @@
     .m label {
         padding-right: 20px;
     }
+    .memo {
+        text-align: center;
+    }
+    .memo div {
+        padding: 5px 0;
+    }
     </style>
 </head>
 
@@ -58,12 +64,10 @@
             </td>
         </tr>
         <tr style="height:50px;">
-            <td>档案号: XMGS000001</td>
-            <td>
-                2016年8月12日
+            <td ng-bind="'档案号:'+printData.code"></td>
+            <td ng-bind="printData.date">
             </td>
-            <td>
-                项目：厦门年报
+            <td ng-bind="'项目：'+printData.project">
             </td>
         </tr>
     </table>
@@ -74,12 +78,11 @@
             <td>
                 <table>
                     <tr>
-                        <td style="border:none;padding:0;">
-                            戴云投资控股（香港）有限公司有限公司
+                        <td style="border:none;padding:0;" ng-bind="printData.company">
                         </td>
                         <td style="border:none;padding:0;">
                             <span>付款人：</span>
-                            <span>张三星</span>
+                            <span ng-bind="printData.payer"></span>
                         </td>
                     </tr>
                 </table>
@@ -88,43 +91,51 @@
         </tr>
         <tr>
             <td class="tac">收款事由</td>
-            <td class="tal">xxxx</td>
-            <td rowspan="4"></td>
+            <td class="tal" ng-bind="printData.reason"></td>
+            <td rowspan="4" class="memo">
+                <div>订单总金额</div>
+                <div ng-bind="printData.amount"></div>
+                <div>若该笔收取，则余</div>
+                <div ng-bind="printData.balance"></div>
+                <div>
+                    附件{{printData.attachments}}张
+                </div>
+            </td>
         </tr>
         <tr style="height:80px;">
             <td class="tac">其他事项</td>
-            <td class="tal">xxxx</td>
+            <td class="tal" ng-bind="printData.others"></td>
         </tr>
         <tr>
             <td class="tac">入账信息</td>
             <td class="tal">
                 <span>银行名称+卡号后4位：</span>
-                <span>兴业银行 4444</span>
+                <span ng-bind="printData.pay_info"></span>
             </td>
         </tr>
         <tr>
             <td class="tac">收款方式</td>
             <td class="tal m">
                 <label>
-                    <input type="checkbox" name=""> 转账
+                    <input type="checkbox" name="pay_way1" ng-true-value="转账" ng-model="printData.pay_way" onclick="return false"> 转账
                 </label>
                 <label>
-                    <input type="checkbox" name=""> 现金
+                    <input type="checkbox" name="pay_way2" ng-true-value="现金" ng-model="printData.pay_way" onclick="return false"> 现金
                 </label>
                 <label>
-                    <input type="checkbox" name=""> 其他方式
+                    <input type="checkbox" name="pay_way3" ng-true-value="其他方式" ng-model="printData.pay_way" onclick="return false"> 其他方式
                 </label>
                 <label>
-                    <input type="checkbox" name=""> 先提交未付款
+                    <input type="checkbox" name="pay_way4" ng-true-value="先提交,未付款" ng-model="printData.pay_way" onclick="return false"> 先提交未付款
                 </label>
             </td>
         </tr>
         <tr>
             <td class="tac">金&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;额</td>
-            <td class="tar">xxxx</td>
+            <td class="tar" ng-bind="currenct2Chinese(printData.received)"></td>
             <td>
                 <span>￥</span>
-                <span>1000</span>
+                <span ng-bind="printData.received"></span>
             </td>
         </tr>
     </table>
@@ -133,11 +144,11 @@
         <tr>
             <td>
                 <span>审核：</span>
-                <span></span>
+                <span ng-bind="printData.auditor"></span>
             </td>
             <td>
                 <span>会计：</span>
-                <span></span>
+                <span ng-bind="printData.accounter"></span>
             </td>
             <td>
                 <span>出纳：</span>
@@ -145,11 +156,11 @@
             </td>
             <td>
                 <span>业务员：</span>
-                <span></span>
+                <span ng-bind="printData.saleman"></span>
             </td>
             <td>
                 <span>写票人：</span>
-                <span></span>
+                <span ng-bind="printData.creator"></span>
             </td>
         </tr>
     </table>

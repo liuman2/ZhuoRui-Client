@@ -10,7 +10,7 @@ var config = {
       secure: false
     }
   },
-  route: [ 'index', 'login' ],
+  route: [ 'index', 'login', 'print' ],
   build: {
   }
 };
