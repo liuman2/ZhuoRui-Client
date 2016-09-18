@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html ng-app="print_app">
+
+<head>
+    <meta charset="UTF-8">
+    <title>卓瑞办公</title>
+    <style>
+    table {
+        width: 100%;
+    }
+
+    .print-body td {
+        border: 1px solid #333;
+        height: 44px;
+        padding: 0 10px;
+    }
+
+    .print-body tr {
+        height: 30px;
+    }
+
+    .tal {
+        text-align: left;
+    }
+
+    .tar {
+        text-align: right;
+    }
+
+    .tac {
+        text-align: center;
+    }
+    .m label {
+        padding-right: 20px;
+    }
+    </style>
+</head>
+
+<body ng-controller="BodyCtrl" ng-class="bodyClass">
+
+    <table style="width:100%;text-align: center;">
+        <tr>
+            <td rowspan="2" style="width: 20%">
+                <img src="./img/logo.jpg" width="40" height="40" alt="">
+                <div style="font-size:9px;">卓瑞企业</div>
+            </td>
+            <td style="width: 60%;font-weight:bold;">
+                厦门卓瑞企业管理咨询有限公司
+            </td>
+            <td style="width: 15%;">
+            </td>
+        </tr>
+        <tr>
+            <td style="letter-spacing:8px;">
+                收款收据
+            </td>
+            <td>
+            </td>
+        </tr>
+        <tr style="height:50px;">
+            <td>档案号: XMGS000001</td>
+            <td>
+                2016年8月12日
+            </td>
+            <td>
+                项目：厦门年报
+            </td>
+        </tr>
+    </table>
+
+    <table style="width:100%;" class="print-body">
+        <tr style="height:50px;">
+            <td class="tac">公司名称</td>
+            <td>
+                <table>
+                    <tr>
+                        <td style="border:none;padding:0;">
+                            戴云投资控股（香港）有限公司有限公司
+                        </td>
+                        <td style="border:none;padding:0;">
+                            <span>付款人：</span>
+                            <span>张三星</span>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+            <td class="tac">备注</td>
+        </tr>
+        <tr>
+            <td class="tac">收款事由</td>
+            <td class="tal">xxxx</td>
+            <td rowspan="4"></td>
+        </tr>
+        <tr style="height:80px;">
+            <td class="tac">其他事项</td>
+            <td class="tal">xxxx</td>
+        </tr>
+        <tr>
+            <td class="tac">入账信息</td>
+            <td class="tal">
+                <span>银行名称+卡号后4位：</span>
+                <span>兴业银行 4444</span>
+            </td>
+        </tr>
+        <tr>
+            <td class="tac">收款方式</td>
+            <td class="tal m">
+                <label>
+                    <input type="checkbox" name=""> 转账
+                </label>
+                <label>
+                    <input type="checkbox" name=""> 现金
+                </label>
+                <label>
+                    <input type="checkbox" name=""> 其他方式
+                </label>
+                <label>
+                    <input type="checkbox" name=""> 先提交未付款
+                </label>
+            </td>
+        </tr>
+        <tr>
+            <td class="tac">金&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;额</td>
+            <td class="tar">xxxx</td>
+            <td>
+                <span>￥</span>
+                <span>1000</span>
+            </td>
+        </tr>
+    </table>
+
+    <table style="width:100%; margin-top: 20px;">
+        <tr>
+            <td>
+                <span>审核：</span>
+                <span></span>
+            </td>
+            <td>
+                <span>会计：</span>
+                <span></span>
+            </td>
+            <td>
+                <span>出纳：</span>
+                <span></span>
+            </td>
+            <td>
+                <span>业务员：</span>
+                <span></span>
+            </td>
+            <td>
+                <span>写票人：</span>
+                <span></span>
+            </td>
+        </tr>
+    </table>
+
+</body>
+
+</html>

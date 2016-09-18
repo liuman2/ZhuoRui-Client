@@ -165,7 +165,9 @@ module.exports = function($scope, $state, $http, $q, $timeout, $cookieStore) {
         // var url = $state.href('print', {parameter: "parameter"});
         // window.open(url,'_blank');
 
-        $state.go('.print', null, {location: false});
+        // location.href = '/print.html';
+
+        // $state.go('.print', null, {location: false});
     }
 
     $scope.$on('PROGRESS_MODAL_DONE', function(e) {
