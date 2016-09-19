@@ -181,6 +181,9 @@
                         <select ui-select2 id="currencySelect2" class="form-control select2" name="currency" ng-model="data.currency" url=" Dictionary/DroplistByGroup" paging="false" paramfield="group" paramvalue="币别" data-rule="required;"></select>
                         <span id="currencySelect2-validator" class="select-validator"></span>
                     </div>
+                    <div class="col-sm-2 add-dictionary">
+                        <a class="fa fa-plus" ui-sref=".dictionary({group: '币别'})" ui-sref-opts="{location:false}" title="新增币别"></a>
+                    </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-2 control-label">汇率<span class="required">*</span></label>
@@ -321,3 +324,4 @@
         </div>
     </form>
 </section>
+<div ui-view="modal"></div>

@@ -147,11 +147,17 @@
                     <div class="col-sm-8">
                         <select ui-select2 class="form-control select2" name="business_area" ng-model="data.business_area" url=" Dictionary/DroplistByGroup" paging="false" paramfield="group" paramvalue="业务范围" data-rule="required;"></select>
                     </div>
+                    <div class="col-sm-2 add-dictionary">
+                        <a class="fa fa-plus" ui-sref=".dictionary({group: '业务范围'})" ui-sref-opts="{location:false}" title="新增业务范围"></a>
+                    </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-2 control-label">贸易方式</label>
                     <div class="col-sm-8">
                         <select ui-select2 class="form-control select2" name="trade_mode" ng-model="data.trade_mode" url=" Dictionary/DroplistByGroup" paging="false" paramfield="group" paramvalue="贸易方式" data-rule="required;"></select>
+                    </div>
+                    <div class="col-sm-2 add-dictionary">
+                        <a class="fa fa-plus" ui-sref=".dictionary({group: '贸易方式'})" ui-sref-opts="{location:false}" title="新增贸易方式"></a>
                     </div>
                 </div>
                 <div class="form-group">
@@ -225,6 +231,9 @@
                     <div class="col-sm-8">
                         <select ui-select2 class="form-control select2" id="currencySelect2" name="currency" ng-model="data.currency" url="Dictionary/DroplistByGroup" paging="false" paramfield="group" paramvalue="币别" data-rule="required;"></select>
                         <span id="currencySelect2-validator" class="select-validator"></span>
+                    </div>
+                    <div class="col-sm-2 add-dictionary">
+                        <a class="fa fa-plus" ui-sref=".dictionary({group: '币别'})" ui-sref-opts="{location:false}" title="新增币别"></a>
                     </div>
                 </div>
                 <div class="form-group">
@@ -301,3 +310,4 @@
         </div>
     </form>
 </section>
+<div ui-view="modal"></div>

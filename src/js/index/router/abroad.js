@@ -130,13 +130,27 @@ var router = function($stateProvider, $urlRouterProvider) {
                 }
             }
         })
-
-        .state('abroad_view.print', {
-            url: '/print',
+        .state('abroad_add.dictionary', {
+            url: '/dictionary',
+            params: {
+                group: null
+            },
             views: {
-                'print': {
-                    template: require('view/common/print/tmpl.html'),
-                    controller: require('view/common/print/ctrl')
+                'modal': {
+                    template: require('view/common/dictionary/modal.html'),
+                    controller: require('view/common/dictionary/modal')
+                }
+            }
+        })
+        .state('abroad_edit.dictionary', {
+            url: '/dictionary',
+            params: {
+                group: null
+            },
+            views: {
+                'modal': {
+                    template: require('view/common/dictionary/modal.html'),
+                    controller: require('view/common/dictionary/modal')
                 }
             }
         })

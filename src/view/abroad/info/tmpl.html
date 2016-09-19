@@ -122,6 +122,9 @@
                         <select ui-select2 class="form-control select2" name="region" ng-model="data.region" url=" Dictionary/DroplistByGroup" paging="false" paramfield="group" paramvalue="注册地区" data-rule="required;"></select>
                         <span id="regionSelect2-validator" class="select-validator"></span>
                     </div>
+                    <div class="col-sm-2 add-dictionary">
+                        <a class="fa fa-plus" ui-sref=".dictionary({group: '注册地区'})" ui-sref-opts="{location:false}" title="添加注册地区"></a>
+                    </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-2 control-label">公司董事</label>
@@ -191,6 +194,9 @@
                     <div class="col-sm-8">
                         <select ui-select2 class="form-control select2" id="currencySelect2" name="currency" ng-model="data.currency" url="Dictionary/DroplistByGroup" paging="false" paramfield="group" paramvalue="币别" data-rule="required;"></select>
                         <span id="currencySelect2-validator" class="select-validator"></span>
+                    </div>
+                    <div class="col-sm-2 add-dictionary">
+                        <a class="fa fa-plus" ui-sref=".dictionary({group: '币别'})" ui-sref-opts="{location:false}" title="添加币别"></a>
                     </div>
                 </div>
                 <div class="form-group">
@@ -286,3 +292,4 @@
         </div>
     </form>
 </section>
+<div ui-view="modal"></div>

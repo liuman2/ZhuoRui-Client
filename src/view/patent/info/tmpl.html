@@ -148,6 +148,9 @@
                         <select ui-select2 class="form-control select2" name="patent_type" ng-model="data.patent_type" url=" Dictionary/DroplistByGroup" paging="false" paramfield="group" paramvalue="专利类型" data-rule="required;"></select>
                         <span id="patentTypeSelect2-validator" class="select-validator"></span>
                     </div>
+                    <div class="col-sm-2 add-dictionary">
+                        <a class="fa fa-plus" ui-sref=".dictionary({group: '专利类型'})" ui-sref-opts="{location:false}" title="新增专利类型"></a>
+                    </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-2 control-label">专利用途<span class="required">*</span></label>
@@ -155,12 +158,18 @@
                         <select ui-select2 class="form-control select2" name="patent_purpose" ng-model="data.patent_purpose" url=" Dictionary/DroplistByGroup" paging="false" paramfield="group" paramvalue="专利用途" data-rule="required;"></select>
                         <span id="patentPurposeSelect2-validator" class="select-validator"></span>
                     </div>
+                    <div class="col-sm-2 add-dictionary">
+                        <a class="fa fa-plus" ui-sref=".dictionary({group: '专利用途'})" ui-sref-opts="{location:false}" title="新增专利用途"></a>
+                    </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-2 control-label">注册方式<span class="required">*</span></label>
                     <div class="col-sm-8">
                         <select ui-select2 class="form-control select2" name="reg_mode" ng-model="data.reg_mode" url=" Dictionary/DroplistByGroup" paging="false" paramfield="group" paramvalue="专利注册方式" data-rule="required;"></select>
                         <span id="regModeSelect2-validator" class="select-validator"></span>
+                    </div>
+                    <div class="col-sm-2 add-dictionary">
+                        <a class="fa fa-plus" ui-sref=".dictionary({group: '专利注册方式'})" ui-sref-opts="{location:false}" title="新增专利注册方式"></a>
                     </div>
                 </div>
                 <div class="form-group">
@@ -180,6 +189,9 @@
                     <div class="col-sm-8">
                         <select ui-select2 class="form-control select2" id="currencySelect2" name="currency" ng-model="data.currency" url="Dictionary/DroplistByGroup" paging="false" paramfield="group" paramvalue="币别" data-rule="required;"></select>
                         <span id="currencySelect2-validator" class="select-validator"></span>
+                    </div>
+                    <div class="col-sm-2 add-dictionary">
+                        <a class="fa fa-plus" ui-sref=".dictionary({group: '币别'})" ui-sref-opts="{location:false}" title="新增币别"></a>
                     </div>
                 </div>
                 <div class="form-group">
@@ -278,3 +290,4 @@
         </div>
     </form>
 </section>
+<div ui-view="modal"></div>

@@ -17,13 +17,4 @@ module.exports = function ($scope, $state) {
 
       $scope.navs = Nav[id].nav;
   });
-
-  // for (var i in Nav) {
-  //   for (var j in Nav[i].nav) {
-  //     if (Nav[i].nav[j].route === route) {
-  //       $scope.navs = Nav[i].nav;
-  //       break;
-  //     }
-  //   }
-  // }
 };

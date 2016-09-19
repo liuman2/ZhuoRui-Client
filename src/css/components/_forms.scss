@@ -130,24 +130,9 @@ fieldset[disabled] .form-control {
         height: 100px!important;
     }
 }
-// @page {
-//   size: A4;
-//   margin: 0;
-// }
-/* @media print {
-  body * {
-    visibility: hidden;
-  }
-  #section-to-print, #section-to-print * {
-    visibility: visible;
-  }
-  #section-to-print {
-    position: absolute;
-    left: 0;
-    top: 0;
-  }
+
+.add-dictionary {
+    font-size: 26px;
+    display: inline-block;
+    line-height: 34px;
 }
-
-#section-to-print {
-
-} */

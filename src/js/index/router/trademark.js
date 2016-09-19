@@ -90,6 +90,30 @@ var router = function($stateProvider, $urlRouterProvider) {
                 }
             }
         })
+        .state('trademark_add.dictionary', {
+            url: '/dictionary',
+            params: {
+                group: null
+            },
+            views: {
+                'modal': {
+                    template: require('view/common/dictionary/modal.html'),
+                    controller: require('view/common/dictionary/modal')
+                }
+            }
+        })
+        .state('trademark_edit.dictionary', {
+            url: '/dictionary',
+            params: {
+                group: null
+            },
+            views: {
+                'modal': {
+                    template: require('view/common/dictionary/modal.html'),
+                    controller: require('view/common/dictionary/modal')
+                }
+            }
+        })
 };
 
 module.exports = router;
