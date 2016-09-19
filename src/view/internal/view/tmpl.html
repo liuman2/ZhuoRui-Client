@@ -23,6 +23,7 @@
 
                 <button type="button" class="btn btn-success" ng-click="progress()" ng-if="data.status == 3 && data.review_status==1">进度反馈</button>
                 <button type="button" class="btn btn-info" ui-sref="internal_timeline({id: data.id, name: 'reg_internal', code: data.code, source: 'view'})" ><span class="fa fa-clock-o"></span>日志</button>
+                <a href="/print.html?m=internal&id={{id}}" class="btn btn-info" target="_blank">打印</a>
                 <span>状态: </span>
                 <span ng-if="data.status != 4" ng-bind="getOrderStatus() + ' | ' + getReviewStatus()" ng-attr-title="{{getTitle(data)}}" style="cursor: default;"></span>
                 <span ng-if="data.status == 4" ng-bind="'已完成 | ' + format(data.date_finish, 'YYYY-MM-DD')"></span>
@@ -235,6 +236,102 @@
                 </div>
             </div>
         </div>
+
+        <div class="box box-info">
+            <div class="box-header with-border">
+                <h3 class="box-title">收款记录</h3>
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="box-body table-responsive no-padding">
+                <table class="table table-hover">
+                    <tbody>
+                        <tr>
+                            <th style="width: 10px">#</th>
+                            <th>付款人</th>
+                            <th>付款账号</th>
+                            <th>付款金额</th>
+                            <th>付款方式</th>
+                            <th>付款时间</th>
+                            <th>附件</th>
+                            <th>备注</th>
+                            <th class="opt-col" ng-if="data.status == 0">操作</th>
+                        </tr>
+                        <tr ng-repeat="item in incomes.items">
+                            <td ng-bind="($index+1)+'.'"></td>
+                            <td ng-bind="item.payer"></td>
+                            <td ng-bind="item.account"></td>
+                            <td ng-bind="item.amount"></td>
+                            <td ng-bind="item.pay_way"></td>
+                            <td ng-bind="format(item.date_pay, 'YYYY-MM-DD')"></td>
+                            <td>
+                                <a href="{{item.attachment_url}}" target="_blank" ng-if="item.attachment_url.length">
+                                    <img ng-src="{{item.attachment_url}}" width="22" height="22">
+                                </a>
+                            </td>
+                            <td ng-bind="item.description"></td>
+                            <td class="opt-col" ng-if="data.status == 0">
+                                <a class="fa fa-pencil orange" ui-sref=".income_edit({tid: {{item.id}}})" ui-sref-opts="{location:false}" title="修改"></a>
+                                <a href="javascript:;" class="fa fa-trash-o red" ng-click="deleteIncome(item)" title="删除"></a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td class="summary" colspan="2">
+                                <div>
+                                    <span>交易币别: </span>
+                                    <span class="num" ng-bind="data.currency"></span>
+                                </div>
+                                <div>
+                                    <span>应收款: </span>
+                                    <span class="num receivable" ng-bind="data.amount_transaction"></span>
+                                </div>
+                                <div>
+                                    <span>已收款: </span>
+                                    <span class="num received" ng-bind="incomes.total"></span>
+                                </div>
+                                <div>
+                                    <span>未收款: </span>
+                                    <span class="num balance" ng-bind="incomes.balance"></span>
+                                </div>
+                                <div ng-if="data.currency !='人民币'">
+                                    <span>汇率: </span>
+                                    <span class="num" ng-bind="data.rate"></span>
+                                </div>
+                            </td>
+                            <td class="summary" colspan="2">
+                                <div ng-if="data.currency !='人民币'">
+                                    <div>
+                                        <span>本币: </span>
+                                        <span class="num">人民币</span>
+                                    </div>
+                                    <div>
+                                        <span>应收款: </span>
+                                        <span class="num receivable" ng-bind="incomes.local_amount"></span>
+                                    </div>
+                                    <div>
+                                        <span>已收款: </span>
+                                        <span class="num received" ng-bind="incomes.local_total"></span>
+                                    </div>
+                                    <div>
+                                        <span>未收款: </span>
+                                        <span class="num balance" ng-bind="incomes.local_balance"></span>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="summary" colspan="4">
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="box-footer clearfix" ng-if="data.status == 0">
+                <button type="button" class="btn btn-info" ui-sref=".income_add({source_name: 'reg_internal', customer_id: data.customer_id})" ui-sref-opts="{location:false}" ng-attr-title="{{data.status > 0 ? '已经提交审核，不能再新增' : '新增收款记录'}}" ng-disabled="data.status > 0">新增</button>
+            </div>
+        </div>
+
         <div class="box box-info">
             <div class="box-header with-border">
                 <h3 class="box-title">开票信息</h3>
@@ -321,70 +418,7 @@
                 </div>
             </div>
         </div>
-        <div class="box box-info">
-            <div class="box-header with-border">
-                <h3 class="box-title">收款记录</h3>
-                <div class="box-tools pull-right">
-                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                    </button>
-                </div>
-            </div>
-            <div class="box-body table-responsive no-padding">
-                <table class="table table-hover">
-                    <tbody>
-                        <tr>
-                            <th style="width: 10px">#</th>
-                            <th>付款人</th>
-                            <th>付款账号</th>
-                            <th>付款金额</th>
-                            <th>付款方式</th>
-                            <th>付款时间</th>
-                            <th>附件</th>
-                            <th>备注</th>
-                            <th class="opt-col" ng-if="data.status == 0">操作</th>
-                        </tr>
-                        <tr ng-repeat="item in incomes.items">
-                            <td ng-bind="($index+1)+'.'"></td>
-                            <td ng-bind="item.payer"></td>
-                            <td ng-bind="item.account"></td>
-                            <td ng-bind="item.amount"></td>
-                            <td ng-bind="item.pay_way"></td>
-                            <td ng-bind="format(item.date_pay, 'YYYY-MM-DD')"></td>
-                            <td>
-                                <a href="{{item.attachment_url}}" target="_blank" ng-if="item.attachment_url.length">
-                                    <img ng-src="{{item.attachment_url}}" width="22" height="22">
-                                </a>
-                            </td>
-                            <td ng-bind="item.description"></td>
-                            <td class="opt-col" ng-if="data.status == 0">
-                                <a class="fa fa-pencil orange" ui-sref=".income_edit({tid: {{item.id}}})" ui-sref-opts="{location:false}" title="修改"></a>
-                                <a href="javascript:;" class="fa fa-trash-o red" ng-click="deleteIncome(item)" title="删除"></a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td class="summary" colspan="7">
-                                <div>
-                                    <span>应收款: </span>
-                                    <span class="num receivable" ng-bind="data.amount_transaction"></span>
-                                </div>
-                                <div>
-                                    <span>已收款: </span>
-                                    <span class="num received" ng-bind="incomes.total"></span>
-                                </div>
-                                <div>
-                                    <span>未收款: </span>
-                                    <span class="num balance" ng-bind="incomes.balance"></span>
-                                </div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div class="box-footer clearfix" ng-if="data.status == 0">
-                <button type="button" class="btn btn-info" ui-sref=".income_add({source_name: 'reg_internal', customer_id: data.customer_id})" ui-sref-opts="{location:false}" ng-attr-title="{{data.status > 0 ? '已经提交审核，不能再新增' : '新增收款记录'}}" ng-disabled="data.status > 0">新增</button>
-            </div>
-        </div>
+
     </form>
 </section>
 <div ui-view="modal"></div>

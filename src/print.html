@@ -5,6 +5,11 @@
     <meta charset="UTF-8">
     <title>卓瑞办公</title>
     <style>
+
+    body {
+        font-family: $font-family-base;
+        font-size: $font-size-base;
+    }
     table {
         width: 100%;
     }
@@ -32,6 +37,7 @@
     }
     .m label {
         padding-right: 20px;
+        font-weight: normal;
     }
     .memo {
         text-align: center;
@@ -48,7 +54,7 @@
         <tr>
             <td rowspan="2" style="width: 20%">
                 <img src="./img/logo.jpg" width="40" height="40" alt="">
-                <div style="font-size:9px;">卓瑞企业</div>
+                <div style="font-size:9px;margin-top:3px;">卓瑞企业</div>
             </td>
             <td style="width: 60%;font-weight:bold;">
                 厦门卓瑞企业管理咨询有限公司
@@ -78,7 +84,7 @@
             <td>
                 <table>
                     <tr>
-                        <td style="border:none;padding:0;" ng-bind="printData.company">
+                        <td style="border:none;padding:0; min-width:50%;" ng-bind="printData.company">
                         </td>
                         <td style="border:none;padding:0;">
                             <span>付款人：</span>
@@ -89,7 +95,8 @@
             </td>
             <td class="tac">备注</td>
         </tr>
-        <tr>
+
+        <tr ng-if="printData.print_type != 'patent' && printData.print_type != 'trademark'">
             <td class="tac">收款事由</td>
             <td class="tal" ng-bind="printData.reason"></td>
             <td rowspan="4" class="memo">
@@ -102,6 +109,70 @@
                 </div>
             </td>
         </tr>
+
+        <tr ng-if="printData.print_type == 'trademark'">
+            <td class="tac">商标名称</td>
+            <td>
+                <table>
+                    <tr>
+                        <td style="border:none; border-right: 1px solid #333; padding:0;" ng-bind="printData.ordername">
+                        </td>
+                        <td style="border:none; border-right: 1px solid #333; padding:0; text-align: center;">
+                            商标类别
+                        </td>
+                        <td style="border:none; border-right: 1px solid #333; padding:0; text-align: center;" ng-bind="printData.type">
+                        </td>
+                        <td style="border:none; border-right: 1px solid #333; padding:0; text-align: center;">
+                            提交方式
+                        </td>
+                        <td style="border:none;padding:0; text-align: center;" ng-bind="printData.mode">
+                        </td>
+                    </tr>
+                </table>
+            </td>
+            <td rowspan="4" class="memo">
+                <div>订单总金额</div>
+                <div ng-bind="printData.amount"></div>
+                <div>若该笔收取，则余</div>
+                <div ng-bind="printData.balance"></div>
+                <div>
+                    附件{{printData.attachments}}张
+                </div>
+            </td>
+        </tr>
+
+        <tr ng-if="printData.print_type == 'patent'">
+            <td class="tac">专利名称</td>
+            <td>
+                <table>
+                    <tr>
+                        <td style="border:none; border-right: 1px solid #333; padding:0;" ng-bind="printData.ordername">
+                        </td>
+                        <td style="border:none; border-right: 1px solid #333; padding:0; text-align: center;">
+                            专利类别
+                        </td>
+                        <td style="border:none; border-right: 1px solid #333; padding:0; text-align: center;" ng-bind="printData.type">
+                        </td>
+                        <td style="border:none; border-right: 1px solid #333; padding:0; text-align: center;">
+                            提交方式
+                        </td>
+                        <td style="border:none;padding:0; text-align: center;" ng-bind="printData.mode">
+                        </td>
+                    </tr>
+                </table>
+            </td>
+            <td rowspan="4" class="memo">
+                <div>订单总金额</div>
+                <div ng-bind="printData.amount"></div>
+                <div>若该笔收取，则余</div>
+                <div ng-bind="printData.balance"></div>
+                <div>
+                    附件{{printData.attachments}}张
+                </div>
+            </td>
+        </tr>
+
+
         <tr style="height:80px;">
             <td class="tac">其他事项</td>
             <td class="tal" ng-bind="printData.others"></td>

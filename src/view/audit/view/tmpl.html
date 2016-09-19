@@ -23,11 +23,13 @@
 
                 <button type="button" class="btn btn-success" ng-click="progress()" ng-if="data.status == 3 && data.review_status==1">进度反馈</button>
                 <button type="button" class="btn btn-info" ui-sref="audit_timeline({id: data.id, name: 'audit', code: data.code, source: 'view'})" ><span class="fa fa-clock-o"></span>日志</button>
+                <a href="/print.html?m=audit&id={{id}}" class="btn btn-info" target="_blank">打印</a>
                 <span>状态: </span>
                 <span ng-if="data.status != 4" ng-bind="getOrderStatus() + ' | ' + getReviewStatus()" ng-attr-title="{{getTitle(data)}}" style="cursor: default;"></span>
                 <span ng-if="data.status == 4" ng-bind="'已完成 | ' + format(data.date_finish, 'YYYY-MM-DD')"></span>
             </div>
         </div>
+
         <div class="box box-info">
             <div class="box-header with-border">
                 <h3 class="box-title">客户基本信息</h3>
@@ -107,6 +109,7 @@
                 </div>
             </div>
         </div>
+
         <div class="box box-info">
             <div class="box-header with-border">
                 <h3 class="box-title">注册信息</h3>
@@ -280,37 +283,6 @@
 
         <div class="box box-info">
             <div class="box-header with-border">
-                <h3 class="box-title">其他信息</h3>
-                <div class="box-tools">
-                    <div class="box-tools pull-right">
-                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                        </button>
-                    </div>
-                </div>
-            </div>
-            <div class="box-body">
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">业务员</label>
-                    <div class="col-sm-8">
-                        <span class="form-span" ng-bind="data.salesman"></span>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">会计<span class="required">*</span></label>
-                    <div class="col-sm-8">
-                        <span class="form-span" ng-bind="data.accountant_name"></span>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">经理</label>
-                    <div class="col-sm-8">
-                        <span class="form-span" ng-bind="data.manager_name"></span>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="box box-info">
-            <div class="box-header with-border">
                 <h3 class="box-title">收款记录</h3>
                 <div class="box-tools pull-right">
                     <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
@@ -349,9 +321,9 @@
                                 <a href="javascript:;" class="fa fa-trash-o red" ng-click="deleteIncome(item)" title="删除"></a>
                             </td>
                         </tr>
-                        <tr>
+                        tr>
                             <td></td>
-                            <td class="summary" colspan="7">
+                            <td class="summary" colspan="2">
                                 <div>
                                     <span>交易币别: </span>
                                     <span class="num" ng-bind="data.currency"></span>
@@ -368,6 +340,32 @@
                                     <span>未收款: </span>
                                     <span class="num balance" ng-bind="incomes.balance"></span>
                                 </div>
+                                <div ng-if="data.currency !='人民币'">
+                                    <span>汇率: </span>
+                                    <span class="num" ng-bind="data.rate"></span>
+                                </div>
+                            </td>
+                            <td class="summary" colspan="2">
+                                <div ng-if="data.currency !='人民币'">
+                                    <div>
+                                        <span>本币: </span>
+                                        <span class="num">人民币</span>
+                                    </div>
+                                    <div>
+                                        <span>应收款: </span>
+                                        <span class="num receivable" ng-bind="incomes.local_amount"></span>
+                                    </div>
+                                    <div>
+                                        <span>已收款: </span>
+                                        <span class="num received" ng-bind="incomes.local_total"></span>
+                                    </div>
+                                    <div>
+                                        <span>未收款: </span>
+                                        <span class="num balance" ng-bind="incomes.local_balance"></span>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="summary" colspan="4">
                             </td>
                         </tr>
                     </tbody>
@@ -375,6 +373,38 @@
             </div>
             <div class="box-footer clearfix" ng-if="data.status == 0">
                 <button type="button" class="btn btn-info" ui-sref=".income_add({source_name: 'audit', customer_id: data.customer_id})" ui-sref-opts="{location:false}" ng-attr-title="{{data.status > 0 ? '已经提交审核，不能再新增' : '新增收款记录'}}" ng-disabled="data.status > 0">新增</button>
+            </div>
+        </div>
+
+        <div class="box box-info">
+            <div class="box-header with-border">
+                <h3 class="box-title">其他信息</h3>
+                <div class="box-tools">
+                    <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="box-body">
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">业务员</label>
+                    <div class="col-sm-8">
+                        <span class="form-span" ng-bind="data.salesman"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">会计<span class="required">*</span></label>
+                    <div class="col-sm-8">
+                        <span class="form-span" ng-bind="data.accountant_name"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">经理</label>
+                    <div class="col-sm-8">
+                        <span class="form-span" ng-bind="data.manager_name"></span>
+                    </div>
+                </div>
             </div>
         </div>
     </form>

@@ -21,6 +21,9 @@ module.exports = function($scope, $http, $state, $stateParams, $location, $timeo
     }).error(function() {});
 
     $scope.currenct2Chinese = function(Num) {
+        if (Num === 0) {
+            return "零元整";
+        }
         Num = Num + '';
         for (var i = Num.length - 1; i >= 0; i--) {
             Num = Num.replace(",", "");
