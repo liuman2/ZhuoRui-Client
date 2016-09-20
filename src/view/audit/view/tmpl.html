@@ -266,18 +266,23 @@
                             <th>开户行</th>
                             <th>开户人</th>
                             <th>银行账号</th>
+                            <th class="opt-col" ng-if="data.status == 0">操作</th>
                         </tr>
                         <tr ng-repeat="item in banks">
                             <td ng-bind="($index+1)+'.'"></td>
                              <td ng-bind="item.name"></td>
                             <td ng-bind="item.holder"></td>
                             <td ng-bind="item.account"></td>
+                            <td class="opt-col" ng-if="data.status == 0">
+                                <a href="javascript:;" class="fa fa-trash-o red" ng-click="deleteBank(item)" title="移除"></a>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
             </div>
             <div class="box-footer clearfix">
-                <span style="color:#f39c12;">可到正式客户中添加开户行</span>
+                <button type="button" class="btn btn-info" ui-sref=".bank_add({audit_id: data.id, customer_id: data.customer_id})" ui-sref-opts="{location:false}" ng-attr-title="{{data.status > 0 ? '已经提交审核，不能再新增' : '新增开户行'}}" ng-disabled="data.status > 0">新增开户行</button>
+                <button type="button" class="btn btn-info" ui-sref=".bank_select({audit_id: data.id, customer_id: data.customer_id})" ui-sref-opts="{location:false}" ng-attr-title="{{data.status > 0 ? '已经提交审核，不能再新增' : '选择开户行'}}" ng-disabled="data.status > 0">选择已有开户行</button>
             </div>
         </div>
 
@@ -321,7 +326,7 @@
                                 <a href="javascript:;" class="fa fa-trash-o red" ng-click="deleteIncome(item)" title="删除"></a>
                             </td>
                         </tr>
-                        tr>
+                        <tr>
                             <td></td>
                             <td class="summary" colspan="2">
                                 <div>

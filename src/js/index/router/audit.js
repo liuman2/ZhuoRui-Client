@@ -66,6 +66,26 @@ var router = function($stateProvider, $urlRouterProvider) {
                 }
             }
         })
+
+        .state('audit_view.bank_add', {
+            url: '/bank/{customer_id: .*}/{audit_id: .*}',
+            views: {
+                'modal': {
+                    template: require('view/audit/view/bank_add.html'),
+                    controller: require('view/audit/view/bank_add')
+                }
+            }
+        })
+        .state('audit_view.bank_select', {
+            url: '/bank/{customer_id: .*}/{audit_id: .*}',
+            views: {
+                'modal': {
+                    template: require('view/audit/view/bank_select.html'),
+                    controller: require('view/audit/view/bank_select')
+                }
+            }
+        })
+
         .state('audit_timeline', {
             url: '/view/audit/timeline/{source:.*}/{id:.*}/{name:.*}/{code:.*}',
             template: require('view/common/timeline/tmpl.html'),
@@ -85,7 +105,6 @@ var router = function($stateProvider, $urlRouterProvider) {
                 }
             }
         })
-
         .state('audit.progress', {
             url: '/progress/{id:.*}/{module_name:.*}',
             views: {

@@ -15,30 +15,23 @@ var router = function ($stateProvider, $urlRouterProvider) {
             template: require('view/member/list/tmpl.html'),
             controller: require('view/member/list/ctrl')
         })
-        .state('member.detail', { // detail
-            abstract: true,
-            parent: 'detail',
-            url: '/member',
-            params: {
-                scorm: null
-            },
-            template: require('view/member/detail/tmpl.html'),
-            controller: require('view/member/detail/ctrl')
-        })
-        .state('member.detail.add', {
-            url: '/new',
+        .state('member_add', {
+            url: '/member/new',
             stateName: '新建用户',
-            views: views_member
+            template: require('view/member/info/tmpl.html'),
+            controller: require('view/member/info/ctrl')
         })
-        .state('member.detail.edit', {
-            url: '/edit/{id:.*}',
+        .state('member_edit', {
+            url: '/member/edit/{id:.*}',
             stateName: '编辑用户',
-            views: views_member
+            template: require('view/member/info/tmpl.html'),
+            controller: require('view/member/info/ctrl')
         })
-        .state('member.detail.view', {
-            url: '/view/{id:.*}',
+        .state('member_view', {
+            url: '/member/view/{id:.*}',
             stateName: '查看用户',
-            views: views_member
+            template: require('view/member/view/tmpl.html'),
+            controller: require('view/member/view/ctrl')
         })
 };
 

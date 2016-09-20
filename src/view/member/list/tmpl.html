@@ -44,15 +44,15 @@
                         <td ng-bind="item.position"></td>
                         <td ng-bind="getStatus(item.status)"></td>
                         <td class="opt-col">
-                            <a class="fa fa-pencil green" ui-sref=".edit({id: {{item.id}}})" ui-sref-opts="{location:false}" title="修改"></a>
-                            <a class="fa fa-info-circle green" ui-sref=".edit({id: {{item.id}}})" ui-sref-opts="{location:false}" title="查看"></a>
+                            <a class="fa fa-pencil green" ui-sref="member_edit({id: {{item.id}}})" title="修改"></a>
+                            <a class="fa fa-info-circle green" ui-sref="member_view({id: {{item.id}}})" title="查看"></a>
                         </td>
                     </tr>
                 </tbody>
             </table>
         </div>
         <div class="box-footer clearfix">
-            <a ui-sref="member.detail.add" class="btn btn-sm btn-info btn-flat pull-left">新增客户</a>
+            <a ui-sref="member_add" class="btn btn-sm btn-info btn-flat pull-left">新增客户</a>
             <div pagination page-data="data.page" page-click="go(idx)"></div>
         </div>
     </div>

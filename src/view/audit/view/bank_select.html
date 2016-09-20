@@ -1,0 +1,46 @@
+<div class="modal" style="display: block;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header" style="border-bottom:0px;">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" ui-sref="^">
+                    <span aria-hidden="true">×</span>
+                </button>
+                <h4 class="modal-title">开户行选择</h4>
+                <div class="box-tools">
+                    <div class="input-group input-group-sm pull-right" style="width: 150px;">
+                        <input type="text" name="table_search" class="form-control pull-right" ng-model="search.name" placeholder="开户行">
+                        <div class="input-group-btn">
+                            <button type="button" class="btn btn-default"  ng-click="query()"><i class="fa fa-search"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-body table-responsive no-padding">
+                <table class="table table-hover">
+                    <tbody>
+                        <tr style="border-bottom: 1px solid #f4f4f4;">
+                            <th><input type="checkbox" ng-model="isSelectAll" ng-click="selectAll($event)"></th>
+                            <th>开户行</th>
+                            <th>开户人</th>
+                            <th>银行账号</th>
+                        </tr>
+                        <tr ng-repeat="item in data.items">
+                            <td width="5%"><input type="checkbox" id="{{item.id}}" name="{{item.bank}}"
+                                                  ng-checked="isSelected(item.id)"
+                                                  ng-click="updateSelection($event, item)"></td>
+                            <td ng-bind="item.bank"></td>
+                            <td ng-bind="item.holder"></td>
+                            <td ng-bind="item.account"></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div pagination page-data="data.page" page-click="go(idx)" style="bottom: 10px;position: absolute;right: 0;"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal" ui-sref="^">取消</button>
+                <button type="button" class="btn btn-primary" ng-click="save()">确定</button>
+
+            </div>
+        </div>
+    </div>
+</div>

@@ -118,7 +118,7 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
         var customer_id = $(e.target).val();
 
         $scope.banks = [];
-        setBanks(customer_id);
+        // setBanks(customer_id);
 
         var customers = $('#customerSelect2').select2('data');
         var select_customers = $.grep(customers, function(c) {

@@ -14,6 +14,20 @@ module.exports = function($scope, $state, $http, $timeout) {
         }
     });
 
+    $scope.action = null;
+    switch ($state.current.name) {
+        case 'member_add':
+            $scope.action = 'add';
+            $scope.current_bread = '新增';
+            break;
+        case 'member_edit':
+            $scope.action = 'update';
+            $scope.current_bread = '修改';
+            break;
+        default:
+            break;
+    }
+
     $scope.data = {
         id: '',
         organization_id: null,
@@ -51,11 +65,17 @@ module.exports = function($scope, $state, $http, $timeout) {
     }
 
     $scope.cancel = function() {
-        $state.go('member');
+        if ($scope.action == 'add') {
+            $state.go("member");
+        } else {
+            $state.go("member_view", {
+                id: id
+            });
+        }
     }
 
     $scope.save = function() {
-        var jForm = $('.form-horizontal');
+        var jForm = $('#member_form');
         jForm.isValid(function(v) {
             if (v) {
                 var isDeptOk = valid_department();
@@ -69,7 +89,7 @@ module.exports = function($scope, $state, $http, $timeout) {
 
                 $http({
                     method: 'POST',
-                    url: '/Member/Add',
+                    url: url,
                     data: $scope.data
                 }).success(function(data) {
                     $state.go('member');

@@ -45,6 +45,38 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
         });
     }
 
+    $scope.deleteBank = function(item) {
+        if ($scope.data.status > 0) {
+            alert('已提交审核不能移除')
+            return;
+        }
+
+        if ($scope.data.status == 4) {
+            alert('订单已完成不能移除')
+            return;
+        }
+
+        if ($scope.data.review_status == 1) {
+            var msg = $scope.data.status == 2 ? '已通过财务审核不能移除' : '已通过提交人审核不能移除';
+            alert(msg);
+            return;
+        }
+
+        if (!confirm('您确认要移除吗？')) {
+            return false;
+        }
+
+        $http({
+            method: 'GET',
+            url: '/Audit/DeleteBank',
+            params: {
+                id: item.id
+            }
+        }).success(function(data) {
+            actionView();
+        });
+    }
+
     $scope.incomes = {
         items: [],
         total: 0,
@@ -173,6 +205,10 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
     });
 
     $scope.$on('FINISH_MODAL_DONE', function(e) {
+        actionView();
+    });
+
+    $scope.$on('AUDIT_BANK_DONE', function(e) {
         actionView();
     });
 
