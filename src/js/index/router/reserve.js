@@ -5,7 +5,7 @@ var views_reserve = {
     }
 };
 
-var router = function ($stateProvider, $urlRouterProvider) {
+var router = function($stateProvider, $urlRouterProvider) {
 
     $stateProvider
         .state('reserve', { // list
@@ -37,8 +37,7 @@ var router = function ($stateProvider, $urlRouterProvider) {
             stateName: '查看预备客户',
             views: views_reserve
         })
-
-        .state('timeline', {
+    .state('timeline', {
             parent: 'list',
             url: '/view/reserve/timeline/{id:.*}',
             template: require('view/reserve/timeline/tmpl.html'),
@@ -59,6 +58,31 @@ var router = function ($stateProvider, $urlRouterProvider) {
                 'add': {
                     template: require('view/reserve/timeline/modal.html'),
                     controller: require('view/reserve/timeline/modal')
+                }
+            }
+        })
+
+        .state('reserve.detail.add.dictionary', {
+            url: '/dictionary',
+            params: {
+                group: null
+            },
+            views: {
+                'modal': {
+                    template: require('view/common/dictionary/modal.html'),
+                    controller: require('view/common/dictionary/modal')
+                }
+            }
+        })
+        .state('reserve.detail.edit.dictionary', {
+            url: '/dictionary',
+            params: {
+                group: null
+            },
+            views: {
+                'modal': {
+                    template: require('view/common/dictionary/modal.html'),
+                    controller: require('view/common/dictionary/modal')
                 }
             }
         })

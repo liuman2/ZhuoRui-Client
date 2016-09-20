@@ -97,7 +97,7 @@ module.exports = function ($scope, $http, $state) {
                 bankIds: ids
             }
         }).success(function(data) {
-            $scope.$emit('BANK_MODAL_DONE');
+            $scope.$emit('AUDIT_BANK_DONE');
             $state.go('^', { reload: true });
         });
     }

@@ -36,17 +36,26 @@
                     <div class="col-sm-8">
                         <select ui-select2 class="form-control select2" name="industry" ng-model="data.industry" url=" Dictionary/DroplistByGroup" paging="false" paramfield="group" paramvalue="行业类别"></select>
                     </div>
+                    <div class="col-sm-2 add-dictionary">
+                        <a class="fa fa-plus" ui-sref=".dictionary({group: '行业类别'})" ui-sref-opts="{location:false}" title="新增行业类别"></a>
+                    </div>
                 </div>
                 <div class="form-group">
                 <label class="col-sm-2 control-label">业务性质</label>
                 <div class="col-sm-8">
-                    <select ui-select2 class="form-control select2" name="business_nature" ng-model="data.business_nature" ng-disabled="!editable" url=" Dictionary/DroplistByGroup" paging="false" paramfield="group" paramvalue="业务性质" ></select>
+                    <select ui-select2 class="form-control select2" name="business_nature" ng-model="data.business_nature" url=" Dictionary/DroplistByGroup" paging="false" paramfield="group" paramvalue="业务性质" ></select>
+                </div>
+                <div class="col-sm-2 add-dictionary">
+                    <a class="fa fa-plus" ui-sref=".dictionary({group: '业务性质'})" ui-sref-opts="{location:false}" title="新增业务性质"></a>
                 </div>
             </div>
                 <div class="form-group">
                     <label class="col-sm-2 control-label">客户来源</label>
                     <div class="col-sm-8">
                         <select ui-select2 class="form-control select2" name="source" ng-model="data.source" ng-change="sourceChange()" url="Dictionary/DroplistByGroup" paging="false" paramfield="group" paramvalue="客户来源"></select>
+                    </div>
+                    <div class="col-sm-2 add-dictionary">
+                        <a class="fa fa-plus" ui-sref=".dictionary({group: '客户来源'})" ui-sref-opts="{location:false}" title="新增客户来源"></a>
                     </div>
                 </div>
                 <div id="source_customer" class="form-group">
@@ -156,3 +165,4 @@
         </form>
     </div>
 </section>
+<div ui-view="modal"></div>

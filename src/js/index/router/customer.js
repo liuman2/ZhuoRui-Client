@@ -75,6 +75,31 @@ var router = function ($stateProvider, $urlRouterProvider) {
                 }
             }
         })
+
+        .state('customer_add.dictionary', {
+            url: '/dictionary',
+            params: {
+                group: null
+            },
+            views: {
+                'modal': {
+                    template: require('view/common/dictionary/modal.html'),
+                    controller: require('view/common/dictionary/modal')
+                }
+            }
+        })
+        .state('customer_edit.dictionary', {
+            url: '/dictionary',
+            params: {
+                group: null
+            },
+            views: {
+                'modal': {
+                    template: require('view/common/dictionary/modal.html'),
+                    controller: require('view/common/dictionary/modal')
+                }
+            }
+        })
 };
 
 module.exports = router;

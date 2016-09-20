@@ -270,7 +270,7 @@
                         </tr>
                         <tr ng-repeat="item in banks">
                             <td ng-bind="($index+1)+'.'"></td>
-                             <td ng-bind="item.name"></td>
+                             <td ng-bind="item.bank"></td>
                             <td ng-bind="item.holder"></td>
                             <td ng-bind="item.account"></td>
                             <td class="opt-col" ng-if="data.status == 0">
@@ -416,3 +416,4 @@
 </section>
 <div ui-view="modal"></div>
 <div ui-view="progress"></div>
+<div ui-view="bank"></div>

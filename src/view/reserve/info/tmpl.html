@@ -13,25 +13,34 @@
             <div class="form-group">
                 <label class="col-sm-2 control-label">行业类别</label>
                 <div class="col-sm-8">
-                    <select ui-select2 class="form-control select2" name="industry" ng-model="data.industry" ng-disabled="!editable" url=" Dictionary/DroplistByGroup" paging="false" paramfield="group" paramvalue="行业类别" ></select>
+                    <select ui-select2 class="form-control select2" name="industry" ng-model="data.industry" ng-disabled="!editable" url="Dictionary/DroplistByGroup" paging="false" paramfield="group" paramvalue="行业类别" ></select>
+                </div>
+                <div class="col-sm-2 add-dictionary">
+                    <a class="fa fa-plus" ui-sref=".dictionary({group: '行业类别'})" ui-sref-opts="{location:false}" title="新增行业类别"></a>
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-sm-2 control-label">业务性质</label>
                 <div class="col-sm-8">
-                    <select ui-select2 class="form-control select2" name="business_nature" ng-model="data.business_nature" ng-disabled="!editable" url=" Dictionary/DroplistByGroup" paging="false" paramfield="group" paramvalue="业务性质" ></select>
+                    <select ui-select2 class="form-control select2" name="business_nature" ng-model="data.business_nature" ng-disabled="!editable" url="Dictionary/DroplistByGroup" paging="false" paramfield="group" paramvalue="业务性质" ></select>
+                </div>
+                <div class="col-sm-2 add-dictionary">
+                    <a class="fa fa-plus" ui-sref=".dictionary({group: '业务性质'})" ui-sref-opts="{location:false}" title="新增业务性质"></a>
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-sm-2 control-label">客户来源</label>
                 <div class="col-sm-8">
-                    <select ui-select2 class="form-control select2" name="source" ng-model="data.source" ng-change="sourceChange()" ng-disabled="!editable" url=" Dictionary/DroplistByGroup" paging="false" paramfield="group" paramvalue="客户来源" ></select>
+                    <select ui-select2 class="form-control select2" name="source" ng-model="data.source" ng-change="sourceChange()" ng-disabled="!editable" url="Dictionary/DroplistByGroup" paging="false" paramfield="group" paramvalue="客户来源" ></select>
+                </div>
+                <div class="col-sm-2 add-dictionary">
+                    <a class="fa fa-plus" ui-sref=".dictionary({group: '客户来源'})" ui-sref-opts="{location:false}" title="新增客户来源"></a>
                 </div>
             </div>
             <div id="source_customer" class="form-group">
                 <label class="col-sm-2 control-label">介绍人</label>
                 <div class="col-sm-8">
-                    <select ui-select2 class="form-control select2" name="source_id" ng-view="source_name" ng-model="data.source_id" ng-disabled="!editable" url=" Customer/Introducers" paging="true"  style="width: 100%;"></select>
+                    <select ui-select2 class="form-control select2" name="source_id" ng-view="source_name" ng-model="data.source_id" ng-disabled="!editable" url="Customer/Introducers" paging="true"  style="width: 100%;"></select>
                 </div>
             </div>
             <div class="form-group">
@@ -134,3 +143,4 @@
         </div>
     </form>
 </div>
+<div ui-view="modal"></div>

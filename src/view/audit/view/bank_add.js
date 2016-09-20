@@ -49,19 +49,19 @@ module.exports = function($scope, $state, $http, $timeout) {
             url: '/Audit/AddBank',
             data: $scope.data
         }).success(function(data) {
-            $scope.$emit('BANK_MODAL_DONE');
-            $state.go('^', { reload: true });
-        });
-    }
-
-    function actionUpdate() {
-        $http({
-            method: 'POST',
-            url: '/Customer/UpdateBank',
-            data: $scope.data
-        }).success(function(data) {
             $scope.$emit('AUDIT_BANK_DONE');
             $state.go('^', { reload: true });
         });
     }
+
+    // function actionUpdate() {
+    //     $http({
+    //         method: 'POST',
+    //         url: '/Customer/UpdateBank',
+    //         data: $scope.data
+    //     }).success(function(data) {
+    //         $scope.$emit('AUDIT_BANK_DONE');
+    //         $state.go('^', { reload: true });
+    //     });
+    // }
 };

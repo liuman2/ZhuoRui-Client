@@ -79,7 +79,7 @@ var router = function($stateProvider, $urlRouterProvider) {
         .state('audit_view.bank_select', {
             url: '/bank/{customer_id: .*}/{audit_id: .*}',
             views: {
-                'modal': {
+                'bank': {
                     template: require('view/audit/view/bank_select.html'),
                     controller: require('view/audit/view/bank_select')
                 }

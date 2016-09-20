@@ -13,6 +13,11 @@ module.exports = function($scope, $state, $http, $cookieStore) {
     }
     $scope.error_msg = '';
 
+    $scope.keypress = function (e) {
+        // $scope.focus(e);
+        e.keyCode == 13 && $scope.login();
+    }
+
     $scope.login = function() {
         jForm.isValid(function(v) {
             if (v) {
