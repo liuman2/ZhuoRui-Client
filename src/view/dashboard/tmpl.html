@@ -6,7 +6,7 @@
 <section class="content">
     <div class="row">
         <div class="col-md-3 col-sm-6 col-xs-12">
-            <div class="info-box" ui-sref="customer" ui-sref-opts="{location:false}">
+            <div class="info-box" ui-sref="customer" ui-sref-opts="{location:false}" style="cursor: pointer;">
                 <span class="info-box-icon bg-aqua"><i class="fa fa-user"></i></span>
                 <div class="info-box-content">
                     <span class="info-box-text">我的客户</span>
@@ -15,7 +15,7 @@
             </div>
         </div>
         <div class="col-md-3 col-sm-6 col-xs-12">
-            <div class="info-box" ui-sref="annual_warning" ui-sref-opts="{location:false}">
+            <div class="info-box" ui-sref="annual_warning" ui-sref-opts="{location:false}" style="cursor: pointer;">
                 <span class="info-box-icon bg-red"><i class="fa fa-clock-o"></i></span>
                 <div class="info-box-content">
                     <span class="info-box-text">待年检订单</span>
@@ -66,8 +66,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr ng-repeat="item in data.recently_customers">
-                                    <td ng-bind="($index+1)+'.'"></td>
+                                <tr ng-repeat="item in recently_customers">
                                     <td ng-bind="item.code"></td>
                                     <td ng-bind="item.name"></td>
                                     <td ng-bind="item.contact"></td>
