@@ -3,7 +3,7 @@ var httpHelper = require('js/utils/httpHelper');
 module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
 
     $scope.userInfo = $cookieStore.get('USER_PROFILE');
-    $scope.userInfo.url = $scope.userInfo.url || 'img/head.jpg';
+    $scope.userInfo.url = $scope.userInfo.url;
     $scope.save = function() {
         var jForm = $('#form_profile');
 

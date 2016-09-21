@@ -20,7 +20,7 @@ module.exports = function($scope, $rootScope, $http, $cookieStore) {
             location.href = '/login.html';
         }
 
-        data.user.url = data.user.url || 'img/head.jpg';
+        data.user.url = data.user.url;
         $cookieStore.put('USER_OPERS', data.opers);
         $cookieStore.put('USER_PROFILE', data.user);
 
