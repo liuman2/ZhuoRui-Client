@@ -29,12 +29,12 @@
                 </div>
             </div>
             <div class="box-body">
-                <div class="form-group">
+                <!-- <div class="form-group">
                     <label class="col-sm-2 control-label">档案号<span class="required">*</span></label>
                     <div class="col-sm-8">
                         <input type="text" class="form-control" placeholder="系统自动生成" readonly>
                     </div>
-                </div>
+                </div> -->
                 <div class="form-group">
                     <label class="col-sm-2 control-label">客户名称<span class="required">*</span></label>
                     <div class="col-sm-8">
@@ -103,24 +103,57 @@
                 </div>
             </div>
             <div class="box-body">
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">是否为旧订单<span class="required">*</span></label>
+                    <div class="col-sm-8">
+                        <select class="form-control select2" name="is_old" ng-model="data.is_old" data-rule="required;">
+                            <option value="">请选择</option>
+                            <option value="1">旧数据迁移</option>
+                            <option value="0">新订单</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">订单马上年检<span class="required">*</span></label>
+                    <div class="col-sm-8">
+                        <select class="form-control select2" name="is_annual" ng-model="data.is_annual" data-rule="required;">
+                            <option value="0">否</option>
+                            <option value="1">是</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">字段说明</label>
+                    <div class="col-sm-8">
+                        <p style="line-height: 34px;">
+                            <span style="color: #217f50; font-weight: bold;">是否为旧订单:</span> 旧的订单数据迁移到该系统时，请选择“旧数据迁移”，旧数据迁移不走审核数据。录入完成后即属于完成的订单
+                        </p>
+                        <p style="line-height: 34px;">
+                            <span style="color: #217f50; font-weight: bold;">订单马上年检:</span> 当客户不在本公司注册公司，只是年检转到本公司时请选择“是”，此时该订单不走审核数据。
+                        </p>
+                    </div>
+                </div>
+                <div class="form-group" ng-if="data.is_old != 1">
+                    <label class="col-sm-2 control-label">档案号<span class="required">*</span></label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" placeholder="系统自动生成" readonly>
+                    </div>
+                </div>
+                <div class="form-group" ng-if="data.is_old == 1">
+                    <label class="col-sm-2 control-label">档案号<span class="required">*</span></label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control"  ng-model="data.code" data-rule="required;">
+                    </div>
+                </div>
+
                 <div class="form-group">
                     <label class="col-sm-2 control-label">公司名称<span class="required">*</span></label>
                     <div class="col-sm-8">
                         <input type="text" class="form-control" name="name_cn" ng-model="data.name_cn"  data-rule="required; length[~100];">
                     </div>
                 </div>
-                <!-- <div class="form-group">
-                    <label class="col-sm-2 control-label">成立日期<span class="required">*</span></label>
-                    <div class="col-sm-8">
-                        <input type="text" class="form-control date-input" id="date_setup" name="date_setup" ng-model="data.date_setup"  data-rule="required;">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">统一信用编号<span class="required">*</span></label>
-                    <div class="col-sm-8">
-                        <input type="text" class="form-control" name="reg_no" ng-model="data.reg_no" data-rule="required; length[~100];">
-                    </div>
-                </div>-->
+
                 <div class="form-group">
                     <label class="col-sm-2 control-label">注册地址<span class="required">*</span></label>
                     <div class="col-sm-8">
@@ -139,7 +172,21 @@
                         <input type="text" class="form-control" name="director" ng-model="data.director" data-rule="length[~20];">
                     </div>
                 </div>
-                <!-- <div class="form-group">
+
+                <div ng-if="data.is_old == 1 || data.is_annual == 1">
+                 <div class="form-group">
+                    <label class="col-sm-2 control-label">成立日期<span class="required">*</span></label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control date-input" id="date_setup" name="date_setup" ng-model="data.date_setup"  data-rule="required;">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">统一信用编号<span class="required">*</span></label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" name="reg_no" ng-model="data.reg_no" data-rule="required; length[~100];">
+                    </div>
+                </div>
+                <div class="form-group">
                     <label class="col-sm-2 control-label">纳税人资格</label>
                     <div class="col-sm-8">
                         <select ui-select2 class="form-control select2" name="taxpayer" ng-model="data.taxpayer" url="Dictionary/DroplistByGroup" paging="false" paramfield="group" paramvalue="纳税人资格"></select>
@@ -162,7 +209,10 @@
                     <div class="col-sm-8">
                         <input type="text" class="form-control" ng-model="data.customs_address" data-rule="length[~300];">
                     </div>
-                </div> -->
+                </div>
+                </div>
+
+
                 <div class="form-group">
                     <label class="col-sm-2 control-label">成交日期<span class="required">*</span></label>
                     <div class="col-sm-8">

@@ -50,7 +50,9 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
         invoice_tel: '',
         invoice_bank: '',
         rate: '',
-        invoice_account: ''
+        invoice_account: '',
+
+        is_annual: 0
     }
 
     if (!!id) {
@@ -75,10 +77,22 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
                 submitData.date_transaction = $('#date_transaction').val();
 
                 var url = $scope.action == 'add' ? '/RegAbroad/Add' : '/RegAbroad/Update';
+                var data = submitData;
+                if ($scope.action == 'add') {
+                    submitData.date_finish = $('#date_finish').val();
+
+                    data = {
+                        oldRequest: {
+                            is_old: $scope.data.is_old,
+                            is_already_annual: $scope.data.is_already_annual,
+                        },
+                        aboad: submitData
+                    };
+                }
                 $http({
                     method: 'POST',
                     url: url,
-                    data: submitData
+                    data: data
                 }).success(function(data) {
                     $state.go("abroad_view", {
                         id: data.id
@@ -97,6 +111,19 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
             });
         }
     }
+
+    $scope.$watch(function() {
+        return $scope.data.is_open_bank;
+    }, function(newValue, oldValue) {
+        if (oldValue != undefined && newValue != undefined) {
+            if (newValue == "1") {
+                $timeout(function() {
+                    $('#customerBankSelect2').attr('paramvalue', $scope.data.customer_id);
+                    setBanks();
+                });
+            }
+        }
+    });
 
     $('#customerSelect2').on("change", function(e) {
         var customer_id = $(e.target).val();

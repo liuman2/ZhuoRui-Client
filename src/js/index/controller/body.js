@@ -27,6 +27,8 @@ module.exports = function($scope, $rootScope, $http, $cookieStore) {
     }).error(function() {
     });
 
+
+
     $scope.exit = function() {
         $http({
             method: 'GET',
@@ -42,4 +44,21 @@ module.exports = function($scope, $rootScope, $http, $cookieStore) {
         $scope.userInfo = $cookieStore.get('USER_PROFILE');
         $scope.$apply();
     });
+
+    $scope.$on('HAS_READ', function(e) {
+        GetMessageInfo();
+        $scope.$apply();
+    });
+
+    function GetMessageInfo() {
+        $http({
+            method: 'GET',
+            url: '/Home/WaitdealCount'
+        }).success(function(data) {
+            $scope.Waitdeal = data;
+        }).error(function() {
+        });
+    }
+
+    GetMessageInfo();
 };

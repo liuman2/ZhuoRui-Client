@@ -20,6 +20,16 @@ var router = function($stateProvider, $urlRouterProvider) {
             template: require('view/abroad/info/tmpl.html'),
             controller: require('view/abroad/info/ctrl')
         })
+        .state('abroad_add.bank_add', {
+            url: '/progress/bank/{customer_id:.*}',
+            views: {
+                'bank': {
+                    template: require('view/common/bank/modal.html'),
+                    controller: require('view/common/bank/modal')
+                }
+            }
+        })
+
         .state('abroad_edit', {
             url: '/abroad/edit/{id:.*}',
             template: require('view/abroad/info/tmpl.html'),

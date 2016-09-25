@@ -57,7 +57,7 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
         });
     }
 
-     $scope.format = function(dt, str) {
+    $scope.format = function(dt, str) {
         if (!dt) {
             return '';
         }

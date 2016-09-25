@@ -10,7 +10,7 @@
                 <span class="info-box-icon bg-aqua"><i class="fa fa-user"></i></span>
                 <div class="info-box-content">
                     <span class="info-box-text">我的客户</span>
-                    <span class="info-box-number" ng-bind="banner.customers">90</span>
+                    <span class="info-box-number" ng-bind="banner.customers_count">90</span>
                 </div>
             </div>
         </div>
@@ -19,7 +19,7 @@
                 <span class="info-box-icon bg-red"><i class="fa fa-clock-o"></i></span>
                 <div class="info-box-content">
                     <span class="info-box-text">待年检订单</span>
-                    <span class="info-box-number" ng-bind="banner.annuals">0</span>
+                    <span class="info-box-number" ng-bind="banner.annuals_count">0</span>
                 </div>
             </div>
         </div>
@@ -54,7 +54,7 @@
                         <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
                     </div>
                 </div>
-                <div class="box-body">
+                <div class="box-body" style="min-height: 100px;">
                     <div class="table-responsive">
                         <table class="table no-margin">
                             <thead>

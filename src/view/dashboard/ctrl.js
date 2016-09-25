@@ -7,15 +7,16 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
 
     $http({
         method: 'GET',
-        url: '/Home/Banner'
+        url: '/Home/DashboardInfo'
     }).success(function(data) {
-        $scope.banner = data;
+        $scope.banner = data.banner;
+        $scope.recently_customers = data.customers || [];
     });
 
-    $http({
-        method: 'GET',
-        url: '/Home/GetRecentlyCustomer'
-    }).success(function(data) {
-        $scope.recently_customers = data || [];
-    });
+    // $http({
+    //     method: 'GET',
+    //     url: '/Home/GetRecentlyCustomer'
+    // }).success(function(data) {
+    //     $scope.recently_customers = data || [];
+    // });
 };

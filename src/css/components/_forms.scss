@@ -136,3 +136,7 @@ fieldset[disabled] .form-control {
     display: inline-block;
     line-height: 34px;
 }
+
+.n-default .msg-wrap {
+    z-index: 0!important;
+}
