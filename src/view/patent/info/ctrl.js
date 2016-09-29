@@ -52,6 +52,30 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
         actionView();
     }
 
+    function initDate(newValue) {
+        if (newValue != undefined) {
+            if (newValue == "1") {
+                $timeout(function() {
+                    var dInput = $('.date-input');
+                    dInput.datetimepicker({
+                        timepicker: false,
+                        maxDate: new Date(),
+                        format: 'Y-m-d',
+                        onChangeDateTime: function(current_time, $input) {
+                            console.log(current_time)
+                        }
+                    });
+                });
+            }
+        }
+    }
+
+    $scope.$watch(function() {
+        return $scope.data.is_old;
+    }, function(newValue, oldValue) {
+        initDate(newValue);
+    });
+
     $scope.save = function() {
         var isCustomerValid = valid_customer();
         var isWaiterVaild = valid_waiter();
@@ -71,13 +95,31 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
                 submitData.date_transaction = $('#date_transaction').val();
                 submitData.date_inspection = $('#date_inspection').val();
 
-                // submitData.date_receipt = $('#date_receipt').val();
-                // submitData.date_accept = $('#date_accept').val();
-                // submitData.date_trial = $('#date_trial').val();
-                // submitData.date_regit = $('#date_regit').val();
-                // submitData.date_exten = $('#date_exten').val();
+
 
                 var url = $scope.action == 'add' ? '/Patent/Add' : '/Patent/Update';
+
+                var data = submitData;
+                if ($scope.action == 'add') {
+
+                    if ($scope.data.is_old == 1) {
+
+                        submitData.date_receipt = $('#date_receipt').val();
+                        submitData.date_accept = $('#date_accept').val();
+                        submitData.date_trial = $('#date_trial').val();
+                        submitData.date_regit = $('#date_regit').val();
+                        submitData.date_exten = $('#date_exten').val();
+                    }
+
+                    data = {
+                        oldRequest: {
+                            is_old: $scope.data.is_old,
+                            is_already_annual: $scope.data.is_already_annual,
+                        },
+                        _patent: submitData
+                    };
+                }
+
                 $http({
                     method: 'POST',
                     url: url,
@@ -256,6 +298,7 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
             return true;
         }
     }
+
     function valid_reg_mode() {
         if (!$scope.data.reg_mode) {
             jForm.validator('showMsg', '#regModeSelect2-validator', {

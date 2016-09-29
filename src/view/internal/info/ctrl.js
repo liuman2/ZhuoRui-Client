@@ -45,14 +45,16 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
         waiter_id: '',
         outworker_id: '',
         manager_id: '',
-        customer_id: '',
+        customer_id: 0,
         invoice_name: '',
         invoice_tax: '',
         invoice_address: '',
         invoice_tel: '',
         invoice_bank: '',
         invoice_account: '',
-        rate: ''
+        rate: '',
+
+        is_annual: 0
     }
 
     if (!!id) {
@@ -80,10 +82,27 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
                 // submitData.date_setup = $('#date_setup').val();
                 submitData.date_transaction = $('#date_transaction').val();
                 var url = $scope.action == 'add' ? '/RegInternal/Add' : '/RegInternal/Update';
+                var data = submitData;
+                if ($scope.action == 'add') {
+
+                    if ($scope.data.is_old == 1) {
+                        submitData.date_finish = $('#date_finish').val();
+                        submitData.date_setup = $('#date_setup').val();
+                    }
+
+                    data = {
+                        oldRequest: {
+                            is_old: $scope.data.is_old,
+                            is_already_annual: $scope.data.is_already_annual,
+                        },
+                        reginternal: submitData
+                    };
+                }
+
                 $http({
                     method: 'POST',
                     url: url,
-                    data: submitData
+                    data: data
                 }).success(function(data) {
                     $state.go("internal_view", {
                         id: data.id
@@ -102,6 +121,30 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
             });
         }
     }
+
+    $scope.addBank = function() {
+        $state.go('.bank_add', {customer_id: $scope.data.customer_id}, {location: false});
+    }
+
+    $scope.$watch(function() {
+        return $scope.data.is_old;
+    }, function(newValue, oldValue) {
+        if (newValue != undefined) {
+            if (newValue == "1") {
+                $timeout(function() {
+                    var dInput = $('.date-input');
+                    dInput.datetimepicker({
+                        timepicker: false,
+                        maxDate: new Date(),
+                        format: 'Y-m-d',
+                        onChangeDateTime: function(current_time, $input) {
+                            console.log(current_time)
+                        }
+                    });
+                });
+            }
+        }
+    });
 
     $('#customerSelect2').on("change", function(e) {
         var customer_id = $(e.target).val();

@@ -19,7 +19,7 @@
 
         <div class="box box-info">
             <div class="box-header with-border">
-                <h3 class="box-title">客户基本信息</h3>
+                <h3 class="box-title">旧数据迁移</h3>
                 <div class="box-tools">
                     <div class="box-tools pull-right">
                         <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
@@ -29,21 +29,57 @@
             </div>
             <div class="box-body">
                 <div class="form-group">
-                    <label class="col-sm-2 control-label">档案号<span class="required">*</span></label>
+                    <label class="col-sm-2 control-label">是否为旧订单<span class="required">*</span></label>
                     <div class="col-sm-8">
-                        <input type="text" class="form-control" placeholder="系统自动生成" readonly>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">订单类别<span class="required">*</span></label>
-                    <div class="col-sm-8">
-                        <select class="form-control select2" name="type" ng-model="data.type" data-rule="required;">
+                        <select class="form-control select2" name="is_old" ng-model="data.is_old" data-rule="required;">
                             <option value="">请选择</option>
-                            <option value="境内">境内</option>
-                            <option value="境外">境外</option>
+                            <option value="1">旧数据迁移</option>
+                            <option value="0">新订单</option>
                         </select>
                     </div>
                 </div>
+                <div ng-if="data.is_old == 1">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">订单完成日期<span class="required">*</span></label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control date-input" id="date_finish" name="date_finish" ng-model="data.date_finish" data-rule="required;">
+                            </div>
+                        </div>
+                    </div>
+
+                <div class="form-group" ng-if="data.is_old == 1">
+                    <label class="col-sm-2 control-label">本年度是否已年检</label>
+                    <div class="col-sm-8">
+                        <select class="form-control select2" name="is_already_annual" ng-model="data.is_already_annual" data-rule="required;">
+                            <option value="">请选择</option>
+                            <option value="1">已年检</option>
+                            <option value="0">未年检</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">字段说明</label>
+                    <div class="col-sm-8">
+                        <p style="line-height: 34px;">
+                            <span style="color: #217f50; font-weight: bold;">是否为旧订单:</span> 旧的订单数据迁移到该系统时，请选择“旧数据迁移”，旧数据迁移不走审核数据。录入完成后即属于完成的订单
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="box box-info">
+            <div class="box-header with-border">
+                <h3 class="box-title">客户基本信息</h3>
+                <div class="box-tools">
+                    <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="box-body">
+
                 <div class="form-group">
                     <label class="col-sm-2 control-label">客户名称<span class="required">*</span></label>
                     <div class="col-sm-8">
@@ -112,6 +148,37 @@
                 </div>
             </div>
             <div class="box-body">
+
+                <!-- <div class="form-group">
+                    <label class="col-sm-2 control-label">档案号<span class="required">*</span></label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" placeholder="系统自动生成" readonly>
+                    </div>
+                </div> -->
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">订单类别<span class="required">*</span></label>
+                    <div class="col-sm-8">
+                        <select class="form-control select2" name="type" ng-model="data.type" data-rule="required;">
+                            <option value="">请选择</option>
+                            <option value="境内">境内</option>
+                            <option value="境外">境外</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group" ng-if="data.is_old != 1">
+                    <label class="col-sm-2 control-label">档案号<span class="required">*</span></label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" placeholder="系统自动生成" readonly>
+                    </div>
+                </div>
+                <div class="form-group" ng-if="data.is_old == 1">
+                    <label class="col-sm-2 control-label">档案号<span class="required">*</span></label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control"  ng-model="data.code" data-rule="required;">
+                    </div>
+                </div>
+
                 <div class="form-group">
                     <label class="col-sm-2 control-label">专利名称<span class="required">*</span></label>
                     <div class="col-sm-8">
@@ -210,43 +277,45 @@
             </div>
         </div>
 
-        <!-- <div class="box box-info">
-            <div class="box-header with-border">
-                <h3 class="box-title">注册进度</h3>
-                <div class="box-tools">
-                    <div class="box-tools pull-right">
-                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                        </button>
+        <div ng-if="data.is_old == 1 || data.is_annual == 1">
+            <div class="box box-info">
+                <div class="box-header with-border">
+                    <h3 class="box-title">注册进度</h3>
+                    <div class="box-tools">
+                        <div class="box-tools pull-right">
+                            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <!-- <div class="form-group">
+                        <label class="col-sm-2 control-label">专利进度</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" name="progress" ng-model="data.progress" disabled>
+                        </div>
+                    </div> -->
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">受理时间</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control date-input" id="date_accept" name="date_accept" ng-model="data.date_accept">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">授权时间</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control date-input" id="date_empower" name="date_empower" ng-model="data.date_empower">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">注册时间</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control date-input" id="date_regit" name="date_regit" ng-model="data.date_regit">
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="box-body">
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">专利进度</label>
-                    <div class="col-sm-8">
-                        <input type="text" class="form-control" name="progress" ng-model="data.progress" disabled>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">受理时间</label>
-                    <div class="col-sm-8">
-                        <input type="text" class="form-control date-input" id="date_accept" name="date_accept" ng-model="data.date_accept" disabled>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">授权时间</label>
-                    <div class="col-sm-8">
-                        <input type="text" class="form-control date-input" id="date_empower" name="date_empower" ng-model="data.date_empower" disabled>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">注册时间</label>
-                    <div class="col-sm-8">
-                        <input type="text" class="form-control date-input" id="date_regit" name="date_regit" ng-model="data.date_regit" disabled>
-                    </div>
-                </div>
-            </div>
-        </div> -->
+        </div>
 
         <div class="box box-info">
             <div class="box-header with-border">

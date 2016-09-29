@@ -79,7 +79,11 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
                 var url = $scope.action == 'add' ? '/RegAbroad/Add' : '/RegAbroad/Update';
                 var data = submitData;
                 if ($scope.action == 'add') {
-                    submitData.date_finish = $('#date_finish').val();
+
+                    if ($scope.data.is_old == 1) {
+                        submitData.date_finish = $('#date_finish').val();
+                        submitData.date_setup = $('#date_setup').val();
+                    }
 
                     data = {
                         oldRequest: {
@@ -112,6 +116,10 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
         }
     }
 
+    $scope.addBank = function() {
+        $state.go('.bank_add', {customer_id: $scope.data.customer_id}, {location: false});
+    }
+
     $scope.$watch(function() {
         return $scope.data.is_open_bank;
     }, function(newValue, oldValue) {
@@ -123,6 +131,33 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
                 });
             }
         }
+    });
+    function initDate(newValue) {
+        if (newValue != undefined) {
+            if (newValue == "1") {
+                $timeout(function() {
+                    var dInput = $('.date-input');
+                    dInput.datetimepicker({
+                        timepicker: false,
+                        maxDate: new Date(),
+                        format: 'Y-m-d',
+                        onChangeDateTime: function(current_time, $input) {
+                            console.log(current_time)
+                        }
+                    });
+                });
+            }
+        }
+    }
+    $scope.$watch(function() {
+        return $scope.data.is_old;
+    }, function(newValue, oldValue) {
+        initDate(newValue);
+    });
+    $scope.$watch(function() {
+        return $scope.data.is_annual;
+    }, function(newValue, oldValue) {
+        initDate(newValue);
     });
 
     $('#customerSelect2').on("change", function(e) {

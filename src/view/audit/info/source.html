@@ -1,0 +1,44 @@
+<div class="modal" style="display: block;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header" style="border-bottom:0px;">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" ui-sref="^">
+                    <span aria-hidden="true">×</span>
+                </button>
+                <h4 class="modal-title">订单选择</h4>
+            </div>
+            <div class="modal-body table-responsive no-padding">
+                <table class="table table-hover">
+                    <tbody>
+                        <tr style="border-bottom: 1px solid #f4f4f4;">
+                            <th></th>
+                            <th>档案号</th>
+                            <th>公司中文名</th>
+                            <th>公司英文名</th>
+                            <th>客户名称</th>
+                            <th>业务员</th>
+                            <th>完成日期</th>
+                        </tr>
+                        <tr ng-repeat="item in sources">
+                            <td width="5%">
+                                <input type="radio" id="{{item.id}}" name="audit_source" ng-checked="isSelected(item.id)" ng-click="updateSelection($event, item)">
+                            </td>
+                            <td ng-bind="item.code"></td>
+                            <td ng-bind="item.name_cn"></td>
+                            <td ng-bind="item.name_en"></td>
+                            <td ng-bind="item.customer_name"></td>
+                            <td ng-bind="item.salement"></td>
+                            <td ng-bind="item.date_finish"></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <!-- <div pagination page-data="data.page" page-click="go(idx)" style="bottom: 10px;position: absolute;right: 0;"></div> -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal" ui-sref="^">取消</button>
+                <button type="button" class="btn btn-primary" ng-click="save()">确定</button>
+
+            </div>
+        </div>
+    </div>
+</div>

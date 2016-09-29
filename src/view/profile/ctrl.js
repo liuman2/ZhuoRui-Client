@@ -10,7 +10,7 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
         jForm.isValid(function(v) {
             if (v) {
 
-                $scope.data.userId = user.id;
+                $scope.data.userId = $scope.userInfo.id;
                 $http({
                     method: 'POST',
                     url: '/Account/ChangePwd',

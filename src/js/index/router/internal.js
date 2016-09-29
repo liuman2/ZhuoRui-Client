@@ -20,6 +20,15 @@ var router = function($stateProvider, $urlRouterProvider) {
             template: require('view/internal/info/tmpl.html'),
             controller: require('view/internal/info/ctrl')
         })
+        .state('internal_add.bank_add', {
+            url: '/internal/add/bank/{customer_id:.*}',
+            views: {
+                'bank': {
+                    template: require('view/common/bank/modal.html'),
+                    controller: require('view/common/bank/modal')
+                }
+            }
+        })
         .state('internal_edit', {
             url: '/internal/edit/{id:.*}',
             template: require('view/internal/info/tmpl.html'),

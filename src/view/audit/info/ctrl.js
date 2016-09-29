@@ -73,6 +73,54 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
         actionView();
     }
 
+    $scope.selectSource = function() {
+
+        if (!$scope.data.customer_id) {
+            alert('请选择客户');
+            return;
+        }
+
+        if (!$scope.data.type) {
+            alert('请选择订单类别');
+            return;
+        }
+
+        $state.go(".source", {
+            customer_id: $scope.data.customer_id,
+            type: $scope.data.type
+        }, {location: false});
+    }
+
+    $scope.$on('SOURCE_DONE', function(e, s) {
+        console.log(s)
+        $scope.data.source_id = s.id;
+        $scope.data.source = $scope.data.type =='境内'? 'reg_internal' : 'reg_abroad'
+        $scope.data.source_code = s.code;
+    });
+
+    function initDate(newValue) {
+        if (newValue != undefined) {
+            if (newValue == "1") {
+                $timeout(function() {
+                    var dInput = $('.date-input');
+                    dInput.datetimepicker({
+                        timepicker: false,
+                        maxDate: new Date(),
+                        format: 'Y-m-d',
+                        onChangeDateTime: function(current_time, $input) {
+                            console.log(current_time)
+                        }
+                    });
+                });
+            }
+        }
+    }
+    $scope.$watch(function() {
+        return $scope.data.is_old;
+    }, function(newValue, oldValue) {
+        initDate(newValue);
+    });
+
     $scope.save = function() {
         var isCustomerValid = valid_customer();
         var isAccountantVaild = valid_accountant();
@@ -113,11 +161,23 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
             });
         }
     }
+    $('#selectType').on("change", function(e) {
+        $scope.data.source_id = '';
+        $scope.data.source = '';
+        $scope.data.source_code = '';
+        $scope.$apply();
+    });
 
     $('#customerSelect2').on("change", function(e) {
         var customer_id = $(e.target).val();
 
         $scope.banks = [];
+        $scope.data.source_id = '';
+        $scope.data.source = '';
+        $scope.data.source_code = '';
+
+        $scope.$apply();
+
         // setBanks(customer_id);
 
         var customers = $('#customerSelect2').select2('data');

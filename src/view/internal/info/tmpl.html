@@ -20,6 +20,57 @@
 
         <div class="box box-info">
             <div class="box-header with-border">
+                <h3 class="box-title">旧数据迁移</h3>
+                <div class="box-tools">
+                    <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="box-body">
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">是否为旧订单<span class="required">*</span></label>
+                    <div class="col-sm-8">
+                        <select class="form-control select2" name="is_old" ng-model="data.is_old" data-rule="required;">
+                            <option value="">请选择</option>
+                            <option value="1">旧数据迁移</option>
+                            <option value="0">新订单</option>
+                        </select>
+                    </div>
+                </div>
+                <div ng-if="data.is_old == 1">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">订单完成日期<span class="required">*</span></label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control date-input" id="date_finish" name="date_finish" ng-model="data.date_finish" data-rule="required;">
+                            </div>
+                        </div>
+                    </div>
+
+                <div class="form-group" ng-if="data.is_old == 1">
+                    <label class="col-sm-2 control-label">本年度是否已年检</label>
+                    <div class="col-sm-8">
+                        <select class="form-control select2" name="is_already_annual" ng-model="data.is_already_annual" data-rule="required;">
+                            <option value="">请选择</option>
+                            <option value="1">已年检</option>
+                            <option value="0">未年检</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">字段说明</label>
+                    <div class="col-sm-8">
+                        <p style="line-height: 34px;">
+                            <span style="color: #217f50; font-weight: bold;">是否为旧订单:</span> 旧的订单数据迁移到该系统时，请选择“旧数据迁移”，旧数据迁移不走审核数据。录入完成后即属于完成的订单
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="box box-info">
+            <div class="box-header with-border">
                 <h3 class="box-title">客户基本信息</h3>
                 <div class="box-tools">
                     <div class="box-tools pull-right">
@@ -104,17 +155,7 @@
             </div>
             <div class="box-body">
 
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">是否为旧订单<span class="required">*</span></label>
-                    <div class="col-sm-8">
-                        <select class="form-control select2" name="is_old" ng-model="data.is_old" data-rule="required;">
-                            <option value="">请选择</option>
-                            <option value="1">旧数据迁移</option>
-                            <option value="0">新订单</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="form-group">
+                <div class="form-group" ng-if="data.is_old == 0">
                     <label class="col-sm-2 control-label">订单马上年检<span class="required">*</span></label>
                     <div class="col-sm-8">
                         <select class="form-control select2" name="is_annual" ng-model="data.is_annual" data-rule="required;">
@@ -123,17 +164,16 @@
                         </select>
                     </div>
                 </div>
-                <div class="form-group">
+
+                <div class="form-group"  ng-if="data.is_old == 0">
                     <label class="col-sm-2 control-label">字段说明</label>
                     <div class="col-sm-8">
-                        <p style="line-height: 34px;">
-                            <span style="color: #217f50; font-weight: bold;">是否为旧订单:</span> 旧的订单数据迁移到该系统时，请选择“旧数据迁移”，旧数据迁移不走审核数据。录入完成后即属于完成的订单
-                        </p>
                         <p style="line-height: 34px;">
                             <span style="color: #217f50; font-weight: bold;">订单马上年检:</span> 当客户不在本公司注册公司，只是年检转到本公司时请选择“是”，此时该订单不走审核数据。
                         </p>
                     </div>
                 </div>
+
                 <div class="form-group" ng-if="data.is_old != 1">
                     <label class="col-sm-2 control-label">档案号<span class="required">*</span></label>
                     <div class="col-sm-8">
@@ -174,42 +214,77 @@
                 </div>
 
                 <div ng-if="data.is_old == 1 || data.is_annual == 1">
-                 <div class="form-group">
-                    <label class="col-sm-2 control-label">成立日期<span class="required">*</span></label>
-                    <div class="col-sm-8">
-                        <input type="text" class="form-control date-input" id="date_setup" name="date_setup" ng-model="data.date_setup"  data-rule="required;">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">成立日期<span class="required">*</span></label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control date-input" id="date_setup" name="date_setup" ng-model="data.date_setup"  data-rule="required;">
+                        </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">统一信用编号<span class="required">*</span></label>
-                    <div class="col-sm-8">
-                        <input type="text" class="form-control" name="reg_no" ng-model="data.reg_no" data-rule="required; length[~100];">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">统一信用编号<span class="required">*</span></label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" name="reg_no" ng-model="data.reg_no" data-rule="required; length[~100];">
+                        </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">纳税人资格</label>
-                    <div class="col-sm-8">
-                        <select ui-select2 class="form-control select2" name="taxpayer" ng-model="data.taxpayer" url="Dictionary/DroplistByGroup" paging="false" paramfield="group" paramvalue="纳税人资格"></select>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">纳税人资格</label>
+                        <div class="col-sm-8">
+                            <select ui-select2 class="form-control select2" name="taxpayer" ng-model="data.taxpayer" url="Dictionary/DroplistByGroup" paging="false" paramfield="group" paramvalue="纳税人资格"></select>
+                        </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">是否海关备案</label>
-                    <div class="col-sm-8">
-                        <input type="checkbox" name="is_customs" ng-true-value="1"  ng-false-value="0" ng-model="data.is_customs">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">是否海关备案</label>
+                        <div class="col-sm-8">
+                            <input type="checkbox" name="is_customs" ng-true-value="1"  ng-false-value="0" ng-model="data.is_customs">
+                        </div>
                     </div>
-                </div>
-                <div class="form-group" ng-show="data.is_customs==1">
-                    <label class="col-sm-2 control-label">海关备案英文名称</label>
-                    <div class="col-sm-8">
-                        <input type="text" class="form-control" ng-model="data.customs_name" data-rule="length[~300];">
+                    <div class="form-group" ng-show="data.is_customs==1">
+                        <label class="col-sm-2 control-label">海关备案英文名称</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" ng-model="data.customs_name" data-rule="length[~300];">
+                        </div>
                     </div>
-                </div>
-                <div class="form-group" ng-show="data.is_customs==1">
-                    <label class="col-sm-2 control-label">海关备案英文地址</label>
-                    <div class="col-sm-8">
-                        <input type="text" class="form-control" ng-model="data.customs_address" data-rule="length[~300];">
+                    <div class="form-group" ng-show="data.is_customs==1">
+                        <label class="col-sm-2 control-label">海关备案英文地址</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" ng-model="data.customs_address" data-rule="length[~300];">
+                        </div>
                     </div>
-                </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">是否在我司代理记账</label>
+                        <div class="col-sm-8">
+                            <input type="checkbox" name="is_bookkeeping" ng-true-value="1"  ng-false-value="0" ng-model="data.is_bookkeeping">
+                        </div>
+                    </div>
+                    <div class="form-group" ng-show="data.is_bookkeeping==1">
+                        <label class="col-sm-2 control-label">代理记账费用</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" name="amount_bookkeeping" ng-model="data.amount_bookkeeping" data-rule-money="[/^(([1-9]\d{0,9})|0)(\.\d{1,2})?$/, '请填写2位数的数值']" data-rule="money;">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">开户行</label>
+                        <div class="col-sm-8">
+                            <select class="form-control select2" id="customerBankSelect2" name="bank_id" ng-view="bank_name" ng-model="data.bank_id" style="width: 100%;"></select>
+                        </div>
+                        <div class="col-sm-1 add-dictionary">
+                            <!-- ui-sref=".bank_add({customer_id: {{data.customer_id}}})" ui-sref-opts="{location:false}" -->
+                            <a class="fa fa-plus" ng-click="addBank()"></a>
+                        </div>
+                    </div>
+                    <!-- <div class="form-group">
+                        <label class="col-sm-2 control-label">开户人</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" ng-model="data.holder" disabled>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">银行账号</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" ng-model="data.account" disabled>
+                        </div>
+                    </div> -->
                 </div>
 
 
@@ -242,36 +317,7 @@
                     </div>
                 </div>
 
-                <!-- <div class="form-group">
-                    <label class="col-sm-2 control-label">是否在我司代理记账</label>
-                    <div class="col-sm-8">
-                        <input type="checkbox" name="is_bookkeeping" ng-true-value="1"  ng-false-value="0" ng-model="data.is_bookkeeping">
-                    </div>
-                </div>
-                <div class="form-group" ng-show="data.is_bookkeeping==1">
-                    <label class="col-sm-2 control-label">代理记账费用</label>
-                    <div class="col-sm-8">
-                        <input type="text" class="form-control" name="amount_bookkeeping" ng-model="data.amount_bookkeeping" data-rule-money="[/^(([1-9]\d{0,9})|0)(\.\d{1,2})?$/, '请填写2位数的数值']" data-rule="money;">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">开户行</label>
-                    <div class="col-sm-8">
-                        <select class="form-control select2" id="customerBankSelect2" name="bank_id" ng-view="bank_name" ng-model="data.bank_id" style="width: 100%;"></select>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">开户人</label>
-                    <div class="col-sm-8">
-                        <input type="text" class="form-control" ng-model="data.holder" disabled>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">银行账号</label>
-                    <div class="col-sm-8">
-                        <input type="text" class="form-control" ng-model="data.account" disabled>
-                    </div>
-                </div> -->
+
             </div>
         </div>
 
@@ -375,3 +421,4 @@
     </form>
 </section>
 <div ui-view="modal"></div>
+<div ui-view="bank"></div>
