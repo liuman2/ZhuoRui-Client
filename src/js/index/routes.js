@@ -39,6 +39,45 @@ module.exports = function($stateProvider, $urlRouterProvider) {
             abstract: true,
             template: require('view/common/detail/tmpl.html')
         })
+        .state('history', {
+            url: '/history/list/{module_id:.*}/{code:.*}/{source_id:.*}/{customer_id:.*}',
+            template: require('view/history/list.html'),
+            controller: require('view/history/list')
+        })
+        .state('history_add', {
+            url: '/history/add/{module_id:.*}/{code:.*}/{source_id:.*}/{customer_id:.*}',
+            template: require('view/history/info.html'),
+            controller: require('view/history/info')
+        })
+        .state('history_view', {
+            url: '/history/view/{id:.*}',
+            template: require('view/history/view.html'),
+            controller: require('view/history/view')
+        })
+        .state('history_view.income_add', {
+            url: '/new/{source_name:.*}/{customer_id:.*}',
+            views: {
+                'modal': {
+                    template: require('view/common/income/modal.html'),
+                    controller: require('view/common/income/modal')
+                }
+            }
+        })
+        .state('history_view.income_edit', {
+            url: '/edit/{tid:.*}',
+            views: {
+                'modal': {
+                    template: require('view/common/income/modal.html'),
+                    controller: require('view/common/income/modal')
+                }
+            }
+        })
+
+        .state('history_edit', {
+            url: '/history/edit/{module_id:.*}/{code:.*}/{source_id:.*}/{id:.*}',
+            template: require('view/history/info.html'),
+            controller: require('view/history/info')
+        })
 
     dashboardRouter($stateProvider, $urlRouterProvider);
     reserveRouter($stateProvider, $urlRouterProvider);

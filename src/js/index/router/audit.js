@@ -20,8 +20,13 @@ var router = function($stateProvider, $urlRouterProvider) {
             template: require('view/audit/info/tmpl.html'),
             controller: require('view/audit/info/ctrl')
         })
+        .state('audit_add_s', {
+            url: '/audit/add/{order_type:.*}/{order_id:.*}',
+            template: require('view/audit/info/tmpl.html'),
+            controller: require('view/audit/info/ctrl')
+        })
+
         .state('audit_add.source', {
-            // url: '/audit/add/source',
             params: {
                 customer_id: null,
                 type: null

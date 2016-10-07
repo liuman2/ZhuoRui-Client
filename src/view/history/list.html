@@ -1,0 +1,105 @@
+<section class="content-header">
+    <h1>
+        变更记录
+        <small ng-bind="module.name"></small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a ui-sref="dashboard"><i class="fa fa-dashboard"></i>我的面板</a></li>
+        <li>
+            <a ui-sref="{{module.id}}" ng-bind="module.name"></a>
+        </li>
+        <li><a class="active">变更记录</a></li>
+    </ol>
+</section>
+<section class="content">
+    <div class="box box-info">
+        <div class="box-header with-border">
+            <h3 class="box-title">档案号: {{module.code}}</h3>
+            <button type="button" class="btn btn-primary" ng-click="showChange()" ng-bind="showChanges ? '显示订单记录' : '显示变更记录'"></button>
+            <div class="box-tools">
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="box-body table-responsive no-padding">
+            <table class="table table-hover">
+                <tbody>
+                    <tr ng-if="showChanges==false">
+                        <th style="width: 10px">#</th>
+                        <th>订单状态</th>
+                        <th>审核状态</th>
+                        <th>注册进度</th>
+                        <th>成交日期</th>
+                        <th class="tar">成交金额</th>
+                        <th class="opt-col">操作</th>
+                    </tr>
+
+                    <tr ng-if="showChanges">
+                        <th style="width: 10px">#</th>
+                        <th ng-repeat="col in fields">{{col.value}}</th>
+                        <th class="opt-col">操作</th>
+                    </tr>
+
+                    <tr ng-repeat="item in data.items"  ng-if="showChanges==false">
+                        <td ng-bind="($index+1)+'.'"></td>
+                        <td>
+                            <span class="label" ng-class="{'label-warning': (item.status==0), 'label-success': (item.status==4), 'label-info': (item.status != 0 && item.status != 4)}" ng-bind="getOrderStatus(item.status)"></span>
+                        </td>
+                        <td>
+                            <span style="cursor: default;" class="label" ng-attr-title="{{getTitle(item)}}" ng-class="{'label-warning': (item.review_status==-1), 'label-success': (item.review_status==1), 'label-danger': (item.review_status==0)}" ng-bind="getReviewStatus(item.status, item.review_status)">
+                            </span>
+                        </td>
+                        <td title="点击可设置进度">
+                            <a href="javascript:;" class="fa fa-hourglass-half" ng-click="progress(item)" ng-bind="!!item.progress? (' ' + item.progress) : ' 无进度信息'"></a>
+                        </td>
+                        <td ng-bind="format(item.date_transaction, 'YYYY-MM-DD')"></td>
+                        <td class="tar" ng-bind="item.amount_transaction"></td>
+                        <td class="opt-col">
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-box-tool dropdown-toggle" data-toggle="dropdown">
+                                    <i class="fa fa-wrench"></i>
+                                </button>
+                                <ul class="dropdown-menu" role="menu">
+                                    <!-- { module_id: 'abroad', code:item.code, source_id: item.id } -->
+                                    <li><a class="fa fa-info-circle" ui-sref="history_view({id: item.id})"> 详情</a></li>
+                                    <li><a href="javascript:;" class="fa fa-hourglass-half" ng-click="progress(item)"> 进度反馈</a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="javascript:;" class="fa fa-pencil" ng-if="$index==0" ng-click="edit(item)"> 修改</a></li>
+                                    <li><a href="javascript:;" class="fa fa-trash-o" ng-click="delete(item)"> 删除</a></li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr ng-repeat="item in data.items" ng-if="showChanges">
+                        <td ng-bind="($index+1)+'.'"></td>
+
+                        <td ng-repeat="col in fields">{{item.fields[col.key] || '--'}}</td>
+
+                        <td class="opt-col">
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-box-tool dropdown-toggle" data-toggle="dropdown">
+                                    <i class="fa fa-wrench"></i>
+                                </button>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a class="fa fa-info-circle" ui-sref="history_view({id: item.id})"> 详情</a></li>
+                                    <li><a href="javascript:;" class="fa fa-hourglass-half" ng-click="progress(item)"> 进度反馈</a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="javascript:;" class="fa fa-pencil" ng-if="$index==0" ng-click="edit(item)"> 修改</a></li>
+                                    <li><a href="javascript:;" class="fa fa-trash-o" ng-click="delete(item)"> 删除</a></li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+        <div class="box-footer clearfix">
+            <a ui-sref="history_add({module_id:module.id, code: module.code, source_id: module.source_id, customer_id: customer_id})" class="btn btn-sm btn-info btn-flat pull-left">新增</a>
+            <div pagination page-data="data.page" page-click="go(idx)"></div>
+        </div>
+    </div>
+</section>

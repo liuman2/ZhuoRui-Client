@@ -18,10 +18,13 @@ module.exports = function($scope, $http, $state, $stateParams) {
         load_data();
     };
 
-    $scope.new_annual = function(item) {
+    $scope.new_annual = function(item, type) {
         console.log(item);
-
-        $state.go("annual_add", {order_type: item.order_type, order_id: item.id});
+        if (type == 'annual') {
+            $state.go("annual_add", {order_type: item.order_type, order_id: item.id});
+        } else {
+            $state.go("audit_add_s", {order_type: item.order_type, order_id: item.id});
+        }
     };
 
     $scope.format = function(dt, str) {

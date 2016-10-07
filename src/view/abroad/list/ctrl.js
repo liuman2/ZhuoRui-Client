@@ -52,70 +52,107 @@ module.exports = function($scope, $http, $state, $stateParams) {
 
     $scope.delete = function(item) {
         if (item.status == 4) {
-            alert('订单已完成不能删除');
+            $.alert({
+                title: false,
+                content: '订单已完成不能删除',
+                confirmButton: '确定'
+            });
+
             return;
         }
 
         if (item.status > 0) {
-            alert('已提交审核不能删除');
+            $.alert({
+                title: false,
+                content: '已提交审核不能删除',
+                confirmButton: '确定'
+            });
             return;
         }
 
-        if (!confirm('您确认要删除吗？')) {
-            return false;
-        }
-
-        $http({
-            method: 'GET',
-            url: '/RegAbroad/Delete',
-            params: {
-                id: item.id
+        $.confirm({
+            title: false,
+            content: '您确认要删除吗？',
+            confirmButton: '确定',
+            cancelButton: '取消',
+            confirm: function() {
+                $http({
+                    method: 'GET',
+                    url: '/RegAbroad/Delete',
+                    params: {
+                        id: item.id
+                    }
+                }).success(function(data) {
+                    load_data();
+                });
             }
-        }).success(function(data) {
-            load_data();
         });
     }
 
     $scope.edit = function(item) {
         if (item.status == 4) {
-            alert('订单已完成不能修改');
+            $.alert({
+                title: false,
+                content: '订单已完成不能修改',
+                confirmButton: '确定'
+            });
             return;
         }
 
         if (item.status > 0) {
-            alert('已提交审核不能修改');
+            $.alert({
+                title: false,
+                content: '已提交审核不能修改',
+                confirmButton: '确定'
+            });
             return;
         }
 
-        $state.go("abroad_edit", {id: item.id});
+        $state.go("abroad_edit", { id: item.id });
     }
 
     $scope.history = function(item) {
         if (item.status != 4) {
-            alert('还未完成的订单没法做变更记录，请直接修改。');
+            $.alert({
+                title: false,
+                content: '还未完成的订单没法做变更记录，请直接修改。',
+                confirmButton: '确定'
+            });
             return;
         }
 
-        $state.go("abroad_history", {id: item.id});
+        $state.go("history", { module_id: 'abroad', code:item.code, source_id: item.id, customer_id: item.customer_id });
     }
 
     $scope.progress = function(item) {
         if (item.status == 4) {
-            alert('订单已完成，无需再更新进度');
+            $.alert({
+                title: false,
+                content: '订单已完成，无需再更新进度',
+                confirmButton: '确定'
+            });
             return;
         }
 
         if (item.status < 3) {
-            alert('提交人还未提交该订单，无法更新进度');
+            $.alert({
+                title: false,
+                content: '提交人还未提交该订单，无法更新进度',
+                confirmButton: '确定'
+            });
             return;
         }
 
         if (item.review_status != 1) {
-            alert('订单未通过审核，无法更新进度');
+            $.alert({
+                title: false,
+                content: '订单未通过审核，无法更新进度',
+                confirmButton: '确定'
+            });
             return;
         }
 
-        $state.go(".progress", {id: item.id, module_name: 'RegAbroad'}, {location: false});
+        $state.go(".progress", { id: item.id, module_name: 'RegAbroad' }, { location: false });
     }
 
     $scope.$on('PROGRESS_MODAL_DONE', function(e) {
@@ -123,7 +160,7 @@ module.exports = function($scope, $http, $state, $stateParams) {
     });
 
     $scope.getOrderStatus = function(status) {
-        switch(status) {
+        switch (status) {
             case 0:
                 return '未提交';
             case 1:
@@ -137,8 +174,8 @@ module.exports = function($scope, $http, $state, $stateParams) {
         }
     }
 
-    $scope.getReviewStatus= function(status, review_status) {
-        switch(review_status) {
+    $scope.getReviewStatus = function(status, review_status) {
+        switch (review_status) {
             case -1:
                 return '未审核';
             case 0:

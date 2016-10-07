@@ -4,6 +4,16 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
         dInput = $('.date-input'),
         jForm = $('#audit_form');
 
+    var order_type = '';
+    var order_id = '';
+    $scope.current_name = $state.current.name;
+
+    if ($state.current.name == 'audit_add_s') {
+        order_type = $state.params.order_type || null;
+        order_id = $state.params.order_id || null;
+    }
+
+
     $.datetimepicker.setLocale('ch');
     dInput.datetimepicker({
         timepicker: false,
@@ -73,6 +83,49 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
         actionView();
     }
 
+    if ($state.current.name == 'audit_add_s') {
+        $scope.action = 'add';
+        $scope.data.is_old = 0;
+        if (order_type == 'reg_internal') {
+            $scope.data.type = '境内';
+        } else {
+            $scope.data.type = '境外';
+        }
+
+        $http({
+            method: 'GET',
+            url: '/Audit/GetSourceForAudit',
+            params: {
+                id: order_id,
+                type: order_type
+            }
+        }).success(function(data) {
+            console.log(data)
+
+            $scope.data.source = data.source;
+            $scope.data.source_id = data.id;
+
+            $scope.data.customer_id = data.customer_id;
+            $scope.data.customer_name = data.customer_name;
+            $scope.data.source_code = data.code;
+            $scope.data.name_cn = data.name_cn;
+            $scope.data.name_en = data.name_en;
+            $scope.data.date_setup = data.date_setup;
+            $scope.data.address = data.address;
+
+            $scope.data.province = data.province;
+            $scope.data.city = data.city;
+            $scope.data.county = data.county;
+            $scope.data.customer_address = data.customer_address;
+            $scope.data.contact = data.contact;
+            $scope.data.mobile = data.mobile;
+            $scope.data.tel = data.tel;
+
+            // $scope.$apply();
+            $('#customerSelect2').attr('disabled', true);
+        });
+    }
+
     $scope.selectSource = function() {
 
         if (!$scope.data.customer_id) {
@@ -96,6 +149,10 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
         $scope.data.source_id = s.id;
         $scope.data.source = $scope.data.type =='境内'? 'reg_internal' : 'reg_abroad'
         $scope.data.source_code = s.code;
+        $scope.data.name_cn = s.name_cn || '';
+        $scope.data.name_en = s.name_en || '';
+        $scope.data.date_setup = s.date_setup || '';
+        $scope.data.address = s.address || '';
     });
 
     function initDate(newValue) {
@@ -153,13 +210,18 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
     }
 
     $scope.cancel = function() {
-        if ($scope.action == 'add') {
-            $state.go("audit");
+        if ($scope.current_name == 'audit_add') {
+            if ($scope.action == 'add') {
+                $state.go("audit");
+            } else {
+                $state.go("audit_view", {
+                    id: id
+                });
+            }
         } else {
-            $state.go("audit_view", {
-                id: id
-            });
+            $state.go("annual_warning");
         }
+
     }
     $('#selectType').on("change", function(e) {
         $scope.data.source_id = '';
@@ -169,6 +231,9 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
     });
 
     $('#customerSelect2').on("change", function(e) {
+        if ($state.current.name == 'audit_add_s') {
+            return;
+        }
         var customer_id = $(e.target).val();
 
         $scope.banks = [];
@@ -205,6 +270,18 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
             // if (!$scope.data.invoice_tel) {
             //     $scope.data.invoice_tel = select_customers[0].tel || select_customers[0].mobile;
             // }
+
+            $scope.$apply();
+        } else {
+            $scope.data.industry = null;
+            $scope.data.business_nature = null;
+            $scope.data.province = null;
+            $scope.data.city = null;
+            $scope.data.county = null;
+            $scope.data.customer_address = null;
+            $scope.data.contact = null;
+            $scope.data.mobile = null;
+            $scope.data.tel = null;
 
             $scope.$apply();
         }

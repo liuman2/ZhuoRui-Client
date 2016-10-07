@@ -17,15 +17,15 @@
             </div>
             <ul class="timeline" ng-if="data.items.length > 0">
                 <li ng-repeat="item in data.items">
-                    <i class="fa fa-clock-o bg-blue"></i>
+                    <i class="fa fa-envelope-o"></i>
                     <div class="timeline-item">
                         <span class="time"><i class="fa fa-envelope-o"></i> <span ng-bind="format(item.date_created, 'YYYY-MM-DD HH:mm:ss')"></span></span>
                         <div class="timeline-body" style="min-height: 30px;">
                             <span ng-bind="item.content"></span>
                         </div>
                         <div class="timeline-footer">
-                            <a class="btn btn-primary btn-xs" ui-sref="{{item.router}}({id: item.source_id})">详情</a>
-
+                            <a ng-if="item.source!='history'" class="btn btn-primary btn-xs" ui-sref="{{item.router}}({id: item.source_id})">详情</a>
+                            <a ng-if="item.source=='history'" class="btn btn-primary btn-xs" ui-sref="{{item.router}}({change_id: item.source_id})">详情</a>
                             <a class="btn btn-primary btn-xs"  ng-click="hasRead(item.id)"">我知道了</a>
                         </div>
                     </div>
