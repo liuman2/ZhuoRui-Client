@@ -40,12 +40,12 @@ module.exports = function($stateProvider, $urlRouterProvider) {
             template: require('view/common/detail/tmpl.html')
         })
         .state('history', {
-            url: '/history/list/{module_id:.*}/{code:.*}/{source_id:.*}/{customer_id:.*}',
+            url: '/history/list/{module_id:.*}/{code:.*}/{source_id:.*}',
             template: require('view/history/list.html'),
             controller: require('view/history/list')
         })
         .state('history_add', {
-            url: '/history/add/{module_id:.*}/{code:.*}/{source_id:.*}/{customer_id:.*}',
+            url: '/history/add/{module_id:.*}/{code:.*}/{source_id:.*}',
             template: require('view/history/info.html'),
             controller: require('view/history/info')
         })
@@ -71,6 +71,20 @@ module.exports = function($stateProvider, $urlRouterProvider) {
                     controller: require('view/common/income/modal')
                 }
             }
+        })
+        .state('history_view.audit', {
+            url: '/audit/{module_name:.*}',
+            views: {
+                'modal': {
+                    template: require('view/common/audit/modal.html'),
+                    controller: require('view/common/audit/modal')
+                }
+            }
+        })
+        .state('history_timeline', {
+            url: '/view/history/timeline/{source:.*}/{id:.*}/{name:.*}/{code:.*}',
+            template: require('view/common/timeline/tmpl.html'),
+            controller: require('view/common/timeline/ctrl')
         })
 
         .state('history_edit', {

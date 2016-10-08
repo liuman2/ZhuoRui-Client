@@ -61,6 +61,10 @@ module.exports = function($scope, $state, $http, $timeout) {
                 $scope.timeline.sref = 'trademark_view({id: ' + source_id + '})';
             }
             break;
+        case 'history':
+            $scope.timeline.title = '变更业务';
+            $scope.timeline.sref = 'history_view({id: ' + source_id + '})';
+            break;
 
     }
 

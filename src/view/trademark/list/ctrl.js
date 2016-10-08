@@ -70,6 +70,15 @@ module.exports = function($scope, $http, $state, $stateParams) {
         });
     }
 
+    $scope.history= function(item) {
+        if (item.status != 4) {
+            alert('还未完成的订单没法做变更记录，请直接修改。');
+            return;
+        }
+
+        $state.go("history", { module_id: 'trademark', code:item.code, source_id: item.id, customer_id: item.customer_id });
+    }
+
     $scope.edit = function(item) {
         if (item.status == 4) {
             alert('订单已完成不能修改');

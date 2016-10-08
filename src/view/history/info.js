@@ -79,22 +79,100 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
                 value: '其他变更',
                 map: false
             }];
-            angular.copy(fields, $scope.changes);
-
             break;
         case 'internal':
             $scope.data.source = 'reg_internal';
             $scope.module.name = '境内注册';
+
+            fields = [{
+                key: 'name_cn',
+                value: '公司中文名称',
+                map: false
+            }, {
+                key: 'reg_no',
+                value: '公司注册编号',
+                map: false
+            }, {
+                key: 'address',
+                value: '公司注册地址',
+                map: false
+            }, {
+                key: 'legal',
+                value: '公司法人',
+                map: false
+            }, {
+                key: 'director',
+                value: '公司监事',
+                map: false
+            }, {
+                key: 'others',
+                value: '其他变更',
+                map: false
+            }];
             break;
         case 'trademark':
             $scope.data.source = 'trademark';
             $scope.module.name = '商标注册';
+
+            fields = [{
+                key: 'applicant',
+                value: '申请人',
+                map: false
+            }, {
+                key: 'address',
+                value: '申请人地址',
+                map: false
+            }, {
+                key: 'trademark_type',
+                value: '商标类别',
+                map: false
+            }, {
+                key: 'region',
+                value: '商标注册地区',
+                map: false
+            }, {
+                key: 'reg_mode',
+                value: '注册方式',
+                map: false
+            }];
             break;
         case 'patent':
             $scope.data.source = 'patent';
             $scope.module.name = '专利注册';
+
+            fields = [{
+                key: 'applicant',
+                value: '申请人',
+                map: false
+            }, {
+                key: 'address',
+                value: '申请人地址',
+                map: false
+            }, {
+                key: 'card_no',
+                value: '申请人证件号码',
+                map: false
+            }, {
+                key: 'designer',
+                value: '专利设计人',
+                map: false
+            }, {
+                key: 'patent_type',
+                value: '专利类型',
+                map: false
+            }, {
+                key: 'patent_purpose',
+                value: '专利用途',
+                map: false
+            }], {
+                key: 'reg_mode',
+                value: '注册方式',
+                map: false
+            };
             break;
     }
+
+    angular.copy(fields, $scope.changes);
 
     if (!!id) {
         $scope.data.id = id;
@@ -196,7 +274,7 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
 
     $scope.cancel = function() {
         if ($scope.action == 'add') {
-            $state.go("history", { module_id: $scope.module.id, code: $scope.module.code, source_id: $scope.module.source_id });
+            $state.go("history", { module_id: $scope.module.id, code: $scope.module.code, source_id: $scope.module.source_id, customer_id: $state.params.customer_id });
         } else {
             $state.go("history_view", { id: id });
         }

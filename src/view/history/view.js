@@ -209,14 +209,43 @@ module.exports = function($scope, $state, $http, $q, $timeout, $cookieStore) {
             case 'reg_internal':
                 $scope.module.id = 'internal';
                 $scope.module.name = '境内注册';
+
+                fields = {
+                    name_cn: '公司中文名称',
+                    reg_no: '公司注册编号',
+                    address: '公司注册地址',
+                    legal: '公司法人',
+                    director: '公司监事',
+                    others: '其他变更'
+                };
                 break;
             case 'trademark':
                 $scope.module.id = 'trademark';
                 $scope.module.name = '商标注册';
+
+                fields = {
+                    applicant: '申请人',
+                    address: '申请人地址',
+                    trademark_type: '商标类别',
+                    region: '商标注册地区',
+                    reg_mode: '注册方式',
+                    others: '其他变更'
+                };
                 break;
             case 'patent':
                 $scope.module.id = 'patent';
                 $scope.module.name = '专利注册';
+
+                fields = {
+                    applicant: '申请人',
+                    address: '申请人地址',
+                    card_no: '申请人证件号码',
+                    designer: '专利设计人',
+                    patent_type: '专利类型',
+                    patent_purpose: '专利用途',
+                    reg_mode: '注册方式',
+                    others: '其他变更'
+                };
                 break;
         }
 

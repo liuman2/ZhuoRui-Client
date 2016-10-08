@@ -88,7 +88,8 @@ module.exports = function($scope, $http, $state, $stateParams) {
             return;
         }
 
-        $state.go("internal_history", {id: item.id});
+        // $state.go("internal_history", {id: item.id});
+        $state.go("history", { module_id: 'internal', code:item.code, source_id: item.id, customer_id: item.customer_id });
     }
 
     $scope.progress = function(item) {
