@@ -22,7 +22,8 @@
                 <button type="button" class="btn btn-success" ng-click="passAudit()" ng-if="data.status > 1 && data.status < 3 && opers.indexOf(4) > -1">提交审核通过</button>
                 <button type="button" class="btn btn-danger" ng-click="refuseAudit()" ng-if="data.status > 1 && data.status < 3 && opers.indexOf(4) > -1">提交审核驳回</button>
 
-                <button type="button" class="btn btn-success" ng-click="progress()" ng-if="data.status == 3 && data.review_status==1">进度反馈</button>
+                <button type="button" class="btn btn-success" ng-click="progress('p')" ng-if="data.status >= 3">进度反馈</button>
+                <button type="button" class="btn btn-success" ng-click="progress('w')" ng-if="data.status >= 3">完善资料</button>
                 <button type="button" class="btn btn-info" ui-sref="abroad_timeline({id: data.id, name: 'reg_abroad', code: data.code, source: 'view'})"><span class="fa fa-clock-o"></span>日志</button>
                 <a href="/print.html?m=abroad&id={{id}}" class="btn btn-info" target="_blank">打印</a>
                 <span>状态: </span>

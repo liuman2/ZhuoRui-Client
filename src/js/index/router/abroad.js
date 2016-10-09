@@ -80,33 +80,8 @@ var router = function($stateProvider, $urlRouterProvider) {
             template: require('view/common/timeline/tmpl.html'),
             controller: require('view/common/timeline/ctrl')
         })
-
-
-    /*.state('abroad_history', {
-        url: '/view/abroad/history/{id:.*}',
-        template: require('view/abroad/history/tmpl.html'),
-        controller: require('view/abroad/history/ctrl')
-    })
-    .state('abroad_history.add', {
-        url: '/new',
-        views: {
-            'add': {
-                template: require('view/abroad/history/modal.html'),
-                controller: require('view/abroad/history/modal')
-            }
-        }
-    })
-    .state('abroad_history.edit', {
-        url: '/edit',
-        views: {
-            'add': {
-                template: require('view/abroad/history/modal.html'),
-                controller: require('view/abroad/history/modal')
-            }
-        }
-    })*/
-    .state('abroad.progress', {
-            url: '/progress/{id:.*}/{module_name:.*}',
+        .state('abroad.progress', {
+            url: '/progress/{id:.*}/{module_name:.*}/{type: .*}',
             views: {
                 'progress': {
                     template: require('view/common/progress/modal.html'),
@@ -124,7 +99,7 @@ var router = function($stateProvider, $urlRouterProvider) {
             }
         })
         .state('abroad_view.progress', {
-            url: '/progress/{id:.*}/{module_name:.*}',
+            url: '/progress/{id:.*}/{module_name:.*}/{type: .*}',
             views: {
                 'progress': {
                     template: require('view/common/progress/modal.html'),

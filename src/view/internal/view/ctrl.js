@@ -72,7 +72,7 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
         });
     }
 
-     $scope.format = function(dt, str) {
+    $scope.format = function(dt, str) {
         if (!dt) {
             return '';
         }
@@ -116,15 +116,15 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
     }
 
     $scope.refuseAudit = function() {
-        $state.go(".audit", {module_name: 'RegInternal'}, { location:false });
+        $state.go(".audit", { module_name: 'RegInternal' }, { location: false });
     }
 
     $scope.done = function() {
-        $state.go(".done", {module_name: 'RegInternal'}, { location:false });
+        $state.go(".done", { module_name: 'RegInternal' }, { location: false });
     }
 
     $scope.getOrderStatus = function() {
-        switch($scope.data.status) {
+        switch ($scope.data.status) {
             case 0:
                 return '未提交';
             case 1:
@@ -139,7 +139,7 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
     }
 
     $scope.getReviewStatus = function() {
-        switch($scope.data.review_status) {
+        switch ($scope.data.review_status) {
             case -1:
                 return '未审核';
             case 0:
@@ -149,23 +149,31 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
         }
     }
 
-    $scope.progress = function() {
-        if ($scope.data.status == 4) {
-            alert('订单已完成，无需再更新进度');
-            return;
-        }
+    $scope.progress = function(t) {
+        // if ($scope.data.status == 4) {
+        //     alert('订单已完成，无需再更新进度');
+        //     return;
+        // }
 
         if ($scope.data.status < 3) {
-            alert('提交人还未提交该订单，无法更新进度');
+            $.alert({
+                title: false,
+                content: t == 'p' ? '提交人还未提交该订单，无法更新进度' : '提交人还未提交该订单，无法完善注册资料',
+                confirmButton: '确定'
+            });
             return;
         }
 
         if ($scope.data.review_status != 1) {
-            alert('订单未通过审核，无法更新进度');
+            $.alert({
+                title: false,
+                content: t == 'p' ? '订单未通过审核，无法更新进度' : '订单未通过审核，无法完善注册资料',
+                confirmButton: '确定'
+            });
             return;
         }
 
-        $state.go(".progress", {id: $scope.data.id, module_name: 'RegInternal'}, {location: false});
+        $state.go(".progress", { id: $scope.data.id, module_name: 'RegInternal', type: t }, { location: false });
     }
 
     $scope.$on('PROGRESS_MODAL_DONE', function(e) {

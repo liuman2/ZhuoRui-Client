@@ -4,11 +4,11 @@
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close" ui-sref="^">
                     <span aria-hidden="true">×</span></button>
-                <h4 class="modal-title">进度反馈</h4>
+                <h4 class="modal-title" ng-bind="module_type == 'p'?'进度反馈':'完善资料'"></h4>
             </div>
             <div class="modal-body">
                 <form class="form-horizontal" id="progress_modal">
-                    <div class="form-group">
+                    <!-- <div class="form-group">
                         <label class="col-sm-3 control-label">是否完成<span class="required">*</span></label>
                         <div class="col-sm-7">
                             <select class="form-control select2" name="is_done" ng-model="progress.is_done" ng-change="doneChange()" data-rule="required;">
@@ -17,23 +17,23 @@
                                 <option value="1">是</option>
                             </select>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label"><span ng-bind="progress.title"></span><span class="required">*</span></label>
-                        <div class="col-sm-7">
-                            <input type="text" class="form-control" name="progress" ng-disabled="progress.is_done == 1" ng-model="progress.progress" data-rule="required; length[~50]">
-                        </div>
-                    </div>
-                    <div ng-if="progress.is_done == 1">
+                    </div> -->
+                    <div ng-if="module_type == 'p'">
                         <div class="form-group">
-                            <label class="col-sm-3 control-label">完成日期<span class="required">*</span></label>
+                            <label class="col-sm-3 control-label"><span ng-bind="progress.title"></span><span class="required">*</span></label>
+                            <div class="col-sm-7">
+                                <input type="text" class="form-control" name="progress" ng-model="progress.progress" data-rule="required; length[~50]">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">预计完成日期<span class="required">*</span></label>
                             <div class="col-sm-7">
                                 <input type="text" class="form-control date-input" id="date_finish" name="date_finish" ng-model="progress.date_finish" data-rule="required;">
                             </div>
                         </div>
                     </div>
 
-                    <div ng-if="progress.module=='RegAbroad' && progress.is_done == 1">
+                    <div ng-if="progress.module=='RegAbroad' && module_type != 'p'">
                         <div class="form-group">
                             <label class="col-sm-3 control-label">公司成立日期<span class="required">*</span></label>
                             <div class="col-sm-7">
@@ -58,7 +58,7 @@
                                 <input type="checkbox" name="is_open_bank" ng-true-value="1" ng-false-value="0" ng-model="progress.is_open_bank">
                             </div>
                         </div>
-                        <div class="form-group" ng-show="progress.is_open_bank==1">
+                        <div class="form-group" ng-if="progress.is_open_bank==1">
                             <label class="col-sm-3 control-label">开户行</label>
                             <div class="col-sm-7">
                                 <select ui-select2 class="form-control select2" id="customerBankSelect2" name="bank_id" ng-view="bank_name" ng-model="progress.bank_id"
@@ -82,7 +82,7 @@
                         </div>
                     </div>
 
-                    <div ng-if="progress.module=='RegInternal' && progress.is_done == 1">
+                    <div ng-if="progress.module=='RegInternal' && module_type != 'p'">
                         <div class="form-group">
                             <label class="col-sm-3 control-label">成立日期<span class="required">*</span></label>
                             <div class="col-sm-7">
@@ -132,7 +132,7 @@
                                 <input type="text" class="form-control" name="amount_bookkeeping" ng-model="progress.amount_bookkeeping" data-rule-money="[/^(([1-9]\d{0,9})|0)(\.\d{1,2})?$/, '请填写2位数的数值']" data-rule="money;">
                             </div>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group" ng-if="loadModal">
                             <label class="col-sm-3 control-label">开户行</label>
                             <div class="col-sm-7">
                                 <select ui-select2 class="form-control select2" id="customerBankSelect2" name="bank_id" ng-view="bank_name" ng-model="progress.bank_id"
@@ -156,7 +156,7 @@
                         </div>
                     </div>
 
-                    <div ng-if="progress.module=='Trademark' && progress.is_done == 1">
+                    <div ng-if="progress.module=='Trademark' && module_type != 'p'">
                         <div class="form-group">
                             <label class="col-sm-3 control-label">回执时间</label>
                             <div class="col-sm-7">
@@ -189,7 +189,7 @@
                         </div>
                     </div>
 
-                    <div ng-if="progress.module=='Patent' && progress.is_done == 1">
+                    <div ng-if="progress.module=='Patent' && module_type != 'p'">
                         <div class="form-group">
                             <label class="col-sm-3 control-label">受理时间</label>
                             <div class="col-sm-7">

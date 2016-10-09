@@ -121,23 +121,23 @@ module.exports = function($scope, $http, $state, $stateParams) {
             return;
         }
 
-        $state.go("history", { module_id: 'abroad', code:item.code, source_id: item.id, customer_id: item.customer_id });
+        $state.go("history", { module_id: 'abroad', code: item.code, source_id: item.id, customer_id: item.customer_id });
     }
 
-    $scope.progress = function(item) {
-        if (item.status == 4) {
-            $.alert({
-                title: false,
-                content: '订单已完成，无需再更新进度',
-                confirmButton: '确定'
-            });
-            return;
-        }
+    $scope.progress = function(item, t) {
+        // if (item.status == 4) {
+        //     $.alert({
+        //         title: false,
+        //         content: '订单已完成，无需再更新进度',
+        //         confirmButton: '确定'
+        //     });
+        //     return;
+        // }
 
         if (item.status < 3) {
             $.alert({
                 title: false,
-                content: '提交人还未提交该订单，无法更新进度',
+                content: t == 'p' ? '提交人还未提交该订单，无法更新进度' : '提交人还未提交该订单，无法完善注册资料',
                 confirmButton: '确定'
             });
             return;
@@ -146,13 +146,13 @@ module.exports = function($scope, $http, $state, $stateParams) {
         if (item.review_status != 1) {
             $.alert({
                 title: false,
-                content: '订单未通过审核，无法更新进度',
+                content: t == 'p' ? '订单未通过审核，无法更新进度' : '订单未通过审核，无法完善注册资料',
                 confirmButton: '确定'
             });
             return;
         }
 
-        $state.go(".progress", { id: item.id, module_name: 'RegAbroad' }, { location: false });
+        $state.go(".progress", { id: item.id, module_name: 'RegAbroad', type: t }, { location: false });
     }
 
     $scope.$on('PROGRESS_MODAL_DONE', function(e) {

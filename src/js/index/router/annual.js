@@ -73,7 +73,7 @@ var router = function ($stateProvider, $urlRouterProvider) {
             controller: require('view/common/timeline/ctrl')
         })
         .state('annual.progress', {
-            url: '/progress/{id:.*}/{module_name:.*}',
+            url: '/progress/{id:.*}/{module_name:.*}/{type:.*}',
             views: {
                 'progress': {
                     template: require('view/common/progress/modal.html'),
@@ -82,7 +82,7 @@ var router = function ($stateProvider, $urlRouterProvider) {
             }
         })
         .state('annual_view.progress', {
-            url: '/progress/{id:.*}/{module_name:.*}',
+            url: '/progress/{id:.*}/{module_name:.*}/{type:.*}',
             views: {
                 'progress': {
                     template: require('view/common/progress/modal.html'),

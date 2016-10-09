@@ -86,26 +86,34 @@ module.exports = function($scope, $http, $state, $stateParams) {
             return;
         }
 
-        $state.go("audit_edit", {id: item.id});
+        $state.go("audit_edit", { id: item.id });
     }
 
-    $scope.progress = function(item) {
-        if (item.status == 4) {
-            alert('订单已完成，无需再更新进度');
-            return;
-        }
+    $scope.progress = function(item, t) {
+        // if (item.status == 4) {
+        //     alert('订单已完成，无需再更新进度');
+        //     return;
+        // }
 
         if (item.status < 3) {
-            alert('提交人还未提交该订单，无法更新进度');
+            $.alert({
+                title: false,
+                content: t == 'p' ? '提交人还未提交该订单，无法更新进度' : '提交人还未提交该订单，无法完善注册资料',
+                confirmButton: '确定'
+            });
             return;
         }
 
         if (item.review_status != 1) {
-            alert('订单未通过审核，无法更新进度');
+            $.alert({
+                title: false,
+                content: t == 'p' ? '订单未通过审核，无法更新进度' : '订单未通过审核，无法完善注册资料',
+                confirmButton: '确定'
+            });
             return;
         }
 
-        $state.go(".progress", {id: item.id, module_name: 'Audit'}, {location: false});
+        $state.go(".progress", { id: item.id, module_name: 'Audit', type: t }, { location: false });
     }
 
     $scope.$on('PROGRESS_MODAL_DONE', function(e) {
@@ -113,7 +121,7 @@ module.exports = function($scope, $http, $state, $stateParams) {
     });
 
     $scope.getOrderStatus = function(status) {
-        switch(status) {
+        switch (status) {
             case 0:
                 return '未提交';
             case 1:
@@ -127,8 +135,8 @@ module.exports = function($scope, $http, $state, $stateParams) {
         }
     }
 
-    $scope.getReviewStatus= function(status, review_status) {
-        switch(review_status) {
+    $scope.getReviewStatus = function(status, review_status) {
+        switch (review_status) {
             case -1:
                 return '未审核';
             case 0:

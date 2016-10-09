@@ -70,13 +70,13 @@ module.exports = function($scope, $http, $state, $stateParams) {
         });
     }
 
-    $scope.history= function(item) {
+    $scope.history = function(item) {
         if (item.status != 4) {
             alert('还未完成的订单没法做变更记录，请直接修改。');
             return;
         }
 
-        $state.go("history", { module_id: 'trademark', code:item.code, source_id: item.id, customer_id: item.customer_id });
+        $state.go("history", { module_id: 'trademark', code: item.code, source_id: item.id, customer_id: item.customer_id });
     }
 
     $scope.edit = function(item) {
@@ -90,26 +90,34 @@ module.exports = function($scope, $http, $state, $stateParams) {
             return;
         }
 
-        $state.go("trademark_edit", {id: item.id});
+        $state.go("trademark_edit", { id: item.id });
     }
 
     $scope.progress = function(item) {
-        if (item.status == 4) {
-            alert('订单已完成，无需再更新进度');
-            return;
-        }
+        // if (item.status == 4) {
+        //     alert('订单已完成，无需再更新进度');
+        //     return;
+        // }
 
         if (item.status < 3) {
-            alert('提交人还未提交该订单，无法更新进度');
+            $.alert({
+                title: false,
+                content: t == 'p' ? '提交人还未提交该订单，无法更新进度' : '提交人还未提交该订单，无法完善注册资料',
+                confirmButton: '确定'
+            });
             return;
         }
 
         if (item.review_status != 1) {
-            alert('订单未通过审核，无法更新进度');
+            $.alert({
+                title: false,
+                content: t == 'p' ? '订单未通过审核，无法更新进度' : '订单未通过审核，无法完善注册资料',
+                confirmButton: '确定'
+            });
             return;
         }
 
-        $state.go(".progress", {id: item.id, module_name: 'Trademark'}, {location: false});
+        $state.go(".progress", { id: item.id, module_name: 'Trademark', type: t }, { location: false });
     }
 
     $scope.$on('PROGRESS_MODAL_DONE', function(e) {
@@ -117,7 +125,7 @@ module.exports = function($scope, $http, $state, $stateParams) {
     });
 
     $scope.getOrderStatus = function(status) {
-        switch(status) {
+        switch (status) {
             case 0:
                 return '未提交';
             case 1:
@@ -138,8 +146,8 @@ module.exports = function($scope, $http, $state, $stateParams) {
         return '';
     }
 
-    $scope.getReviewStatus= function(status, review_status) {
-        switch(review_status) {
+    $scope.getReviewStatus = function(status, review_status) {
+        switch (review_status) {
             case -1:
                 return '未审核';
             case 0:

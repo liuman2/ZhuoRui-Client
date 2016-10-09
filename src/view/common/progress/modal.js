@@ -2,6 +2,7 @@ var httpHelper = require('js/utils/httpHelper');
 
 module.exports = function($scope, $state, $http, $timeout) {
     var module_name = $state.params.module_name,
+        type = $state.params.type,
         id = $state.params.id || null;
 
     $.datetimepicker.setLocale('ch');
@@ -11,6 +12,8 @@ module.exports = function($scope, $state, $http, $timeout) {
         rules: {},
         fields: {}
     });
+    $scope.loadModal = false;
+    $scope.module_type = type;
 
     $scope.progress = {
         id: id,
@@ -91,8 +94,36 @@ module.exports = function($scope, $state, $http, $timeout) {
         }
     });
 
-    $scope.$watch(function() {
-        return $scope.progress.is_done;
+    $timeout(function() {
+        var dInput = $('.date-input');
+        dInput.datetimepicker({
+            timepicker: false,
+            // maxDate: new Date(),
+            format: 'Y-m-d',
+            onChangeDateTime: function(current_time, $input) {
+                console.log(current_time)
+            }
+        });
+
+        $('#customerBankSelect2').on("change", function(e) {
+            var bank_id = $(e.target).val();
+
+            var banks = $('#customerBankSelect2').select2('data');
+            var select_banks = $.grep(banks, function(b) {
+                return b.id == bank_id;
+            });
+
+            if (select_banks.length) {
+                $scope.progress.holder = select_banks[0].holder;
+                $scope.progress.account = select_banks[0].account;
+                $scope.$apply();
+            }
+        });
+    });
+
+    /*$scope.$watch(function() {
+        // return $scope.progress.is_done;
+        return $scope.module_type;
     }, function(newValue, oldValue) {
         if (oldValue != undefined && newValue != undefined) {
             if (newValue == "1") {
@@ -124,18 +155,14 @@ module.exports = function($scope, $state, $http, $timeout) {
                 });
             }
         }
-    });
+    });*/
 
     if (!!id) {
         getProgress();
     }
 
     function actionSave() {
-
-
-
         setSaveData();
-
         $http({
             method: 'POST',
             url: '/' + module_name + '/UpdateProgress',
@@ -160,12 +187,58 @@ module.exports = function($scope, $state, $http, $timeout) {
                 id: id
             }
         }).success(function(data) {
+            $scope.loadModal = true;
+            if (data.date_finish != undefined) {
+                if (data.date_finish.indexOf('T') > -1) {
+                    data.date_finish = data.date_finish.split('T')[0];
+                }
+            }
+            if (data.date_setup != undefined) {
+                if (data.date_setup.indexOf('T') > -1) {
+                    data.date_setup = data.date_setup.split('T')[0];
+                }
+            }
+            if (data.date_receipt != undefined) {
+                if (data.date_receipt.indexOf('T') > -1) {
+                    data.date_receipt = data.date_receipt.split('T')[0];
+                }
+            }
+            if (data.date_accept != undefined) {
+                if (data.date_accept.indexOf('T') > -1) {
+                    data.date_accept = data.date_accept.split('T')[0];
+                }
+            }
+            if (data.date_trial != undefined) {
+                if (data.date_trial.indexOf('T') > -1) {
+                    data.date_trial = data.date_trial.split('T')[0];
+                }
+            }
+            if (data.date_regit != undefined) {
+                if (data.date_regit.indexOf('T') > -1) {
+                    data.date_regit = data.date_regit.split('T')[0];
+                }
+            }
+            if (data.date_exten != undefined) {
+                if (data.date_exten.indexOf('T') > -1) {
+                    data.date_exten = data.date_exten.split('T')[0];
+                }
+            }
+            if (data.date_empower != undefined) {
+                if (data.date_empower.indexOf('T') > -1) {
+                    data.date_empower = data.date_empower.split('T')[0];
+                }
+            }
             $scope.progress = angular.extend({}, $scope.progress, data);
         });
     }
 
     function setSaveData() {
         $scope.progress.date_finish = $('#date_finish').val();
+        $scope.progress.progress_type = $scope.module_type;
+
+        if ($scope.module_type == 'p') {
+            return;
+        }
         switch (module_name) {
             case 'RegAbroad':
                 $scope.progress.date_setup = $('#date_setup').val();
@@ -174,8 +247,6 @@ module.exports = function($scope, $state, $http, $timeout) {
                 $scope.progress.date_setup = $('#date_setup').val();
                 break;
             case 'Audit':
-
-
                 break;
             case 'Trademark':
                 $scope.progress.date_receipt = $('#date_receipt').val();
@@ -189,8 +260,6 @@ module.exports = function($scope, $state, $http, $timeout) {
                 $scope.progress.date_accept = $('#date_accept').val();
                 break;
             case 'Annual':
-
-
                 break;
         }
     }

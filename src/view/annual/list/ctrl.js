@@ -91,22 +91,30 @@ module.exports = function($scope, $http, $state, $stateParams) {
     }
 
     $scope.progress = function(item) {
-        if (item.status == 4) {
-            alert('订单已完成，无需再更新进度');
-            return;
-        }
+        // if (item.status == 4) {
+        //     alert('订单已完成，无需再更新进度');
+        //     return;
+        // }
 
-        if (item.status < 3) {
-            alert('提交人还未提交该订单，无法更新进度');
+       if (item.status < 3) {
+            $.alert({
+                title: false,
+                content: t == 'p' ? '提交人还未提交该订单，无法更新进度' : '提交人还未提交该订单，无法完善注册资料',
+                confirmButton: '确定'
+            });
             return;
         }
 
         if (item.review_status != 1) {
-            alert('订单未通过审核，无法更新进度');
+            $.alert({
+                title: false,
+                content: t == 'p' ? '订单未通过审核，无法更新进度' : '订单未通过审核，无法完善注册资料',
+                confirmButton: '确定'
+            });
             return;
         }
 
-        $state.go(".progress", {id: item.id, module_name: 'Annual'}, {location: false});
+        $state.go(".progress", {id: item.id, module_name: 'Annual', type: t}, {location: false});
     }
 
     $scope.$on('PROGRESS_MODAL_DONE', function(e) {

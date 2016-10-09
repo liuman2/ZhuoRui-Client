@@ -173,23 +173,31 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
         }
     }
 
-    $scope.progress = function() {
-        if ($scope.data.status == 4) {
-            alert('订单已完成，无需再更新进度');
-            return;
-        }
+    $scope.progress = function(t) {
+        // if ($scope.data.status == 4) {
+        //     alert('订单已完成，无需再更新进度');
+        //     return;
+        // }
 
         if ($scope.data.status < 3) {
-            alert('提交人还未提交该订单，无法更新进度');
+            $.alert({
+                title: false,
+                content: t == 'p' ? '提交人还未提交该订单，无法更新进度' : '提交人还未提交该订单，无法完善注册资料',
+                confirmButton: '确定'
+            });
             return;
         }
 
         if ($scope.data.review_status != 1) {
-            alert('订单未通过审核，无法更新进度');
+            $.alert({
+                title: false,
+                content: t == 'p' ? '订单未通过审核，无法更新进度' : '订单未通过审核，无法完善注册资料',
+                confirmButton: '确定'
+            });
             return;
         }
 
-        $state.go(".progress", {id: $scope.data.id, module_name: 'Audit'}, {location: false});
+        $state.go(".progress", {id: $scope.data.id, module_name: 'Audit', type: t}, {location: false});
     }
 
     $scope.$on('PROGRESS_MODAL_DONE', function(e) {

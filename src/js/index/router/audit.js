@@ -125,7 +125,7 @@ var router = function($stateProvider, $urlRouterProvider) {
             }
         })
         .state('audit.progress', {
-            url: '/progress/{id:.*}/{module_name:.*}',
+            url: '/progress/{id:.*}/{module_name:.*}/{type:.*}',
             views: {
                 'progress': {
                     template: require('view/common/progress/modal.html'),
@@ -134,7 +134,7 @@ var router = function($stateProvider, $urlRouterProvider) {
             }
         })
         .state('audit_view.progress', {
-            url: '/progress/{id:.*}/{module_name:.*}',
+            url: '/progress/{id:.*}/{module_name:.*}/{type:.*}',
             views: {
                 'progress': {
                     template: require('view/common/progress/modal.html'),
