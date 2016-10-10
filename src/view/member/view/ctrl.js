@@ -36,6 +36,38 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
         }
     }
 
+    $scope.reset = function() {
+        $.confirm({
+            title: false,
+            content: '您确认要重置密码吗？',
+            confirmButton: '确定',
+            cancelButton: '取消',
+            confirm: function() {
+                $http({
+                    method: 'GET',
+                    url: '/Member/ResetPwd',
+                    params: {
+                        id: id
+                    }
+                }).success(function(data) {
+                    if (!data.success) {
+                        $.alert({
+                            title: false,
+                            content: '重置失败，请重试',
+                            confirmButton: '确定'
+                        });
+                        return;
+                    }
+                    $.alert({
+                        title: false,
+                        content: '重置成功，重置后密码为 ' + data.pwd,
+                        confirmButton: '确定'
+                    });
+                });
+            }
+        });
+    }
+
     function actionView() {
         $http({
             method: 'GET',

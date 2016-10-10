@@ -11,6 +11,10 @@ module.exports = function($scope, $state, $http, $timeout) {
         items: []
     }
 
+    $scope.search = {
+        name: ''
+    }
+
     $scope.$on('R_TIMELINE_MODAL_DONE', function(e) {
         getTimeline();
     });
@@ -29,6 +33,10 @@ module.exports = function($scope, $state, $http, $timeout) {
         }).success(function(data) {
             getTimeline();
         });
+    }
+
+    $scope.query = function() {
+        getTimeline();
     }
 
     $scope.format = function(dt, str) {
@@ -51,7 +59,8 @@ module.exports = function($scope, $state, $http, $timeout) {
             method: 'GET',
             url: '/CustomerTimeline/GetTimelines',
             params: {
-                id: id
+                id: id,
+                name: $scope.search.name
             }
         }).success(function(data) {
             $scope.data = data;

@@ -55,7 +55,6 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
             }
         }).success(function(data) {
             $scope.data = data;
-
             getOrders();
         });
     }
