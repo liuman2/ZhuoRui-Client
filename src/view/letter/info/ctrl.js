@@ -6,9 +6,9 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
 
     $.datetimepicker.setLocale('ch');
     dInput.datetimepicker({
-        timepicker: false,
-        step: 10,
-        format: 'Y-m-d',
+        timepicker: true,
+        step: 5,
+        format: 'Y-m-d H:i',
         onChangeDateTime: function(current_time, $input) {
             console.log(current_time)
         }
@@ -43,7 +43,7 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
     }
 
     $scope.getOwnerName = function() {
-        switch($scope.data.type) {
+        switch ($scope.data.type) {
             case '收件':
                 return '收件人';
             case '寄件':
@@ -55,7 +55,7 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
 
     $scope.getDateName = function() {
 
-        switch($scope.data.type) {
+        switch ($scope.data.type) {
             case '收件':
                 return '收件日期';
             case '寄件':
