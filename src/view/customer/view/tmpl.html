@@ -141,6 +141,38 @@
 
     <div class="box box-info">
         <div class="box-header with-border">
+          <h3 class="box-title">联系人</h3>
+          <div class="box-tools">
+            <div class="box-tools pull-right">
+              <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="box-body table-responsive no-padding">
+          <table class="table table-hover">
+            <tbody>
+              <tr>
+                <th style="width: 10px">#</th>
+                <th>联系人</th>
+                <th>手机</th>
+                <th>座机</th>
+                <th>职务</th>
+              </tr>
+              <tr ng-repeat="item in data.contactList">
+                <td ng-bind="($index+1)+'.'"></td>
+                <td ng-bind="item.name"></td>
+                <td ng-bind="item.mobile"></td>
+                <td ng-bind="item.tel"></td>
+                <td ng-bind="item.position"></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    <div class="box box-info">
+        <div class="box-header with-border">
             <h3 class="box-title">开户行信息</h3>
             <div class="box-tools pull-right">
                 <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>

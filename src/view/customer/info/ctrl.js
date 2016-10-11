@@ -69,7 +69,10 @@ module.exports = function($scope, $state, $http, $cookieStore, $q, $timeout) {
         var jForm = $('.form-horizontal');
         jForm.isValid(function(v) {
             if (v) {
-
+                $scope.data.contacts = '';
+                if ($scope.data.contactList.length) {
+                    $scope.data.contacts = JSON.stringify($scope.data.contactList);
+                }
                 var data = angular.copy($scope.data);
                 data.province = '';
                 data.city = '';
@@ -103,6 +106,29 @@ module.exports = function($scope, $state, $http, $cookieStore, $q, $timeout) {
         $state.go("customer");
     }
 
+    $scope.editContact = function(index, contact) {
+        $state.go('.contact_edit', {
+            index: index,
+            name: contact.name,
+            mobile: contact.mobile,
+            tel: contact.tel,
+            position: contact.position
+        }, { location: false });
+    }
+
+    $scope.$on('CONTACT_DONE', function(e, result) {
+        console.log(result);
+        if (result.index == null) {
+            $scope.data.contactList.push(result.contact);
+        } else {
+            $scope.data.contactList[result.index - 0] = result.contact;
+        }
+    });
+
+    $scope.deleteContact = function(index, item) {
+        $scope.data.contactList.splice(index, 1);
+    }
+
     function actionView() {
         $http({
             method: 'GET',
@@ -111,7 +137,12 @@ module.exports = function($scope, $state, $http, $cookieStore, $q, $timeout) {
                 id: id
             }
         }).success(function(data) {
-            console.log(data)
+            data.contacts = data.contacts || '';
+            data.contactList = [];
+            if (data.contacts != '') {
+                data.contactList = JSON.parse(data.contacts)
+            }
+
             $scope.data = data;
             setTimeout(function() {
                 setArea(data);

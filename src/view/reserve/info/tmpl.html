@@ -1,146 +1,187 @@
-<div class="box box-info">
+<form class="form-horizontal">
+  <div class="box box-info">
     <div class="box-header with-border">
-        <h3 class="box-title">基本信息</h3>
+      <h3 class="box-title">基本信息</h3>
+      <div class="box-tools">
+        <div class="box-tools pull-right">
+          <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+          </button>
+        </div>
+      </div>
     </div>
-    <form class="form-horizontal">
-        <div class="box-body">
-            <div class="form-group">
-                <label class="col-sm-2 control-label">客户名称<span class="required">*</span></label>
-                <div class="col-sm-8">
-                    <input type="text" class="form-control" name="name" ng-model="data.name"  ng-disabled="!editable" data-rule="required; length[~100];">
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-2 control-label">行业类别</label>
-                <div class="col-sm-8">
-                    <select ui-select2 class="form-control select2" name="industry" ng-model="data.industry" ng-disabled="!editable" url="Dictionary/DroplistByGroup" paging="false" paramfield="group" paramvalue="行业类别" ></select>
-                </div>
-                <div class="col-sm-2 add-dictionary">
-                    <a class="fa fa-plus" ui-sref=".dictionary({group: '行业类别'})" ui-sref-opts="{location:false}" title="新增行业类别"></a>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-2 control-label">业务性质</label>
-                <div class="col-sm-8">
-                    <select ui-select2 class="form-control select2" name="business_nature" ng-model="data.business_nature" ng-disabled="!editable" url="Dictionary/DroplistByGroup" paging="false" paramfield="group" paramvalue="业务性质" ></select>
-                </div>
-                <div class="col-sm-2 add-dictionary">
-                    <a class="fa fa-plus" ui-sref=".dictionary({group: '业务性质'})" ui-sref-opts="{location:false}" title="新增业务性质"></a>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-2 control-label">客户来源</label>
-                <div class="col-sm-8">
-                    <select ui-select2 class="form-control select2" name="source" ng-model="data.source" ng-change="sourceChange()" ng-disabled="!editable" url="Dictionary/DroplistByGroup" paging="false" paramfield="group" paramvalue="客户来源" ></select>
-                </div>
-                <div class="col-sm-2 add-dictionary">
-                    <a class="fa fa-plus" ui-sref=".dictionary({group: '客户来源'})" ui-sref-opts="{location:false}" title="新增客户来源"></a>
-                </div>
-            </div>
-            <div id="source_customer" class="form-group">
-                <label class="col-sm-2 control-label">介绍人</label>
-                <div class="col-sm-8">
-                    <select ui-select2 class="form-control select2" name="source_id" ng-view="source_name" ng-model="data.source_id" ng-disabled="!editable" url="Customer/Introducers" paging="true"  style="width: 100%;"></select>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-2 control-label">所在省</label>
-                <div class="col-sm-8">
-                    <select class="form-control" name="province" ng-model="province" ng-change="changeProvince()" ng-disabled="!editable" ng-options="province.name for province in provinceList">
-                        <option value="">请选择省份</option>
-                    </select>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-2 control-label">所在市</label>
-                <div class="col-sm-8">
-                    <select class="form-control" name="city" ng-model="city" ng-change="changeCity()" ng-disabled="!editable" ng-options="city.name for city in province.cityList" style="width: 100%;">
-                        <option value="">请选择城市</option>
-                    </select>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-2 control-label">所在县</label>
-                <div class="col-sm-8">
-                    <select class="form-control" name="county" ng-model="county" ng-disabled="!editable" ng-options="county for county in city.areaList" style="width: 100%;">
-                        <option value="">请选择县/区</option>
-                    </select>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-2 control-label">详细地址</label>
-                <div class="col-sm-8">
-                    <input type="text" class="form-control" ng-model="data.address" ng-disabled="!editable" data-rule="length[~200];">
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-2 control-label">联系人<span class="required">*</span></label>
-                <div class="col-sm-8">
-                    <input type="text" class="form-control" name="contact" ng-model="data.contact" ng-disabled="!editable" data-rule="required; length[~30];">
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-2 control-label">手机</label>
-                <div class="col-sm-8">
-                    <input type="text" class="form-control" name="mobile" ng-model="data.mobile" ng-disabled="!editable" data-rule="mobile;length[~20];">
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-2 control-label">座机</label>
-                <div class="col-sm-8">
-                    <input type="text" class="form-control" name="tel" ng-model="data.tel" ng-disabled="!editable" data-rule="tel;length[~20];">
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-2 control-label">传真</label>
-                <div class="col-sm-8">
-                    <input type="text" class="form-control" name="fax" ng-model="data.fax" ng-disabled="!editable" data-rule="tel;length[~20];">
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-2 control-label">邮箱</label>
-                <div class="col-sm-8">
-                    <input type="text" class="form-control" name="email" ng-model="data.email" ng-disabled="!editable" data-rule="email;length[~100];">
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-2 control-label">QQ</label>
-                <div class="col-sm-8">
-                    <input type="text" class="form-control" name="QQ" ng-model="data.QQ" ng-disabled="!editable" data-rule="qq;length[~100];">
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-2 control-label">微信</label>
-                <div class="col-sm-8">
-                    <input type="text" class="form-control" name="wechat" ng-model="data.wechat" ng-disabled="!editable">
-                </div>
-            </div>
-            <!-- <div class="form-group">
-                <label class="col-sm-2 control-label">业务员</label>
-                <div class="col-sm-8">
-                    <input type="text" class="form-control" name="salesman" disabled  ng-model="userInfo.name">
-                </div>
-            </div> -->
-
-            <div class="form-group">
-                <label class="col-sm-2 control-label">业务员</label>
-                <div class="col-sm-8">
-                    <select ui-select2 class="form-control select2" id="salesmanSelect2" name="salesman_id" ng-view="salesman" ng-model="data.salesman_id" data-rule="required;" url=" Member/List" paging="true" style="width: 100%;"></select>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label class="col-sm-2 control-label">备注</label>
-                <div class="col-sm-8">
-                    <textarea class="form-control" rows="3" name="description" ng-model="data.description" ng-disabled="!editable" data-rule="length[~100];"></textarea>
-                </div>
-            </div>
+    <div class="detail-view-header-wrapper">
+      <div class="box-footer detail-view-header" ui-scrollpoint ui-scrollpoint-enabled="true" ui-scrollpoint-class="fixed">
+        <button type="button" class="btn btn-default" ng-click="cancel()">取消</button>
+        <button type="button" class="btn btn-info" ng-click="save()" ng-if="editable">保存</button>
+        <button type="button" class="btn btn-info" ui-sref="reserve.detail.edit({id: id})" ui-sref-opts="{reload:true}" ng-if="!editable">修改</button>
+      </div>
+    </div>
+    <div class="box-body">
+      <div class="form-group">
+        <label class="col-sm-2 control-label">客户名称<span class="required">*</span></label>
+        <div class="col-sm-8">
+          <input type="text" class="form-control" name="name" ng-model="data.name" ng-disabled="!editable" data-rule="required; length[~100];">
         </div>
-        <div class="box-footer">
-            <button type="button" class="btn btn-default" ng-click="cancel()">取消</button>
-            <button type="button" class="btn btn-info pull-right" ng-click="save()" ng-if="editable">保存</button>
-            <button type="button" class="btn btn-info pull-right" ui-sref="reserve.detail.edit({id: id})" ui-sref-opts="{reload:true}" ng-if="!editable">修改</button>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-2 control-label">行业类别</label>
+        <div class="col-sm-8">
+          <select ui-select2 class="form-control select2" name="industry" ng-model="data.industry" ng-disabled="!editable" url="Dictionary/DroplistByGroup" paging="false" paramfield="group" paramvalue="行业类别"></select>
         </div>
-    </form>
-</div>
+        <div class="col-sm-2 add-dictionary">
+          <a class="fa fa-plus" ui-sref=".dictionary({group: '行业类别'})" ui-sref-opts="{location:false}" title="新增行业类别"></a>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-2 control-label">业务性质</label>
+        <div class="col-sm-8">
+          <select ui-select2 class="form-control select2" name="business_nature" ng-model="data.business_nature" ng-disabled="!editable" url="Dictionary/DroplistByGroup" paging="false" paramfield="group" paramvalue="业务性质"></select>
+        </div>
+        <div class="col-sm-2 add-dictionary">
+          <a class="fa fa-plus" ui-sref=".dictionary({group: '业务性质'})" ui-sref-opts="{location:false}" title="新增业务性质"></a>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-2 control-label">客户来源</label>
+        <div class="col-sm-8">
+          <select ui-select2 class="form-control select2" name="source" ng-model="data.source" ng-change="sourceChange()" ng-disabled="!editable" url="Dictionary/DroplistByGroup" paging="false" paramfield="group" paramvalue="客户来源"></select>
+        </div>
+        <div class="col-sm-2 add-dictionary">
+          <a class="fa fa-plus" ui-sref=".dictionary({group: '客户来源'})" ui-sref-opts="{location:false}" title="新增客户来源"></a>
+        </div>
+      </div>
+      <div id="source_customer" class="form-group">
+        <label class="col-sm-2 control-label">介绍人</label>
+        <div class="col-sm-8">
+          <select ui-select2 class="form-control select2" name="source_id" ng-view="source_name" ng-model="data.source_id" ng-disabled="!editable" url="Customer/Introducers" paging="true" style="width: 100%;"></select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-2 control-label">所在省</label>
+        <div class="col-sm-8">
+          <select class="form-control" name="province" ng-model="province" ng-change="changeProvince()" ng-disabled="!editable" ng-options="province.name for province in provinceList">
+            <option value="">请选择省份</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-2 control-label">所在市</label>
+        <div class="col-sm-8">
+          <select class="form-control" name="city" ng-model="city" ng-change="changeCity()" ng-disabled="!editable" ng-options="city.name for city in province.cityList" style="width: 100%;">
+            <option value="">请选择城市</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-2 control-label">所在县</label>
+        <div class="col-sm-8">
+          <select class="form-control" name="county" ng-model="county" ng-disabled="!editable" ng-options="county for county in city.areaList" style="width: 100%;">
+            <option value="">请选择县/区</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-2 control-label">详细地址</label>
+        <div class="col-sm-8">
+          <input type="text" class="form-control" ng-model="data.address" ng-disabled="!editable" data-rule="length[~200];">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-2 control-label">联系人<span class="required">*</span></label>
+        <div class="col-sm-8">
+          <input type="text" class="form-control" name="contact" ng-model="data.contact" ng-disabled="!editable" data-rule="required; length[~30];">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-2 control-label">手机</label>
+        <div class="col-sm-8">
+          <input type="text" class="form-control" name="mobile" ng-model="data.mobile" ng-disabled="!editable" data-rule="mobile;length[~20];">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-2 control-label">座机</label>
+        <div class="col-sm-8">
+          <input type="text" class="form-control" name="tel" ng-model="data.tel" ng-disabled="!editable" data-rule="tel;length[~20];">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-2 control-label">传真</label>
+        <div class="col-sm-8">
+          <input type="text" class="form-control" name="fax" ng-model="data.fax" ng-disabled="!editable" data-rule="tel;length[~20];">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-2 control-label">邮箱</label>
+        <div class="col-sm-8">
+          <input type="text" class="form-control" name="email" ng-model="data.email" ng-disabled="!editable" data-rule="email;length[~100];">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-2 control-label">QQ</label>
+        <div class="col-sm-8">
+          <input type="text" class="form-control" name="QQ" ng-model="data.QQ" ng-disabled="!editable" data-rule="qq;length[~100];">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-2 control-label">微信</label>
+        <div class="col-sm-8">
+          <input type="text" class="form-control" name="wechat" ng-model="data.wechat" ng-disabled="!editable">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-2 control-label">业务员</label>
+        <div class="col-sm-8">
+          <select ui-select2 class="form-control select2" id="salesmanSelect2" name="salesman_id" ng-view="salesman" ng-model="data.salesman_id" data-rule="required;" url=" Member/List" paging="true" style="width: 100%;"></select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-2 control-label">备注</label>
+        <div class="col-sm-8">
+          <textarea class="form-control" rows="3" name="description" ng-model="data.description" ng-disabled="!editable" data-rule="length[~100];"></textarea>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="box box-info">
+    <div class="box-header with-border">
+      <h3 class="box-title">联系人</h3>
+      <div class="box-tools">
+        <div class="box-tools pull-right">
+          <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="box-body table-responsive no-padding">
+      <table class="table table-hover">
+        <tbody>
+          <tr>
+            <th style="width: 10px">#</th>
+            <th>联系人</th>
+            <th>手机</th>
+            <th>座机</th>
+            <th>职务</th>
+            <th class="opt-col" ng-if="editable">操作</th>
+          </tr>
+          <tr ng-repeat="item in data.contactList">
+            <td ng-bind="($index+1)+'.'"></td>
+            <td ng-bind="item.name"></td>
+            <td ng-bind="item.mobile"></td>
+            <td ng-bind="item.tel"></td>
+            <td ng-bind="item.position"></td>
+            <td class="opt-col" ng-if="editable">
+              <a href="javascript:;" class="fa fa-pencil orange" ng-click="editContact($index, item)" title="修改"></a>
+              <a href="javascript:;" class="fa fa-trash-o red" ng-click="deleteContact($index, item)" title="删除"></a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="box-footer clearfix">
+      <button type="button" class="btn btn-info" ui-sref=".contact_add()" ui-sref-opts="{location:false}">新增</button>
+    </div>
+  </div>
+</form>
 <div ui-view="modal"></div>
+<div ui-view="contact"></div>
