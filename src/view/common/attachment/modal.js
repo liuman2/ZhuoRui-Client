@@ -1,7 +1,7 @@
 var httpHelper = require('js/utils/httpHelper');
 
 module.exports = function($scope, $state, $http, $timeout) {
-    var source_id = $state.params.source_id，
+    var source_id = $state.params.source_id,
         source_name = $state.params.source_name;
 
 
@@ -35,7 +35,7 @@ module.exports = function($scope, $state, $http, $timeout) {
     function actionAdd() {
         $http({
             method: 'POST',
-            url: '/attachment/Add',
+            url: '/Attachment/Add',
             data: $scope.attachment
         }).success(function(data) {
             if (!data.success) {

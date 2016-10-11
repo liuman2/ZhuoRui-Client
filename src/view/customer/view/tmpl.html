@@ -190,7 +190,7 @@
                 <th>附件</th>
                 <th>上传时间</th>
                 <th>备注</th>
-                <th class="opt-col" ng-if="data.status == 0">操作</th>
+                <th class="opt-col">操作</th>
               </tr>
               <tr ng-repeat="item in attachments">
                 <td ng-bind="($index+1)+'.'"></td>
@@ -208,6 +208,9 @@
               </tr>
             </tbody>
           </table>
+        </div>
+        <div class="box-footer clearfix">
+          <button type="button" class="btn btn-info" ui-sref=".attachment({source_name: 'customer', source_id: data.id})" ui-sref-opts="{location:false}">新增</button>
         </div>
     </div>
 

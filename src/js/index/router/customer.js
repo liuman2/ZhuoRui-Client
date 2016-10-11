@@ -86,7 +86,7 @@ var router = function($stateProvider, $urlRouterProvider) {
       controller: require('view/customer/view/ctrl')
     })
     .state('customer_view.attachment', {
-      url: '/new/attachment/{source_name:.*}/{source_id，:.*}',
+      url: '/new/attachment/{source_name:.*}/{source_id:.*}',
       stateName: '附件',
       views: {
         'attachment': {

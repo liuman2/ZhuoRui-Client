@@ -30,7 +30,27 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
 
     $scope.edit = function() {
         // $state.go('customer_edit({id: ' + id + '})');
-        $state.go("customer_edit", {id: id});
+        $state.go("customer_edit", { id: id });
+    }
+
+    $scope.deleteAttachment = function(item) {
+        $.confirm({
+            title: false,
+            content: '您确认要删除吗？',
+            confirmButton: '确定',
+            cancelButton: '取消',
+            confirm: function() {
+                $http({
+                    method: 'GET',
+                    url: '/Attachment/Delete',
+                    params: {
+                        id: item.id
+                    }
+                }).success(function(data) {
+                    loadAttachments();
+                });
+            }
+        });
     }
 
     $scope.cancel = function() {
@@ -74,7 +94,7 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
     function loadAttachments() {
         $http({
             method: 'GET',
-            url: '/Attachment/Get',
+            url: '/Attachment/List',
             params: {
                 source_id: id,
                 source_name: 'customer'
