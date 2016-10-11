@@ -85,6 +85,17 @@ var router = function($stateProvider, $urlRouterProvider) {
       template: require('view/customer/view/tmpl.html'),
       controller: require('view/customer/view/ctrl')
     })
+    .state('customer_view.attachment', {
+      url: '/new/attachment/{source_name:.*}/{source_id，:.*}',
+      stateName: '附件',
+      views: {
+        'attachment': {
+          template: require('view/common/attachment/modal.html'),
+          controller: require('view/common/attachment/modal')
+        }
+      }
+    })
+
     .state('customer_view.bank_add', {
       url: '/new',
       views: {

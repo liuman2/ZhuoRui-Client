@@ -5,6 +5,8 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
 
     var id = $state.params.id || null;
 
+    $scope.attachments = [];
+
     if (!!id) {
         $scope.id = id;
         actionView();
@@ -39,6 +41,10 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
         actionView();
     });
 
+    $scope.$on('ATTACHMENT_MODAL_DONE', function(e) {
+        loadAttachments();
+    });
+
     $scope.format = function(dt, str) {
         if (!dt) {
             return '';
@@ -61,6 +67,20 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
             }
             $scope.data = data;
             getOrders();
+            loadAttachments();
+        });
+    }
+
+    function loadAttachments() {
+        $http({
+            method: 'GET',
+            url: '/Attachment/Get',
+            params: {
+                source_id: id,
+                source_name: 'customer'
+            }
+        }).success(function(data) {
+            $scope.attachments = data || [];
         });
     }
 
