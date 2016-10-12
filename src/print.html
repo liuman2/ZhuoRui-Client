@@ -5,11 +5,11 @@
     <meta charset="UTF-8">
     <title>卓瑞办公</title>
     <style>
-
     body {
         font-family: $font-family-base;
         font-size: $font-size-base;
     }
+
     table {
         width: 100%;
     }
@@ -35,13 +35,16 @@
     .tac {
         text-align: center;
     }
+
     .m label {
         padding-right: 20px;
         font-weight: normal;
     }
+
     .memo {
         text-align: center;
     }
+
     .memo div {
         padding: 5px 0;
     }
@@ -49,7 +52,6 @@
 </head>
 
 <body ng-controller="BodyCtrl" ng-class="bodyClass">
-
     <table style="width:100%;text-align: center;">
         <tr>
             <td rowspan="2" style="width: 20%">
@@ -77,17 +79,26 @@
             </td>
         </tr>
     </table>
-
     <table style="width:100%;" class="print-body">
         <tr style="height:50px;">
             <td class="tac">公司名称</td>
             <td>
                 <table>
                     <tr>
-                        <td style="border:none;padding:0; min-width:50%;" ng-bind="printData.company">
+                        <td style="border:none;padding:0; min-width:50%;">
+                            <table>
+                                <tr ng-if="printData.company_cn.length > 0">
+                                    <td style="border:none; border-right: 1px solid #333; padding:0;height: 15px;" ng-bind="printData.company_cn">
+                                    </td>
+                                </tr>
+                                <tr ng-if="printData.company_en.length > 0">
+                                    <td style="border:none; border-right: 1px solid #333; padding:0;height: 15px;" ng-bind="printData.company_en">
+                                    </td>
+                                </tr>
+                            </table>
                         </td>
                         <td style="border:none;padding:0;">
-                            <span>付款人：</span>
+                            <span style="margin-left:5px;">付款人：</span>
                             <span ng-bind="printData.payer"></span>
                         </td>
                     </tr>
@@ -95,7 +106,6 @@
             </td>
             <td class="tac">备注</td>
         </tr>
-
         <tr ng-if="printData.print_type != 'patent' && printData.print_type != 'trademark'">
             <td class="tac">收款事由</td>
             <td class="tal" ng-bind="printData.reason"></td>
@@ -109,7 +119,6 @@
                 </div>
             </td>
         </tr>
-
         <tr ng-if="printData.print_type == 'trademark'">
             <td class="tac">商标名称</td>
             <td>
@@ -140,7 +149,6 @@
                 </div>
             </td>
         </tr>
-
         <tr ng-if="printData.print_type == 'patent'">
             <td class="tac">专利名称</td>
             <td>
@@ -171,8 +179,6 @@
                 </div>
             </td>
         </tr>
-
-
         <tr style="height:80px;">
             <td class="tac">其他事项</td>
             <td class="tal" ng-bind="printData.others"></td>
@@ -210,7 +216,6 @@
             </td>
         </tr>
     </table>
-
     <table style="width:100%; margin-top: 20px;">
         <tr>
             <td>
@@ -235,7 +240,6 @@
             </td>
         </tr>
     </table>
-
 </body>
 
 </html>

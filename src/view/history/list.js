@@ -150,7 +150,7 @@ module.exports = function($scope, $http, $state, $stateParams) {
 
     $scope.search = {
         index: 1,
-        size: 10,
+        size: 20,
         source_id: $state.params.source_id,
         source: source,
         status: ''

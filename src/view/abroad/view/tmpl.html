@@ -227,10 +227,11 @@
                         <tr>
                             <th style="width: 10px">#</th>
                             <th>付款人</th>
-                            <th>付款账号</th>
-                            <th>付款金额</th>
-                            <th>付款方式</th>
-                            <th>付款时间</th>
+                            <th>收款银行</th>
+                            <th>收款账号</th>
+                            <th>收款金额</th>
+                            <th>收款方式</th>
+                            <th>收款时间</th>
                             <th>附件</th>
                             <th>备注</th>
                             <th class="opt-col" ng-if="data.status == 0">操作</th>
@@ -238,6 +239,7 @@
                         <tr ng-repeat="item in incomes.items">
                             <td ng-bind="($index+1)+'.'"></td>
                             <td ng-bind="item.payer"></td>
+                            <td ng-bind="item.bank"></td>
                             <td ng-bind="item.account"></td>
                             <td ng-bind="item.amount"></td>
                             <td ng-bind="item.pay_way"></td>

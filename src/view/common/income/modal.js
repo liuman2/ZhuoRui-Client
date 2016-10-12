@@ -61,6 +61,12 @@ module.exports = function($scope, $state, $http, $timeout) {
         });
     }
 
+    $scope.bankChange = function (e) {
+        var index = $('#selectBanks').prop('selectedIndex');
+        var bank = $scope.banks[index-1];
+        $scope.income.account = bank.account;
+    }
+
     $scope.title = !!tid ? '修改收款' : '添加收款'
     if (tid) {
         actionView();
@@ -174,4 +180,22 @@ module.exports = function($scope, $state, $http, $timeout) {
             $scope.$apply();
         }
     });
+
+    $scope.banks = [];
+    function getBanks() {
+        $http({
+            method: 'GET',
+            url: '/Bank/Search',
+            params: {
+                index: 1,
+                size: 100,
+                name: ''
+            }
+        }).success(function(data) {
+            console.log(data)
+            $scope.banks = data.items || [];
+        });
+    }
+
+    getBanks();
 };

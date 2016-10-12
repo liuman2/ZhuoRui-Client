@@ -1,7 +1,7 @@
 module.exports = function($scope, $http, $state, $stateParams) {
     $scope.search = {
         index: 1,
-        size: 10,
+        size: 20,
         name: ""
     }
 

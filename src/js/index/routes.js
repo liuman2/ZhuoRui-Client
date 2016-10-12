@@ -86,11 +86,33 @@ module.exports = function($stateProvider, $urlRouterProvider) {
             template: require('view/common/timeline/tmpl.html'),
             controller: require('view/common/timeline/ctrl')
         })
-
         .state('history_edit', {
             url: '/history/edit/{module_id:.*}/{code:.*}/{source_id:.*}/{id:.*}',
             template: require('view/history/info.html'),
             controller: require('view/history/info')
+        })
+        .state('bank', {
+          url: '/bank',
+          template: require('view/bank/tmpl.html'),
+          controller: require('view/bank/ctrl')
+        })
+        .state('bank.bank_add', {
+            url: '/bank/add',
+            views: {
+                'modal': {
+                    template: require('view/bank/modal.html'),
+                    controller: require('view/bank/modal')
+                }
+            }
+        })
+        .state('bank.bank_edit', {
+            url: '/bank/edit/{id:.*}',
+            views: {
+                'modal': {
+                    template: require('view/bank/modal.html'),
+                    controller: require('view/bank/modal')
+                }
+            }
         })
 
     dashboardRouter($stateProvider, $urlRouterProvider);
