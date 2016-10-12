@@ -62,6 +62,7 @@
                         <th style="width: 10px">#</th>
                         <th>形式</th>
                         <th>主题</th>
+                        <th>负责人</th>
                         <th>讲师</th>
                         <th>时间</th>
                         <th>城市</th>
@@ -73,6 +74,7 @@
                         <td ng-bind="($index+1)+'.'"></td>
                         <td ng-bind="item.form" ng-attr-title="{{item.form}}"></td>
                         <td ng-bind="item.title" ng-attr-title="{{item.title}}"></td>
+                        <td ng-bind="item.chargeman"></td>
                         <td ng-bind="item.teacher"></td>
                         <td ng-bind="format(item.date_at, 'YYYY-MM-DD HH:mm')"></td>
                         <td ng-bind="item.city"></td>
