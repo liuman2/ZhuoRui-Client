@@ -24,9 +24,9 @@
 
                 <button type="button" class="btn btn-success" ng-click="progress()" ng-if="data.status == 3 && data.review_status==1">进度反馈</button>
                 <button type="button" class="btn btn-info" ui-sref="history_timeline({id: data.id, name: 'history', code: data.order_code, source: 'view'})"><span class="fa fa-clock-o"></span>日志</button>
-                <a href="/print.html?m=abroad&id={{id}}" class="btn btn-info" target="_blank">打印</a>
+                <!-- <a href="/print.html?m=history&id={{id}}" class="btn btn-info" target="_blank">打印</a> -->
                 <span>状态: </span>
-                <span ng-if="data.status != 4" ng-bind="getOrderStatus() + ' | ' + getReviewStatus()" ng-attr-title="{{getTitle(data)}}" style="cursor: default;"></span>
+                <span  class="tooltip-author" ng-if="data.status != 4" ng-bind="getOrderStatus() + ' | ' + getReviewStatus()" ng-attr-title="{{getTitle(data)}}" style="cursor: default;"></span>
                 <span ng-if="data.status == 4" ng-bind="'已完成 | ' + format(data.date_finish, 'YYYY-MM-DD')"></span>
             </div>
         </div>

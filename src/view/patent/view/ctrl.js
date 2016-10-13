@@ -15,33 +15,49 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
     }
     $scope.deleteIncome = function(item) {
         if ($scope.data.status > 0) {
-            alert('已提交审核不能删除')
+            $.alert({
+                title: false,
+                content: '已提交审核不能删除',
+                confirmButton: '确定'
+            });
             return;
         }
 
         if ($scope.data.status == 4) {
-            alert('订单已完成不能删除')
+            $.alert({
+                title: false,
+                content: '订单已完成不能删除',
+                confirmButton: '确定'
+            });
             return;
         }
 
         if ($scope.data.review_status == 1) {
             var msg = $scope.data.status == 2 ? '已通过财务审核不能删除' : '已通过提交人审核不能删除';
-            alert(msg);
+            $.alert({
+                title: false,
+                content: msg,
+                confirmButton: '确定'
+            });
             return;
         }
 
-        if (!confirm('您确认要删除吗？')) {
-            return false;
-        }
-
-        $http({
-            method: 'GET',
-            url: '/Income/Delete',
-            params: {
-                id: item.id
+        $.confirm({
+            title: false,
+            content: '您确认要删除吗？',
+            confirmButton: '确定',
+            cancelButton: '取消',
+            confirm: function() {
+                $http({
+                    method: 'GET',
+                    url: '/Income/Delete',
+                    params: {
+                        id: item.id
+                    }
+                }).success(function(data) {
+                    actionView();
+                });
             }
-        }).success(function(data) {
-            actionView();
         });
     }
 
@@ -69,47 +85,55 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
     }
 
     $scope.submitAudit = function() {
-        if (!confirm('您确认要提交审核？提交后不可再编辑')) {
-            return false;
-        }
-
-        $http({
-            method: 'GET',
-            url: '/Patent/Submit',
-            params: {
-                id: $scope.data.id
+        $.confirm({
+            title: false,
+            content: '您确认要提交审核？提交后不可再编辑',
+            confirmButton: '确定',
+            cancelButton: '取消',
+            confirm: function() {
+                $http({
+                    method: 'GET',
+                    url: '/Patent/Submit',
+                    params: {
+                        id: $scope.data.id
+                    }
+                }).success(function(data) {
+                    actionView();
+                });
             }
-        }).success(function(data) {
-            actionView();
         });
     }
 
     $scope.passAudit = function() {
-        if (!confirm('您确认通过审核？')) {
-            return false;
-        }
-
-        $http({
-            method: 'GET',
-            url: '/Patent/PassAudit',
-            params: {
-                id: $scope.data.id
+        $.confirm({
+            title: false,
+            content: '您确认通过审核？',
+            confirmButton: '确定',
+            cancelButton: '取消',
+            confirm: function() {
+                $http({
+                    method: 'GET',
+                    url: '/Patent/PassAudit',
+                    params: {
+                        id: $scope.data.id
+                    }
+                }).success(function(data) {
+                    actionView();
+                });
             }
-        }).success(function(data) {
-            actionView();
         });
     }
 
     $scope.refuseAudit = function() {
-        $state.go(".audit", {module_name: 'Patent'}, { location:false });
+        $state.go(".audit", { module_name: 'Patent' }, { location: false });
     }
 
     $scope.done = function() {
-        $state.go(".done", {module_name: 'Patent'}, { location:false });
+        $state.go(".done", { module_name: 'Patent' }, { location: false });
     }
 
     $scope.getOrderStatus = function() {
-        switch($scope.data.status) {
+        switch ($scope.data.status) {
             case 0:
                 return '未提交';
             case 1:
@@ -125,13 +149,18 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
 
     $scope.getTitle = function(item) {
         if (item.review_status == 0) {
+            $('.tooltip-author').tooltipster({
+                theme: 'tooltipster-sideTip-shadow',
+                content: item.finance_review_moment || item.submit_review_moment,
+            });
+
             return item.finance_review_moment || item.submit_review_moment;
         }
         return '';
     }
 
     $scope.getReviewStatus = function() {
-        switch($scope.data.review_status) {
+        switch ($scope.data.review_status) {
             case -1:
                 return '未审核';
             case 0:
@@ -165,7 +194,7 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
             return;
         }
 
-        $state.go(".progress", {id: $scope.data.id, module_name: 'Patent', type: t}, {location: false});
+        $state.go(".progress", { id: $scope.data.id, module_name: 'Patent', type: t }, { location: false });
     }
 
     $scope.$on('PROGRESS_MODAL_DONE', function(e) {

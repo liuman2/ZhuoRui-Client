@@ -44,38 +44,59 @@ module.exports = function($scope, $http, $state, $stateParams) {
 
     $scope.delete = function(item) {
         if (item.status == 4) {
-            alert('订单已完成不能删除');
+            $.alert({
+                title: false,
+                content: '订单已完成不能删除',
+                confirmButton: '确定'
+            });
             return;
         }
 
         if (item.status > 0) {
-            alert('已提交审核不能删除');
+            $.alert({
+                title: false,
+                content: '已提交审核不能删除',
+                confirmButton: '确定'
+            });
             return;
         }
 
-        if (!confirm('您确认要删除吗？')) {
-            return false;
-        }
-
-        $http({
-            method: 'GET',
-            url: '/RegInternal/Delete',
-            params: {
-                id: item.id
+        $.confirm({
+            title: false,
+            content: '您确认要删除吗？',
+            confirmButton: '确定',
+            cancelButton: '取消',
+            confirm: function() {
+                $http({
+                    method: 'GET',
+                    url: '/RegInternal/Delete',
+                    params: {
+                        id: item.id
+                    }
+                }).success(function(data) {
+                    load_data();
+                });
             }
-        }).success(function(data) {
-            load_data();
         });
+
     }
 
     $scope.edit = function(item) {
         if (item.status == 4) {
-            alert('订单已完成不能修改');
+            $.alert({
+                title: false,
+                content: '订单已完成不能修改',
+                confirmButton: '确定'
+            });
             return;
         }
 
         if (item.status > 0) {
-            alert('已提交审核不能修改');
+            $.alert({
+                title: false,
+                content: '已提交审核不能修改',
+                confirmButton: '确定'
+            });
             return;
         }
 
@@ -138,8 +159,13 @@ module.exports = function($scope, $http, $state, $stateParams) {
         }
     }
 
-    $scope.getTitle = function(item) {
+    $scope.getTitle = function(item, i) {
         if (item.review_status == 0) {
+            $('#tool-tip' + i).tooltipster({
+                theme: 'tooltipster-sideTip-shadow',
+                content: item.finance_review_moment || item.submit_review_moment,
+            });
+
             return item.finance_review_moment || item.submit_review_moment;
         }
         return '';

@@ -13,18 +13,22 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
     }
 
     $scope.delete = function(item) {
-        if (!confirm('您确认要删除吗？')) {
-            return false;
-        }
-
-        $http({
-            method: 'GET',
-            url: '/Customer/DeleteBank',
-            params: {
-                id: item.id
+        $.confirm({
+            title: false,
+            content: '您确认要删除吗？',
+            confirmButton: '确定',
+            cancelButton: '取消',
+            confirm: function() {
+                $http({
+                    method: 'GET',
+                    url: '/Customer/DeleteBank',
+                    params: {
+                        id: item.id
+                    }
+                }).success(function(data) {
+                    actionView();
+                });
             }
-        }).success(function(data) {
-            actionView();
         });
     }
 

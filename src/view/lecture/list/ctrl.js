@@ -38,24 +38,27 @@ module.exports = function($scope, $http, $state, $stateParams) {
     };
 
     $scope.delete = function(item) {
-
-        if (!confirm('您确认要删除吗？')) {
-            return false;
-        }
-
-        $http({
-            method: 'GET',
-            url: '/Lecture/Delete',
-            params: {
-                id: item.id
+        $.confirm({
+            title: false,
+            content: '您确认要删除吗？',
+            confirmButton: '确定',
+            cancelButton: '取消',
+            confirm: function() {
+                $http({
+                    method: 'GET',
+                    url: '/Lecture/Delete',
+                    params: {
+                        id: item.id
+                    }
+                }).success(function(data) {
+                    load_data();
+                });
             }
-        }).success(function(data) {
-            load_data();
         });
     }
 
     $scope.edit = function(item) {
-        $state.go("lecture_edit", {id: item.id});
+        $state.go("lecture_edit", { id: item.id });
     }
 
     $scope.format = function(dt, str) {

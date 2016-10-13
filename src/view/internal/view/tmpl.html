@@ -26,7 +26,7 @@
                 <button type="button" class="btn btn-info" ui-sref="internal_timeline({id: data.id, name: 'reg_internal', code: data.code, source: 'view'})" ><span class="fa fa-clock-o"></span>日志</button>
                 <a href="/print.html?m=internal&id={{id}}" class="btn btn-info" target="_blank">打印</a>
                 <span>状态: </span>
-                <span ng-if="data.status != 4" ng-bind="getOrderStatus() + ' | ' + getReviewStatus()" ng-attr-title="{{getTitle(data)}}" style="cursor: default;"></span>
+                <span  class="tooltip-author" ng-if="data.status != 4" ng-bind="getOrderStatus() + ' | ' + getReviewStatus()" ng-attr-title="{{getTitle(data)}}" style="cursor: default;"></span>
                 <span ng-if="data.status == 4" ng-bind="'已完成 | ' + format(data.date_finish, 'YYYY-MM-DD')"></span>
             </div>
         </div>

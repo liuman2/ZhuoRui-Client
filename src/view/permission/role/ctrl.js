@@ -13,22 +13,30 @@ module.exports = function($scope, $http, $state, $stateParams) {
 
     $scope.delete = function(item) {
         if (item.is_system == 1) {
-            alert('系统默认角色不可删除');
+            $.alert({
+                title: false,
+                content: '系统默认角色不可删除',
+                confirmButton: '确定'
+            });
             return;
         }
 
-        if (!confirm('您确认要删除吗？')) {
-            return false;
-        }
-
-        $http({
-            method: 'GET',
-            url: '/Role/Delete',
-            params: {
-                id: item.id
+        $.confirm({
+            title: false,
+            content: '您确认要删除吗？',
+            confirmButton: '确定',
+            cancelButton: '取消',
+            confirm: function() {
+                $http({
+                    method: 'GET',
+                    url: '/Role/Delete',
+                    params: {
+                        id: item.id
+                    }
+                }).success(function(data) {
+                    load_data();
+                });
             }
-        }).success(function(data) {
-            load_data();
         });
     }
 

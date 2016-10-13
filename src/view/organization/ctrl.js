@@ -68,10 +68,13 @@ module.exports = function($scope, $http, $state, $stateParams) {
     }
 
     function beforeRemove(treeId, treeNode) {
-        console.log(treeNode)
         $("#" + treeNode.tId + "_a").click();
         if (treeNode.isParent) {
-            alert("存在下级部门, 无法删除!");
+            $.alert({
+                title: false,
+                content: '存在下级部门, 无法删除!',
+                confirmButton: '确定'
+            });
             return false;
         }
         if (!confirm('您确认要删除吗？')) {

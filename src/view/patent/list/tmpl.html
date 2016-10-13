@@ -101,7 +101,7 @@
                             <span class="label" ng-class="{'label-warning': (item.status==0), 'label-success': (item.status==4), 'label-info': (item.status != 0 && item.status != 4)}" ng-bind="getOrderStatus(item.status)"></span>
                         </td>
                         <td>
-                            <span style="cursor: default;" class="label" ng-attr-title="{{getTitle(item)}}"
+                            <span id="tool-tip{{$index}}" style="cursor: default;" class="label" ng-attr-title="{{getTitle(item, $index)}}"
                             ng-class="{'label-warning': (item.review_status==-1), 'label-success': (item.review_status==1), 'label-danger': (item.review_status==0)}"
                             ng-bind="getReviewStatus(item.status, item.review_status)">
                             </span>

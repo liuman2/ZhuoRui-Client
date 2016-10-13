@@ -257,6 +257,11 @@ module.exports = function($scope, $http, $state, $stateParams) {
 
     $scope.getTitle = function(item) {
         if (item.review_status == 0) {
+            $('.tooltip-author').tooltipster({
+                theme: 'tooltipster-sideTip-shadow',
+                content: item.finance_review_moment || item.submit_review_moment,
+            });
+
             return item.finance_review_moment || item.submit_review_moment;
         }
         return '';

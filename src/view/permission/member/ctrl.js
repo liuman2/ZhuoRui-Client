@@ -12,26 +12,32 @@ module.exports = function($scope, $http, $state, $stateParams) {
     }
 
     $scope.delete = function(item) {
-        if (!confirm('您确认要删除吗？')) {
-            return false;
-        }
+        $.confirm({
+            title: false,
+            content: '您确认要删除吗？',
+            confirmButton: '确定',
+            cancelButton: '取消',
+            confirm: function() {
+                var nodes = roleTree.getSelectedNodes();
+                if (!nodes.length) {
+                    return;
+                }
+                var roleId = nodes[0].id;
 
-        var nodes = roleTree.getSelectedNodes();
-        if (!nodes.length) {
-            return;
-        }
-        var roleId = nodes[0].id;
-
-        $http({
-            method: 'GET',
-            url: '/Role/DeleteRoleMember',
-            params: {
-                roleId: roleId,
-                userId: item.id
+                $http({
+                    method: 'GET',
+                    url: '/Role/DeleteRoleMember',
+                    params: {
+                        roleId: roleId,
+                        userId: item.id
+                    }
+                }).success(function(data) {
+                    getRoleMember(roleId);
+                });
             }
-        }).success(function(data) {
-            getRoleMember(roleId);
         });
+
+
     }
 
     $scope.$on('ROLE_MEMBER_MODAL_DONE', function(e) {
@@ -102,7 +108,7 @@ module.exports = function($scope, $http, $state, $stateParams) {
         }
         var roleId = nodes[0].id;
 
-         $http({
+        $http({
             method: 'GET',
             url: '/Role/GetMemberByRoleId',
             params: {
