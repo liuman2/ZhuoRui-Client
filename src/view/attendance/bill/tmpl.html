@@ -7,80 +7,124 @@
 </section>
 <section class="content">
   <form class="form-horizontal" id="leave_form">
-    <table>
-      <tr>
-        <td>
-          <table>
-            <tr>
-              <td>所属部门:</td>
-              <td>某部门</td>
-              <td>申请人:</td>
-              <td>张三</td>
-            </tr>
-            <tr>
-              <td>岗位/职务:</td>
-              <td>软件工程师</td>
-              <td>填表日期:</td>
-              <td>2016-10-18</td>
-            </tr>
-          </table>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <table>
-            <tr>
-              <td>
-                类别
-              </td>
-              <td>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                请假期限
-              </td>
-              <td>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                事由
-              </td>
-              <td>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                工作交接
-              </td>
-              <td>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                交接人
-              </td>
-              <td>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                联系电话
-              </td>
-              <td>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                审批人
-              </td>
-              <td>
-              </td>
-            </tr>
-          </table>
-        </td>
-      </tr>
-    </table>
+    <div class="box box-info">
+      <div class="box-body table-responsive no-padding">
+        <table>
+          <tr>
+            <td>
+              <table class="info">
+                <tr>
+                  <td class="h">所属部门：</td>
+                  <td class="v">某部门</td>
+                  <td class="l-3">申请人：</td>
+                  <td class="v">张三</td>
+                </tr>
+                <tr>
+                  <td class="h">岗位/职务：</td>
+                  <td class="v">软件工程师</td>
+                  <td class="h">填表日期：</td>
+                  <td class="v">2016-10-18</td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <table class="detail">
+                <tr>
+                  <td class="h">
+                    类别
+                  </td>
+                  <td>
+                    <div id="divKQType">
+                      <input type="radio" name="chksKCode" id="chksKCode0" value="13">
+                      <label for="chksKCode0">病假</label>
+                      <input type="radio" name="chksKCode" id="chksKCode1" value="14">
+                      <label for="chksKCode1">事假</label>
+                      <input type="radio" name="chksKCode" id="chksKCode2" value="15">
+                      <label for="chksKCode2">婚假</label>
+                      <input type="radio" name="chksKCode" id="chksKCode3" value="16">
+                      <label for="chksKCode3">丧假</label>
+                      <input type="radio" name="chksKCode" id="chksKCode4" value="17">
+                      <label for="chksKCode4">产假</label>
+                      <input type="radio" name="chksKCode" id="chksKCode5" value="23">
+                      <label for="chksKCode5">陪产假</label>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="h">
+                    请假期限
+                  </td>
+                  <td>
+                    <table>
+                      <tr>
+                        <td>
+                          <input type="text" class="form-control date-input" name="date_at" ng-model="data.date_at">
+                        </td>
+                        <td style="text-align: center;">
+                          至
+                        </td>
+                        <td>
+                          <input type="text" class="form-control date-input" name="date_at" ng-model="data.date_at">
+                        </td>
+                      </tr>
+                      <tr>
+                        <td colspan="3" style="text-align: right;padding: 0;font-size: 10px;">
+                          共计 0 天 0 小时 0 分
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="h">
+                    事由
+                  </td>
+                  <td>
+                    <textarea rows="3" title="事由" maxlength="200" style="width:100%; height:80px;border:none;"></textarea>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="h">
+                    工作交接
+                  </td>
+                  <td>
+                    <textarea rows="3" title="工作交接" maxlength="200" style="width:100%; height:80px;border:none;"></textarea>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="h">
+                    交接人
+                  </td>
+                  <td>
+                    <select ui-select2 class="form-control select2" style="max-width:150px;" id="salesmanSelect2" name="charge_id" ng-view="chargeman" ng-model="data.charge_id" data-rule="required;" url="Member/List" paging="true" style="width: 100%;"></select>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="h">
+                    联系电话
+                  </td>
+                  <td>
+                    <input type="text" class="form-control" style="max-width:150px;" name="mobile" ng-model="data.mobile" data-rule="mobile;length[~20];">
+                  </td>
+                </tr>
+                <tr>
+                  <td class="h">
+                    审批人
+                  </td>
+                  <td>
+                    <select ui-select2 class="form-control select2" style="max-width:150px;" id="salesmanSelect2" name="charge_id" ng-view="chargeman" ng-model="data.charge_id" data-rule="required;" url="Member/List" paging="true" style="width: 100%;"></select>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </table>
+      </div>
+      <div class="box-footer clearfix" style="text-align: center; border: none;">
+        <button type="button" class="btn btn-info" style="min-width: 120px;">提    交</button>
+      </div>
+    </div>
   </form>
 </section>
