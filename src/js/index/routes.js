@@ -114,6 +114,11 @@ module.exports = function($stateProvider, $urlRouterProvider) {
                 }
             }
         })
+        .state('attendance_bill', {
+            url: '/attendance/bill',
+            template: require('view/attendance/bill/tmpl.html'),
+            // controller: require('view/history/info')
+        })
 
     dashboardRouter($stateProvider, $urlRouterProvider);
     reserveRouter($stateProvider, $urlRouterProvider);
