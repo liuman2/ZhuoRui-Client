@@ -7,8 +7,9 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
   var jForm = $('#leave_form');
 
   dInput.datetimepicker({
-    timepicker: false,
-    format: 'Y-m-d',
+    timepicker: true,
+    step: 5,
+    format: 'Y-m-d H:i',
     onChangeDateTime: function(current_time, $input) {
       console.log(current_time)
     }
