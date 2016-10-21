@@ -15,15 +15,15 @@
               <table class="info">
                 <tr>
                   <td class="h">所属部门：</td>
-                  <td class="v" ng-bind="user.department">某部门</td>
+                  <td class="v" ng-bind="data.department"></td>
                   <td class="l-3">申请人：</td>
-                  <td class="v" ng-bind="user.name">张三</td>
+                  <td class="v" ng-bind="data.owner_name"></td>
                 </tr>
                 <tr>
                   <td class="h">岗位/职务：</td>
-                  <td class="v" ng-bind="user.position">软件工程师</td>
+                  <td class="v" ng-bind="data.position"></td>
                   <td class="h">填表日期：</td>
-                  <td class="v" ng-bind="user.today">2016-10-18</td>
+                  <td class="v" ng-bind="format(data.date_created, 'YYYY-MM-DD HH:mm')"></td>
                 </tr>
               </table>
             </td>
@@ -37,19 +37,19 @@
                   </td>
                   <td>
                     <div id="divKQType">
-                      <input type="radio" name="chksKCode" id="chksKCode0" value="11" ng-model="data.type" data-rule="checked">
+                      <input type="radio" name="chksKCode" id="chksKCode0" value="11" ng-model="data.type" onclick="return false">
                       <label for="chksKCode0">病假</label>
-                      <input type="radio" name="chksKCode" id="chksKCode1" value="12" ng-model="data.type">
+                      <input type="radio" name="chksKCode" id="chksKCode1" value="12" ng-model="data.type" onclick="return false">
                       <label for="chksKCode1">事假</label>
-                      <input type="radio" name="chksKCode" id="chksKCode2" value="13" ng-model="data.type">
+                      <input type="radio" name="chksKCode" id="chksKCode2" value="13" ng-model="data.type" onclick="return false">
                       <label for="chksKCode2">婚假</label>
-                      <input type="radio" name="chksKCode" id="chksKCode3" value="14" ng-model="data.type">
+                      <input type="radio" name="chksKCode" id="chksKCode3" value="14" ng-model="data.type" onclick="return false">
                       <label for="chksKCode3">丧假</label>
-                      <input type="radio" name="chksKCode" id="chksKCode4" value="15" ng-model="data.type">
+                      <input type="radio" name="chksKCode" id="chksKCode4" value="15" ng-model="data.type" onclick="return false">
                       <label for="chksKCode4">产假</label>
-                      <input type="radio" name="chksKCode" id="chksKCode5" value="16" ng-model="data.type">
+                      <input type="radio" name="chksKCode" id="chksKCode5" value="16" ng-model="data.type" onclick="return false">
                       <label for="chksKCode5">陪产假</label>
-                      <input type="radio" name="chksKCode" id="chksKCode6" value="20" ng-model="data.type">
+                      <input type="radio" name="chksKCode" id="chksKCode6" value="20" ng-model="data.type" onclick="return false">
                       <label for="chksKCode5">年假</label>
                     </div>
                   </td>
@@ -61,14 +61,12 @@
                   <td>
                     <table>
                       <tr>
-                        <td style="width:150px;">
-                          <input type="text" class="form-control date-input" name="date_start" id="date_start" ng-model="data.date_start">
+                        <td style="width:150px;" ng-bind="format(data.date_start, 'YYYY-MM-DD HH:mm')">
                         </td>
                         <td style="text-align: center;width:30px;">
                           至
                         </td>
-                        <td style="width:150px;">
-                          <input type="text" class="form-control date-input" name="date_end" id="date_end" ng-model="data.date_end">
+                        <td style="width:150px;" ng-bind="format(data.date_end, 'YYYY-MM-DD HH:mm')">
                         </td>
                         <td></td>
                       </tr>
@@ -85,51 +83,62 @@
                   <td class="h">
                     事由<span class="required">*</span>
                   </td>
-                  <td>
-                    <textarea rows="3" title="事由" name="reason" ng-model="data.reason" maxlength="200" style="width:80%; height:80px;border:none;" data-rule="required;"></textarea>
+                  <td ng-bind="data.reason" style="min-height: 50px;">
                   </td>
                 </tr>
                 <tr>
                   <td class="h">
                     工作交接<span class="required">*</span>
                   </td>
-                  <td>
-                    <textarea rows="3" title="工作交接" name="memo" ng-model="data.memo" maxlength="200" style="width:80%; height:80px;border:none;" data-rule="required;"></textarea>
+                  <td ng-bind="data.memo" style="min-height: 50px;">
                   </td>
                 </tr>
                 <tr>
                   <td class="h">
                     交接人<span class="required">*</span>
                   </td>
-                  <td>
-                    <select ui-select2 class="form-control select2" style="max-width:150px;" id="receiverSelect2" name="receiver_id" ng-view="receiver" ng-model="data.receiver_id" data-rule="required;" url="Member/List" paging="true" style="width: 100%;"></select>
-                    <span id="receiverSelect2-validator"></span>
+                  <td ng-bind="data.receiver_name">
                   </td>
                 </tr>
                 <tr>
                   <td class="h">
                     联系电话<span class="required">*</span>
                   </td>
-                  <td>
-                    <input type="text" class="form-control" style="max-width:150px;" name="tel" ng-model="data.tel" data-rule="required;mobile;length[~20];">
+                  <td ng-bind="data.tel">
                   </td>
                 </tr>
                 <tr>
                   <td class="h">
                     审批人<span class="required">*</span>
                   </td>
-                  <td>
-                    <select ui-select2 class="form-control select2" style="max-width:150px;" id="auditorSelect2" name="auditor_id" ng-view="auditor" ng-model="data.auditor_id" data-rule="required;" url="Member/List" paging="true" style="width: 100%;"></select>
-                    <span id="auditorSelect2-validator"></span>
+                  <td ng-bind="data.auditor_name">
+                  </td>
+                </tr>
+                <tr>
+                  <td class="h">
+                    单据状态
+                  </td>
+                  <td ng-bind="getStatus(data.status)">
+                  </td>
+                </tr>
+                <tr>
+                  <td class="h">
+                    审批时间
+                  </td>
+                  <td style="width:150px;" ng-bind="format(data.date_review, 'YYYY-MM-DD HH:mm')">
+                  </td>
+                </tr>
+                <tr ng-if="data.status==2">
+                  <td class="h">
+                    驳回理由
+                  </td>
+                  <td style="width:150px;" ng-bind="data.audit_memo">
                   </td>
                 </tr>
               </table>
             </td>
           </tr>
         </table>
-      </div>
-      <div class="box-footer clearfix" style="text-align: center; border: none;">
-        <button type="button" ng-click="save()" class="btn btn-info" style="min-width: 120px;">提    交</button>
       </div>
     </div>
   </form>

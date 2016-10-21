@@ -119,6 +119,31 @@ module.exports = function($stateProvider, $urlRouterProvider) {
             template: require('view/attendance/bill/tmpl.html'),
             controller: require('view/attendance/bill/ctrl')
         })
+        .state('attendance_mine', {
+            url: '/attendance/mine',
+            template: require('view/attendance/mine/tmpl.html'),
+            controller: require('view/attendance/mine/ctrl')
+        })
+        .state('my_leave_view', {
+            url: '/attendance/view/{id:.*}',
+            template: require('view/attendance/mine/detail.html'),
+            controller: require('view/attendance/mine/detail')
+        })
+        .state('attendance_audit', {
+            url: '/attendance/audit',
+            template: require('view/attendance/audit/tmpl.html'),
+            controller: require('view/attendance/audit/ctrl')
+        })
+        .state('audit_leave_view', {
+            url: '/attendance/audit/{id:.*}',
+            template: require('view/attendance/audit/detail.html'),
+            controller: require('view/attendance/audit/detail')
+        })
+        .state('leave_view', {
+            url: '/attendance/detail/{id:.*}',
+            template: require('view/attendance/detail/detail.html'),
+            controller: require('view/attendance/detail/detail')
+        })
 
     dashboardRouter($stateProvider, $urlRouterProvider);
     reserveRouter($stateProvider, $urlRouterProvider);

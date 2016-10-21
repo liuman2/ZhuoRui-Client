@@ -1,10 +1,10 @@
 <section class="content-header">
   <h1>
-        我的考勤
+        假条审核
     </h1>
   <ol class="breadcrumb">
     <li><a ui-sref="dashboard"><i class="fa fa-dashboard"></i>我的面板</a></li>
-    <li><a class="active">我的考勤</a></li>
+    <li><a class="active">假条审核</a></li>
   </ol>
 </section>
 <section class="content">
@@ -93,7 +93,7 @@
             <td ng-bind="getStatus(item.status)"></td>
             <td ng-bind="format(item.date_review, 'YYYY-MM-DD')"></td>
             <td class="opt-col">
-              <a href="javascript:;" ui-sref="my_leave_view({id: item.id})"> 详情</a>
+              <a href="javascript:;" ui-sref="audit_leave_view({id: item.id})"> 详情</a>
             </td>
           </tr>
         </tbody>

@@ -22,7 +22,7 @@ module.exports = function($scope, $http, $state, $cookieStore, $stateParams) {
     index: 1,
     size: 20,
     type: '',
-    status: '',
+    status: 0,
     start_time: '',
     end_time: ''
   }
@@ -91,7 +91,7 @@ module.exports = function($scope, $http, $state, $cookieStore, $stateParams) {
 
     $http({
       method: 'GET',
-      url: '/Leave/GetMyLeave',
+      url: '/Leave/GetMyAuditLeave',
       params: $scope.search
     }).success(function(data) {
       $scope.data = data;
