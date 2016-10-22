@@ -228,6 +228,7 @@ module.exports = function($scope, $state, $http, $timeout) {
                     data.date_empower = data.date_empower.split('T')[0];
                 }
             }
+            data.is_open_bank = data.is_open_bank + '';
             $scope.progress = angular.extend({}, $scope.progress, data);
         });
     }
