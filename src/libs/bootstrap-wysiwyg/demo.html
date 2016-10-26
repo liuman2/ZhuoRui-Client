@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>editor</title>
+    <!-- bootstrap -->
+    <link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap.min.css">
+    <!-- lib -->
+    <link rel="stylesheet" type="text/css" href="../../css/lib.css">
+    <!-- main -->
+    <link rel="stylesheet" type="text/css" href="../../css/main.css">
+    <link rel="stylesheet" type="text/css" href="../../css/hack-ie8.css">
+    <!-- base style -->
+    <style>
+        .pd-b-10 { padding-bottom: 10px;}
+        .editor { box-shadow: 0 8px 40px rgba(0, 0, 0, 0.15);}
+    </style>
+</head>
+<body>
+<div class="container">
+    <header>
+        <h1>editor</h1>
+    </header>
+    <div class="row">
+        <div class="col-xs-12 pd-b-10">
+            <div id="editor">123</div>
+        </div>
+    </div>
+</div>
+
+<!-- script -->
+<script type="text/javascript" src="../../js/hack-ie8.js"></script>
+<!-- require config -->
+<script type="text/javascript" src="../../js/require.config.js" inline></script>
+<script type="text/javascript">
+    requirejs.baseUrl = '../../module';
+</script>
+<script type="text/javascript" src="../require/require-min.js"></script>
+<!-- jquery -->
+<script type="text/javascript" src="../jquery/jquery-1.9.0.min.js"></script>
+<!-- logic -->
+<script>
+require([
+  'base',
+  'url',
+  'editor'
+], function($, url, editor) {
+    new editor({
+        renderTo: $('#editor'),
+        uploadUrl: '../../exercise/upload'
+    });
+});
+</script>
+</body>
+</html>

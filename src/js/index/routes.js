@@ -144,6 +144,11 @@ module.exports = function($stateProvider, $urlRouterProvider) {
             template: require('view/attendance/detail/detail.html'),
             controller: require('view/attendance/detail/detail')
         })
+        .state('notice_add', {
+            url: '/notice/add',
+            template: require('view/notice/form/tmpl.html'),
+            controller: require('view/notice/form/ctrl')
+        })
 
     dashboardRouter($stateProvider, $urlRouterProvider);
     reserveRouter($stateProvider, $urlRouterProvider);
