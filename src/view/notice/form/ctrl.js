@@ -1,5 +1,5 @@
+var httpHelper = require('js/utils/httpHelper');
 module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
-
   var id = $state.params.id || null,
     jForm = $('#notice_form');
 
@@ -10,9 +10,9 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
     ['Table', '-', 'Link', 'Flash', 'Smiley', 'TextColor', 'BGColor']
   ];
   CKEDITOR.replace('editor1');
-
   $scope.title = $state.current.name.indexOf('notice') > -1 ? '公司公告' : '会议纪要';
 
+  $scope.btnUploadText = '添加附件';
 
   $scope.action = null;
   switch ($state.current.name) {
@@ -35,7 +35,8 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
     title: '',
     type: $state.current.name.indexOf('notice') > -1 ? 1 : 2,
     code: '',
-    content: ''
+    content: '',
+    attachments: []
   }
 
   $scope.goParent = function() {
@@ -48,7 +49,7 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
 
   if (!!id) {
     $scope.data.id = id;
-    actionView();
+    $timeout(actionView, 800);
   }
 
   $scope.cancel = function() {
@@ -104,4 +105,54 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
       CKEDITOR.instances['editor1'].setData(data.content);
     });
   }
+
+  var h5Uploader = new H5Uploader({
+    placeholder: '#btnUpload',
+    uploadUrl: httpHelper.url('/Common/Upload'),
+    filePostName: 'file',
+    postParams: {
+      DocType: 'doc'
+    },
+    filePostName: 'file',
+    isSingleMode: true,
+    fileSizeLimit: 5 * 1024,
+    accept: '*/*',
+    uploadStart: function() {
+      $('#btnUpload').attr('disabled', true);
+      $scope.btnUploadText = '上传中..';
+      $scope.$apply();
+    },
+    uploadSuccess: function(idx, data) {
+      console.log(data);
+      if (typeof(data) == 'string') {
+        data = JSON.parse(data);
+      }
+      // $scope.attachment.attachment_url = data.url;
+
+      $scope.data.attachments.push({
+        name: data.name,
+        attachment_url: data.url
+      })
+
+      $('#btnUpload').attr('disabled', false);
+      $scope.btnUploadText = '添加附件';
+      $scope.$apply();
+    },
+    typeError: function() {
+      alert('格式错误');
+      $('#btnUpload').attr('disabled', false);
+      $scope.btnUploadText = '添加附件';
+      $scope.$apply();
+    },
+    sizeError: function() {
+      alert('文件大小不能超过5M');
+      $('#btnUpload').attr('disabled', false);
+      $scope.btnUploadText = '添加附件';
+      $scope.$apply();
+    },
+    nullError: function() {
+      $scope.btnUploadText = '添加附件';
+      $scope.$apply();
+    }
+  });
 };
