@@ -24,7 +24,7 @@ var vendor2IE8 = [
 var webpackConfig = {
     entry: {
         common: [
-            'jquery',
+            // 'jquery',
             // 'angular/angular.js',
             'angular',
             'angular-cookies',

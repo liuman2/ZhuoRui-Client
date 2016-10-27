@@ -144,8 +144,33 @@ module.exports = function($stateProvider, $urlRouterProvider) {
             template: require('view/attendance/detail/detail.html'),
             controller: require('view/attendance/detail/detail')
         })
+        .state('notice', {
+            url: '/notice',
+            template: require('view/notice/list/tmpl.html'),
+            controller: require('view/notice/list/ctrl')
+        })
+        .state('conference', {
+            url: '/conference',
+            template: require('view/notice/list/tmpl.html'),
+            controller: require('view/notice/list/ctrl')
+        })
         .state('notice_add', {
             url: '/notice/add',
+            template: require('view/notice/form/tmpl.html'),
+            controller: require('view/notice/form/ctrl')
+        })
+        .state('notice_edit', {
+            url: '/notice/edit/{id:.*}',
+            template: require('view/notice/form/tmpl.html'),
+            controller: require('view/notice/form/ctrl')
+        })
+        .state('conference_add', {
+            url: '/conference/add',
+            template: require('view/notice/form/tmpl.html'),
+            controller: require('view/notice/form/ctrl')
+        })
+        .state('conference_edit', {
+            url: '/conference/edit/{id:.*}',
             template: require('view/notice/form/tmpl.html'),
             controller: require('view/notice/form/ctrl')
         })
