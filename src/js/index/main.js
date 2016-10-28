@@ -25,8 +25,13 @@ require('tooltipster/dist/css/tooltipster.bundle.min.css');
 require('tooltipster/dist/css/plugins/tooltipster/sideTip/themes/tooltipster-sideTip-shadow.min.css');
 
 angular
-    .module('app', ['ui.router', 'ui.scrollpoint', 'ui.select2', 'angular-loading-bar', 'ngCookies'])
-    .config(httpHelper)
-    .config(routing)
-    .directive('pagination', require('../directive/pagination'))
-    .controller('BodyCtrl', require('./controller/body'));
+  .module('app', ['ui.router', 'ui.scrollpoint', 'ui.select2', 'angular-loading-bar', 'ngCookies'])
+  .config(httpHelper)
+  .config(routing)
+  .directive('pagination', require('../directive/pagination'))
+  .controller('BodyCtrl', require('./controller/body'))
+  .filter("trustHtml", ['$sce', function($sce) {
+    return function(input) {
+      return $sce.trustAsHtml(input);
+    };
+  }]);

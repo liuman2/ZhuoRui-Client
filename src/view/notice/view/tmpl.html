@@ -1,0 +1,22 @@
+<section class="content-header">
+  <h1>公告通知</h1>
+  <ol class="breadcrumb">
+    <li><a ui-sref="dashboard"><i class="fa fa-dashboard"></i>我的面板</a></li>
+    <li class="active">列表</li>
+  </ol>
+</section>
+<section class="content">
+  <div class="box box-info">
+    <div class="box-body">
+      <ul class="notice-view">
+        <li ng-repeat="notice in data.items">
+          <a  ui-sref="notice_detail({id: {{notice.id}}})" ng-bind="notice.title"></a>
+          <p>发布时间：<em  ng-bind="format(notice.date_created, 'YYYY-MM-DD HH:mm:ss')"></em></p>
+        </li>
+      </ul>
+    </div>
+    <div class="box-footer">
+      <div pagination page-data="data.page" page-click="go(idx)"></div>
+    </div>
+  </div>
+</section>

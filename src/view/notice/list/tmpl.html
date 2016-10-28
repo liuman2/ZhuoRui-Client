@@ -18,18 +18,22 @@
           <tr>
             <th style="width: 10px">#</th>
             <th>主题</th>
-            <th>编号</th>
+            <th ng-if="search.type==1">编号</th>
+            <th>状态</th>
             <th>发布时间</th>
             <th class="opt-col">操作</th>
           </tr>
           <tr ng-repeat="item in data.items">
             <td ng-bind="($index+1)"></td>
             <td ng-bind="item.title"></td>
-            <td ng-bind="item.code"></td>
-            <td ng-bind="item.date_created"></td>
+            <td ng-if="item.type==1" ng-bind="item.code"></td>
+            <td ng-bind="getStatus(item.status)"></td>
+            <td ng-bind="format(item.date_created, 'YYYY-MM-DD HH:mm:ss')"></td>
             <td class="opt-col">
               <a class="fa fa-pencil green" ui-sref="notice_edit({id: {{item.id}}})" title="修改"></a>
-              <a class="fa fa-undo red" ng-click="cancel(item)" title="撤销"></a>
+              <a class="fa fa-undo red" ng-if="item.type==1 && item.status==1" ng-click="cancel(item)" title="撤销"></a>
+              <a class="fa fa-reply" ng-if="item.type==1 && item.status==2" ng-click="release(item)" title="发布"></a>
+              <a class="fa fa-trash-o red" red" ng-if="item.type==2" ng-click="delete(item)" title="删除"></a>
             </td>
           </tr>
         </tbody>

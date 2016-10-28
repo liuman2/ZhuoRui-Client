@@ -1,0 +1,29 @@
+<section class="content-header">
+  <h1 ng-bind="data.type==1 ? '公告详情':'会议纪要'"></h1>
+  <ol class="breadcrumb">
+    <li><a ui-sref="dashboard"><i class="fa fa-dashboard"></i>我的面板</a></li>
+    <li class="active">详情</li>
+  </ol>
+</section>
+<section class="content">
+  <div class="box box-info">
+    <div class="box-body">
+      <div class="notice-head">
+        <h2 ng-bind="data.title"></h2>
+        <p style="font-size: 12px;">
+          <span>发表于</span><em ng-bind="data.date_created" style="color: #888;margin-left: 5px;"></em>
+        </p>
+      </div>
+      <div class="notice-content" ng-bind-html='data.content|trustHtml'>
+      </div>
+      <div class="notice-attachment" ng-if="data.attachments.length > 0">
+        <h5 class="fa fa-paperclip"> 附件:</h5>
+        <ul>
+          <li ng-repeat="attachment in data.attachments">
+            <a href="{{attachment.attachment_url}}" target="_blank" style="display: inline-block; line-height: 30px;">{{attachment.name}}</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>

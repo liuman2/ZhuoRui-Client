@@ -1,3 +1,5 @@
+var moment = require('moment');
+moment.locale('zh-cn');
 module.exports = function($scope, $http, $state, $stateParams) {
   $scope.search = {
     index: 1,
@@ -38,6 +40,46 @@ module.exports = function($scope, $http, $state, $stateParams) {
     });
   }
 
+  $scope.release = function(item) {
+    $.confirm({
+      title: false,
+      content: '您确认要发布该公告吗？',
+      confirmButton: '确定',
+      cancelButton: '取消',
+      confirm: function() {
+        $http({
+          method: 'GET',
+          url: '/Notice/Release',
+          params: {
+            id: item.id
+          }
+        }).success(function(data) {
+          load_data();
+        });
+      }
+    });
+  }
+
+  $scope.delete = function(item) {
+    $.confirm({
+      title: false,
+      content: '您确认要删除？',
+      confirmButton: '确定',
+      cancelButton: '取消',
+      confirm: function() {
+        $http({
+          method: 'GET',
+          url: '/Notice/Delete',
+          params: {
+            id: item.id
+          }
+        }).success(function(data) {
+          load_data();
+        });
+      }
+    });
+  }
+
   $scope.add = function() {
     switch ($state.current.name) {
       case 'notice':
@@ -54,6 +96,24 @@ module.exports = function($scope, $http, $state, $stateParams) {
   $scope.go = function(index) {
     $scope.search.index = index;
     load_data();
+  }
+
+  $scope.getStatus = function(status) {
+    switch (status) {
+      case 0:
+        return '待发布';
+      case 1:
+        return '已发布';
+      case 2:
+        return '已撤销';
+    }
+  }
+
+  $scope.format = function(dt, str) {
+    if (!dt) {
+      return '';
+    }
+    return moment(dt).format(str);
   }
 
   function load_data() {
