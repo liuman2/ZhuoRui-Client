@@ -1,104 +1,109 @@
 <section class="content-header">
-    <h1>
+  <h1>
         讲座管理
     </h1>
-    <ol class="breadcrumb">
-        <li><a ui-sref="dashboard"><i class="fa fa-dashboard"></i>我的面板</a></li>
-        <li><a ui-sref="lecture">列表</a></li>
-        <li class="active" ng-bind="current_bread"></li>
-    </ol>
+  <ol class="breadcrumb">
+    <li><a ui-sref="dashboard"><i class="fa fa-dashboard"></i>我的面板</a></li>
+    <li><a ui-sref="lecture">列表</a></li>
+    <li class="active" ng-bind="current_bread"></li>
+  </ol>
 </section>
 <section class="content">
-    <form class="form-horizontal" id="abroad_form">
-        <div class="detail-view-header-wrapper">
-            <div class="box-footer detail-view-header" ui-scrollpoint ui-scrollpoint-enabled="true" ui-scrollpoint-class="fixed">
-                <button type="button" class="btn btn-default" ng-click="cancel()">取消</button>
-                <button type="button" class="btn btn-info" ng-click="save()">保存</button>
-            </div>
+  <form class="form-horizontal" id="abroad_form">
+    <div class="detail-view-header-wrapper">
+      <div class="box-footer detail-view-header" ui-scrollpoint ui-scrollpoint-enabled="true" ui-scrollpoint-class="fixed">
+        <button type="button" class="btn btn-default" ng-click="cancel()">取消</button>
+        <button type="button" class="btn btn-info" ng-click="save()">保存</button>
+      </div>
+    </div>
+    <div class="box box-info">
+      <div class="box-header with-border">
+        <h3 class="box-title">基本信息</h3>
+        <div class="box-tools">
+          <div class="box-tools pull-right">
+            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+            </button>
+          </div>
         </div>
-
-        <div class="box box-info">
-            <div class="box-header with-border">
-                <h3 class="box-title">基本信息</h3>
-                <div class="box-tools">
-                    <div class="box-tools pull-right">
-                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                        </button>
-                    </div>
-                </div>
-            </div>
-            <div class="box-body">
-
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">形式<span class="required">*</span></label>
-                    <div class="col-sm-8">
-                        <select class="form-control select2" name="form" ng-model="data.form" data-rule="required;" style="width: 100%;">
-                            <option value="">请选择</option>
-                            <option value="视频">视频</option>
-                            <option value="现场">现场</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">主题<span class="required">*</span></label>
-                    <div class="col-sm-8">
-                        <input type="text" class="form-control" name="title" ng-model="data.title" data-rule="required; length[~100];">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">负责人</label>
-                    <div class="col-sm-8">
-                        <select ui-select2 class="form-control select2" id="salesmanSelect2" name="charge_id" ng-view="chargeman" ng-model="data.charge_id" data-rule="required;" url="Member/List" paging="true" style="width: 100%;"></select>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">讲师<span class="required">*</span></label>
-                    <div class="col-sm-8">
-                        <input type="text" class="form-control" name="teacher" ng-model="data.teacher" data-rule="required; length[~20];">
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">时间<span class="required">*</span></label>
-                    <div class="col-sm-8">
-                        <input type="text" class="form-control date-input" id="date_at" name="date_at" ng-model="data.date_at" data-rule="required;">
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">城市<span class="required">*</span></label>
-                    <div class="col-sm-8">
-                        <input type="text" class="form-control" name="city" ng-model="data.city" data-rule="length[~60];">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">地址</label>
-                    <div class="col-sm-8">
-                        <input type="text" class="form-control" name="address" ng-model="data.address" data-rule="length[~200];">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">主办方</label>
-                    <div class="col-sm-8">
-                        <input type="text" class="form-control" name="sponsor" ng-model="data.sponsor" data-rule="length[~100];">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">协办方</label>
-                    <div class="col-sm-8">
-                        <input type="text" class="form-control" name="co_sponsor" ng-model="data.co_sponsor" data-rule="length[~100];">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">客户群体</label>
-                    <div class="col-sm-8">
-                        <input type="text" class="form-control" name="customer_target" ng-model="data.customer_target" data-rule="length[~300];">
-                    </div>
-                </div>
-
-            </div>
+      </div>
+      <div class="box-body">
+        <div class="form-group">
+          <label class="col-sm-2 control-label">形式<span class="required">*</span></label>
+          <div class="col-sm-8">
+            <select class="form-control select2" name="form" ng-model="data.form" data-rule="required;" style="width: 100%;">
+              <option value="">请选择</option>
+              <option value="视频">视频</option>
+              <option value="现场">现场</option>
+            </select>
+          </div>
         </div>
-    </form>
+        <div class="form-group">
+          <label class="col-sm-2 control-label">主题<span class="required">*</span></label>
+          <div class="col-sm-8">
+            <input type="text" class="form-control" name="title" ng-model="data.title" data-rule="required; length[~100];">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-2 control-label">负责人</label>
+          <div class="col-sm-8">
+            <select ui-select2 class="form-control select2" id="salesmanSelect2" name="charge_id" ng-view="chargeman" ng-model="data.charge_id" data-rule="required;" url="Member/List" paging="true" style="width: 100%;"></select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-2 control-label">讲师<span class="required">*</span></label>
+          <div class="col-sm-8">
+            <input type="text" class="form-control" name="teacher" ng-model="data.teacher" data-rule="required; length[~20];">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-2 control-label">时间<span class="required">*</span></label>
+          <div class="col-sm-8">
+            <input type="text" class="form-control date-input" id="date_at" name="date_at" ng-model="data.date_at" data-rule="required;">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-2 control-label">城市<span class="required">*</span></label>
+          <div class="col-sm-8">
+            <input type="text" class="form-control" name="city" ng-model="data.city" data-rule="length[~60];">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-2 control-label">地址</label>
+          <div class="col-sm-8">
+            <input type="text" class="form-control" name="address" ng-model="data.address" data-rule="length[~200];">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-2 control-label">主办方</label>
+          <div class="col-sm-8">
+            <input type="text" class="form-control" name="sponsor" ng-model="data.sponsor" data-rule="length[~100];">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-2 control-label">协办方</label>
+          <div class="col-sm-8">
+            <input type="text" class="form-control" name="co_sponsor" ng-model="data.co_sponsor" data-rule="length[~100];">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-2 control-label">客户群体</label>
+          <div class="col-sm-8">
+            <input type="text" class="form-control" name="customer_target" ng-model="data.customer_target" data-rule="length[~300];">
+          </div>
+        </div>
+        <div class="form-group" ng-repeat="attachment in attachments">
+          <label class="col-sm-2 control-label" ng-bind="$index == 0 ? '附件' : ''"></label>
+          <div class="col-sm-8">
+            <a href="{{attachment.attachment_url}}" target="_blank" style="display: inline-block; line-height: 30px;">{{attachment.name}}</a>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-2 control-label" ng-bind="attachments.length == 0 ? '附件' : ''"></label>
+          <div class="col-sm-8">
+            <a href="javascript:;" id="btnUpload" style="display: inline-block; line-height: 30px;">{{btnUploadText}}</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
 </section>

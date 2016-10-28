@@ -1,144 +1,149 @@
 <section class="content-header">
-    <h1>
+  <h1>
         讲座管理
     </h1>
-    <ol class="breadcrumb">
-        <li><a ui-sref="dashboard"><i class="fa fa-dashboard"></i>我的面板</a></li>
-        <li><a ui-sref="lecture">列表</a></li>
-        <li class="active">查看</li>
-    </ol>
+  <ol class="breadcrumb">
+    <li><a ui-sref="dashboard"><i class="fa fa-dashboard"></i>我的面板</a></li>
+    <li><a ui-sref="lecture">列表</a></li>
+    <li class="active">查看</li>
+  </ol>
 </section>
 <section class="content">
-    <form class="form-horizontal view-form" id="abroad_form">
-        <div class="detail-view-header-wrapper">
-            <div class="box-footer detail-view-header" ui-scrollpoint ui-scrollpoint-enabled="true" ui-scrollpoint-class="fixed">
-                <!-- <button type="button" class="btn btn-info" ui-sref="lecture_edit({id: id})" ui-sref-opts="{reload:true}">修改</button> -->
-            </div>
+  <form class="form-horizontal view-form" id="abroad_form">
+    <div class="detail-view-header-wrapper">
+      <div class="box-footer detail-view-header" ui-scrollpoint ui-scrollpoint-enabled="true" ui-scrollpoint-class="fixed">
+        <!-- <button type="button" class="btn btn-info" ui-sref="lecture_edit({id: id})" ui-sref-opts="{reload:true}">修改</button> -->
+      </div>
+    </div>
+    <div class="box box-info">
+      <div class="box-header with-border">
+        <h3 class="box-title">基本信息</h3>
+        <div class="box-tools">
+          <div class="box-tools pull-right">
+            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+            </button>
+          </div>
         </div>
-        <div class="box box-info">
-            <div class="box-header with-border">
-                <h3 class="box-title">基本信息</h3>
-                <div class="box-tools">
-                    <div class="box-tools pull-right">
-                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                        </button>
-                    </div>
-                </div>
-            </div>
-            <div class="box-body">
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">形式</label>
-                    <div class="col-sm-8">
-                        <span class="form-span" ng-bind="data.form"></span>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">主题</label>
-                    <div class="col-sm-8">
-                        <span class="form-span" ng-bind="data.title"></span>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">负责人</label>
-                    <div class="col-sm-8">
-                        <span class="form-span" ng-bind="data.chargeman"></span>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">讲师</label>
-                    <div class="col-sm-8">
-                        <span class="form-span" ng-bind="data.teacher"></span>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">时间</label>
-                    <div class="col-sm-8">
-                        <span class="form-span" ng-bind="format(data.date_at, 'YYYY-MM-DD HH:mm:ss')"></span>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">城市</label>
-                    <div class="col-sm-8">
-                        <span class="form-span" ng-bind="data.city"></span>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">地址</label>
-                    <div class="col-sm-8">
-                        <span class="form-span" ng-bind="data.address"></span>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">主办方</label>
-                    <div class="col-sm-8">
-                        <span class="form-span" ng-bind="data.sponsor"></span>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">协办方</label>
-                    <div class="col-sm-8">
-                        <span class="form-span" ng-bind="data.co_sponsor"></span>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">客户群体</label>
-                    <div class="col-sm-8">
-                        <span class="form-span" ng-bind="data.customer_target"></span>
-                    </div>
-                </div>
-            </div>
-            <div class="box-footer">
-                <button type="button" class="btn btn-info" ui-sref="lecture_edit({id: id})" ui-sref-opts="{reload:true}">修改</button>
-            </div>
+      </div>
+      <div class="box-body">
+        <div class="form-group">
+          <label class="col-sm-2 control-label">形式</label>
+          <div class="col-sm-8">
+            <span class="form-span" ng-bind="data.form"></span>
+          </div>
         </div>
-        <div class="box box-info">
-            <div class="box-header with-border">
-                <h3 class="box-title">参会客户名单</h3>
-                <div class="box-tools pull-right">
-                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                    </button>
-                </div>
-            </div>
-            <div class="box-body table-responsive no-padding">
-                <table class="table table-hover">
-                    <tbody>
-                        <tr>
-                            <th style="width: 10px">#</th>
-                            <th>客户名称</th>
-                            <th>业务性质</th>
-                            <th>行业类别</th>
-                            <th>联系人</th>
-                            <th>手机</th>
-                            <th>座机</th>
-                            <th>邮箱</th>
-                            <th>地址</th>
-                            <th>业务员</th>
-                            <th class="opt-col">操作</th>
-                        </tr>
-                        <tr ng-repeat="item in customers.items">
-                            <td ng-bind="($index+1)+'.'"></td>
-                            <td ng-bind="item.name" ui-sref="customer_view({id: item.customer_id})"></td>
-                            <td ng-bind="item.business_nature"></td>
-                            <td ng-bind="item.industry"></td>
-                            <td ng-bind="item.contact"></td>
-                            <td ng-bind="item.mobile"></td>
-                            <td ng-bind="item.tel"></td>
-                            <td ng-bind="item.email"></td>
-                            <td ng-bind="item.address"></td>
-                            <td ng-bind="item.salesman"></td>
-
-                            <td class="opt-col">
-                                <a href="javascript:;" class="fa fa-trash-o red" ng-click="deleteCustomer(item)" title="移除"></a>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div class="box-footer clearfix">
-                <button type="button" class="btn btn-info" ui-sref=".customer_add" ui-sref-opts="{location:false}">添加</button>
-                <div pagination page-data="customers.page" page-click="go(idx)"></div>
-            </div>
+        <div class="form-group">
+          <label class="col-sm-2 control-label">主题</label>
+          <div class="col-sm-8">
+            <span class="form-span" ng-bind="data.title"></span>
+          </div>
         </div>
-    </form>
+        <div class="form-group">
+          <label class="col-sm-2 control-label">负责人</label>
+          <div class="col-sm-8">
+            <span class="form-span" ng-bind="data.chargeman"></span>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-2 control-label">讲师</label>
+          <div class="col-sm-8">
+            <span class="form-span" ng-bind="data.teacher"></span>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-2 control-label">时间</label>
+          <div class="col-sm-8">
+            <span class="form-span" ng-bind="format(data.date_at, 'YYYY-MM-DD HH:mm:ss')"></span>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-2 control-label">城市</label>
+          <div class="col-sm-8">
+            <span class="form-span" ng-bind="data.city"></span>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-2 control-label">地址</label>
+          <div class="col-sm-8">
+            <span class="form-span" ng-bind="data.address"></span>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-2 control-label">主办方</label>
+          <div class="col-sm-8">
+            <span class="form-span" ng-bind="data.sponsor"></span>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-2 control-label">协办方</label>
+          <div class="col-sm-8">
+            <span class="form-span" ng-bind="data.co_sponsor"></span>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-2 control-label">客户群体</label>
+          <div class="col-sm-8">
+            <span class="form-span" ng-bind="data.customer_target"></span>
+          </div>
+        </div>
+        <div class="form-group" ng-repeat="attachment in attachments">
+          <label class="col-sm-2 control-label" ng-bind="$index == 0 ? '附件' : ''"></label>
+          <div class="col-sm-8">
+            <a href="{{attachment.attachment_url}}" target="_blank" style="display: inline-block; line-height: 30px;">{{attachment.name}}</a>
+          </div>
+        </div>
+      </div>
+      <div class="box-footer">
+        <button type="button" class="btn btn-info" ui-sref="lecture_edit({id: id})" ui-sref-opts="{reload:true}">修改</button>
+      </div>
+    </div>
+    <div class="box box-info">
+      <div class="box-header with-border">
+        <h3 class="box-title">参会客户名单</h3>
+        <div class="box-tools pull-right">
+          <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+          </button>
+        </div>
+      </div>
+      <div class="box-body table-responsive no-padding">
+        <table class="table table-hover">
+          <tbody>
+            <tr>
+              <th style="width: 10px">#</th>
+              <th>客户名称</th>
+              <th>业务性质</th>
+              <th>行业类别</th>
+              <th>联系人</th>
+              <th>手机</th>
+              <th>座机</th>
+              <th>邮箱</th>
+              <th>地址</th>
+              <th>业务员</th>
+              <th class="opt-col">操作</th>
+            </tr>
+            <tr ng-repeat="item in customers.items">
+              <td ng-bind="($index+1)+'.'"></td>
+              <td ng-bind="item.name" ui-sref="customer_view({id: item.customer_id})"></td>
+              <td ng-bind="item.business_nature"></td>
+              <td ng-bind="item.industry"></td>
+              <td ng-bind="item.contact"></td>
+              <td ng-bind="item.mobile"></td>
+              <td ng-bind="item.tel"></td>
+              <td ng-bind="item.email"></td>
+              <td ng-bind="item.address"></td>
+              <td ng-bind="item.salesman"></td>
+              <td class="opt-col">
+                <a href="javascript:;" class="fa fa-trash-o red" ng-click="deleteCustomer(item)" title="移除"></a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="box-footer clearfix">
+        <button type="button" class="btn btn-info" ui-sref=".customer_add" ui-sref-opts="{location:false}">添加</button>
+        <div pagination page-data="customers.page" page-click="go(idx)"></div>
+      </div>
+    </div>
+  </form>
 </section>
 <div ui-view="modal"></div>

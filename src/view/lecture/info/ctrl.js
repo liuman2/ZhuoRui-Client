@@ -1,98 +1,156 @@
 var httpHelper = require('js/utils/httpHelper');
 module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
-    var id = $state.params.id || null,
-        dInput = $('.date-input'),
-        jForm = $('#abroad_form');
+  var id = $state.params.id || null,
+    dInput = $('.date-input'),
+    jForm = $('#abroad_form');
 
-    $.datetimepicker.setLocale('ch');
-    dInput.datetimepicker({
-        timepicker: true,
-        step: 10,
-        format: 'Y-m-d H:i',
-        onChangeDateTime: function(current_time, $input) {
-            console.log(current_time)
-        }
-    });
-
-    $scope.action = null;
-    switch ($state.current.name) {
-        case 'lecture_add':
-            $scope.action = 'add';
-            $scope.current_bread = '新增';
-            break;
-        case 'lecture_edit':
-            $scope.action = 'update';
-            $scope.current_bread = '修改';
-            break;
-        default:
-            break;
+  $.datetimepicker.setLocale('ch');
+  dInput.datetimepicker({
+    timepicker: true,
+    step: 10,
+    format: 'Y-m-d H:i',
+    onChangeDateTime: function(current_time, $input) {
+      console.log(current_time)
     }
+  });
 
-    var user = $cookieStore.get('USER_INFO');
+  $scope.btnUploadText = '添加附件';
 
-    $scope.data = {
-        id: '',
-        title: '',
-        teacher: '',
-        date_at: '',
-        city: '',
-        address: '',
-        sponsor: '',
-        co_sponsor: '',
-        customer_target: ''
-    }
+  $scope.action = null;
+  switch ($state.current.name) {
+    case 'lecture_add':
+      $scope.action = 'add';
+      $scope.current_bread = '新增';
+      break;
+    case 'lecture_edit':
+      $scope.action = 'update';
+      $scope.current_bread = '修改';
+      break;
+    default:
+      break;
+  }
 
-    if (!!id) {
-        $scope.data.id = id;
-        actionView();
-    }
+  var user = $cookieStore.get('USER_INFO');
 
-    $scope.save = function() {
+  $scope.data = {
+    id: '',
+    title: '',
+    teacher: '',
+    date_at: '',
+    city: '',
+    address: '',
+    sponsor: '',
+    co_sponsor: '',
+    customer_target: ''
+  }
 
-        jForm.isValid(function(v) {
-            if (v) {
+  $scope.attachments = [];
 
-                var submitData = angular.copy($scope.data);
-                submitData.date_at = $('#date_at').val();
+  if (!!id) {
+    $scope.data.id = id;
+    actionView();
+  }
 
-                var url = $scope.action == 'add' ? '/Lecture/Add' : '/Lecture/Update';
+  $scope.save = function() {
 
-                $http({
-                    method: 'POST',
-                    url: url,
-                    data: submitData
-                }).success(function(data) {
-                    $state.go("lecture_view", {
-                        id: data.id
-                    });
-                });
-            }
-        });
-    }
+    jForm.isValid(function(v) {
+      if (v) {
 
-    $scope.cancel = function() {
-        if ($scope.action == 'add') {
-            $state.go("lecture");
-        } else {
-            $state.go("lecture_view", {
-                id: id
-            });
-        }
-    }
+        var submitData = angular.copy($scope.data);
+        submitData.date_at = $('#date_at').val();
 
-    function actionView() {
+        var url = $scope.action == 'add' ? '/Lecture/Add' : '/Lecture/Update';
+
         $http({
-            method: 'GET',
-            url: '/Lecture/Get',
-            params: {
-                id: id
-            }
+          method: 'POST',
+          url: url,
+          data: {
+            lect: submitData,
+            attachments: $scope.attachments
+          }
         }).success(function(data) {
-            if (data.date_at.indexOf('T') > -1) {
-                data.date_at = data.date_at.split('T')[0];
-            }
-
-            $scope.data = data;
+          $state.go("lecture_view", {
+            id: data.id
+          });
         });
+      }
+    });
+  }
+
+  $scope.cancel = function() {
+    if ($scope.action == 'add') {
+      $state.go("lecture");
+    } else {
+      $state.go("lecture_view", {
+        id: id
+      });
     }
+  }
+
+  function actionView() {
+    $http({
+      method: 'GET',
+      url: '/Lecture/Get',
+      params: {
+        id: id
+      }
+    }).success(function(data) {
+      if (data.lect.date_at.indexOf('T') > -1) {
+        data.lect.date_at = data.lect.date_at.split('T')[0];
+      }
+
+      $scope.data = data.lect;
+      $scope.attachments = data.attachments;
+    });
+  }
+
+  var h5Uploader = new H5Uploader({
+    placeholder: '#btnUpload',
+    uploadUrl: httpHelper.url('/Common/Upload'),
+    filePostName: 'file',
+    postParams: {
+      DocType: 'doc'
+    },
+    filePostName: 'file',
+    isSingleMode: true,
+    fileSizeLimit: 5 * 1024,
+    accept: '*/*',
+    uploadStart: function() {
+      $('#btnUpload').attr('disabled', true);
+      $scope.btnUploadText = '上传中..';
+      $scope.$apply();
+    },
+    uploadSuccess: function(idx, data) {
+      console.log(data);
+      if (typeof(data) == 'string') {
+        data = JSON.parse(data);
+      }
+      // $scope.attachment.attachment_url = data.url;
+
+      $scope.attachments.push({
+        name: data.name,
+        attachment_url: data.url
+      })
+
+      $('#btnUpload').attr('disabled', false);
+      $scope.btnUploadText = '添加附件';
+      $scope.$apply();
+    },
+    typeError: function() {
+      alert('格式错误');
+      $('#btnUpload').attr('disabled', false);
+      $scope.btnUploadText = '添加附件';
+      $scope.$apply();
+    },
+    sizeError: function() {
+      alert('文件大小不能超过5M');
+      $('#btnUpload').attr('disabled', false);
+      $scope.btnUploadText = '添加附件';
+      $scope.$apply();
+    },
+    nullError: function() {
+      $scope.btnUploadText = '添加附件';
+      $scope.$apply();
+    }
+  });
 };
