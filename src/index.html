@@ -6,7 +6,7 @@
   <title>卓瑞办公</title>
 </head>
 
-<body class="hold-transition skin-blue sidebar-mini" ng-controller="BodyCtrl">
+<body class="hold-transition skin-red sidebar-mini" ng-controller="BodyCtrl">
   <div class="wrapper">
     <header class="main-header">
       <a href="index.html" class="logo">
@@ -22,7 +22,7 @@
             <li class="dropdown notifications-menu">
               <a ui-sref="message">
                 <i class="fa fa-bell-o"></i>
-                <span class="label label-warning" ng-if="Waitdeal.message_count > 0" ng-bind="Waitdeal.message_count"></span>
+                <span class="label label-success" ng-if="Waitdeal.message_count > 0" ng-bind="Waitdeal.message_count"></span>
               </a>
             </li>
             <li class="dropdown user user-menu">

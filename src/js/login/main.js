@@ -3,7 +3,7 @@ require('angular-loading-bar/build/loading-bar.css');
 
 require('libs/fontawesome/css/font-awesome.css');
 require('libs/lte/css/AdminLTE.css');
-require('libs/lte/css/skins/skin-blue.css');
+require('libs/lte/css/skins/skin-red.css');
 
 require('css/main.scss');
 require('nice-validator/dist/jquery.validator.css');
