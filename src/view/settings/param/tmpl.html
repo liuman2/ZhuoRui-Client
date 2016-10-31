@@ -1,0 +1,35 @@
+<section class="content-header">
+  <h1>参数设定</h1>
+  <ol class="breadcrumb">
+    <li><a ui-sref="dashboard"><i class="fa fa-dashboard"></i>我的面板</a></li>
+    <li><a class="active">参数设定</a></li>
+  </ol>
+</section>
+<section class="content">
+  <form class="form-horizontal" id="coding_form">
+    <div class="box box-danger">
+      <div class="box-header with-border">
+        <h3 class="box-title">参数设定</h3>
+      </div>
+      <div class="box-body">
+        <div class="form-group">
+          <label class="col-sm-2 control-label">专利年检期限</label>
+          <div class="col-sm-3">
+            <input type="number" class="form-control" name="patent_period" ng-model="data.patent_period" data-rule="required; integer[+]; range[1~20]">
+          </div>
+          <label class="control-label">年</label>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-2 control-label">商标年检期限</label>
+          <div class="col-sm-3">
+            <input type="number" class="form-control" name="trademark" ng-model="data.trademark_period" data-rule="required; integer[+]; range[1~20]">
+          </div>
+          <label class="control-label">年</label>
+        </div>
+      </div>
+    </div>
+    <div class="box-footer clearfix">
+      <a class="btn btn-sm btn-info btn-flat pull-left" ng-click="save()">保存</a>
+    </div>
+  </form>
+</section>

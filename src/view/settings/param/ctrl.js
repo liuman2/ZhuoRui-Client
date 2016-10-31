@@ -9,21 +9,12 @@ module.exports = function($scope, $http, $state, $stateParams) {
 
   $scope.data = {};
 
-  $scope.getExample = function(suffix, code) {
-    var zero = '';
-    for (var i = 0; i < suffix - 1; i++) {
-      zero += '0';
-    }
-
-    return '(例：' + code + zero + '1)';
-  }
-
   $scope.save = function() {
     jForm.isValid(function(v) {
       if (v) {
         $http({
           method: 'POST',
-          url: '/Settings/Update',
+          url: '/Settings/PeriodUpdate',
           data: $scope.data
         }).success(function(data) {
           load_data();
@@ -40,8 +31,10 @@ module.exports = function($scope, $http, $state, $stateParams) {
   function load_data() {
     $http({
       method: 'GET',
-      url: '/Settings/Get'
+      url: '/Settings/GetPeriod'
     }).success(function(data) {
+      data.patent_period = data.patent_period - 0;
+      data.trademark_period = data.trademark_period - 0;
       $scope.data = data;
     });
   }
