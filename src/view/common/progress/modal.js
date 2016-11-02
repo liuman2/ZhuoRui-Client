@@ -24,7 +24,6 @@ module.exports = function($scope, $state, $http, $timeout) {
         date_receipt: '',
         date_accept: '',
         date_trial: '',
-        date_regit: '',
         date_exten: '',
         date_empower: '',
         date_regit: ''

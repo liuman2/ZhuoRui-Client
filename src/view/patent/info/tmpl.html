@@ -39,9 +39,9 @@
         </div>
         <div ng-if="data.is_old == 1">
           <div class="form-group">
-            <label class="col-sm-2 control-label">订单完成日期<span class="required">*</span></label>
+            <label class="col-sm-2 control-label">订单完成日期</label>
             <div class="col-sm-8">
-              <input type="text" class="form-control date-input" id="date_finish" name="date_finish" ng-model="data.date_finish" data-rule="required;">
+              <input type="text" class="form-control date-input" id="date_finish" name="date_finish" ng-model="data.date_finish">
             </div>
           </div>
         </div>
@@ -287,17 +287,17 @@
             </div>
           </div>
           <div class="form-group">
-            <label class="col-sm-2 control-label">授权时间</label>
+            <label class="col-sm-2 control-label">授权时间<span class="required">*</span></label>
             <div class="col-sm-8">
-              <input type="text" class="form-control date-input" id="date_empower" name="date_empower" ng-model="data.date_empower">
+              <input type="text" class="form-control date-input" id="date_empower" name="date_empower" ng-model="data.date_empower" data-rule="required;">
             </div>
           </div>
-          <div class="form-group">
+          <!-- <div class="form-group">
             <label class="col-sm-2 control-label">注册时间</label>
             <div class="col-sm-8">
               <input type="text" class="form-control date-input" id="date_regit" name="date_regit" ng-model="data.date_regit">
             </div>
-          </div>
+          </div> -->
         </div>
       </div>
     </div>

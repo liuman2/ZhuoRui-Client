@@ -94,6 +94,9 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
             submitData.date_finish = $('#date_finish').val();
             submitData.date_setup = $('#date_setup').val();
           }
+          if ($scope.data.is_annual == 1) {
+            submitData.date_setup = $('#date_setup').val();
+          }
 
           data = {
             oldRequest: {

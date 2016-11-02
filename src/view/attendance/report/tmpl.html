@@ -1,0 +1,91 @@
+<section class="content-header">
+  <h1>员工考勤统计</h1>
+  <ol class="breadcrumb">
+    <li><a ui-sref="dashboard"><i class="fa fa-dashboard"></i>我的面板</a></li>
+    <li><a class="active">列表</a></li>
+  </ol>
+</section>
+<section class="content">
+  <div class="box box-danger">
+    <div class="box-header with-border">
+      <h3 class="box-title">查询条件</h3>
+      <div class="box-tools">
+        <div class="box-tools pull-right">
+          <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="box-body">
+      <div class="row">
+        <div class="col-md-3">
+          <div class="form-group">
+            <label>员工姓名</label>
+            <select ui-select2 class="form-control select2" name="member_id" ng-model="search.member_id" url="Member/List" paging="true" style="width: 100%;"></select>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            <label>类别</label>
+            <select class="form-control select2" name="type" ng-model="search.type">
+              <option value="">全部</option>
+              <option value="11">病假</option>
+              <option value="12">事假</option>
+              <option value="13">婚假</option>
+              <option value="14">丧假</option>
+              <option value="15">产假</option>
+              <option value="16">陪产假</option>
+              <option value="20">年假</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            <label>假期开始日期</label>
+            <input type="text" class="form-control date-input" id="start_time" ng-model="search.start_time" placeholder="假期开始日期">
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            <label>假期结束日期</label>
+            <input type="text" class="form-control date-input" id="end_time" ng-model="search.end_time" placeholder="假期结束日期">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="box-footer">
+      <a class="btn btn-sm btn-info btn-flat pull-right" ng-click="query()">查询</a>
+    </div>
+  </div>
+  <div class="box box-danger">
+    <div class="box-body table-responsive no-padding">
+      <table class="table table-hover">
+        <tbody>
+          <tr>
+            <th style="width: 10px">#</th>
+            <th>姓名</th>
+            <th>类型</th>
+            <th>开始时间</th>
+            <th>结束时间</th>
+            <th>小时数</th>
+            <th>申请时间</th>
+            <th>审核时间</th>
+          </tr>
+          <tr ng-repeat="item in data.items">
+            <td ng-bind="($index+1)+'.'"></td>
+            <td ng-bind="getName()" ng-attr-title="{{item.name}}"></td>
+            <td ng-bind="getTypeName(item.type)"></td>
+            <td ng-bind="format(item.date_start, 'YYYY-MM-DD HH:mm')"></td>
+            <td ng-bind="format(item.date_end, 'YYYY-MM-DD HH:mm')"></td>
+            <td ng-bind="item.hours"></td>
+            <td ng-bind="format(item.date_created, 'YYYY-MM-DD HH:mm')"></td>
+            <td ng-bind="format(item.date_review, 'YYYY-MM-DD HH:mm')"></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="box-footer clearfix">
+      <div pagination page-data="data.page" page-click="go(idx)"></div>
+    </div>
+  </div>
+</section>

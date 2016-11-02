@@ -101,14 +101,9 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
 
         var data = submitData;
         if ($scope.action == 'add') {
-
           if ($scope.data.is_old == 1) {
-
-            submitData.date_receipt = $('#date_receipt').val();
             submitData.date_accept = $('#date_accept').val();
-            submitData.date_trial = $('#date_trial').val();
-            submitData.date_regit = $('#date_regit').val();
-            submitData.date_exten = $('#date_exten').val();
+            submitData.date_empower = $('#date_empower').val();
           }
 
           data = {
