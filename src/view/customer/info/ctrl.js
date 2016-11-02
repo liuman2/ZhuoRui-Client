@@ -31,7 +31,8 @@ module.exports = function($scope, $state, $http, $cookieStore, $q, $timeout) {
         source: '',
         source_id: '',
         salesman_id: user.id,
-        salesman: user.name
+        salesman: user.name,
+        contactList: []
     }
 
     init();
