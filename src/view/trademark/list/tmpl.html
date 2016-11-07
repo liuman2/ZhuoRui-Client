@@ -83,7 +83,7 @@
                         <th>订单状态</th>
                         <th>审核状态</th>
                         <th>商标进度</th>
-                        <th>成交日期</th>
+                        <th>初审时间</th>
                         <th class="tar">成交金额</th>
                         <th class="opt-col">操作</th>
                     </tr>
@@ -107,7 +107,7 @@
                         <td title="点击可设置进度">
                             <a href="javascript:;" class="fa fa-hourglass-half" ng-click="progress(item, 'p')" ng-bind="!!item.progress? (' ' + item.progress) : ' 无进度信息'"></a>
                         </td>
-                        <td ng-bind="format(item.date_transaction, 'YYYY-MM-DD')"></td>
+                        <td ng-bind="format(item.date_trial, 'YYYY-MM-DD')"></td>
                         <td class="tar" ng-bind="item.amount_transaction"></td>
                         <td class="opt-col">
                             <div class="btn-group">
