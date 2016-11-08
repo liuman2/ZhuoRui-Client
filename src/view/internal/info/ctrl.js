@@ -245,7 +245,7 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
       // if (data.date_setup.indexOf('T') > -1) {
       //     data.date_setup = data.date_setup.split('T')[0];
       // }
-      if (data.date_transaction.indexOf('T') > -1) {
+      if (data.date_transaction && data.date_transaction.indexOf('T') > -1) {
         data.date_transaction = data.date_transaction.split('T')[0];
       }
       $scope.data = data;
