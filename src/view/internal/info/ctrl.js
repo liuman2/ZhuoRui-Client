@@ -134,9 +134,27 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
     $state.go('.bank_add', { customer_id: $scope.data.customer_id }, { location: false });
   }
 
-  $scope.$watch(function() {
-    return $scope.data.is_old;
-  }, function(newValue, oldValue) {
+  // $scope.$watch(function() {
+  //   return $scope.data.is_old;
+  // }, function(newValue, oldValue) {
+  //   if (newValue != undefined) {
+  //     if (newValue == "1") {
+  //       $timeout(function() {
+  //         var dInput = $('.date-input');
+  //         dInput.datetimepicker({
+  //           timepicker: false,
+  //           maxDate: new Date(),
+  //           format: 'Y-m-d',
+  //           onChangeDateTime: function(current_time, $input) {
+  //             console.log(current_time)
+  //           }
+  //         });
+  //       });
+  //     }
+  //   }
+  // });
+
+  function initDate(newValue) {
     if (newValue != undefined) {
       if (newValue == "1") {
         $timeout(function() {
@@ -152,6 +170,16 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
         });
       }
     }
+  }
+  $scope.$watch(function() {
+    return $scope.data.is_old;
+  }, function(newValue, oldValue) {
+    initDate(newValue);
+  });
+  $scope.$watch(function() {
+    return $scope.data.is_annual;
+  }, function(newValue, oldValue) {
+    initDate(newValue);
   });
 
   $('#customerSelect2').on("change", function(e) {

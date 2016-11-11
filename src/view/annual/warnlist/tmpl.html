@@ -55,6 +55,7 @@
                         <th>客户名称</th>
                         <th>订单类型</th>
                         <th>名称</th>
+                        <th>年检基准日</th>
                         <th>业务员</th>
                         <th>年检客服</th>
                         <th>提交日期</th>
@@ -68,6 +69,7 @@
                         <td ng-bind="item.customer_name" ng-attr-title="{{item.customer_name}}"></td>
                         <td ng-bind="item.order_type_name"></td>
                         <td ng-bind="item.order_name" ng-attr-title="{{item.order_name}}"></td>
+                        <td ng-bind="format(item.date_setup, 'YYYY-MM-DD')"></td>
                         <td ng-bind="item.saleman"></td>
                         <td ng-bind="item.waiter"></td>
                         <td ng-bind="format(item.submit_review_date, 'YYYY-MM-DD')"></td>
