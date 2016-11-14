@@ -1,89 +1,105 @@
 <section class="content-header">
-    <h1>
+  <h1>
         年检预警
     </h1>
-    <ol class="breadcrumb">
-        <li><a ui-sref="dashboard"><i class="fa fa-dashboard"></i>我的面板</a></li>
-        <li><a class="active">列表</a></li>
-    </ol>
+  <ol class="breadcrumb">
+    <li><a ui-sref="dashboard"><i class="fa fa-dashboard"></i>我的面板</a></li>
+    <li><a class="active">列表</a></li>
+  </ol>
 </section>
 <section class="content">
-    <div class="box box-danger">
-        <div class="box-header with-border">
-            <h3 class="box-title">查询条件</h3>
-            <div class="box-tools">
-                <div class="box-tools pull-right">
-                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                    </button>
-                </div>
-            </div>
+  <div class="box box-danger">
+    <div class="box-header with-border">
+      <h3 class="box-title">查询条件</h3>
+      <div class="box-tools">
+        <div class="box-tools pull-right">
+          <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+          </button>
         </div>
-        <div class="box-body">
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label>客户名称</label>
-                        <select ui-select2 class="form-control select2" name="customer_id" ng-model="search.customer_id" url="Customer/DropDownSearch" paging="true" style="width: 100%;">
-                        </select>
-                    </div>
-                </div>
-                <!-- <div class="col-md-4">
-                    <div class="form-group">
-                        <label>年检客服</label>
-                        <select ui-select2 class="form-control select2" name="waiter_id" ng-model="search.waiter_id" url="Member/List" paging="true" style="width: 100%;"></select>
-                    </div>
-                </div> -->
-                <!-- <div class="col-md-4">
-                    <div class="form-group">
-                        <label>业务员</label>
-                        <select ui-select2 class="form-control select2" name="salesman_id" ng-model="search.salesman_id" url="Member/List" paging="true" style="width: 100%;"></select>
-                    </div>
-                </div> -->
-            </div>
-        </div>
-        <div class="box-footer">
-            <a class="btn btn-sm btn-info btn-flat pull-right" ng-click="query()">查询</a>
-        </div>
+      </div>
     </div>
-    <div class="box box-danger" style="margin-bottom: 110px;">
-        <div class="box-body table-responsive no-padding">
-            <table class="table table-hover">
-                <tbody>
-                    <tr>
-                        <th style="width: 10px">#</th>
-                        <th>档案号</th>
-                        <th>客户名称</th>
-                        <th>订单类型</th>
-                        <th>名称</th>
-                        <th>年检基准日</th>
-                        <th>业务员</th>
-                        <th>年检客服</th>
-                        <th>提交日期</th>
-                        <th>完成日期</th>
-
-                        <th class="opt-col">操作</th>
-                    </tr>
-                    <tr ng-repeat="item in data.items">
-                        <td ng-bind="($index+1)+'.'"></td>
-                        <td ng-bind="item.order_code"></td>
-                        <td ng-bind="item.customer_name" ng-attr-title="{{item.customer_name}}"></td>
-                        <td ng-bind="item.order_type_name"></td>
-                        <td ng-bind="item.order_name" ng-attr-title="{{item.order_name}}"></td>
-                        <td ng-bind="format(item.date_setup, 'YYYY-MM-DD')"></td>
-                        <td ng-bind="item.saleman"></td>
-                        <td ng-bind="item.waiter"></td>
-                        <td ng-bind="format(item.submit_review_date, 'YYYY-MM-DD')"></td>
-                        <td ng-bind="format(item.date_finish, 'YYYY-MM-DD')"></td>
-
-                        <td class="opt-col">
-                            <a href="javascript:;" ng-click="new_annual(item, 'audit')" ng-if="opers.indexOf(5) > -1 && (item.order_type == 'reg_abroad' || item.order_type == 'reg_internal')"> 马上审计</a>
-                            <a href="javascript:;" ng-click="new_annual(item, 'annual')" ng-if="opers.indexOf(5) > -1"> 马上年检</a>
-                            <span ng-if="opers.indexOf(5) == -1"> 无年检权限</span>
-
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+    <div class="box-body">
+      <div class="row">
+        <div class="col-md-4">
+          <div class="form-group">
+            <label>订单名称</label>
+            <input class="form-control" name="name" ng-model="search.name" />
+          </div>
         </div>
+        <div class="col-md-4">
+          <div class="form-group">
+            <label>客户名称</label>
+            <select ui-select2 class="form-control select2" name="customer_id" allowclear="true" ng-model="search.customer_id" url="Customer/DropDownSearch" paging="true" style="width: 100%;">
+            </select>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="form-group">
+            <label>区域</label>
+            <select class="form-control select2" name="area" ng-model="search.area">
+              <option value="">全部</option>
+              <option value="XM">厦门</option>
+              <option value="QZ">泉州</option>
+              <option value="QD">青岛</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">
+          <div class="form-group">
+            <label>年检客服</label>
+            <select ui-select2 class="form-control select2" name="waiter_id" allowclear="true" ng-view="waiter_name" ng-model="search.waiter_id" url="Member/List" paging="true" style="width: 100%;"></select>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="form-group">
+            <label>业务员</label>
+            <select ui-select2 class="form-control select2" name="salesman_id" allowclear="true" ng-view="salesman" ng-model="search.salesman_id" url="Member/List" paging="true" style="width: 100%;"></select>
+          </div>
+        </div>
+      </div>
     </div>
+    <div class="box-footer">
+      <a class="btn btn-sm btn-info btn-flat pull-right" ng-click="query()">查询</a>
+    </div>
+  </div>
+  <div class="box box-danger" style="margin-bottom: 110px;">
+    <div class="box-body table-responsive no-padding">
+      <table class="table table-hover">
+        <tbody>
+          <tr>
+            <th style="width: 10px">#</th>
+            <th>档案号</th>
+            <th>客户名称</th>
+            <th>订单类型</th>
+            <th>名称</th>
+            <th>年检基准日</th>
+            <th>业务员</th>
+            <th>年检客服</th>
+            <th>提交日期</th>
+            <th>完成日期</th>
+            <th class="opt-col">操作</th>
+          </tr>
+          <tr ng-repeat="item in data.items" ng-class="{'red-warning': getRedWarning(item)}">
+            <td ng-bind="($index+1)+'.'"></td>
+            <td ng-bind="item.order_code"></td>
+            <td ng-bind="item.customer_name" ng-attr-title="{{item.customer_name}}"></td>
+            <td ng-bind="item.order_type_name"></td>
+            <td ng-bind="item.order_name" ng-attr-title="{{item.order_name}}"></td>
+            <td ng-bind="format(item.date_setup, 'YYYY-MM-DD')"></td>
+            <td ng-bind="item.saleman"></td>
+            <td ng-bind="item.waiter"></td>
+            <td ng-bind="format(item.submit_review_date, 'YYYY-MM-DD')"></td>
+            <td ng-bind="format(item.date_finish, 'YYYY-MM-DD')"></td>
+            <td class="opt-col">
+              <a href="javascript:;" ng-click="new_annual(item, 'audit')" ng-if="opers.indexOf(5) > -1 && (item.order_type == 'reg_abroad' || item.order_type == 'reg_internal')"> 马上审计</a>
+              <a href="javascript:;" ng-click="new_annual(item, 'annual')" ng-if="opers.indexOf(5) > -1"> 马上年检</a>
+              <span ng-if="opers.indexOf(5) == -1"> 无年检权限</span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
 </section>
