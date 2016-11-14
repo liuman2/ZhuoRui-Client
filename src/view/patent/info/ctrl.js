@@ -44,7 +44,8 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
     salesman: user.name,
     waiter_id: '',
     rate: '',
-    customer_id: ''
+    customer_id: '',
+    assistant_id: ''
   }
 
   if (!!id) {

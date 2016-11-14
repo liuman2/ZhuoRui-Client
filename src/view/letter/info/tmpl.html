@@ -1,95 +1,91 @@
 <section class="content-header">
-    <h1>
+  <h1>
         信件管理
     </h1>
-    <ol class="breadcrumb">
-        <li><a ui-sref="dashboard"><i class="fa fa-dashboard"></i>我的面板</a></li>
-        <li><a ui-sref="letter">列表</a></li>
-        <li class="active" ng-bind="current_bread"></li>
-    </ol>
+  <ol class="breadcrumb">
+    <li><a ui-sref="dashboard"><i class="fa fa-dashboard"></i>我的面板</a></li>
+    <li><a ui-sref="letter">列表</a></li>
+    <li class="active" ng-bind="current_bread"></li>
+  </ol>
 </section>
 <section class="content">
-    <form class="form-horizontal" id="letter_form">
-        <div class="detail-view-header-wrapper">
-            <div class="box-footer detail-view-header" ui-scrollpoint ui-scrollpoint-enabled="true" ui-scrollpoint-class="fixed">
-                <button type="button" class="btn btn-default" ng-click="cancel()">取消</button>
-                <button type="button" class="btn btn-info" ng-click="save()">保存</button>
-            </div>
+  <form class="form-horizontal" id="letter_form">
+    <div class="detail-view-header-wrapper">
+      <div class="box-footer detail-view-header" ui-scrollpoint ui-scrollpoint-enabled="true" ui-scrollpoint-class="fixed">
+        <button type="button" class="btn btn-default" ng-click="cancel()">取消</button>
+        <button type="button" class="btn btn-info" ng-click="save()">保存</button>
+      </div>
+    </div>
+    <div class="box box-danger">
+      <div class="box-header with-border">
+        <h3 class="box-title">基本信息</h3>
+        <div class="box-tools">
+          <div class="box-tools pull-right">
+            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+            </button>
+          </div>
         </div>
-
-        <div class="box box-danger">
-            <div class="box-header with-border">
-                <h3 class="box-title">基本信息</h3>
-                <div class="box-tools">
-                    <div class="box-tools pull-right">
-                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                        </button>
-                    </div>
-                </div>
-            </div>
-            <div class="box-body">
-
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">收寄类型<span class="required">*</span></label>
-                    <div class="col-sm-8">
-                        <select class="form-control select2" name="type" ng-model="data.type" data-rule="required;" style="width: 100%;">
-                            <option value="">请选择</option>
-                            <option value="收件">收件</option>
-                            <option value="寄件">寄件</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label class="col-sm-2 control-label"><span ng-bind="getOwnerName()">收/寄人</span><span class="required">*</span></label>
-                    <div class="col-sm-8">
-                        <input type="text" class="form-control" name="owner" ng-model="data.owner" data-rule="required; length[~100];">
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">信件类型<span class="required">*</span></label>
-                    <div class="col-sm-8">
-                        <input type="text" class="form-control" name="letter_type" ng-model="data.letter_type" placeholder="信函、邮单、杂志等" data-rule="required; length[~20];">
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label class="col-sm-2 control-label"><span ng-bind="getDateName()"></span><span class="required">*</span></label>
-                    <div class="col-sm-8">
-                        <input type="text" class="form-control date-input" id="date_at" name="date_at" ng-model="data.date_at" data-rule="required;">
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">信件单号</label>
-                    <div class="col-sm-8">
-                        <input type="text" class="form-control" name="code" ng-model="data.code" data-rule="length[~50];">
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label class="col-sm-2 control-label" ng-bind="data.type=='收件'?'寄件公司':'收件地址'"></label>
-                    <div class="col-sm-8">
-                        <input type="text" class="form-control" name="address" ng-model="data.address" data-rule="length[~200];">
-                    </div>
-                </div>
-
-
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">快递公司</label>
-                    <div class="col-sm-8">
-                        <input type="text" class="form-control" name="merchant" ng-model="data.merchant" data-rule="length[~20];">
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">备注</label>
-                    <div class="col-sm-8">
-                        <textarea class="form-control" rows="3" name="description" ng-model="data.description" data-rule="length[~300];"></textarea>
-                    </div>
-                </div>
-            </div>
+      </div>
+      <div class="box-body">
+        <div class="form-group">
+          <label class="col-sm-2 control-label">收寄类型<span class="required">*</span></label>
+          <div class="col-sm-8">
+            <select class="form-control select2" name="type" ng-model="data.type" data-rule="required;" style="width: 100%;">
+              <option value="">请选择</option>
+              <option value="收件">收件</option>
+              <option value="寄件">寄件</option>
+            </select>
+          </div>
         </div>
-    </form>
+        <div class="form-group">
+          <label class="col-sm-2 control-label"><span ng-bind="getOwnerName()">收/寄人</span><span class="required">*</span></label>
+          <div class="col-sm-8">
+            <input type="text" class="form-control" name="owner" ng-model="data.owner" data-rule="required; length[~100];">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-2 control-label">信件类型<span class="required">*</span></label>
+          <div class="col-sm-8">
+            <input type="text" class="form-control" name="letter_type" ng-model="data.letter_type" placeholder="信函、邮单、杂志等" data-rule="required; length[~20];">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-2 control-label"><span ng-bind="getDateName()"></span><span class="required">*</span></label>
+          <div class="col-sm-8">
+            <input type="text" class="form-control date-input" id="date_at" name="date_at" ng-model="data.date_at" data-rule="required;">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-2 control-label">信件单号</label>
+          <div class="col-sm-8">
+            <input type="text" class="form-control" name="code" ng-model="data.code" data-rule="length[~50];">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-2 control-label" ng-bind="data.type=='收件'?'寄件公司':'收件地址'"></label>
+          <div class="col-sm-8">
+            <input type="text" class="form-control" name="address" ng-model="data.address" data-rule="length[~200];">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-2 control-label">快递公司</label>
+          <div class="col-sm-8">
+            <input type="text" class="form-control" name="merchant" ng-model="data.merchant" data-rule="length[~20];">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-2 control-label">审核人</label>
+          <div class="col-sm-8">
+            <select ui-select2 class="form-control select2" id="auditSelect2" name="audit_id" ng-view="audit_name" ng-model="data.audit_id" url=" Member/List" paging="true" style="width: 100%;"></select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-2 control-label">备注</label>
+          <div class="col-sm-8">
+            <textarea class="form-control" rows="3" name="description" ng-model="data.description" data-rule="length[~300];"></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
 </section>

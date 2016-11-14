@@ -53,6 +53,7 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
     invoice_bank: '',
     invoice_account: '',
     rate: '',
+    assistant_id: '',
 
     is_annual: 0
   }

@@ -50,6 +50,8 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
     name_en: '',
     salesman_id: user.id,
     salesman: user.name,
+    assistant_id: '',
+    assistant_name: '',
     currency: '',
     rate: '',
     accountant_id: '',
@@ -128,6 +130,11 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
       $scope.data.order_code = data.order_code;
       $scope.data.name_cn = data.name_cn;
       $scope.data.name_en = data.name_en;
+
+      $scope.data.salesman_id = data.salesman_id;
+      $scope.data.salesman = data.salesman;
+      $scope.data.assistant_id = data.assistant_id;
+      $scope.data.assistant_name = data.assistant_name;
 
       if (data.date_setup && data.date_setup.indexOf('T') > -1) {
         $scope.data.date_setup_for_ann = data.date_setup.split('T')[0];

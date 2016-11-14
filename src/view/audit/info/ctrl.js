@@ -74,6 +74,7 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
     invoice_address: '',
     invoice_tel: '',
     invoice_bank: '',
+    assistant_id: '',
     rate: '',
     invoice_account: ''
   }

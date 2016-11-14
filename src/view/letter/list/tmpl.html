@@ -67,6 +67,7 @@
                         <th>信件类型</th>
                         <th>信件单号</th>
                         <th>收/寄日期</th>
+                        <th>审核</th>
                         <th>备注</th>
                         <th class="opt-col">操作</th>
                     </tr>
@@ -78,6 +79,7 @@
 
                         <td ng-bind="item.code"></td>
                         <td ng-bind="format(item.date_at, 'YYYY-MM-DD')"></td>
+                        <td ng-bind="item.audit_name"></td>
                         <td ng-bind="item.description" ng-attr-title="{{item.description}}"></td>
                         <td class="opt-col">
                             <a href="javascript:;" ui-sref="letter_view({id: item.id})"> 详情</a>
