@@ -50,12 +50,15 @@ module.exports = function($scope, $http, $state, $stateParams, $cookieStore) {
   };
 
   $scope.getRedWarning = function(item) {
+    return false;
     var dt = item.date_setup;
     if (dt && dt.indexOf('T') > -1) {
       dt = dt.split('T')[0];
       var t1 = new Date(dt);
       var t2 = new Date();
       var t3 = new Date(t2.getFullYear(), t1.getMonth(), t1.getDate());
+      console.log(t2)
+      console.log(t3)
       return t2 >= t3;
     } else {
       return false;
