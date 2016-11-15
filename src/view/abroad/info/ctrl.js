@@ -52,8 +52,8 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
     rate: '',
     invoice_account: '',
     assistant_id: '',
-
-    is_annual: 0
+    is_old: 0,
+    is_annual: ''
   }
 
   if (!!id) {
