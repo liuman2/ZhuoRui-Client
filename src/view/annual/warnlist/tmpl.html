@@ -92,7 +92,7 @@
             <td ng-bind="item.waiter"></td>
             <td ng-bind="format(item.submit_review_date, 'YYYY-MM-DD')"></td>
             <td ng-bind="format(item.date_finish, 'YYYY-MM-DD')"></td>
-            <td class="opt-col">
+            <td class="opt-col tal">
               <a href="javascript:;" ng-click="new_annual(item, 'audit')" ng-if="opers.indexOf(5) > -1 && (item.order_type == 'reg_abroad' || item.order_type == 'reg_internal')"> 马上审计</a>
               <a href="javascript:;" ng-click="new_annual(item, 'annual')" ng-if="opers.indexOf(5) > -1"> 马上年检</a>
               <span ng-if="opers.indexOf(5) == -1"> 无年检权限</span>

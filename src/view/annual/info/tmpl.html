@@ -122,6 +122,12 @@
           </div>
         </div>
         <div class="form-group">
+          <label class="col-sm-2 control-label">年检客服</label>
+          <div class="col-sm-8">
+            <select ui-select2 class="form-control select2" id="waiterSelect2" name="waiter_id" ng-view="waiter_name" ng-model="data.waiter_id" url=" Member/List" paging="true" style="width: 100%;"></select>
+          </div>
+        </div>
+        <div class="form-group">
           <label class="col-sm-2 control-label">会计</label>
           <div class="col-sm-8">
             <select ui-select2 class="form-control select2" id="accountantSelect2" name="accountant_id" ng-view="accountant_name" ng-model="data.accountant_id" url="Member/List" paging="true" style="width: 100%;"></select>

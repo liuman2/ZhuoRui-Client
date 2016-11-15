@@ -50,16 +50,29 @@ module.exports = function($scope, $http, $state, $stateParams, $cookieStore) {
   };
 
   $scope.getRedWarning = function(item) {
-    return false;
     var dt = item.date_setup;
     if (dt && dt.indexOf('T') > -1) {
       dt = dt.split('T')[0];
-      var t1 = new Date(dt);
-      var t2 = new Date();
-      var t3 = new Date(t2.getFullYear(), t1.getMonth(), t1.getDate());
-      console.log(t2)
-      console.log(t3)
-      return t2 >= t3;
+
+      var t1 = moment(dt);
+      var t2 = moment();
+
+      if (t1.month() == t2.month()) {
+        if (t1.date() <= t2.date()) {
+          return true;
+        }
+        return false;
+      }
+
+      var m2 = moment().add(2, 'month');
+      var m1 = new Date(m2.year(), t1.month(), t1.date());
+      if (m1.getMonth() == m2.month()) {
+        return false;
+      }
+      if (m1 >= m2) {
+        return false;
+      }
+      return true;
     } else {
       return false;
     }

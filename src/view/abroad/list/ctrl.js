@@ -9,7 +9,27 @@ module.exports = function($scope, $http, $state, $stateParams) {
     customer_id: '',
     status: '',
     start_time: '',
-    end_time: ''
+    end_time: '',
+    name: '',
+    code: '',
+    start_create: '',
+    end_create: '',
+    orderBy: {
+      field: 'code',
+      order: 'desc'
+    }
+  }
+
+  $scope.orderBy = function(field) {
+    if ($scope.search.orderBy.field == field) {
+      $scope.search.orderBy.order = 'asc';
+    } else {
+      $scope.search.orderBy.order = 'desc';
+    }
+
+    $scope.search.orderBy.field = field;
+
+    // load_data();
   }
 
   var dInput = $('.date-input');
@@ -197,9 +217,15 @@ module.exports = function($scope, $http, $state, $stateParams) {
     return moment(dt).format(str);
   }
 
+  $scope.getIndex = function(index) {
+    return index + 1 + ($scope.search.index - 1) * $scope.search.size;
+  }
+
   function load_data() {
     $scope.search.start_time = $('#start_time').val();
     $scope.search.end_time = $('#end_time').val();
+    $scope.search.start_create = $('#start_create').val();
+    $scope.search.end_create = $('#end_create').val();
 
     $http({
       method: 'GET',

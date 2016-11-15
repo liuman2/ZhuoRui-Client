@@ -50,6 +50,8 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
     name_en: '',
     salesman_id: user.id,
     salesman: user.name,
+    waiter_id: user.id,
+    waiter_name: user.name,
     assistant_id: '',
     assistant_name: '',
     currency: '',

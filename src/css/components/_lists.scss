@@ -20,12 +20,22 @@
   }
 }
 
+.tal {
+  text-align: left;
+}
+
 .table {
   td {
     max-width: 200px;
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
+  }
+  th {
+    cursor: default;
+  }
+  th.ordertable {
+    cursor: pointer;
   }
 }
 
@@ -138,5 +148,8 @@ ul.notice-view {
 }
 
 .red-warning {
-  color: #dd4b39;
+  background-color: #dd4b39;
+  &:hover {
+    background-color: #e68363!important;
+  }
 }

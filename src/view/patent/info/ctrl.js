@@ -105,6 +105,7 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
           if ($scope.data.is_old == 1) {
             submitData.date_accept = $('#date_accept').val();
             submitData.date_empower = $('#date_empower').val();
+            submitData.date_regit = $('#date_regit').val();
           }
 
           data = {

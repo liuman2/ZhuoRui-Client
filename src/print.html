@@ -12,11 +12,12 @@
 
     table {
         width: 100%;
+        font-size: 10px;
     }
 
     .print-body td {
         border: 1px solid #333;
-        height: 44px;
+        height: 30px;
         padding: 0 10px;
     }
 
@@ -52,7 +53,7 @@
 </head>
 
 <body ng-controller="BodyCtrl" ng-class="bodyClass">
-    <table style="width:100%;text-align: center;">
+    <table style="width:100%;text-align: center;margin-top: 100px;">
         <tr>
             <td rowspan="2" style="width: 20%">
                 <img src="./img/logo.jpg" width="40" height="40" alt="">
@@ -71,7 +72,7 @@
             <td>
             </td>
         </tr>
-        <tr style="height:50px;">
+        <tr style="height:30px;">
             <td ng-bind="'档案号:'+printData.code"></td>
             <td ng-bind="printData.date">
             </td>
@@ -80,13 +81,13 @@
         </tr>
     </table>
     <table style="width:100%;" class="print-body">
-        <tr style="height:50px;">
+        <tr style="height:30px;">
             <td class="tac">公司名称</td>
             <td>
                 <table>
                     <tr>
                         <td style="border:none;padding:0; min-width:50%;">
-                            <table>
+                            <table style="font-size: 9px;">
                                 <tr ng-if="printData.company_cn.length > 0">
                                     <td style="border:none; border-right: 1px solid #333; padding:0;height: 15px;" ng-bind="printData.company_cn">
                                     </td>
@@ -179,7 +180,7 @@
                 </div>
             </td>
         </tr>
-        <tr style="height:80px;">
+        <tr style="height:60px;">
             <td class="tac">其他事项</td>
             <td class="tal" ng-bind="printData.others"></td>
         </tr>
@@ -216,7 +217,7 @@
             </td>
         </tr>
     </table>
-    <table style="width:100%; margin-top: 20px;">
+    <table style="width:100%; margin-top: 5px;">
         <tr>
             <td>
                 <span>审核：</span>

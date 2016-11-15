@@ -117,7 +117,7 @@ module.exports = function($scope, $http, $state, $stateParams) {
     $state.go("trademark_edit", { id: item.id });
   }
 
-  $scope.progress = function(item) {
+  $scope.progress = function(item, t) {
     // if (item.status == 4) {
     //     alert('订单已完成，无需再更新进度');
     //     return;
