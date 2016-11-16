@@ -83,7 +83,7 @@
             <th>完成日期</th> -->
             <th class="opt-col">操作</th>
           </tr>
-          <tr ng-repeat="item in data.items" ng-class="{'red-warning': getRedWarning(item)}">
+          <tr ng-repeat="item in data.items">
             <td ng-bind="($index+1)+'.'"></td>
             <td ng-bind="item.order_code"></td>
             <td ng-bind="item.customer_name" ng-attr-title="{{item.customer_name}}"></td>
@@ -91,7 +91,7 @@
             <td ng-bind="item.order_name" ng-attr-title="{{item.order_name}}"></td>
             <td ng-bind="format(item.date_setup, 'YYYY-MM-DD')"></td>
             <td ng-bind="item.annual_year"></td>
-            <td ng-bind="item.month <= 0 ? '-' : item.month"></td>
+            <td ng-bind="item.month <= 0 ? '-' : item.month" ng-class="{'red-warning': getRedWarning(item)}"></td>
             <td ng-bind="item.saleman"></td>
             <td ng-bind="item.waiter"></td>
             <!-- <td ng-bind="format(item.submit_review_date, 'YYYY-MM-DD')"></td>

@@ -18,21 +18,22 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
     language: "zh-CN",
     placeholder: "请先选择订单类别",
     ajax: {
-      url: httpHelper.url("Customer/Search"),
+      url: httpHelper.url("Letter/SearchOrder"),
       dataType: 'json',
       data: function(params) {
         console.log(params)
         var _params = {};
         _params['name'] = params.term || '';
-        _params['type'] = $scope.data.order_type || '';
+        _params['type'] = $scope.data.order_source || '';
         _params['index'] = params.page || 1;
-        _params['size'] = 3;
+        _params['size'] = 10;
         return _params;
       },
       processResults: function(data, params) {
         params.page = params.page || 1;
         $.map(data.items, function(item) {
-          item.text = item.name;
+          item.id = item.order_id;
+          item.text = item.order_name;
         });
         if (!data.page) {
           data.page = {
@@ -40,7 +41,7 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
           }
         }
         console.log(params)
-          console.log(data.page.total_page)
+        console.log(data.page.total_page)
         return {
           results: data.items,
           pagination: {
@@ -49,6 +50,35 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
         };
       }
     }
+  });
+
+  $scope.typeChange = function() {
+    $("#orderSelect2").val(null).trigger('change');
+  }
+
+  $('#orderSelect2').on("change", function(e) {
+    var orders = $('#orderSelect2').select2('data');
+    if (!orders.length) {
+      return false;
+    }
+    if (orders[0].order_id == undefined) {
+      return false;
+    }
+    var order_id = $(e.target).val();
+    // $scope.data.order_id = order_id;
+
+    var selectOrders = $.grep(orders, function(o) {
+      return o.order_id == order_id;
+    });
+
+    if (selectOrders.length) {
+      $scope.data.order_code = selectOrders[0].order_code;
+      $scope.data.order_name = selectOrders[0].order_name;
+    } else {
+      $scope.data.order_code = '';
+      $scope.data.order_name = '';
+    }
+    $scope.$apply();
   });
 
   $scope.action = null;
@@ -107,13 +137,32 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
     actionView();
   }
 
-  $scope.save = function() {
+  function valid_order() {
+    if (!$('#orderSelect2').val()) {
+      jForm.validator('showMsg', '#orderSelect2-validator', {
+        type: "error",
+        msg: "此处不能为空"
+      });
+      return false;
+    } else {
+      jForm.validator('hideMsg', '#orderSelect2-validator');
+      return true;
+    }
+  }
 
+  $scope.save = function() {
+    var isOrderValid = valid_order();
     jForm.isValid(function(v) {
       if (v) {
+        if (!isOrderValid) {
+          return;
+        }
 
         var submitData = angular.copy($scope.data);
         submitData.date_at = $('#date_at').val();
+
+        var order_id = $('#orderSelect2').val();
+        submitData.order_id = order_id;
 
         var url = $scope.action == 'add' ? '/Letter/Add' : '/Letter/Update';
 
@@ -153,6 +202,13 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
       }
 
       $scope.data = data;
+
+      $timeout(function() {
+        if (data.order_name) {
+          var option = "<option value='" + data.order_id + "'>" + data.order_name + "</option>";
+          $('#orderSelect2').append(option).val(data.order_id).trigger('change');
+        }
+      }, 100);
     });
   }
 };

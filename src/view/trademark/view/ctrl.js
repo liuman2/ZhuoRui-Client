@@ -106,9 +106,6 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
     }
 
     $scope.passAudit = function() {
-        if (!confirm('您确认通过审核？')) {
-            return false;
-        }
         $.confirm({
             title: false,
             content: '您确认通过审核？',

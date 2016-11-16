@@ -8,7 +8,7 @@
     <li class="active" ng-bind="current_bread"></li>
   </ol>
 </section>
-<section class="content">
+<section class="content" style="padding-bottom: 50px;">
   <form class="form-horizontal" id="letter_form">
     <div class="detail-view-header-wrapper">
       <div class="box-footer detail-view-header" ui-scrollpoint ui-scrollpoint-enabled="true" ui-scrollpoint-class="fixed">
@@ -41,7 +41,7 @@
         <div class="form-group">
           <label class="col-sm-2 control-label">订单类别<span class="required">*</span></label>
           <div class="col-sm-6">
-            <select class="form-control select2" name="order_type" id="selectType" ng-model="data.order_type" data-rule="required;">
+            <select class="form-control select2" name="order_source" id="selectType" ng-model="data.order_source" ng-change="typeChange()" data-rule="required;">
               <option value="">请选择</option>
               <option value="reg_abroad">境内注册</option>
               <option value="reg_internal">境外注册</option>
@@ -53,15 +53,15 @@
         </div>
 
         <div class="form-group">
-          <label class="col-sm-2 control-label">订单名称</label>
+          <label class="col-sm-2 control-label">订单名称<span class="required">*</span></label>
           <div class="col-sm-6">
             <select class="form-control select2" id="orderSelect2" name="order_id" ng-model="data.order_id" data-rule="required;" style="width: 100%;"></select>
             <span id="orderSelect2-validator" class="select-validator"></span>
           </div>
         </div>
 
-        <div class="form-group" ng-if="data.type=='寄件'">
-          <label class="col-sm-2 control-label"><span ng-bind="getOwnerName()">寄件人</span><span class="required">*</span></label>
+        <div class="form-group" ng-if="data.type=='收件'">
+          <label class="col-sm-2 control-label"><span>寄件人</span><span class="required">*</span></label>
           <div class="col-sm-6">
             <input type="text" class="form-control" name="owner" ng-model="data.owner" data-rule="required; length[~100];">
           </div>
@@ -82,6 +82,18 @@
           <label class="col-sm-2 control-label">信件单号</label>
           <div class="col-sm-6">
             <input type="text" class="form-control" name="code" ng-model="data.code" data-rule="length[~50];">
+          </div>
+        </div>
+        <div class="form-group" ng-if="data.type=='寄件'">
+          <label class="col-sm-2 control-label"><span>收件人</span><span class="required">*</span></label>
+          <div class="col-sm-6">
+            <input type="text" class="form-control" name="receiver" ng-model="data.receiver" data-rule="required; length[~30];">
+          </div>
+        </div>
+        <div class="form-group" ng-if="data.type=='寄件'">
+          <label class="col-sm-2 control-label"><span>收件人电话</span></label>
+          <div class="col-sm-6">
+            <input type="text" class="form-control" name="tel" ng-model="data.tel" data-rule="length[~20];">
           </div>
         </div>
         <div class="form-group">

@@ -1,7 +1,7 @@
 var moment = require('moment');
 moment.locale('zh-cn');
 
-module.exports = function($scope, $state, $http, $q, $timeout) {
+module.exports = function($scope, $state, $http, $q, $cookieStore, $timeout) {
 
   var id = $state.params.id || null;
 
@@ -14,7 +14,7 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
   var user = $cookieStore.get('USER_INFO');
 
   $scope.showAudit = false;
-
+  $scope.ownerMail = false;
   $scope.data = {}
 
 
@@ -32,9 +32,6 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
   }
 
   $scope.passAudit = function() {
-    if (!confirm('您确认通过审核？')) {
-      return false;
-    }
     $.confirm({
       title: false,
       content: '您确认通过审核？',
@@ -62,6 +59,17 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
     actionView();
   });
 
+  $scope.getStatus = function(status) {
+    switch (status) {
+      case 0:
+        return '未审核';
+      case 1:
+        return '已审核';
+      case -1:
+        return '驳回';
+    }
+  }
+
   function actionView() {
     $http({
       method: 'GET',
@@ -71,7 +79,9 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
       }
     }).success(function(data) {
       $scope.data = data;
+      user = $cookieStore.get('USER_INFO');
       $scope.showAudit = data.audit_id == user.id;
+      $scope.ownerMail = data.creator_id == user.id;
     });
   }
 };

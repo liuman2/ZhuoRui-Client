@@ -50,8 +50,11 @@ module.exports = function($scope, $http, $state, $stateParams, $cookieStore) {
   };
 
   $scope.getRedWarning = function(item) {
-    return item.month > 0;
-    /*var dt = item.date_setup;
+    if (item.month > 0) {
+      return true;
+    }
+    // return item.month > 0;
+    var dt = item.date_setup;
     if (dt && dt.indexOf('T') > -1) {
       dt = dt.split('T')[0];
 
@@ -76,7 +79,7 @@ module.exports = function($scope, $http, $state, $stateParams, $cookieStore) {
       return true;
     } else {
       return false;
-    }*/
+    }
   }
 
   $scope.format = function(dt, str) {
