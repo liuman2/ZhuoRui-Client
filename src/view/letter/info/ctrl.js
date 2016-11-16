@@ -14,6 +14,43 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
     }
   });
 
+  $("#orderSelect2").select2({
+    language: "zh-CN",
+    placeholder: "请先选择订单类别",
+    ajax: {
+      url: httpHelper.url("Customer/Search"),
+      dataType: 'json',
+      data: function(params) {
+        console.log(params)
+        var _params = {};
+        _params['name'] = params.term || '';
+        _params['type'] = $scope.data.order_type || '';
+        _params['index'] = params.page || 1;
+        _params['size'] = 3;
+        return _params;
+      },
+      processResults: function(data, params) {
+        params.page = params.page || 1;
+        $.map(data.items, function(item) {
+          item.text = item.name;
+        });
+        if (!data.page) {
+          data.page = {
+            total_page: 1
+          }
+        }
+        console.log(params)
+          console.log(data.page.total_page)
+        return {
+          results: data.items,
+          pagination: {
+            more: params.page < data.page.total_page
+          }
+        };
+      }
+    }
+  });
+
   $scope.action = null;
   switch ($state.current.name) {
     case 'letter_add':

@@ -29,7 +29,7 @@
       <div class="box-body">
         <div class="form-group">
           <label class="col-sm-2 control-label">收寄类型<span class="required">*</span></label>
-          <div class="col-sm-8">
+          <div class="col-sm-6">
             <select class="form-control select2" name="type" ng-model="data.type" data-rule="required;" style="width: 100%;">
               <option value="">请选择</option>
               <option value="收件">收件</option>
@@ -37,51 +37,74 @@
             </select>
           </div>
         </div>
+
         <div class="form-group">
-          <label class="col-sm-2 control-label"><span ng-bind="getOwnerName()">收/寄人</span><span class="required">*</span></label>
-          <div class="col-sm-8">
+          <label class="col-sm-2 control-label">订单类别<span class="required">*</span></label>
+          <div class="col-sm-6">
+            <select class="form-control select2" name="order_type" id="selectType" ng-model="data.order_type" data-rule="required;">
+              <option value="">请选择</option>
+              <option value="reg_abroad">境内注册</option>
+              <option value="reg_internal">境外注册</option>
+              <option value="audit">审计</option>
+              <option value="trademark">商标</option>
+              <option value="patent">专利</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-sm-2 control-label">订单名称</label>
+          <div class="col-sm-6">
+            <select class="form-control select2" id="orderSelect2" name="order_id" ng-model="data.order_id" data-rule="required;" style="width: 100%;"></select>
+            <span id="orderSelect2-validator" class="select-validator"></span>
+          </div>
+        </div>
+
+        <div class="form-group" ng-if="data.type=='寄件'">
+          <label class="col-sm-2 control-label"><span ng-bind="getOwnerName()">寄件人</span><span class="required">*</span></label>
+          <div class="col-sm-6">
             <input type="text" class="form-control" name="owner" ng-model="data.owner" data-rule="required; length[~100];">
           </div>
         </div>
         <div class="form-group">
           <label class="col-sm-2 control-label">信件类型<span class="required">*</span></label>
-          <div class="col-sm-8">
+          <div class="col-sm-6">
             <input type="text" class="form-control" name="letter_type" ng-model="data.letter_type" placeholder="信函、邮单、杂志等" data-rule="required; length[~20];">
           </div>
         </div>
         <div class="form-group">
           <label class="col-sm-2 control-label"><span ng-bind="getDateName()"></span><span class="required">*</span></label>
-          <div class="col-sm-8">
+          <div class="col-sm-6">
             <input type="text" class="form-control date-input" id="date_at" name="date_at" ng-model="data.date_at" data-rule="required;">
           </div>
         </div>
         <div class="form-group">
           <label class="col-sm-2 control-label">信件单号</label>
-          <div class="col-sm-8">
+          <div class="col-sm-6">
             <input type="text" class="form-control" name="code" ng-model="data.code" data-rule="length[~50];">
           </div>
         </div>
         <div class="form-group">
           <label class="col-sm-2 control-label" ng-bind="data.type=='收件'?'寄件公司':'收件地址'"></label>
-          <div class="col-sm-8">
+          <div class="col-sm-6">
             <input type="text" class="form-control" name="address" ng-model="data.address" data-rule="length[~200];">
           </div>
         </div>
         <div class="form-group">
           <label class="col-sm-2 control-label">快递公司</label>
-          <div class="col-sm-8">
+          <div class="col-sm-6">
             <input type="text" class="form-control" name="merchant" ng-model="data.merchant" data-rule="length[~20];">
           </div>
         </div>
         <div class="form-group">
           <label class="col-sm-2 control-label">审核人</label>
-          <div class="col-sm-8">
+          <div class="col-sm-6">
             <select ui-select2 class="form-control select2" id="auditSelect2" name="audit_id" ng-view="audit_name" ng-model="data.audit_id" url=" Member/List" paging="true" style="width: 100%;"></select>
           </div>
         </div>
         <div class="form-group">
           <label class="col-sm-2 control-label">备注</label>
-          <div class="col-sm-8">
+          <div class="col-sm-6">
             <textarea class="form-control" rows="3" name="description" ng-model="data.description" data-rule="length[~300];"></textarea>
           </div>
         </div>
