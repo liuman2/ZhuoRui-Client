@@ -64,6 +64,21 @@ var router = function($stateProvider, $urlRouterProvider) {
         }
       }
     })
+    .state('inbox_view.pass', {
+      url: '/inbox/pass/{id:.*}',
+      views: {
+        'modal': {
+          template: require('view/inbox/view/modal.html'),
+          controller: require('view/inbox/view/modal')
+        }
+      }
+    })
+    .state('letter_audit', {
+      parent: 'list',
+      url: '/letter/audit/list',
+      template: require('view/letter/audit/tmpl.html'),
+      controller: require('view/letter/audit/ctrl')
+    })
 };
 
 module.exports = router;

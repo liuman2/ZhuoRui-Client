@@ -1,0 +1,45 @@
+<section class="content-header">
+  <h1>信件审核</h1>
+  <ol class="breadcrumb">
+    <li><a ui-sref="dashboard"><i class="fa fa-dashboard"></i>我的面板</a></li>
+    <li><a class="active">列表</a></li>
+  </ol>
+</section>
+<section class="content">
+  <div class="box box-danger">
+    <div class="box-body table-responsive no-padding">
+      <table class="table table-hover">
+        <tbody>
+          <tr>
+            <th style="width: 10px">#</th>
+            <th>信件单号</th>
+            <th>订单名称</th>
+            <th>信件类型</th>
+            <th>创建日期</th>
+            <th>审核人</th>
+            <th>状态</th>
+            <th class="opt-col">操作</th>
+          </tr>
+          <tr ng-repeat="item in data">
+            <td ng-bind="($index+1)+'.'"></td>
+            <td ng-bind="item.code"></td>
+            <td ng-bind="item.order_name" ng-attr-title="{{item.order_name}}"></td>
+            <td ng-bind="item.letter_type" ng-attr-title="{{item.letter_type}}"></td>
+            <td ng-bind="format(item.date_at, 'YYYY-MM-DD')"></td>
+            <td ng-bind="item.audit_name"></td>
+            <td>
+              <span id="tool-tip{{$index}}" style="cursor: default;" class="label" ng-attr-title="{{getTitle(item, $index)}}" ng-class="{'label-warning': (item.review_status==0), 'label-success': (item.review_status==1), 'label-danger': (item.review_status==-1)}" ng-bind="getStatus(item)">
+              </span>
+            </td>
+            <td class="opt-col">
+              <a href="javascript:;" ng-click="audit(item)"> 审核</a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div ng-if="data.length==0" style="padding:15px;">
+        您没有待审核的信件数据
+      </div>
+    </div>
+  </div>
+</section>

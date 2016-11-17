@@ -1,5 +1,5 @@
 <section class="content-header">
-  <h1>信件管理</h1>
+  <h1>寄件管理</h1>
   <ol class="breadcrumb">
     <li><a ui-sref="dashboard"><i class="fa fa-dashboard"></i>我的面板</a></li>
     <li><a ui-sref="letter">列表</a></li>
@@ -7,8 +7,8 @@
   </ol>
 </section>
 <section class="content">
-  <form class="form-horizontal view-form" id="abroad_form">
-    <div class="detail-view-header-wrapper">
+  <form class="form-horizontal view-form">
+    <div class="detail-view-header-wrapper" ng-if="data.review_status != 1">
       <div class="box-footer detail-view-header" ui-scrollpoint ui-scrollpoint-enabled="true" ui-scrollpoint-class="fixed">
         <button type="button" class="btn btn-info" ui-sref="letter_edit({id: id})" ui-sref-opts="{reload:true}" ng-if="data.review_status != 1 && ownerMail ==true">修改</button>
         <button type="button" class="btn btn-success" ng-click="passAudit()" ng-if="data.review_status == 0 && showAudit==true">通过</button>

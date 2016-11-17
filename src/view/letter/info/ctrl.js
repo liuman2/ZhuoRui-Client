@@ -106,7 +106,9 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
     code: '',
     date_at: '',
     description: '',
-    file_url: ''
+    file_url: '',
+    order_id: '',
+    audit_id:''
   }
 
 
@@ -116,7 +118,7 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
   }
 
   function valid_order() {
-    if (!$('#orderSelect2').val()) {
+    if (!$('#orderSelect2').val() || $('#orderSelect2').val().indexOf('?') >= 0) {
       jForm.validator('showMsg', '#orderSelect2-validator', {
         type: "error",
         msg: "此处不能为空"
@@ -129,7 +131,7 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
   }
 
   function valid_audit() {
-    if (!$('#auditSelect2').val()) {
+    if (!$('#auditSelect2').val() || $('#auditSelect2').val().indexOf('?') >= 0) {
       jForm.validator('showMsg', '#auditSelect2-validator', {
         type: "error",
         msg: "此处不能为空"

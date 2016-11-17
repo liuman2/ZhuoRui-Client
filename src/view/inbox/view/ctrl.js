@@ -32,7 +32,7 @@ module.exports = function($scope, $state, $http, $q, $cookieStore, $timeout) {
   }
 
   $scope.passAudit = function() {
-    $.confirm({
+    /*$.confirm({
       title: false,
       content: '您确认通过审核？',
       confirmButton: '确定',
@@ -48,7 +48,8 @@ module.exports = function($scope, $state, $http, $q, $cookieStore, $timeout) {
           actionView();
         });
       }
-    });
+    });*/
+    $state.go(".pass", null, { location: false });
   }
 
   $scope.refuseAudit = function() {

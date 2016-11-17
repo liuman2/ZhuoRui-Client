@@ -83,11 +83,11 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
 
   $scope.action = null;
   switch ($state.current.name) {
-    case 'letter_add':
+    case 'inbox_add':
       $scope.action = 'add';
       $scope.current_bread = '新增';
       break;
-    case 'letter_edit':
+    case 'inbox_edit':
       $scope.action = 'update';
       $scope.current_bread = '修改';
       break;
@@ -106,7 +106,9 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
     code: '',
     date_at: '',
     description: '',
-    file_url: ''
+    file_url: '',
+    order_id: '',
+    audit_id:''
   }
 
   if (!!id) {
@@ -115,7 +117,7 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
   }
 
   function valid_order() {
-    if (!$('#orderSelect2').val()) {
+    if (!$('#orderSelect2').val() || $('#orderSelect2').val().indexOf('?') >= 0) {
       jForm.validator('showMsg', '#orderSelect2-validator', {
         type: "error",
         msg: "此处不能为空"
@@ -128,7 +130,7 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
   }
 
   function valid_audit() {
-    if (!$('#auditSelect2').val()) {
+    if (!$('#auditSelect2').val() || $('#auditSelect2').val().indexOf('?') >= 0) {
       jForm.validator('showMsg', '#auditSelect2-validator', {
         type: "error",
         msg: "此处不能为空"
@@ -141,7 +143,7 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
   }
 
   $scope.save = function() {
-    var isOrderValid = valid_order();
+    var isOrderValid = true; // valid_order();
     var isAuditValid = valid_audit();
     jForm.isValid(function(v) {
       if (v) {

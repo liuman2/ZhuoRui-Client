@@ -9,8 +9,8 @@
   </ol>
 </section>
 <section class="content">
-  <form class="form-horizontal view-form" id="abroad_form">
-    <div class="detail-view-header-wrapper">
+  <form class="form-horizontal view-form">
+    <div class="detail-view-header-wrapper" ng-if="data.review_status != 1">
       <div class="box-footer detail-view-header" ui-scrollpoint ui-scrollpoint-enabled="true" ui-scrollpoint-class="fixed">
         <button type="button" class="btn btn-info" ui-sref="inbox_edit({id: id})" ui-sref-opts="{reload:true}" ng-if="data.review_status != 1 && ownerMail ==true">修改</button>
         <button type="button" class="btn btn-success" ng-click="passAudit()" ng-if="data.review_status == 0 && showAudit==true">通过</button>

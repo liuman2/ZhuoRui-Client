@@ -2,11 +2,11 @@
   <h1>收件管理</h1>
   <ol class="breadcrumb">
     <li><a ui-sref="dashboard"><i class="fa fa-dashboard"></i>我的面板</a></li>
-    <li><a ui-sref="letter">列表</a></li>
+    <li><a ui-sref="inbox">列表</a></li>
     <li class="active" ng-bind="current_bread"></li>
   </ol>
 </section>
-<section class="content" style="padding-bottom: 50px;">
+<section class="content" style="padding-bottom: 100px;">
   <form class="form-horizontal" id="inbox_form">
     <div class="detail-view-header-wrapper">
       <div class="box-footer detail-view-header" ui-scrollpoint ui-scrollpoint-enabled="true" ui-scrollpoint-class="fixed">
@@ -84,8 +84,8 @@
           <div class="col-sm-6">
             <select class="form-control select2" name="paymode" ng-model="data.paymode" data-rule="required;">
               <option value="">请选择</option>
-              <option value="reg_abroad">到付</option>
-              <option value="reg_internal">寄付</option>
+              <option value="到付">到付</option>
+              <option value="寄付">寄付</option>
             </select>
           </div>
         </div>
