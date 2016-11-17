@@ -1,8 +1,10 @@
 <section class="content-header">
-  <h1>信件管理</h1>
+  <h1>
+        收件管理
+    </h1>
   <ol class="breadcrumb">
     <li><a ui-sref="dashboard"><i class="fa fa-dashboard"></i>我的面板</a></li>
-    <li><a ui-sref="letter">列表</a></li>
+    <li><a ui-sref="inbox">列表</a></li>
     <li class="active">查看</li>
   </ol>
 </section>
@@ -10,7 +12,7 @@
   <form class="form-horizontal view-form" id="abroad_form">
     <div class="detail-view-header-wrapper">
       <div class="box-footer detail-view-header" ui-scrollpoint ui-scrollpoint-enabled="true" ui-scrollpoint-class="fixed">
-        <button type="button" class="btn btn-info" ui-sref="letter_edit({id: id})" ui-sref-opts="{reload:true}" ng-if="data.review_status != 1 && ownerMail ==true">修改</button>
+        <button type="button" class="btn btn-info" ui-sref="inbox_edit({id: id})" ui-sref-opts="{reload:true}" ng-if="data.review_status != 1 && ownerMail ==true">修改</button>
         <button type="button" class="btn btn-success" ng-click="passAudit()" ng-if="data.review_status == 0 && showAudit==true">通过</button>
         <button type="button" class="btn btn-danger" ng-click="refuseAudit()" ng-if="data.review_status == 0 && showAudit==true">驳回</button>
       </div>
@@ -38,7 +40,12 @@
             <span class="form-span" ng-bind="data.type"></span>
           </div>
         </div>
-
+        <div class="form-group">
+          <label class="col-sm-2 control-label">寄件人</label>
+          <div class="col-sm-8">
+            <span class="form-span" ng-bind="data.owner"></span>
+          </div>
+        </div>
         <div class="form-group">
           <label class="col-sm-2 control-label">信件类型</label>
           <div class="col-sm-8">
@@ -46,7 +53,7 @@
           </div>
         </div>
         <div class="form-group">
-          <label class="col-sm-2 control-label">寄件日期</label>
+          <label class="col-sm-2 control-label">收件日期</label>
           <div class="col-sm-8">
             <span class="form-span" ng-bind="format(data.date_at, 'YYYY-MM-DD')"></span>
           </div>
@@ -55,24 +62,6 @@
           <label class="col-sm-2 control-label">信件单号</label>
           <div class="col-sm-8">
             <span class="form-span" ng-bind="data.code"></span>
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="col-sm-2 control-label">收件人</label>
-          <div class="col-sm-8">
-            <span class="form-span" ng-bind="data.receiver"></span>
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="col-sm-2 control-label">收件人电话</label>
-          <div class="col-sm-8">
-            <span class="form-span" ng-bind="data.tel"></span>
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="col-sm-2 control-label">收件地址</label>
-          <div class="col-sm-8">
-            <span class="form-span" ng-bind="data.address"></span>
           </div>
         </div>
         <div class="form-group">

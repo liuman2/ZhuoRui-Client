@@ -19,9 +19,9 @@ module.exports = function($scope, $http, $state, $stateParams) {
     size: 20,
     title: '',
     form: '',
-    type: '寄件',
     start_time: '',
-    end_time: ''
+    end_time: '',
+    type: '收件'
   }
 
   $scope.getTitle = function(item, i) {

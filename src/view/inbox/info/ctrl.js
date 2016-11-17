@@ -2,7 +2,7 @@ var httpHelper = require('js/utils/httpHelper');
 module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
   var id = $state.params.id || null,
     dInput = $('.date-input'),
-    jForm = $('#letter_form');
+    jForm = $('#inbox_form');
 
   $.datetimepicker.setLocale('ch');
   dInput.datetimepicker({
@@ -99,7 +99,7 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
 
   $scope.data = {
     id: '',
-    type: '寄件',
+    type: '收件',
     owner: '',
     letter_type: '',
     merchant: '',
@@ -108,7 +108,6 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
     description: '',
     file_url: ''
   }
-
 
   if (!!id) {
     $scope.data.id = id;
@@ -166,7 +165,7 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
           url: url,
           data: submitData
         }).success(function(data) {
-          $state.go("letter_view", {
+          $state.go("inbox_view", {
             id: data.id
           });
         });
@@ -176,9 +175,9 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
 
   $scope.cancel = function() {
     if ($scope.action == 'add') {
-      $state.go("letter");
+      $state.go("inbox");
     } else {
-      $state.go("letter_view", {
+      $state.go("inbox_view", {
         id: id
       });
     }

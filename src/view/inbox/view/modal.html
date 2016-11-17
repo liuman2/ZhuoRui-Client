@@ -1,0 +1,45 @@
+<div class="modal" style="display: block;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" ui-sref="^">
+          <span aria-hidden="true">×</span></button>
+        <h4 class="modal-title">审核</h4>
+      </div>
+      <div class="modal-body">
+        <form class="form-horizontal" id="audit_modal">
+          <div class="form-group">
+            <label class="col-sm-2 control-label">订单类别</label>
+            <div class="col-sm-6">
+              <select class="form-control select2" name="order_source" id="selectType" ng-model="data.order_source" ng-change="typeChange()">
+                <option value="">请选择</option>
+                <option value="reg_abroad">境外内注册</option>
+                <option value="reg_internal">境内注册</option>
+                <option value="audit">审计</option>
+                <option value="trademark">商标</option>
+                <option value="patent">专利</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">订单名称</label>
+            <div class="col-sm-6">
+              <select class="form-control select2" id="orderSelect2" name="order_id" ng-model="data.order_id" data-rule="required;" style="width: 100%;"></select>
+              <span id="orderSelect2-validator" class="select-validator"></span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">信件类型</label>
+            <div class="col-sm-6">
+              <input type="text" class="form-control" name="letter_type" ng-model="data.letter_type" placeholder="信函、邮单、杂志等" data-rule="length[~20];">
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default pull-left" data-dismiss="modal" ui-sref="^">取消</button>
+        <button type="button" class="btn btn-primary" ng-click="save()">确定</button>
+      </div>
+    </div>
+  </div>
+</div>

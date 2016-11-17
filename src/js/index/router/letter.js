@@ -32,6 +32,38 @@ var router = function($stateProvider, $urlRouterProvider) {
         }
       }
     })
+
+    .state('inbox', {
+      parent: 'list',
+      url: '/inbox',
+      template: require('view/inbox/list/tmpl.html'),
+      controller: require('view/inbox/list/ctrl')
+    })
+    .state('inbox_add', {
+      parent: 'list',
+      url: '/inbox/add',
+      template: require('view/inbox/info/tmpl.html'),
+      controller: require('view/inbox/info/ctrl')
+    })
+    .state('inbox_edit', {
+      url: '/inbox/edit/{id:.*}',
+      template: require('view/inbox/info/tmpl.html'),
+      controller: require('view/inbox/info/ctrl')
+    })
+    .state('inbox_view', {
+      url: '/inbox/view/{id:.*}',
+      template: require('view/inbox/view/tmpl.html'),
+      controller: require('view/inbox/view/ctrl')
+    })
+    .state('inbox_view.audit', {
+      url: '/inbox/{module_name:.*}',
+      views: {
+        'modal': {
+          template: require('view/common/audit/modal.html'),
+          controller: require('view/common/audit/modal')
+        }
+      }
+    })
 };
 
 module.exports = router;
