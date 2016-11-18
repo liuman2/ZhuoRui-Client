@@ -86,7 +86,7 @@ module.exports = function($scope, $state, $http, $timeout) {
   });
 
   function valid_order() {
-    if (!$('#orderSelect2').val() || $('#auditSelect2').val().indexOf('?') >= 0) {
+    if (!$('#orderSelect2').val() || $('#orderSelect2').val().indexOf('?') >= 0) {
       jForm.validator('showMsg', '#orderSelect2-validator', {
         type: "error",
         msg: "此处不能为空"

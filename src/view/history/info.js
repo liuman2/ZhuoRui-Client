@@ -44,7 +44,8 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
         amount_transaction: null,
         salesman_id: user.id,
         salesman: user.name,
-        rate: ''
+        rate: '',
+        currency: ''
     }
 
     var fields = [];
@@ -328,7 +329,8 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
                     value: values[o]
                 })
             }
-
+            rate_obj.rate = data.rate;
+            rate_obj.currency = data.currency;
             $scope.data = data;
             $scope.fieldChange();
         });

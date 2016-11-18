@@ -51,11 +51,11 @@ module.exports = function($scope, $http, $state, $stateParams) {
   $scope.audit = function(item) {
     if (item.type == '收件') {
       $state.go("inbox_view", {
-        id: id
+        id: item.id
       });
     } else {
       $state.go("letter_view", {
-        id: id
+        id: item.id
       });
     }
   }
