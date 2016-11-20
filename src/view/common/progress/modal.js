@@ -258,6 +258,7 @@ module.exports = function($scope, $state, $http, $timeout) {
             case 'Patent':
                 $scope.progress.date_empower = $('#date_empower').val();
                 $scope.progress.date_accept = $('#date_accept').val();
+                $scope.progress.date_regit = $('#date_regit').val();
                 break;
             case 'Annual':
                 break;

@@ -339,6 +339,10 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
   }
 
   function valid_currency() {
+    if ($scope.data.is_annual == 1) {
+      jForm.validator('hideMsg', '#currencySelect2-validator');
+      return true;
+    }
     if (!$scope.data.currency) {
       jForm.validator('showMsg', '#currencySelect2-validator', {
         type: "error",

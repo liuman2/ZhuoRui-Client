@@ -238,6 +238,12 @@
             <input type="text" class="form-control" name="rate" ng-model="data.rate" data-rule-money="[/^(([1-9]\d{0,9})|0)(\.\d{1,2})?$/, '请填写2位数的数值']" data-rule="money;">
           </div>
         </div>
+        <div class="form-group">
+          <label class="col-sm-2 control-label">其他事项</label>
+          <div class="col-sm-8">
+            <textarea class="form-control" rows="3" name="description" ng-model="data.description" data-rule="length[~100];"></textarea>
+          </div>
+        </div>
       </div>
     </div>
     <div ng-if="data.is_old == 1 || data.is_annual == 1">

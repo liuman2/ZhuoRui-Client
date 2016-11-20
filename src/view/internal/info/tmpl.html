@@ -198,6 +198,12 @@
             <input type="text" class="form-control" name="director" ng-model="data.director" data-rule="length[~100];">
           </div>
         </div>
+        <div class="form-group">
+          <label class="col-sm-2 control-label">公司股东</label>
+          <div class="col-sm-8">
+            <input type="text" class="form-control" name="shareholder" ng-model="data.shareholder" data-rule="length[~100];">
+          </div>
+        </div>
         <div ng-if="data.is_old == 1 || data.is_annual == 1">
           <div class="form-group">
             <label class="col-sm-2 control-label">公司成立日期<span class="required">*</span></label>
@@ -263,13 +269,13 @@
             <input type="text" class="form-control date-input" id="date_transaction" name="date_transaction" ng-model="data.date_transaction" data-rule="">
           </div>
         </div>
-        <div class="form-group">
+        <div class="form-group" ng-if="data.is_annual != 1">
           <label class="col-sm-2 control-label">成交金额</label>
           <div class="col-sm-8">
             <input type="text" class="form-control" name="amount_transaction" ng-model="data.amount_transaction" data-rule-money="[/^(([1-9]\d{0,9})|0)(\.\d{1,2})?$/, '请填写2位数的数值']" data-rule="money;">
           </div>
         </div>
-        <div class="form-group">
+        <div class="form-group" ng-if="data.is_annual != 1">
           <label class="col-sm-2 control-label">交易币别</label>
           <div class="col-sm-8">
             <select ui-select2 id="currencySelect2" class="form-control select2" name="currency" ng-model="data.currency" url=" Dictionary/DroplistByGroup" paging="false" paramfield="group" paramvalue="币别" data-rule=""></select>
@@ -279,10 +285,16 @@
             <a class="fa fa-plus" ui-sref=".dictionary({group: '币别'})" ui-sref-opts="{location:false}" title="新增币别"></a>
           </div>
         </div>
-        <div class="form-group">
+        <div class="form-group" ng-if="data.is_annual != 1">
           <label class="col-sm-2 control-label">汇率</label>
           <div class="col-sm-8">
             <input type="text" class="form-control" name="rate" ng-model="data.rate" data-rule-money="[/^(([1-9]\d{0,9})|0)(\.\d{1,2})?$/, '请填写2位数的数值']" data-rule="money;">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-2 control-label">其他事项</label>
+          <div class="col-sm-8">
+            <textarea class="form-control" rows="3" name="description" ng-model="data.description" data-rule="length[~100];"></textarea>
           </div>
         </div>
       </div>

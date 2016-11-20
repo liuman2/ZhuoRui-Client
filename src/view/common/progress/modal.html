@@ -8,16 +8,6 @@
       </div>
       <div class="modal-body">
         <form class="form-horizontal" id="progress_modal">
-          <!-- <div class="form-group">
-                        <label class="col-sm-3 control-label">是否完成<span class="required">*</span></label>
-                        <div class="col-sm-7">
-                            <select class="form-control select2" name="is_done" ng-model="progress.is_done" ng-change="doneChange()" data-rule="required;">
-                                <option value=""></option>
-                                <option value="0">否</option>
-                                <option value="1">是</option>
-                            </select>
-                        </div>
-                    </div> -->
           <div ng-if="module_type == 'p'">
             <div class="form-group">
               <label class="col-sm-3 control-label"><span ng-bind="progress.title"></span><span class="required">*</span></label>
@@ -193,6 +183,12 @@
               <label class="col-sm-3 control-label">授权时间</label>
               <div class="col-sm-7">
                 <input type="text" class="form-control date-input" id="date_empower" name="date_empower" ng-model="progress.date_empower">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-3 control-label">注册时间</label>
+              <div class="col-sm-7">
+                <input type="text" class="form-control date-input" id="date_regit" name="date_regit" ng-model="progress.date_regit">
               </div>
             </div>
           </div>

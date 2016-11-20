@@ -237,6 +237,12 @@
           </div>
         </div>
         <div class="form-group">
+          <label class="col-sm-2 control-label">其他事项</label>
+          <div class="col-sm-8">
+            <textarea class="form-control" rows="3" name="description" ng-model="data.description" data-rule="length[~100];"></textarea>
+          </div>
+        </div>
+        <div class="form-group">
           <label class="col-sm-2 control-label">注册进度</label>
           <div class="col-sm-8">
             <span class="form-span" ng-bind="!!data.progress? (' ' + data.progress) : ' 无进度信息'"></span>

@@ -94,7 +94,7 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
         var submitData = angular.copy($scope.data);
 
         submitData.date_transaction = $('#date_transaction').val();
-        submitData.date_inspection = $('#date_inspection').val();
+        // submitData.date_inspection = $('#date_inspection').val();
 
 
 
@@ -158,16 +158,6 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
       $scope.data.mobile = select_customers[0].mobile || null;
       $scope.data.tel = select_customers[0].tel || null;
 
-      // if (!$scope.data.invoice_name.length) {
-      //     $scope.data.invoice_name = select_customers[0].name;
-      // }
-      // if (!$scope.data.invoice_address) {
-      //     $scope.data.invoice_address = select_customers[0].address;
-      // }
-      // if (!$scope.data.invoice_tel) {
-      //     $scope.data.invoice_tel = select_customers[0].tel || select_customers[0].mobile;
-      // }
-
       $scope.$apply();
     }
   });
@@ -218,6 +208,9 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
       }
       if (data.date_transaction && data.date_transaction.indexOf('T') > -1) {
         data.date_transaction = data.date_transaction.split('T')[0];
+      }
+      if (data.date_regit && data.date_regit.indexOf('T') > -1) {
+        data.date_regit = data.date_regit.split('T')[0];
       }
 
       $scope.data = data;

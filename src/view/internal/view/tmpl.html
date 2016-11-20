@@ -149,6 +149,12 @@
           </div>
         </div>
         <div class="form-group">
+          <label class="col-sm-2 control-label">公司股东</label>
+          <div class="col-sm-8">
+            <span class="form-span" ng-bind="data.shareholder"></span>
+          </div>
+        </div>
+        <div class="form-group">
           <label class="col-sm-2 control-label">纳税人资格</label>
           <div class="col-sm-8">
             <span class="form-span" ng-bind="data.taxpayer"></span>
@@ -208,22 +214,28 @@
             <span class="form-span" ng-bind="format(data.date_transaction, 'YYYY-MM-DD')"></span>
           </div>
         </div>
-        <div class="form-group">
+        <div class="form-group" ng-if="data.is_annual != 1">
           <label class="col-sm-2 control-label">成交金额</label>
           <div class="col-sm-8">
             <span class="form-span" ng-bind="data.amount_transaction"></span>
           </div>
         </div>
-        <div class="form-group">
+        <div class="form-group" ng-if="data.is_annual != 1">
           <label class="col-sm-2 control-label">交易币别</label>
           <div class="col-sm-8">
             <span class="form-span" ng-bind="data.currency"></span>
           </div>
         </div>
-        <div class="form-group">
+        <div class="form-group" ng-if="data.is_annual != 1">
           <label class="col-sm-2 control-label">汇率</label>
           <div class="col-sm-8">
             <span class="form-span" ng-bind="data.rate"></span>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-2 control-label">其他事项</label>
+          <div class="col-sm-8">
+            <textarea class="form-control" rows="3" name="description" ng-model="data.description" readonly style="background:#fff;"></textarea>
           </div>
         </div>
         <div class="form-group">
@@ -234,7 +246,7 @@
         </div>
       </div>
     </div>
-    <div class="box box-danger">
+    <div class="box box-danger" ng-if="data.is_annual != 1">
       <div class="box-header with-border">
         <h3 class="box-title">收款记录</h3>
         <div class="box-tools pull-right">
