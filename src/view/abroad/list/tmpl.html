@@ -95,7 +95,7 @@
           <tr>
             <th style="width: 10px">#</th>
             <th ng-click="orderBy('code')" class="ordertable">档案号</th>
-            <th style="width:80px;">客户名称</th>
+            <!-- <th style="width:80px;">客户名称</th> -->
             <th ng-click="orderBy('name_cn')" class="ordertable">公司中文名称</th>
             <th ng-click="orderBy('name_en')" class="ordertable">公司英文名称</th>
             <th style="width:110px;">订单状态</th>
@@ -110,7 +110,7 @@
           <tr ng-repeat="item in data.items">
             <td ng-bind="getIndex($index)"></td>
             <td ng-bind="item.code"></td>
-            <td ng-bind="item.customer_name" ng-attr-title="{{item.customer_name}}"></td>
+            <!-- <td ng-bind="item.customer_name" ng-attr-title="{{item.customer_name}}"></td> -->
             <td ng-bind="item.name_cn" ng-attr-title="{{item.name_cn}}"></td>
             <td ng-bind="item.name_en" ng-attr-title="{{item.name_en}}"></td>
             <td>

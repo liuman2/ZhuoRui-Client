@@ -42,10 +42,34 @@ module.exports = function($scope, $http, $state, $stateParams, $cookieStore) {
 
   $scope.new_annual = function(item, type) {
     console.log(item);
-    if (type == 'annual') {
-      $state.go("annual_add", { order_type: item.order_type, order_id: item.id });
-    } else {
-      $state.go("audit_add_s", { order_type: item.order_type, order_id: item.id });
+    switch (type) {
+      case 'annual':
+        $state.go("annual_add", { order_type: item.order_type, order_id: item.id });
+        break;
+      case 'audit':
+        $state.go("audit_add_s", { order_type: item.order_type, order_id: item.id });
+        break;
+      case 'done':
+        $.confirm({
+          title: false,
+          content: '您确认该笔订单' + (new Date()).getFullYear() + '年度已经年检？',
+          confirmButton: '确定',
+          cancelButton: '取消',
+          confirm: function() {
+            console.log(item.order_type)
+            $http({
+              method: 'POST',
+              url: '/Annual/DoneThisYear',
+              params: {
+                orderType: item.order_type,
+                orderId: item.id
+              }
+            }).success(function(data) {
+              load_data();
+            });
+          }
+        });
+        break;
     }
   };
 
@@ -100,6 +124,7 @@ module.exports = function($scope, $http, $state, $stateParams, $cookieStore) {
   }
 
   load_data();
+
   function resizable(th, options) {
     var pressed = false
     var start = undefined

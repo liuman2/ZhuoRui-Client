@@ -153,6 +153,9 @@
             <th>手机</th>
             <th>座机</th>
             <th>职务</th>
+            <th>邮箱</th>
+            <th>QQ</th>
+            <th>微信</th>
           </tr>
           <tr ng-repeat="item in data.contactList">
             <td ng-bind="($index+1)+'.'"></td>
@@ -160,6 +163,9 @@
             <td ng-bind="item.mobile"></td>
             <td ng-bind="item.tel"></td>
             <td ng-bind="item.position"></td>
+            <td ng-bind="item.email"></td>
+            <td ng-bind="item.QQ"></td>
+            <td ng-bind="item.wechat"></td>
           </tr>
         </tbody>
       </table>

@@ -37,7 +37,10 @@ var router = function($stateProvider, $urlRouterProvider) {
         name: null,
         mobile: null,
         tel: null,
-        position: null
+        position: null,
+        email: null,
+        wechat: null,
+        QQ: null
       },
       stateName: '联系人',
       views: {
@@ -69,7 +72,10 @@ var router = function($stateProvider, $urlRouterProvider) {
         name: null,
         mobile: null,
         tel: null,
-        position: null
+        position: null,
+        email: null,
+        wechat: null,
+        QQ: null
       },
       stateName: '联系人',
       views: {
@@ -96,7 +102,7 @@ var router = function($stateProvider, $urlRouterProvider) {
       }
     })
 
-    .state('customer_view.bank_add', {
+  .state('customer_view.bank_add', {
       url: '/new',
       views: {
         'modal': {

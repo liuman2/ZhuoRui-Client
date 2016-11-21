@@ -15,13 +15,16 @@ module.exports = function($scope, $state, $stateParams, $timeout) {
     mobile: '',
     tel: '',
     position: '',
+    email: '',
+    wechat: '',
+    QQ: ''
   }
 
   $scope.save = function() {
     jForm.isValid(function(v) {
       if (v) {
         // angular.copy($scope.contact);
-        $scope.$emit('CONTACT_DONE', {contact: $scope.contact, index: index});
+        $scope.$emit('CONTACT_DONE', { contact: $scope.contact, index: index });
         $state.go('^');
       }
     });
@@ -33,7 +36,10 @@ module.exports = function($scope, $state, $stateParams, $timeout) {
       name: $stateParams.name,
       mobile: $stateParams.mobile,
       tel: $stateParams.tel,
-      position: $stateParams.position
+      position: $stateParams.position,
+      email: $stateParams.email,
+      wechat: $stateParams.wechat,
+      QQ: $stateParams.QQ
     }
   }
 };

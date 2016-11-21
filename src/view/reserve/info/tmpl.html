@@ -162,6 +162,9 @@
             <th>手机</th>
             <th>座机</th>
             <th>职务</th>
+            <th>邮箱</th>
+            <th>QQ</th>
+            <th>微信</th>
             <th class="opt-col" ng-if="editable">操作</th>
           </tr>
           <tr ng-repeat="item in data.contactList">
@@ -170,6 +173,9 @@
             <td ng-bind="item.mobile"></td>
             <td ng-bind="item.tel"></td>
             <td ng-bind="item.position"></td>
+            <td ng-bind="item.email"></td>
+            <td ng-bind="item.QQ"></td>
+            <td ng-bind="item.wechat"></td>
             <td class="opt-col" ng-if="editable">
               <a href="javascript:;" class="fa fa-pencil orange" ng-click="editContact($index, item)" title="修改"></a>
               <a href="javascript:;" class="fa fa-trash-o red" ng-click="deleteContact($index, item)" title="删除"></a>
@@ -178,7 +184,7 @@
         </tbody>
       </table>
     </div>
-    <div class="box-footer clearfix">
+    <div class="box-footer clearfix" ng-if="editable">
       <button type="button" class="btn btn-info" ui-sref=".contact_add()" ui-sref-opts="{location:false}">新增</button>
     </div>
   </div>

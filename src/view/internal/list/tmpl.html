@@ -60,7 +60,7 @@
                     <tr>
                         <th style="width: 10px">#</th>
                         <th>单号</th>
-                        <th>客户名称</th>
+                        <!-- <th>客户名称</th> -->
                         <th>名称</th>
                         <th>注册地址</th>
                         <th>法人</th>
@@ -74,7 +74,7 @@
                     <tr ng-repeat="item in data.items">
                         <td ng-bind="($index+1)+'.'"></td>
                         <td ng-bind="item.code"></td>
-                        <td ng-bind="item.customer_name" ng-attr-title="{{item.customer_name}}"></td>
+                        <!-- <td ng-bind="item.customer_name" ng-attr-title="{{item.customer_name}}"></td> -->
                         <td ng-bind="item.name_cn" ng-attr-title="{{item.name_cn}}"></td>
                         <td ng-bind="item.address" ng-attr-title="{{item.address}}"></td>
                         <td ng-bind="item.legal" ng-attr-title="{{item.legal}}"></td>

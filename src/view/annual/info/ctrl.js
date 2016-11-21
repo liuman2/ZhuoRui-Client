@@ -125,7 +125,12 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
         customer_id: $scope.data.customer_id
       }
     }).success(function(data) {
-      console.log(data)
+      data.contacts = data.contacts || '';
+      data.contactList = [];
+      if (data.contacts != '') {
+        data.contactList = JSON.parse(data.contacts)
+      }
+      $scope.customerInfo = data;
     });
   }
 
