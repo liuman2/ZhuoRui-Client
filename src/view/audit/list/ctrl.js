@@ -9,6 +9,7 @@ module.exports = function($scope, $http, $state, $stateParams) {
     timepicker: false,
     maxDate: new Date(),
     format: 'Y-m-d',
+    scrollInput: false,
     onChangeDateTime: function(current_time, $input) {
       console.log(current_time)
     }
@@ -184,4 +185,44 @@ module.exports = function($scope, $http, $state, $stateParams) {
   }
 
   load_data();
+
+  function resizable(th, options) {
+    var pressed = false
+    var start = undefined
+    var startX, startWidth
+
+    options = options || {}
+    var min = options.min || 30
+
+    $(th).css({
+      cursor: 'e-resize'
+    })
+
+    $(th).each(function(index, ele) {
+      const _width = $(ele).width()
+      $(ele).width(_width)
+    })
+
+    $(th).mousedown(function(e) {
+      start = $(this);
+      pressed = true;
+      startX = e.pageX;
+      startWidth = $(this).width();
+    })
+
+    $(document).mousemove(function(e) {
+      if (pressed) {
+        var width = startWidth + (e.pageX - startX)
+        width = width < min ? min : width
+        $(start).width(width);
+      }
+    })
+
+    $(document).mouseup(function() {
+      if (pressed) pressed = false;
+    })
+
+  }
+
+  resizable('table th');
 }

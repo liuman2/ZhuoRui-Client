@@ -8,6 +8,9 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
   dInput.datetimepicker({
     timepicker: false,
     format: 'Y-m-d',
+    scrollInput: false,
+    scrollMonth: false,
+    scrollTime: false,
     onChangeDateTime: function(current_time, $input) {
       console.log(current_time)
     }
@@ -53,7 +56,8 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
     invoice_account: '',
     assistant_id: '',
     is_old: 0,
-    is_annual: ''
+    is_annual: '',
+    manager_id: null
   }
 
   if (!!id) {
@@ -64,11 +68,12 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
   $scope.save = function() {
     var isCustomerValid = valid_customer();
     var isWaiterVaild = valid_waiter();
+    var isSalesmanVaild = valid_salesman();
     var isRegionValid = true; // valid_region();
     var isCurrencyValid = true; // valid_currency();
     jForm.isValid(function(v) {
       if (v) {
-        if (!isCustomerValid || !isWaiterVaild || !isRegionValid || !isCurrencyValid) {
+        if (!isCustomerValid || !isWaiterVaild || !isRegionValid || !isCurrencyValid || !isSalesmanVaild) {
           return;
         }
 
@@ -146,6 +151,7 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
             timepicker: false,
             maxDate: new Date(),
             format: 'Y-m-d',
+            scrollInput: false,
             onChangeDateTime: function(current_time, $input) {
               console.log(current_time)
             }
@@ -297,6 +303,19 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
         }
       }
     });
+  }
+
+  function valid_salesman() {
+    if (!$scope.data.salesman_id) {
+      jForm.validator('showMsg', '#salesmanSelect2-validator', {
+        type: "error",
+        msg: "此处不能为空"
+      });
+      return false;
+    } else {
+      jForm.validator('hideMsg', '#salesmanSelect2-validator');
+      return true;
+    }
   }
 
   function valid_customer() {

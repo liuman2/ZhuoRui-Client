@@ -8,6 +8,7 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
   dInput.datetimepicker({
     timepicker: false,
     format: 'Y-m-d',
+    scrollInput: false,
     onChangeDateTime: function(current_time, $input) {
       console.log(current_time)
     }
@@ -21,6 +22,8 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
   }
 
   $scope.action = 'add';
+
+  $scope.customerInfo = null;
 
   switch ($state.current.name) {
     case 'annual_add':
@@ -112,6 +115,18 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
         id: id
       });
     }
+  }
+
+  $scope.showCustomerInfo = function() {
+    $http({
+      method: 'GET',
+      url: '/Customer/GetShortInfo',
+      params: {
+        customer_id: $scope.data.customer_id
+      }
+    }).success(function(data) {
+      console.log(data)
+    });
   }
 
   function getBusinessOrder() {

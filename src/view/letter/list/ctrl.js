@@ -7,6 +7,7 @@ module.exports = function($scope, $http, $state, $stateParams) {
   $.datetimepicker.setLocale('ch');
   dInput.datetimepicker({
     timepicker: false,
+    scrollInput: false,
     // maxDate: new Date(),
     format: 'Y-m-d',
     onChangeDateTime: function(current_time, $input) {

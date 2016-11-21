@@ -7,6 +7,7 @@ module.exports = function($scope, $state, $http, $timeout) {
     dInput.datetimepicker({
         timepicker: false,
         format: 'Y-m-d',
+        scrollInput: false,
         maxDate: new Date(),
         onChangeDateTime: function (current_time, $input) {
             console.log(current_time)

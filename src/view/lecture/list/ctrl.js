@@ -9,6 +9,7 @@ module.exports = function($scope, $http, $state, $stateParams) {
         timepicker: false,
         // maxDate: new Date(),
         format: 'Y-m-d',
+        scrollInput: false,
         onChangeDateTime: function(current_time, $input) {
             console.log(current_time)
         }

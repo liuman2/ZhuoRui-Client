@@ -100,4 +100,43 @@ module.exports = function($scope, $http, $state, $stateParams, $cookieStore) {
   }
 
   load_data();
+  function resizable(th, options) {
+    var pressed = false
+    var start = undefined
+    var startX, startWidth
+
+    options = options || {}
+    var min = options.min || 30
+
+    $(th).css({
+      cursor: 'e-resize'
+    })
+
+    $(th).each(function(index, ele) {
+      const _width = $(ele).width()
+      $(ele).width(_width)
+    })
+
+    $(th).mousedown(function(e) {
+      start = $(this);
+      pressed = true;
+      startX = e.pageX;
+      startWidth = $(this).width();
+    })
+
+    $(document).mousemove(function(e) {
+      if (pressed) {
+        var width = startWidth + (e.pageX - startX)
+        width = width < min ? min : width
+        $(start).width(width);
+      }
+    })
+
+    $(document).mouseup(function() {
+      if (pressed) pressed = false;
+    })
+
+  }
+
+  resizable('table th');
 }

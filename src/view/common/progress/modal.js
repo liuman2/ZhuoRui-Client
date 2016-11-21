@@ -99,6 +99,7 @@ module.exports = function($scope, $state, $http, $timeout) {
             timepicker: false,
             // maxDate: new Date(),
             format: 'Y-m-d',
+            scrollInput: false,
             onChangeDateTime: function(current_time, $input) {
                 console.log(current_time)
             }
@@ -131,6 +132,7 @@ module.exports = function($scope, $state, $http, $timeout) {
                     dInput.datetimepicker({
                         timepicker: false,
                         maxDate: new Date(),
+                        scrollInput: false,
                         format: 'Y-m-d',
                         onChangeDateTime: function(current_time, $input) {
                             console.log(current_time)

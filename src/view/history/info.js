@@ -10,6 +10,7 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
     dInput.datetimepicker({
         timepicker: false,
         format: 'Y-m-d',
+        scrollInput: false,
         onChangeDateTime: function(current_time, $input) {
             console.log(current_time)
         }

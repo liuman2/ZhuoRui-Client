@@ -10,6 +10,7 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
     timepicker: true,
     step: 5,
     format: 'Y-m-d H:i',
+    scrollInput: false,
     onChangeDateTime: function(current_time, $input) {
       console.log(current_time)
     }

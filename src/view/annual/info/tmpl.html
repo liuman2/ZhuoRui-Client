@@ -16,7 +16,7 @@
         <button type="button" class="btn btn-info" ng-click="save()">保存</button>
       </div>
     </div>
-    <div class="box box-danger" style="padding-bottom: 100px;">
+    <div class="box box-danger">
       <div class="box-header with-border">
         <h3 class="box-title">年检信息</h3>
         <div class="box-tools">
@@ -110,7 +110,7 @@
           </div>
         </div>
         <div class="form-group">
-          <label class="col-sm-2 control-label">业务员</label>
+          <label class="col-sm-2 control-label">业务员<span class="required">*</span></label>
           <div class="col-sm-8">
             <select ui-select2 class="form-control select2" id="salesmanSelect2" name="salesman_id" ng-view="salesman" ng-model="data.salesman_id" url="Member/List" paging="true" style="width: 100%;"></select>
           </div>
@@ -118,11 +118,11 @@
         <div class="form-group">
           <label class="col-sm-2 control-label">助理</label>
           <div class="col-sm-8">
-            <select ui-select2 class="form-control select2" id="assistantSelect2" name="assistant_id" ng-view="assistant_name" ng-model="data.assistant_id" url=" Member/List" paging="true" style="width: 100%;"></select>
+            <select ui-select2 class="form-control select2" id="assistantSelect2" name="assistant_id" allowclear="true" ng-view="assistant_name" ng-model="data.assistant_id" url=" Member/List" paging="true" style="width: 100%;"></select>
           </div>
         </div>
         <div class="form-group">
-          <label class="col-sm-2 control-label">年检客服</label>
+          <label class="col-sm-2 control-label">年检客服<span class="required">*</span></label>
           <div class="col-sm-8">
             <select ui-select2 class="form-control select2" id="waiterSelect2" name="waiter_id" ng-view="waiter_name" ng-model="data.waiter_id" url=" Member/List" paging="true" style="width: 100%;"></select>
           </div>
@@ -130,9 +130,26 @@
         <div class="form-group">
           <label class="col-sm-2 control-label">会计</label>
           <div class="col-sm-8">
-            <select ui-select2 class="form-control select2" id="accountantSelect2" name="accountant_id" ng-view="accountant_name" ng-model="data.accountant_id" url="Member/List" paging="true" style="width: 100%;"></select>
+            <select ui-select2 class="form-control select2" id="accountantSelect2" name="accountant_id" allowclear="true" ng-view="accountant_name" ng-model="data.accountant_id" url="Member/List" paging="true" style="width: 100%;"></select>
             <span id="accountantSelect2-validator" class="select-validator"></span>
           </div>
+        </div>
+      </div>
+    </div>
+    <div class="box box-danger" style="padding-bottom: 100px;">
+      <div class="box-header with-border">
+        <h3 class="box-title">客户信息</h3>
+        <button type="button" class="btn btn-info" ng-click="save()">显示客户信息</button>
+        <div class="box-tools">
+          <div class="box-tools pull-right">
+            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="box-body">
+        <div class="form-group">
+          <a href="javascript:;" class="col-sm-2 control-label" ng-click="showCustomerInfo()">显示客户信息</a>
         </div>
       </div>
     </div>

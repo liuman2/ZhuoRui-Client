@@ -7,6 +7,7 @@ module.exports = function($scope, $state, $http, $timeout) {
         timepicker: false,
         format: 'Y-m-d',
         // maxDate: new Date(),
+        scrollInput: false,
         onChangeDateTime: function (current_time, $input) {
         }
     });
