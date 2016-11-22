@@ -32,6 +32,27 @@ module.exports = function($scope, $http, $state, $stateParams, $cookieStore) {
     },
     timepicker: false
   });
+  $('#start_create').datetimepicker({
+    format: 'Y-m-d',
+    scrollInput: false,
+    onShow: function(ct) {
+      this.setOptions({
+        maxDate: $('#end_create').val() ? $('#end_create').val() : new Date()
+      })
+    },
+    timepicker: false
+  });
+  $('#end_create').datetimepicker({
+    format: 'Y-m-d',
+    scrollInput: false,
+    onShow: function(ct) {
+      this.setOptions({
+        maxDate: new Date(),
+        minDate: $('#start_create').val() ? $('#start_create').val() : false
+      })
+    },
+    timepicker: false
+  });
 
   var user = $cookieStore.get('USER_INFO');
   if (!user) {
@@ -54,7 +75,14 @@ module.exports = function($scope, $http, $state, $stateParams, $cookieStore) {
     salesman_id: $scope.userInfo.id,
     salesman: $scope.userInfo.name,
     start_time: start_time,
-    end_time: end_time
+    end_time: end_time,
+    name: '',
+    start_create: end_time,
+    end_create: end_time,
+    orderBy: {
+      field: 'code',
+      order: 'desc'
+    }
   }
 
   $scope.data = {
@@ -96,36 +124,6 @@ module.exports = function($scope, $http, $state, $stateParams, $cookieStore) {
   }
 
   $scope.getStatus = function(item) {
-    // if (item.status == 0) {
-    //     return '未提交审核';
-    // }
-
-    // if (item.status == 1) {
-    //     return '未审核';
-    // }
-    // if (item.status == 4) {
-    //     return '已完成';
-    // }
-
-    // if (item.status == 2) {
-    //     if (item.review_status == 0) {
-    //         return '审核驳回';
-    //     }
-
-    //     if (item.review_status == 1) {
-    //         return '审核通过';
-    //     }
-    // }
-
-    // if (item.status == 3) {
-    //     if (item.review_status == 0) {
-    //         return '审核驳回';
-    //     }
-
-    //     if (item.review_status == 1) {
-    //         return '已提交';
-    //     }
-    // }
     switch (item.status) {
       case 0:
         return '未提交';
@@ -160,7 +158,7 @@ module.exports = function($scope, $http, $state, $stateParams, $cookieStore) {
 
   function load_data() {
     $http({
-      method: 'GET',
+      method: 'POST',
       url: '/Report/OrderSummary',
       params: $scope.search
     }).success(function(data) {

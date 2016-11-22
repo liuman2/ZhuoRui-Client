@@ -1,131 +1,148 @@
 <section class="content-header">
-    <h1>
+  <h1>
         订单汇总表
     </h1>
-    <ol class="breadcrumb">
-        <li><a ui-sref="dashboard"><i class="fa fa-dashboard"></i>我的面板</a></li>
-        <li><a class="active">列表</a></li>
-    </ol>
+  <ol class="breadcrumb">
+    <li><a ui-sref="dashboard"><i class="fa fa-dashboard"></i>我的面板</a></li>
+    <li><a class="active">列表</a></li>
+  </ol>
 </section>
 <section class="content">
-    <div class="box box-danger">
-        <div class="box-header with-border">
-            <h3 class="box-title">查询条件</h3>
-            <div class="box-tools">
-                <div class="box-tools pull-right">
-                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                    </button>
-                </div>
-            </div>
+  <div class="box box-danger">
+    <div class="box-header with-border">
+      <h3 class="box-title">查询条件</h3>
+      <div class="box-tools">
+        <div class="box-tools pull-right">
+          <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+          </button>
         </div>
-        <div class="box-body">
-            <div class="row">
-                <div class="col-md-3">
-                    <div class="form-group">
-                        <label>客户名称</label>
-                        <select ui-select2 class="form-control select2" name="customer_id" data-formatfields="code,text" data-formatcaptions="编号,名称" ng-model="search.customer_id" url="Customer/DropDownSearch" paging="true" style="width: 100%;">
-                        </select>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="form-group">
-                        <label>业务员(年检客服)</label>
-                        <select ui-select2 allowclear="true" class="form-control select2" name="salesman_id" ng-view="salesman" ng-model="search.salesman_id" url="Member/List" paging="true" ng-disabled="opers.indexOf(1) == -1" style="width: 100%;"></select>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="form-group">
-                        <label>订单类型</label>
-                        <select class="form-control select2" name="order_type" ng-model="search.order_type">
-                            <option value="">全部</option>
-                            <option value="reg_abroad">境外注册</option>
-                            <option value="reg_internal">境内注册</option>
-                            <option value="audit">审计</option>
-                            <option value="trademark">商标</option>
-                            <option value="patent">专利</option>
-                            <option value="annual_exam">年检</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="form-group">
-                        <label>状态</label>
-                        <select class="form-control select2" name="order_status" ng-model="search.order_status">
-                            <option value="">全部</option>
-                            <option value="0">未提交审核</option>
-                            <option value="1">未审核</option>
-                            <option value="2">审核中</option>
-                            <option value="3">已提交</option>
-                            <option value="4">已完成</option>
-                         </select>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-3">
-                    <div class="form-group">
-                        <label>订单范围</label>
-                        <select class="form-control select2" name="range" ng-model="search.range">
-                            <option value="0" ng-disabled="opers.indexOf(1) == -1">全公司</option>
-                            <option value="1" ng-disabled="opers.indexOf(1) == -1 && opers.indexOf(2) == -1">所属部门</option>
-                            <option value="2">个人订单</option>
-                         </select>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="form-group">
-                        <label>成交开始日期</label>
-                        <input type="text" class="form-control date-input" id="start_time" ng-model="search.start_time" placeholder="成交开始日期">
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="form-group">
-                        <label>成交结束日期</label>
-                        <input type="text" class="form-control date-input" id="end_time" ng-model="search.end_time" placeholder="成交结束日期">
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="box-footer">
-            <a class="btn btn-sm btn-info btn-flat pull-right" ng-click="query()">查询</a>
-        </div>
+      </div>
     </div>
-    <div class="box box-danger">
-        <div class="box-body table-responsive no-padding">
-            <table class="table table-hover">
-                <tbody>
-                    <tr>
-                        <th style="width: 10px">#</th>
-                        <th>客户名称</th>
-                        <th>订单类型</th>
-                        <th>档案号</th>
-                        <th>名称</th>
-
-                        <th>业务员</th>
-                        <th>年检客服</th>
-                        <th>订单状态</th>
-                        <th>审核状态</th>
-                        <th>成交日期</th>
-                        <th class="opt-col">操作</th>
-                    </tr>
-                    <tr ng-repeat="item in data.items">
-                        <td ng-bind="($index+1)+'.'"></td>
-                        <td ng-bind="item.customer_name" ng-attr-title="{{item.customer_name}}"></td>
-                        <td ng-bind="item.order_type_name"></td>
-                        <td ng-bind="item.order_code"></td>
-                        <td ng-bind="item.order_name" ng-attr-title="{{item.order_name}}"></td>
-
-                        <td ng-bind="item.salesman"></td>
-                        <td ng-bind="item.waitor"></td>
-                        <td ng-bind="getStatus(item)"></td>
-                        <td ng-bind="getReviewStatus(item)"></td>
-                        <td ng-bind="format(item.date_transaction, 'YYYY-MM-DD')"></td>
-                        <td class="opt-col">
-                            <a href="javascript:;" ng-click="detail(item)"> 详情</a>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+    <div class="box-body">
+      <div class="row">
+        <div class="col-md-3">
+          <div class="form-group">
+            <label>关键字</label>
+            <input type="text" class="form-control" name="name" ng-model="search.name" placeholder="订单名称,档案号">
+          </div>
         </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            <label>订单范围</label>
+            <select class="form-control select2" name="range" ng-model="search.range">
+              <option value="0" ng-disabled="opers.indexOf(1) == -1">全公司</option>
+              <option value="1" ng-disabled="opers.indexOf(1) == -1 && opers.indexOf(2) == -1">所属部门</option>
+              <option value="2">个人订单</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            <label>订单类型</label>
+            <select class="form-control select2" name="order_type" ng-model="search.order_type">
+              <option value="">全部</option>
+              <option value="reg_abroad">境外注册</option>
+              <option value="reg_internal">境内注册</option>
+              <option value="audit">审计</option>
+              <option value="trademark">商标</option>
+              <option value="patent">专利</option>
+              <option value="annual_exam">年检</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            <label>订单状态</label>
+            <select class="form-control select2" name="order_status" ng-model="search.order_status">
+              <option value="">全部</option>
+              <option value="0">未提交审核</option>
+              <option value="1">未审核</option>
+              <option value="2">审核中</option>
+              <option value="3">已提交</option>
+              <option value="4">已完成</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-3">
+          <div class="form-group">
+            <label>客户名称</label>
+            <select ui-select2 class="form-control select2" name="customer_id" data-formatfields="code,text" data-formatcaptions="编号,名称" ng-model="search.customer_id" url="Customer/DropDownSearch" paging="true" style="width: 100%;">
+            </select>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            <label>业务员(年检客服)</label>
+            <select ui-select2 allowclear="true" class="form-control select2" name="salesman_id" ng-view="salesman" ng-model="search.salesman_id" url="Member/List" paging="true" ng-disabled="opers.indexOf(1) == -1" style="width: 100%;"></select>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            <label>成交开始日期</label>
+            <input type="text" class="form-control date-input" id="start_time" ng-model="search.start_time" placeholder="成交开始日期">
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            <label>成交结束日期</label>
+            <input type="text" class="form-control date-input" id="end_time" ng-model="search.end_time" placeholder="成交结束日期">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">
+          <div class="form-group">
+            <label>录入起始日期</label>
+            <input type="text" class="form-control date-input" id="start_create" ng-model="search.start_create">
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="form-group">
+            <label>录入结束日期</label>
+            <input type="text" class="form-control date-input" id="end_create" ng-model="search.end_create">
+          </div>
+        </div>
+      </div>
     </div>
+    <div class="box-footer">
+      <a class="btn btn-sm btn-info btn-flat pull-right" ng-click="query()">查询</a>
+    </div>
+  </div>
+  <div class="box box-danger">
+    <div class="box-body table-responsive no-padding">
+      <table class="table table-hover">
+        <tbody>
+          <tr>
+            <th style="width: 10px">#</th>
+
+            <th>订单类型</th>
+            <th>档案号</th>
+            <th>名称</th>
+            <th>业务员</th>
+            <th>年检客服</th>
+            <th>订单状态</th>
+            <th>审核状态</th>
+            <th>录入时间</th>
+            <th class="opt-col">操作</th>
+          </tr>
+          <tr ng-repeat="item in data.items">
+            <td ng-bind="($index+1)+'.'"></td>
+            <td ng-bind="item.order_type_name"></td>
+            <td ng-bind="item.order_code"></td>
+            <td ng-bind="item.order_name" ng-attr-title="{{item.order_name}}"></td>
+            <td ng-bind="item.salesman"></td>
+            <td ng-bind="item.waitor"></td>
+            <td ng-bind="getStatus(item)"></td>
+            <td ng-bind="getReviewStatus(item)"></td>
+            <td ng-bind="format(item.date_created, 'YYYY-MM-DD HH:MM')"></td>
+            <td class="opt-col">
+              <a href="javascript:;" ng-click="detail(item)"> 详情</a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
 </section>
