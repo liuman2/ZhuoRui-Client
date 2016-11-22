@@ -57,6 +57,7 @@
           <tr>
             <th style="width: 10px">#</th>
             <th>信件单号</th>
+            <th>订单类别</th>
             <th>订单名称</th>
             <th>收件人</th>
             <th>电话</th>
@@ -69,6 +70,7 @@
           <tr ng-repeat="item in data.items">
             <td ng-bind="($index+1)+'.'"></td>
             <td ng-bind="item.code"></td>
+            <td ng-bind="getOrderType(item.order_source)"></td>
             <td ng-bind="item.order_name" ng-attr-title="{{item.order_name}}"></td>
             <td ng-bind="item.receiver"></td>
             <td ng-bind="item.tel" ng-attr-title="{{item.tel}}"></td>

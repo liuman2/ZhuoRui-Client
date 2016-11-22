@@ -71,22 +71,18 @@
           <tr>
             <th style="width: 10px">#</th>
             <th style="width: 100px">档案号</th>
-            <!-- <th style="max-width: 200px">客户名称</th> -->
             <th style="width: 80px">订单类型</th>
             <th style="max-width: 120px">名称</th>
-            <th style="width: 90px">年检基准日</th>
+            <th style="width: 105px">年检基准日</th>
             <th style="width: 80px">上次年检</th>
             <th style="width: 80px">超期(月)</th>
             <th style="width: 85px">业务员</th>
             <th style="width: 85px">年检客服</th>
-            <!-- <th>提交日期</th>
-            <th>完成日期</th> -->
             <th class="opt-col">操作</th>
           </tr>
           <tr ng-repeat="item in data.items">
             <td ng-bind="($index+1)+'.'"></td>
             <td ng-bind="item.order_code"></td>
-            <!-- <td ng-bind="item.customer_name" ng-attr-title="{{item.customer_name}}"></td> -->
             <td ng-bind="item.order_type_name"></td>
             <td ng-bind="item.order_name" ng-attr-title="{{item.order_name}}"></td>
             <td ng-bind="format(item.date_setup, 'YYYY-MM-DD')"></td>
@@ -94,8 +90,6 @@
             <td ng-bind="item.month <= 0 ? '-' : item.month" ng-class="{'red-warning': getRedWarning(item)}"></td>
             <td ng-bind="item.saleman"></td>
             <td ng-bind="item.waiter"></td>
-            <!-- <td ng-bind="format(item.submit_review_date, 'YYYY-MM-DD')"></td>
-            <td ng-bind="format(item.date_finish, 'YYYY-MM-DD')"></td> -->
             <td class="opt-col">
               <a href="javascript:;" ng-click="new_annual(item, 'audit')" ng-if="opers.indexOf(5) > -1 && (item.order_type == 'reg_abroad' || item.order_type == 'reg_internal')"> 马上审计</a>
               <a href="javascript:;" ng-click="new_annual(item, 'annual')" ng-if="opers.indexOf(5) > -1"> 马上年检</a>

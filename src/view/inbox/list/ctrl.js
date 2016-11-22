@@ -37,6 +37,21 @@ module.exports = function($scope, $http, $state, $stateParams) {
     return '';
   }
 
+  $scope.getOrderType = function(source) {
+    switch (source) {
+      case 'reg_abroad':
+        return '境外注册';
+      case 'reg_internal':
+        return '境内注册';
+      case 'audit':
+        return '审计';
+      case 'trademark':
+        return '商标';
+      case 'patent':
+        return '专利';
+    }
+  }
+
   $scope.getStatus = function(item) {
     switch (item.review_status) {
       case 0:

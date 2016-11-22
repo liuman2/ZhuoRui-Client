@@ -18,6 +18,7 @@ module.exports = function($scope, $state, $http, $cookieStore, $q, $timeout) {
     salesman: user.name,
     source: '',
     source_id: '',
+    assistant_id: '',
     contactList: []
   }
 

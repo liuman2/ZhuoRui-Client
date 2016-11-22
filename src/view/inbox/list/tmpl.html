@@ -58,8 +58,8 @@
         <tbody>
           <tr>
             <th style="width: 10px">#</th>
-            <th>类型</th>
             <th>信件单号</th>
+            <th>订单类别</th>
             <th>订单名称</th>
             <th>寄件人</th>
             <th>电话</th>
@@ -71,8 +71,8 @@
           </tr>
           <tr ng-repeat="item in data.items">
             <td ng-bind="($index+1)+'.'"></td>
-            <td ng-bind="item.type" ng-attr-title="{{item.type}}"></td>
             <td ng-bind="item.code"></td>
+            <td ng-bind="getOrderType(item.order_source)"></td>
             <td ng-bind="item.order_name" ng-attr-title="{{item.order_name}}"></td>
             <td ng-bind="item.owner"></td>
             <td ng-bind="item.tel" ng-attr-title="{{item.tel}}"></td>

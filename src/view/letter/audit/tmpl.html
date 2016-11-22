@@ -13,6 +13,7 @@
           <tr>
             <th style="width: 10px">#</th>
             <th>信件单号</th>
+            <th>订单类别</th>
             <th>订单名称</th>
             <th>信件类型</th>
             <th>创建日期</th>
@@ -23,6 +24,7 @@
           <tr ng-repeat="item in data">
             <td ng-bind="($index+1)+'.'"></td>
             <td ng-bind="item.code"></td>
+            <td ng-bind="getOrderType(item.order_source)"></td>
             <td ng-bind="item.order_name" ng-attr-title="{{item.order_name}}"></td>
             <td ng-bind="item.letter_type" ng-attr-title="{{item.letter_type}}"></td>
             <td ng-bind="format(item.date_at, 'YYYY-MM-DD')"></td>

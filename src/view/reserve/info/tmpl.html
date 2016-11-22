@@ -131,7 +131,13 @@
       <div class="form-group">
         <label class="col-sm-2 control-label">业务员</label>
         <div class="col-sm-8">
-          <select ui-select2 class="form-control select2" id="salesmanSelect2" name="salesman_id" ng-view="salesman" ng-model="data.salesman_id" data-rule="required;" url=" Member/List" paging="true" style="width: 100%;"></select>
+          <select ui-select2 class="form-control select2" id="salesmanSelect2" name="salesman_id" ng-view="salesman" ng-model="data.salesman_id" data-rule="required;" url="Member/List" paging="true" style="width: 100%;"></select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-2 control-label">助理</label>
+        <div class="col-sm-8">
+          <select ui-select2 class="form-control select2" id="assistantSelect2" allowclear="true" name="assistant_id" ng-view="assistant_name" ng-model="data.assistant_id" url="Member/List" paging="true" style="width: 100%;"></select>
         </div>
       </div>
       <div class="form-group">
@@ -142,7 +148,6 @@
       </div>
     </div>
   </div>
-
   <div class="box box-danger">
     <div class="box-header with-border">
       <h3 class="box-title">联系人</h3>
