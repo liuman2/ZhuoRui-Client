@@ -76,6 +76,55 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
     return moment(dt).format(str);
   }
 
+  $scope.getStatus = function(item) {
+    switch (item.status) {
+      case 0:
+        return '未提交';
+      case 1:
+        return '已提交';
+      case 2:
+        return '财务已审核';
+      case 3:
+        return '提交人已审核';
+      case 4:
+        return '完成';
+    }
+  }
+
+  $scope.getReviewStatus = function(item) {
+    switch (item.review_status) {
+      case -1:
+        return '未审核';
+      case 0:
+        return '驳回';
+      case 1:
+        return '审核通过';
+    }
+  }
+
+  $scope.orderDetail = function(item) {
+    switch (item.order_type) {
+      case 'reg_abroad':
+        $state.go("abroad_view", { id: item.id });
+        break;
+      case 'reg_internal':
+        $state.go("internal_view", { id: item.id });
+        break;
+      case 'trademark':
+        $state.go("trademark_view", { id: item.id });
+        break;
+      case 'patent':
+        $state.go("patent_view", { id: item.id });
+        break;
+      case 'audit':
+        $state.go("audit_view", { id: item.id });
+        break;
+      case 'annual_exam':
+        $state.go("annual_view", { id: item.id });
+        break;
+    }
+  }
+
   function actionView() {
     $http({
       method: 'GET',
