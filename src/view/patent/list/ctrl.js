@@ -23,7 +23,14 @@ module.exports = function($scope, $http, $state, $stateParams) {
     applicant: '',
     status: '',
     start_time: '',
-    end_time: ''
+    end_time: '',
+    code: '',
+    start_create: '',
+    end_create: '',
+    orderBy: {
+      field: 'code',
+      order: 'desc'
+    }
   }
 
   $scope.data = {
@@ -173,7 +180,8 @@ module.exports = function($scope, $http, $state, $stateParams) {
   function load_data() {
     $scope.search.start_time = $('#start_time').val();
     $scope.search.end_time = $('#end_time').val();
-
+    $scope.search.start_create = $('#start_create').val();
+    $scope.search.end_create = $('#end_create').val();
     $http({
       method: 'GET',
       url: '/Patent/Search',
