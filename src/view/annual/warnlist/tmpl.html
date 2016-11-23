@@ -87,7 +87,7 @@
             <td ng-bind="item.order_name" ng-attr-title="{{item.order_name}}"></td>
             <td ng-bind="format(item.date_setup, 'YYYY-MM-DD')"></td>
             <td ng-bind="item.annual_year"></td>
-            <td ng-bind="item.month <= 0 ? '-' : item.month" ng-class="{'red-warning': getRedWarning(item)}"></td>
+            <td ng-bind="getMonth(item)" ng-class="{'red-warning': getRedWarning(item)}"></td>
             <td ng-bind="item.saleman"></td>
             <td ng-bind="item.waiter"></td>
             <td class="opt-col">
