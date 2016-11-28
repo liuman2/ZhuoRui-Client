@@ -181,6 +181,20 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
     initDate(newValue);
   });
 
+  jForm.validator({
+    rules: {
+      'code': function(ele, params) {
+        if (ele.value.length !== 8) {
+          return false;
+        }
+        if (ele.value.indexOf('SJ') < 0) {
+          return false;
+        }
+        return true;
+      }
+    }
+  });
+
   $scope.save = function() {
     var isCustomerValid = valid_customer();
     var isAccountantVaild = true; // valid_accountant();

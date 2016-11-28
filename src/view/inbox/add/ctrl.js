@@ -109,7 +109,7 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
     description: '',
     file_url: '',
     order_id: '',
-    audit_id: ''
+    audit_id: []
   }
 
   if (!!id) {
@@ -161,33 +161,44 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
         var order_id = $('#orderSelect2').val();
         submitData.order_id = order_id;
 
-        var url = $scope.action == 'add' ? '/Letter/Add' : '/Letter/Update';
 
-        $http({
-          method: 'POST',
-          url: url,
-          data: submitData
-        }).success(function(data) {
-          $.alert({
-            title: false,
-            content: '保存成功',
-            confirmButton: '确定'
-          });
+        $.confirm({
+          title: false,
+          content: '保存后将无法修改，保存前请确认您输入的资料是否正确。',
+          confirmButton: '确认无误, 保存',
+          cancelButton: '再检查一遍',
+          confirm: function() {
+            $http({
+              method: 'POST',
+              url: '/Letter/Insert',
+              data: {
+                l: submitData,
+                auditIds: submitData.audit_id
+              }
+            }).success(function(data) {
+              $.alert({
+                title: false,
+                content: '保存成功',
+                confirmButton: '确定'
+              });
 
-          $scope.data = {
-            id: '',
-            type: '收件',
-            owner: '',
-            letter_type: '',
-            merchant: '',
-            code: '',
-            date_at: '',
-            description: '',
-            file_url: '',
-            order_id: '',
-            audit_id: ''
+              $('#auditSelect2').val(null).trigger("change");
+
+              $scope.data = {
+                id: '',
+                type: '收件',
+                owner: '',
+                letter_type: '',
+                merchant: '',
+                code: '',
+                date_at: '',
+                description: '',
+                file_url: '',
+                order_id: '',
+                audit_id: []
+              }
+            });
           }
-
         });
       }
     });

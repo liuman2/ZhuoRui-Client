@@ -21,7 +21,8 @@
         <div class="col-md-3">
           <div class="form-group">
             <label>员工姓名</label>
-            <select ui-select2 class="form-control select2" name="member_id" ng-model="search.member_id" url="Member/List" paging="true" style="width: 100%;"></select>
+            <select ui-select2 class="form-control select2" allowclear="true" name="member_id" ng-model="search.member_id" url="Member/List" paging="true" style="width: 100%;">
+            </select>
           </div>
         </div>
         <div class="col-md-3">
@@ -73,7 +74,7 @@
           </tr>
           <tr ng-repeat="item in data.items">
             <td ng-bind="($index+1)+'.'"></td>
-            <td ng-bind="getName()" ng-attr-title="{{item.name}}"></td>
+            <td ng-bind="item.owner_name" ng-attr-title="{{item.owner_name}}"></td>
             <td ng-bind="getTypeName(item.type)"></td>
             <td ng-bind="format(item.date_start, 'YYYY-MM-DD HH:mm')"></td>
             <td ng-bind="format(item.date_end, 'YYYY-MM-DD HH:mm')"></td>

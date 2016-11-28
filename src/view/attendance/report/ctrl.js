@@ -23,14 +23,14 @@ module.exports = function($scope, $http, $state, $stateParams) {
   };
 
   $scope.query = function() {
-    if (!$scope.search.member_id) {
+    /*if (!$scope.search.member_id) {
       $.alert({
         title: false,
         content: '请选择人员',
         confirmButton: '确定'
       });
       return;
-    }
+    }*/
     load_data();
   };
 
@@ -44,10 +44,6 @@ module.exports = function($scope, $http, $state, $stateParams) {
       return '';
     }
     return moment(dt).format(str);
-  }
-
-  $scope.getName = function() {
-    return $('select[name="member_id"]').text();
   }
 
   $scope.getTypeName = function(type) {

@@ -164,30 +164,40 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
 
         var url = '/Letter/Add';
 
-        $http({
-          method: 'POST',
-          url: url,
-          data: submitData
-        }).success(function(data) {
-          $.alert({
-            title: false,
-            content: '保存成功',
-            confirmButton: '确定'
-          });
-          $scope.data = {
-            id: '',
-            type: '寄件',
-            owner: '',
-            letter_type: '',
-            merchant: '',
-            code: '',
-            date_at: '',
-            description: '',
-            file_url: '',
-            order_id: '',
-            audit_id: ''
+        $.confirm({
+          title: false,
+          content: '保存后将无法修改，保存前请确认您输入的资料是否正确。',
+          confirmButton: '确认无误, 保存',
+          cancelButton: '再检查一遍',
+          confirm: function() {
+            $http({
+              method: 'POST',
+              url: url,
+              data: submitData
+            }).success(function(data) {
+              $.alert({
+                title: false,
+                content: '保存成功',
+                confirmButton: '确定'
+              });
+              $scope.data = {
+                id: '',
+                type: '寄件',
+                owner: '',
+                letter_type: '',
+                merchant: '',
+                code: '',
+                date_at: '',
+                description: '',
+                file_url: '',
+                order_id: '',
+                audit_id: ''
+              }
+            });
           }
         });
+
+
       }
     });
   }
