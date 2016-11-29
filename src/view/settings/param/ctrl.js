@@ -12,10 +12,17 @@ module.exports = function($scope, $http, $state, $stateParams) {
   $scope.save = function() {
     jForm.isValid(function(v) {
       if (v) {
+        var submitData = [];
+        for (var o in $scope.data) {
+          submitData.push({
+            key: o,
+            value: $scope.data[o]
+          })
+        }
         $http({
           method: 'POST',
           url: '/Settings/PeriodUpdate',
-          data: $scope.data
+          data: submitData
         }).success(function(data) {
           load_data();
           $.alert({
