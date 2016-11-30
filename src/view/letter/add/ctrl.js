@@ -177,7 +177,7 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
             }).success(function(data) {
               $.alert({
                 title: false,
-                content: '保存成功',
+                content: '保存成功，请到寄件列表中查看',
                 confirmButton: '确定'
               });
               $scope.data = {

@@ -15,7 +15,7 @@ module.exports = function($scope, $http, $state, $stateParams) {
         var submitData = [];
         for (var o in $scope.data) {
           submitData.push({
-            key: o,
+            name: o,
             value: $scope.data[o]
           })
         }
@@ -38,11 +38,14 @@ module.exports = function($scope, $http, $state, $stateParams) {
   function load_data() {
     $http({
       method: 'GET',
-      url: '/Settings/GetPeriod'
+      url: '/Settings/GetParams'
     }).success(function(data) {
-      data.patent_period = data.patent_period - 0;
-      data.trademark_period = data.trademark_period - 0;
-      $scope.data = data;
+      var settings = {};
+      for (var i = 0, max = data.length; i < max; i++) {
+        var row = data[i];
+        settings[row.name] = row.value;
+      }
+      $scope.data = settings;
     });
   }
 

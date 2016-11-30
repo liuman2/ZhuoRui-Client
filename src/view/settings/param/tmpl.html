@@ -16,14 +16,14 @@
           <div class="form-group">
             <label class="col-sm-2 control-label">专利年检期限</label>
             <div class="col-sm-3">
-              <input type="number" class="form-control" name="patent_period" ng-model="data.patent_period" data-rule="required; integer[+]; range[1~20]">
+              <input class="form-control" name="patent_period" ng-model="data.PATENT_PERIOD" data-rule="required; integer[+]; range[1~20]">
             </div>
             <label class="control-label">年</label>
           </div>
           <div class="form-group">
             <label class="col-sm-2 control-label">商标年检期限</label>
             <div class="col-sm-3">
-              <input type="number" class="form-control" name="trademark" ng-model="data.trademark_period" data-rule="required; integer[+]; range[1~20]">
+              <input class="form-control" name="trademark" ng-model="data.TRADEMARK_PERIOD" data-rule="required; integer[+]; range[1~20]">
             </div>
             <label class="control-label">年</label>
           </div>
@@ -32,43 +32,43 @@
           <div class="form-group">
             <label class="col-sm-2 control-label">境外注册提交人</label>
             <div class="col-sm-3">
-              <select ui-select2 class="form-control select2" name="jw_id" ng-view="salesman" ng-model="data.jw_id" data-rule="required;" url="Member/List" paging="true" style="width: 100%;"></select>
+              <select ui-select2 class="form-control select2" name="JW_ID" ng-view="salesman" ng-model="data.JW_ID" data-rule="required;" url="Member/List" paging="true" style="width: 100%;"></select>
             </div>
           </div>
           <div class="form-group">
             <label class="col-sm-2 control-label">境内注册提交人</label>
             <div class="col-sm-3">
-              <select ui-select2 class="form-control select2" name="gn_id" ng-view="salesman" ng-model="data.gn_id" data-rule="required;" url="Member/List" paging="true" style="width: 100%;"></select>
+              <select ui-select2 class="form-control select2" name="GN_ID" ng-view="salesman" ng-model="data.GN_ID" data-rule="required;" url="Member/List" paging="true" style="width: 100%;"></select>
             </div>
           </div>
           <div class="form-group">
             <label class="col-sm-2 control-label">境外审计提交人</label>
             <div class="col-sm-3">
-              <select ui-select2 class="form-control select2" name="sj_id" ng-view="salesman" ng-model="data.jwsj_id" data-rule="required;" url="Member/List" paging="true" style="width: 100%;"></select>
+              <select ui-select2 class="form-control select2" name="JWSJ_ID" ng-view="salesman" ng-model="data.JWSJ_ID" data-rule="required;" url="Member/List" paging="true" style="width: 100%;"></select>
             </div>
           </div>
           <div class="form-group">
             <label class="col-sm-2 control-label">境内审计提交人</label>
             <div class="col-sm-3">
-              <select ui-select2 class="form-control select2" name="sj_id" ng-view="salesman" ng-model="data.gmsj_id" data-rule="required;" url="Member/List" paging="true" style="width: 100%;"></select>
+              <select ui-select2 class="form-control select2" name="GNSJ_ID" ng-view="salesman" ng-model="data.GNSJ_ID" data-rule="required;" url="Member/List" paging="true" style="width: 100%;"></select>
             </div>
           </div>
           <div class="form-group">
             <label class="col-sm-2 control-label">商标注册提交人</label>
             <div class="col-sm-3">
-              <select ui-select2 class="form-control select2" name="sb_id" ng-view="salesman" ng-model="data.sb_id" data-rule="required;" url="Member/List" paging="true" style="width: 100%;"></select>
+              <select ui-select2 class="form-control select2" name="SB_ID" ng-view="salesman" ng-model="data.SB_ID" data-rule="required;" url="Member/List" paging="true" style="width: 100%;"></select>
             </div>
           </div>
           <div class="form-group">
             <label class="col-sm-2 control-label">专利注册提交人</label>
             <div class="col-sm-3">
-              <select ui-select2 class="form-control select2" name="zl_id" ng-view="salesman" ng-model="data.zl_id" data-rule="required;" url="Member/List" paging="true" style="width: 100%;"></select>
+              <select ui-select2 class="form-control select2" name="ZL_ID" ng-view="salesman" ng-model="data.ZL_ID" data-rule="required;" url="Member/List" paging="true" style="width: 100%;"></select>
             </div>
           </div>
           <div class="form-group">
             <label class="col-sm-2 control-label">财务审核人</label>
             <div class="col-sm-3">
-              <select ui-select2 class="form-control select2" name="zl_id" ng-view="salesman" ng-model="data.cw_id" data-rule="required;" url="Member/List" paging="true" style="width: 100%;"></select>
+              <select ui-select2 class="form-control select2" name="CW_ID" ng-view="salesman" ng-model="data.CW_ID" data-rule="required;" url="Member/List" paging="true" style="width: 100%;"></select>
             </div>
           </div>
         </fieldset>
