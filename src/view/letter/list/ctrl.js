@@ -22,7 +22,8 @@ module.exports = function($scope, $http, $state, $stateParams) {
     form: '',
     type: '寄件',
     start_time: '',
-    end_time: ''
+    end_time: '',
+    status: ''
   }
 
   $scope.getTitle = function(item, i) {
@@ -50,6 +51,35 @@ module.exports = function($scope, $http, $state, $stateParams) {
       case 'patent':
         return '专利';
     }
+  }
+
+  $scope.delete = function(item) {
+    if (item.review_status == 1) {
+      $.alert({
+        title: false,
+        content: '已审核不能删除',
+        confirmButton: '确定'
+      });
+      return;
+    }
+
+    $.confirm({
+      title: false,
+      content: '您确认要删除？',
+      confirmButton: '确定',
+      cancelButton: '取消',
+      confirm: function() {
+        $http({
+          method: 'GET',
+          url: '/Letter/Delete',
+          params: {
+            id: item.id
+          }
+        }).success(function(data) {
+          load_data();
+        });
+      }
+    });
   }
 
   $scope.getStatus = function(item) {

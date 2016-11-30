@@ -80,19 +80,17 @@ var router = function($stateProvider, $urlRouterProvider) {
       controller: require('view/letter/audit/ctrl')
     })
 
-    .state('letter_insert', {
-      // parent: 'list',
-      url: '/letter/insert',
-      template: require('view/letter/add/tmpl.html'),
-      controller: require('view/letter/add/ctrl')
-    })
+    // .state('letter_insert', {
+    //   url: '/letter/insert',
+    //   template: require('view/letter/add/tmpl.html'),
+    //   controller: require('view/letter/add/ctrl')
+    // })
 
-    .state('inbox_insert', {
-      // parent: 'list',
-      url: '/inbox/insert',
-      template: require('view/inbox/add/tmpl.html'),
-      controller: require('view/inbox/add/ctrl')
-    })
+    // .state('inbox_insert', {
+    //   url: '/inbox/insert',
+    //   template: require('view/inbox/add/tmpl.html'),
+    //   controller: require('view/inbox/add/ctrl')
+    // })
 };
 
 module.exports = router;

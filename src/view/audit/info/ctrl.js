@@ -131,12 +131,20 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
   $scope.selectSource = function() {
 
     if (!$scope.data.customer_id) {
-      alert('请选择客户');
+      $.alert({
+        title: false,
+        content: '请选择客户',
+        confirmButton: '确定'
+      });
       return;
     }
 
     if (!$scope.data.type) {
-      alert('请选择订单类别');
+      $.alert({
+        title: false,
+        content: '请选择订单类别',
+        confirmButton: '确定'
+      });
       return;
     }
 
@@ -153,7 +161,11 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
     $scope.data.source_code = s.code;
     $scope.data.name_cn = s.name_cn || '';
     $scope.data.name_en = s.name_en || '';
-    $scope.data.date_setup = s.date_setup || '';
+
+    $scope.data.date_setup = '';
+    if (s.date_setup && s.date_setup.indexOf('T') > -1) {
+      $scope.data.date_setup = s.date_setup.split('T')[0];
+    }
     $scope.data.address = s.address || '';
   });
 

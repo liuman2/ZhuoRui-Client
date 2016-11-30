@@ -1,7 +1,5 @@
 <section class="content-header">
-  <h1>
-        收件管理
-    </h1>
+  <h1>收件详情</h1>
   <ol class="breadcrumb">
     <li><a ui-sref="dashboard"><i class="fa fa-dashboard"></i>我的面板</a></li>
     <li><a ui-sref="inbox">列表</a></li>
@@ -10,9 +8,9 @@
 </section>
 <section class="content">
   <form class="form-horizontal view-form">
-    <div class="detail-view-header-wrapper" ng-if="data.review_status != 1">
-      <div class="box-footer detail-view-header" ui-scrollpoint ui-scrollpoint-enabled="true" ui-scrollpoint-class="fixed">
-        <button type="button" class="btn btn-info" ui-sref="inbox_edit({id: id})" ui-sref-opts="{reload:true}" ng-if="data.review_status != 1 && ownerMail ==true">修改</button>
+    <div class="detail-view-header-wrapper">
+      <div class="box-footer detail-view-header" ng-if="data.review_status != 1" ui-scrollpoint ui-scrollpoint-enabled="true" ui-scrollpoint-class="fixed">
+        <!-- <button type="button" class="btn btn-info" ui-sref="inbox_edit({id: id})" ui-sref-opts="{reload:true}" ng-if="data.review_status != 1 && ownerMail ==true">修改</button> -->
         <button type="button" class="btn btn-success" ng-click="passAudit()" ng-if="data.review_status == 0 && showAudit==true">通过</button>
         <button type="button" class="btn btn-danger" ng-click="refuseAudit()" ng-if="data.review_status == 0 && showAudit==true">驳回</button>
       </div>
@@ -74,6 +72,12 @@
           <label class="col-sm-2 control-label">付款方式</label>
           <div class="col-sm-8">
             <span class="form-span" ng-bind="data.paymode"></span>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-2 control-label">创建人</label>
+          <div class="col-sm-8">
+            <span class="form-span" ng-bind="data.creator_name"></span>
           </div>
         </div>
         <div class="form-group">

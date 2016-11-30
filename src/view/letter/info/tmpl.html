@@ -1,5 +1,5 @@
 <section class="content-header">
-  <h1>寄件管理</h1>
+  <h1 ng-bind="getFormTitle()">寄件管理</h1>
   <ol class="breadcrumb">
     <li><a ui-sref="dashboard"><i class="fa fa-dashboard"></i>我的面板</a></li>
     <li><a ui-sref="letter">列表</a></li>
@@ -25,6 +25,12 @@
         </div>
       </div>
       <div class="box-body">
+        <div class="form-group">
+          <label class="col-sm-2 control-label">信件单号<span class="required">*</span></label>
+          <div class="col-sm-6">
+            <input type="text" class="form-control" name="code" ng-model="data.code" data-rule="required; length[~50];">
+          </div>
+        </div>
         <div class="form-group">
           <label class="col-sm-2 control-label">订单类别<span class="required">*</span></label>
           <div class="col-sm-6">
@@ -55,12 +61,6 @@
           <label class="col-sm-2 control-label"><span>寄件日期</span><span class="required">*</span></label>
           <div class="col-sm-6">
             <input type="text" class="form-control date-input" id="date_at" name="date_at" ng-model="data.date_at" data-rule="required;">
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="col-sm-2 control-label">信件单号<span class="required">*</span></label>
-          <div class="col-sm-6">
-            <input type="text" class="form-control" name="code" ng-model="data.code" data-rule="required; length[~50];">
           </div>
         </div>
         <div class="form-group">

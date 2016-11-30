@@ -14,14 +14,17 @@ module.exports = function($scope, $http, $state, $stateParams) {
       if (v) {
         var submitData = [];
         for (var o in $scope.data) {
-          submitData.push({
+          var obj = {
             name: o,
-            value: $scope.data[o]
-          })
+            value: $scope.data[o],
+            memo: $('#' + o).text()
+          };
+          submitData.push(obj)
         }
+
         $http({
           method: 'POST',
-          url: '/Settings/PeriodUpdate',
+          url: '/Settings/ParamUpdate',
           data: submitData
         }).success(function(data) {
           load_data();
@@ -44,6 +47,7 @@ module.exports = function($scope, $http, $state, $stateParams) {
       for (var i = 0, max = data.length; i < max; i++) {
         var row = data[i];
         settings[row.name] = row.value;
+        settings[row.name + '_' + 'NAME'] = row.memo;
       }
       $scope.data = settings;
     });

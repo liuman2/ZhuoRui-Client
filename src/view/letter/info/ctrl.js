@@ -118,6 +118,13 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
     actionView();
   }
 
+  $scope.getFormTitle = function() {
+    if (!!id) {
+      return '编辑寄件'
+    }
+    return '新增寄件';
+  }
+
   function valid_order() {
     if (!$('#orderSelect2').val() || $('#orderSelect2').val().indexOf('?') >= 0) {
       jForm.validator('showMsg', '#orderSelect2-validator', {

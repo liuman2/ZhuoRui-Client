@@ -109,7 +109,7 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
     description: '',
     file_url: '',
     order_id: '',
-    audit_id:''
+    audit_id: []
   }
 
   if (!!id) {
@@ -161,16 +161,30 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
         var order_id = $('#orderSelect2').val();
         submitData.order_id = order_id;
 
-        var url = $scope.action == 'add' ? '/Letter/Add' : '/Letter/Update';
 
-        $http({
-          method: 'POST',
-          url: url,
-          data: submitData
-        }).success(function(data) {
-          $state.go("inbox_view", {
-            id: data.id
-          });
+        $.confirm({
+          title: '提示',
+          content: '您选择了' + submitData.audit_id.length + '个审核人，将新增' + submitData.audit_id.length + '笔收件记录。保存后将无法修改，保存前请确认您输入的资料是否正确。',
+          confirmButton: '确认无误, 保存',
+          cancelButton: '再检查一遍',
+          confirm: function() {
+            $http({
+              method: 'POST',
+              url: '/Letter/Insert',
+              data: {
+                l: submitData,
+                auditIds: submitData.audit_id
+              }
+            }).success(function(data) {
+              $.alert({
+                title: false,
+                content: '保存成功',
+                confirmButton: '确定'
+              });
+
+              $state.go('inbox');
+            });
+          }
         });
       }
     });
@@ -178,9 +192,9 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
 
   $scope.cancel = function() {
     if ($scope.action == 'add') {
-      $state.go("inbox");
+      $state.go('inbox');
     } else {
-      $state.go("inbox_view", {
+      $state.go('inbox_view', {
         id: id
       });
     }
