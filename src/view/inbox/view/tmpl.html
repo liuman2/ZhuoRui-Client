@@ -10,7 +10,7 @@
   <form class="form-horizontal view-form">
     <div class="detail-view-header-wrapper">
       <div class="box-footer detail-view-header" ng-if="data.review_status != 1" ui-scrollpoint ui-scrollpoint-enabled="true" ui-scrollpoint-class="fixed">
-        <!-- <button type="button" class="btn btn-info" ui-sref="inbox_edit({id: id})" ui-sref-opts="{reload:true}" ng-if="data.review_status != 1 && ownerMail ==true">修改</button> -->
+        <button type="button" class="btn btn-info" ui-sref="inbox_edit({id: id})" ui-sref-opts="{reload:true}" ng-if="data.review_status != 1 && ownerMail ==true">修改</button>
         <button type="button" class="btn btn-success" ng-click="passAudit()" ng-if="data.review_status == 0 && showAudit==true">通过</button>
         <button type="button" class="btn btn-danger" ng-click="refuseAudit()" ng-if="data.review_status == 0 && showAudit==true">驳回</button>
       </div>

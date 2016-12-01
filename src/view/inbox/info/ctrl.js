@@ -161,6 +161,10 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
         var order_id = $('#orderSelect2').val();
         submitData.order_id = order_id;
 
+        var url = $scope.action == 'add' ? '/Letter/Insert' : '/Letter/Update';
+        if ($scope.action != 'add') {
+          submitData.audit_id = $('#auditSelect2').val();
+        }
 
         $.confirm({
           title: '提示',
@@ -170,9 +174,10 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
           confirm: function() {
             $http({
               method: 'POST',
-              url: '/Letter/Insert',
+              url: url,
               data: {
                 l: submitData,
+                c: submitData,
                 auditIds: submitData.audit_id
               }
             }).success(function(data) {
