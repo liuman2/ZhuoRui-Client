@@ -230,6 +230,10 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
     $state.go(".progress", { id: $scope.data.id, module_name: 'Annual', type: t }, { location: false });
   }
 
+  $scope.printReceipt = function() {
+    $state.go(".receipt", { source_name: 'annual' }, { location: false });
+  }
+
   $scope.$on('PROGRESS_MODAL_DONE', function(e) {
     actionView();
   });

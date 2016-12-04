@@ -25,13 +25,14 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
   });
 
   jForm.validator({
+    theme: 'yellow_right',
     rules: {},
     fields: {
       account_period: {
-        rule: "账期:match[lt, date_year_end, date];"
+        rule: "起始日:match[lt, account_period2, date];"
       },
-      date_year_end: {
-        rule: "年结日:match[gt, account_period, date]"
+      account_period2: {
+        rule: "结束日:match:match[gt, account_period, date]"
       }
     }
   });
@@ -68,7 +69,6 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
     is_open_bank: 0,
     salesman_id: user.id,
     salesman: user.name,
-    accountant_id: '',
     customer_id: '',
     invoice_name: '',
     invoice_tax: '',
@@ -221,7 +221,12 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
 
         submitData.date_setup = $('#date_setup').val();
         submitData.account_period = $('#account_period').val();
-        submitData.date_year_end = $('#date_year_end').val();
+        submitData.account_period2 = $('#account_period2').val();
+        if (submitData.date_month_end && submitData.date_day_end) {
+          submitData.date_year_end = submitData.date_month_end + '-' + submitData.date_day_end;
+        } else {
+          submitData.date_year_end = '';
+        }
         submitData.date_transaction = $('#date_transaction').val();
 
         var url = $scope.action == 'add' ? '/Audit/Add' : '/Audit/Update';
@@ -350,17 +355,21 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
         id: id
       }
     }).success(function(data) {
-      if (data.date_setup.indexOf('T') > -1) {
+      if (data.date_setup && data.date_setup.indexOf('T') > -1) {
         data.date_setup = data.date_setup.split('T')[0];
       }
-      if (data.date_transaction.indexOf('T') > -1) {
+      if (data.date_transaction && data.date_transaction.indexOf('T') > -1) {
         data.date_transaction = data.date_transaction.split('T')[0];
       }
       if (data.account_period && data.account_period.indexOf('T') > -1) {
         data.account_period = data.account_period.split('T')[0];
       }
-      if (data.date_year_end && data.date_year_end.indexOf('T') > -1) {
-        data.date_year_end = data.date_year_end.split('T')[0];
+      if (data.account_period2 && data.account_period2.indexOf('T') > -1) {
+        data.account_period2 = data.account_period2.split('T')[0];
+      }
+      if (data.date_year_end && data.date_year_end.indexOf('-') > -1) {
+        data.date_month_end = data.date_year_end.split('-')[0];
+        data.date_day_end = data.date_year_end.split('-')[1];
       }
 
       $scope.data = data;
@@ -398,18 +407,18 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
     }
   }
 
-  function valid_accountant() {
-    if (!$scope.data.accountant_id) {
-      jForm.validator('showMsg', '#accountantSelect2-validator', {
-        type: "error",
-        msg: "此处不能为空"
-      });
-      return false;
-    } else {
-      jForm.validator('hideMsg', '#accountantSelect2-validator');
-      return true;
-    }
-  }
+  // function valid_accountant() {
+  //   if (!$scope.data.accountant_id) {
+  //     jForm.validator('showMsg', '#accountantSelect2-validator', {
+  //       type: "error",
+  //       msg: "此处不能为空"
+  //     });
+  //     return false;
+  //   } else {
+  //     jForm.validator('hideMsg', '#accountantSelect2-validator');
+  //     return true;
+  //   }
+  // }
 
   function valid_currency() {
     if (!$scope.data.currency) {

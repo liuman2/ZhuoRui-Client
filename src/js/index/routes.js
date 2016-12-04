@@ -81,6 +81,15 @@ module.exports = function($stateProvider, $urlRouterProvider) {
         }
       }
     })
+    .state('history_view.receipt', {
+      url: '/history/receipt/{source_name:.*}',
+      views: {
+        'print': {
+          template: require('view/common/receipt/modal.html'),
+          controller: require('view/common/receipt/modal')
+        }
+      }
+    })
     .state('history_timeline', {
       url: '/view/history/timeline/{source:.*}/{id:.*}/{name:.*}/{code:.*}',
       template: require('view/common/timeline/tmpl.html'),

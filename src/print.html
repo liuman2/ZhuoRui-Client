@@ -53,198 +53,302 @@
 </head>
 
 <body ng-controller="BodyCtrl" ng-class="bodyClass">
-  <table style="width:100%;text-align: center;margin-top: 45px;">
-    <tr>
-      <td rowspan="2" style="width: 20%">
-        <img src="./img/logo.jpg" width="40" height="40" alt="">
-        <div style="font-size:9px;margin-top:3px;">卓瑞企业</div>
-      </td>
-      <td style="font-size:16px;width: 60%;font-weight:bold;">
-        厦门卓瑞企业管理咨询有限公司
-      </td>
-      <td style="width: 15%;">
-      </td>
-    </tr>
-    <tr>
-      <td style="font-size:14px;letter-spacing:8px;">
-        收款收据
-      </td>
-      <td>
-      </td>
-    </tr>
-    <tr style="height:30px;">
-      <td ng-bind="'档案号:'+printData.code"></td>
-      <td ng-bind="printData.date">
-      </td>
-      <td ng-bind="'项目：'+printData.project">
-      </td>
-    </tr>
-  </table>
-  <table style="width:100%;" class="print-body">
-    <tr style="height:30px;">
-      <td class="tac">公司名称</td>
-      <td>
-        <table>
+  <div ng-if="printType !='receipt'">
+    <table style="width:100%;text-align: center;margin-top: 45px;">
+      <tr>
+        <td rowspan="2" style="width: 20%">
+          <img src="./img/logo.jpg" width="40" height="40" alt="">
+          <div style="font-size:9px;margin-top:3px;">卓瑞企业</div>
+        </td>
+        <td style="font-size:16px;width: 60%;font-weight:bold;">
+          厦门卓瑞企业管理咨询有限公司
+        </td>
+        <td style="width: 15%;">
+        </td>
+      </tr>
+      <tr>
+        <td style="font-size:14px;letter-spacing:8px;">
+          收款收据
+        </td>
+        <td>
+        </td>
+      </tr>
+      <tr style="height:30px;">
+        <td ng-bind="'档案号:'+printData.code"></td>
+        <td ng-bind="printData.date">
+        </td>
+        <td ng-bind="'项目：'+printData.project">
+        </td>
+      </tr>
+    </table>
+    <table style="width:100%;" class="print-body">
+      <tr style="height:30px;">
+        <td class="tac">公司名称</td>
+        <td>
+          <table>
+            <tr>
+              <td style="border:none;padding:0; min-width:50%;">
+                <table style="font-size: 9px;">
+                  <tr ng-if="printData.company_cn.length > 0">
+                    <td style="border:none; border-right: 1px solid #333; padding:0;height: 15px;" ng-bind="printData.company_cn">
+                    </td>
+                  </tr>
+                  <tr ng-if="printData.company_en.length > 0">
+                    <td style="border:none; border-right: 1px solid #333; padding:0;height: 15px;" ng-bind="printData.company_en">
+                    </td>
+                  </tr>
+                </table>
+              </td>
+              <td style="border:none;padding:0;">
+                <span style="margin-left:5px;">付款人：</span>
+                <span ng-bind="printData.payer"></span>
+              </td>
+            </tr>
+          </table>
+        </td>
+        <td class="tac">备注</td>
+      </tr>
+      <tr ng-if="printData.print_type != 'patent' && printData.print_type != 'trademark'">
+        <td class="tac">收款事由</td>
+        <td class="tal" ng-bind="printData.reason"></td>
+        <td rowspan="4" class="memo">
+          <div>订单总金额</div>
+          <div ng-bind="printData.amount"></div>
+          <div>若该笔收取，则余</div>
+          <div ng-bind="printData.balance"></div>
+          <div>
+            附件{{printData.attachments}}张
+          </div>
+        </td>
+      </tr>
+      <tr ng-if="printData.print_type == 'trademark'">
+        <td class="tac">商标名称</td>
+        <td>
+          <table>
+            <tr>
+              <td style="border:none; border-right: 1px solid #333; padding:0;" ng-bind="printData.ordername">
+              </td>
+              <td style="border:none; border-right: 1px solid #333; padding:0; text-align: center;">
+                商标类别
+              </td>
+              <td style="border:none; border-right: 1px solid #333; padding:0; text-align: center;" ng-bind="printData.type">
+              </td>
+              <td style="border:none; border-right: 1px solid #333; padding:0; text-align: center;">
+                提交方式
+              </td>
+              <td style="border:none;padding:0; text-align: center;" ng-bind="printData.mode">
+              </td>
+            </tr>
+          </table>
+        </td>
+        <td rowspan="4" class="memo">
+          <div>订单总金额</div>
+          <div ng-bind="printData.amount"></div>
+          <div>若该笔收取，则余</div>
+          <div ng-bind="printData.balance"></div>
+          <div>
+            附件{{printData.attachments}}张
+          </div>
+        </td>
+      </tr>
+      <tr ng-if="printData.print_type == 'patent'">
+        <td class="tac">专利名称</td>
+        <td>
+          <table>
+            <tr>
+              <td style="border:none; border-right: 1px solid #333; padding:0;" ng-bind="printData.ordername">
+              </td>
+              <td style="border:none; border-right: 1px solid #333; padding:0; text-align: center;">
+                专利类别
+              </td>
+              <td style="border:none; border-right: 1px solid #333; padding:0; text-align: center;" ng-bind="printData.type">
+              </td>
+              <td style="border:none; border-right: 1px solid #333; padding:0; text-align: center;">
+                提交方式
+              </td>
+              <td style="border:none;padding:0; text-align: center;" ng-bind="printData.mode">
+              </td>
+            </tr>
+          </table>
+        </td>
+        <td rowspan="4" class="memo">
+          <div>订单总金额</div>
+          <div ng-bind="printData.amount"></div>
+          <div>若该笔收取，则余</div>
+          <div ng-bind="printData.balance"></div>
+          <div>
+            附件{{printData.attachments}}张
+          </div>
+        </td>
+      </tr>
+      <tr style="height:60px;">
+        <td class="tac">其他事项</td>
+        <td class="tal" ng-bind="printData.others"></td>
+      </tr>
+      <tr>
+        <td class="tac">入账信息</td>
+        <td class="tal">
+          <span>银行名称+卡号后4位：</span>
+          <span ng-bind="printData.pay_info"></span>
+        </td>
+      </tr>
+      <tr>
+        <td class="tac">收款方式</td>
+        <td class="tal m">
+          <label>
+            <input type="checkbox" name="pay_way1" ng-true-value="转账" ng-model="printData.pay_way" onclick="return false"> 转账
+          </label>
+          <label>
+            <input type="checkbox" name="pay_way2" ng-true-value="现金" ng-model="printData.pay_way" onclick="return false"> 现金
+          </label>
+          <label>
+            <input type="checkbox" name="pay_way3" ng-true-value="其他方式" ng-model="printData.pay_way" onclick="return false"> 其他方式
+          </label>
+          <label>
+            <input type="checkbox" name="pay_way4" ng-true-value="先提交,未付款" ng-model="printData.pay_way" onclick="return false"> 先提交未付款
+          </label>
+        </td>
+      </tr>
+      <tr>
+        <td class="tac">金&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;额</td>
+        <td class="tar" ng-bind="currenct2Chinese(printData.received)"></td>
+        <td>
+          <span>￥</span>
+          <span ng-bind="printData.received"></span>
+        </td>
+      </tr>
+    </table>
+    <table style="width:100%; margin-top: 5px;">
+      <tr>
+        <td style="width: 16.66%">
+          <span>审核：</span>
+          <span></span>
+        </td>
+        <td style="width: 16.66%">
+          <span>财务主管：</span>
+          <span></span>
+        </td>
+        <td style="width: 16.66%">
+          <span>会计：</span>
+          <span ng-bind="printData.accounter"></span>
+        </td>
+        <td style="width: 16.66%">
+          <span>出纳：</span>
+          <span ng-bind="printData.cashier"></span>
+        </td>
+        <td style="width: 16.66%">
+          <span>业务员：</span>
+          <span ng-bind="printData.saleman"></span>
+        </td>
+        <td style="width: 16.66%">
+          <span>写票人：</span>
+          <span ng-bind="printData.creator"></span>
+        </td>
+      </tr>
+    </table>
+  </div>
+  <div ng-if="printType =='receipt'">
+    <table style="width:100%;text-align: center;margin-top: 45px;">
+      <tr>
+        <td rowspan="2" style="width: 20%">
+          <img src="./img/logo.jpg" width="40" height="40" alt="">
+          <div style="font-size:9px;margin-top:3px;">卓瑞企业</div>
+        </td>
+        <td style="font-size:16px;width: 60%;font-weight:bold;">
+          厦门卓瑞企业管理咨询有限公司
+        </td>
+        <td style="width: 15%;">
+        </td>
+      </tr>
+      <tr>
+        <td style="font-size:14px;letter-spacing:8px;">
+          收款收据
+        </td>
+        <td>
+          <span style="margin-right: 10px;" ng-bind="printData.no"></span>
+        </td>
+      </tr>
+      <tr style="height:30px;">
+        <td></td>
+        <td ng-bind="printData.date">
+        </td>
+        <td>
+        </td>
+      </tr>
+    </table>
+    <div style="overflow: hidden;">
+      <div style="border: 1px solid #333; padding-top: 5px;width:95%;float: left;">
+        <table style="width:100%;" class="print-body">
           <tr>
-            <td style="border:none;padding:0; min-width:50%;">
-              <table style="font-size: 9px;">
-                <tr ng-if="printData.company_cn.length > 0">
-                  <td style="border:none; border-right: 1px solid #333; padding:0;height: 15px;" ng-bind="printData.company_cn">
+            <td style="border:none;">
+              <span style="display: inline-block; width: 10%;">今收到</span>
+              <span ng-bind="printData.customer_name" style="display: inline-block; border:none;border-bottom: 1px solid #333; width: 85%;"></span>
+            </td>
+          </tr>
+          <tr>
+            <td style="border:none;">
+              <span style="display: inline-block; letter-spacing:10px; width: 10%;">交来</span>
+              <span ng-bind="printData.memo" style="display: inline-block; border:none;border-bottom: 1px solid #333; width: 85%;"></span>
+            </td>
+          </tr>
+          <tr>
+            <td style="border:none;">
+              <span style="display: inline-block; width: 15%;">人民币(大写)</span>
+              <span ng-bind="currenct2Chinese(printData.received)" style="display: inline-block; border:none;border-bottom: 1px solid #333; width: 80%;"></span>
+            </td>
+          </tr>
+          <tr style="height: 80px;">
+            <td style="border:none;padding: 0;">
+              <table>
+                <tr>
+                  <td style="border:none; width: 50%;">
+                    <div>收款单位</div>
+                    <div style="padding-left: 8px;">(公章)</div>
                   </td>
-                </tr>
-                <tr ng-if="printData.company_en.length > 0">
-                  <td style="border:none; border-right: 1px solid #333; padding:0;height: 15px;" ng-bind="printData.company_en">
+                  <td style="border:none; width: 25%;">
+                    <span>￥</span>
+                    <span ng-bind="printData.received"></span>
+                  </td>
+                  <td style="border:none; width: 25%;">
+                    <span>付款方式:</span>
+                    <span ng-bind="printData.pay_way"></span>
                   </td>
                 </tr>
               </table>
             </td>
-            <td style="border:none;padding:0;">
-              <span style="margin-left:5px;">付款人：</span>
-              <span ng-bind="printData.payer"></span>
-            </td>
           </tr>
         </table>
-      </td>
-      <td class="tac">备注</td>
-    </tr>
-    <tr ng-if="printData.print_type != 'patent' && printData.print_type != 'trademark'">
-      <td class="tac">收款事由</td>
-      <td class="tal" ng-bind="printData.reason"></td>
-      <td rowspan="4" class="memo">
-        <div>订单总金额</div>
-        <div ng-bind="printData.amount"></div>
-        <div>若该笔收取，则余</div>
-        <div ng-bind="printData.balance"></div>
-        <div>
-          附件{{printData.attachments}}张
-        </div>
-      </td>
-    </tr>
-    <tr ng-if="printData.print_type == 'trademark'">
-      <td class="tac">商标名称</td>
-      <td>
-        <table>
-          <tr>
-            <td style="border:none; border-right: 1px solid #333; padding:0;" ng-bind="printData.ordername">
-            </td>
-            <td style="border:none; border-right: 1px solid #333; padding:0; text-align: center;">
-              商标类别
-            </td>
-            <td style="border:none; border-right: 1px solid #333; padding:0; text-align: center;" ng-bind="printData.type">
-            </td>
-            <td style="border:none; border-right: 1px solid #333; padding:0; text-align: center;">
-              提交方式
-            </td>
-            <td style="border:none;padding:0; text-align: center;" ng-bind="printData.mode">
-            </td>
-          </tr>
-        </table>
-      </td>
-      <td rowspan="4" class="memo">
-        <div>订单总金额</div>
-        <div ng-bind="printData.amount"></div>
-        <div>若该笔收取，则余</div>
-        <div ng-bind="printData.balance"></div>
-        <div>
-          附件{{printData.attachments}}张
-        </div>
-      </td>
-    </tr>
-    <tr ng-if="printData.print_type == 'patent'">
-      <td class="tac">专利名称</td>
-      <td>
-        <table>
-          <tr>
-            <td style="border:none; border-right: 1px solid #333; padding:0;" ng-bind="printData.ordername">
-            </td>
-            <td style="border:none; border-right: 1px solid #333; padding:0; text-align: center;">
-              专利类别
-            </td>
-            <td style="border:none; border-right: 1px solid #333; padding:0; text-align: center;" ng-bind="printData.type">
-            </td>
-            <td style="border:none; border-right: 1px solid #333; padding:0; text-align: center;">
-              提交方式
-            </td>
-            <td style="border:none;padding:0; text-align: center;" ng-bind="printData.mode">
-            </td>
-          </tr>
-        </table>
-      </td>
-      <td rowspan="4" class="memo">
-        <div>订单总金额</div>
-        <div ng-bind="printData.amount"></div>
-        <div>若该笔收取，则余</div>
-        <div ng-bind="printData.balance"></div>
-        <div>
-          附件{{printData.attachments}}张
-        </div>
-      </td>
-    </tr>
-    <tr style="height:60px;">
-      <td class="tac">其他事项</td>
-      <td class="tal" ng-bind="printData.others"></td>
-    </tr>
-    <tr>
-      <td class="tac">入账信息</td>
-      <td class="tal">
-        <span>银行名称+卡号后4位：</span>
-        <span ng-bind="printData.pay_info"></span>
-      </td>
-    </tr>
-    <tr>
-      <td class="tac">收款方式</td>
-      <td class="tal m">
-        <label>
-          <input type="checkbox" name="pay_way1" ng-true-value="转账" ng-model="printData.pay_way" onclick="return false"> 转账
-        </label>
-        <label>
-          <input type="checkbox" name="pay_way2" ng-true-value="现金" ng-model="printData.pay_way" onclick="return false"> 现金
-        </label>
-        <label>
-          <input type="checkbox" name="pay_way3" ng-true-value="其他方式" ng-model="printData.pay_way" onclick="return false"> 其他方式
-        </label>
-        <label>
-          <input type="checkbox" name="pay_way4" ng-true-value="先提交,未付款" ng-model="printData.pay_way" onclick="return false"> 先提交未付款
-        </label>
-      </td>
-    </tr>
-    <tr>
-      <td class="tac">金&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;额</td>
-      <td class="tar" ng-bind="currenct2Chinese(printData.received)"></td>
-      <td>
-        <span>￥</span>
-        <span ng-bind="printData.received"></span>
-      </td>
-    </tr>
-  </table>
-  <table style="width:100%; margin-top: 5px;">
-    <tr>
-      <td style="width: 16.66%">
-        <span>审核：</span>
-        <span></span>
-      </td>
-      <td style="width: 16.66%">
-        <span>财务主管：</span>
-        <span></span>
-      </td>
-      <td style="width: 16.66%">
-        <span>会计：</span>
-        <span ng-bind="printData.accounter"></span>
-      </td>
-      <td style="width: 16.66%">
-        <span>出纳：</span>
-        <span ng-bind="printData.cashier"></span>
-      </td>
-      <td style="width: 16.66%">
-        <span>业务员：</span>
-        <span ng-bind="printData.saleman"></span>
-      </td>
-      <td style="width: 16.66%">
-        <span>写票人：</span>
-        <span ng-bind="printData.creator"></span>
-      </td>
-    </tr>
-  </table>
+      </div>
+      <div style="float: left;margin-left: 3px;text-align:center; line-height:22px;width: 15px;">
+        <span style="margin-right: 5px;">①存根 白</span>
+        <span>②客户 红</span>
+      </div>
+    </div>
+    <table style="width:100%; margin-top: 5px;">
+      <tr>
+        <td style="width: 20%">
+          <span>总经理：</span>
+          <span></span>
+        </td>
+        <td style="width: 20%">
+          <span>财务主管：</span>
+          <span></span>
+        </td>
+        <td style="width: 20%">
+          <span>会计：</span>
+          <span ng-bind="printData.creator"></span>
+        </td>
+        <td style="width: 20%">
+          <span>出纳：</span>
+          <span ng-bind="printData.finance_reviewer"></span>
+        </td>
+        <td style="width: 20%">
+          <span>经办人员：</span>
+          <span ng-bind="printData.saleman"></span>
+        </td>
+      </tr>
+    </table>
+  </div>
 </body>
 
 </html>

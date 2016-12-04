@@ -1,0 +1,25 @@
+<div class="modal" style="display: block;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" ui-sref="^">
+          <span aria-hidden="true">×</span></button>
+        <h4 class="modal-title">收据</h4>
+      </div>
+      <div class="modal-body">
+        <form class="form-horizontal" id="receipt_modal">
+          <div class="form-group">
+            <label class="col-sm-2 control-label">收款事由<span class="required">*</span></label>
+            <div class="col-sm-8">
+              <select ui-select2 class="form-control select2" id="receipt_memo" ng-model="data.memo" url="Dictionary/DroplistByGroup" paging="false" paramfield="group" paramvalue="收款事由"></select>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default pull-left" data-dismiss="modal" ui-sref="^">取消</button>
+        <a href="javascript:;" class="btn btn-primary" target="_blank" ng-click="save($event)">打印</button>
+      </div>
+    </div>
+  </div>
+</div>
