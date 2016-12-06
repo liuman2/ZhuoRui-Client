@@ -321,8 +321,9 @@
         </table>
       </div>
       <div class="box-footer clearfix">
-        <button type="button" class="btn btn-info" ui-sref=".income_add({source_name: 'patent', customer_id: data.customer_id})" ui-sref-opts="{location:false}" ng-attr-title="{{data.status > 0 ? '已经提交审核，不能再新增' : '新增收款记录'}}" ng-disabled="data.status > 0">新增</button>
-        <button type="button" class="btn btn-info" ng-click="printReceipt()">打印收据</button>
+        <button type="button" class="btn btn-info" ui-sref=".income_add({source_name: 'patent', customer_id: data.customer_id})" ui-sref-opts="{location:false}">新增</button>
+        <button type="button" class="btn btn-info" ng-click="printReceipt('new')">新增收据</button>
+        <button type="button" class="btn btn-info" ng-click="printReceipt('print')">打印收据</button>
       </div>
     </div>
     <div class="box box-danger">

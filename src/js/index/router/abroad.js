@@ -77,7 +77,7 @@ var router = function($stateProvider, $urlRouterProvider) {
     })
 
   .state('abroad_view.receipt', {
-    url: '/abroad/receipt/{source_name:.*}',
+    url: '/abroad/receipt/{type:.*}/{source_name:.*}',
     views: {
       'print': {
         template: require('view/common/receipt/modal.html'),

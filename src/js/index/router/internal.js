@@ -76,7 +76,7 @@ var router = function($stateProvider, $urlRouterProvider) {
       }
     })
     .state('internal_view.receipt', {
-      url: '/internal/receipt/{source_name:.*}',
+      url: '/internal/receipt/{type:.*}/{source_name:.*}',
       views: {
         'print': {
           template: require('view/common/receipt/modal.html'),

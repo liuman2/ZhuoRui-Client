@@ -11,14 +11,20 @@
           <div class="form-group">
             <label class="col-sm-2 control-label">收款事由<span class="required">*</span></label>
             <div class="col-sm-8">
-              <select ui-select2 class="form-control select2" id="receipt_memo" ng-model="data.memo" url="Dictionary/DroplistByGroup" paging="false" paramfield="group" paramvalue="收款事由"></select>
+              <select ui-select2 class="form-control select2" id="receipt_memo" ng-disabled="formType!=='new'"  ng-model="data.memo" url="Dictionary/DroplistByGroup" paging="false" paramfield="group" paramvalue="收款事由"></select>
             </div>
           </div>
+          <!-- <div class="form-group">
+            <label class="col-sm-2 control-label">会计<span class="required">*</span></label>
+            <div class="col-sm-8">
+              <select ui-select2 class="form-control select2" id="creatorSelect2" name="creator_id" ng-view="creator" ng-model="data.creator_id" data-rule="required;" url="Member/List" paging="true"></select>
+            </div>
+          </div> -->
         </form>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default pull-left" data-dismiss="modal" ui-sref="^">取消</button>
-        <a href="javascript:;" class="btn btn-primary" target="_blank" ng-click="save($event)">打印</button>
+        <button class="btn btn-primary" ng-click="save($event)" ng-bind="formType=='new'?'保存' : '打印'"></button>
       </div>
     </div>
   </div>

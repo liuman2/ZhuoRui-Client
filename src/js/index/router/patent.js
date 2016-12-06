@@ -67,7 +67,7 @@ var router = function($stateProvider, $urlRouterProvider) {
       }
     })
     .state('patent_view.receipt', {
-      url: '/patent/receipt/{source_name:.*}',
+      url: '/patent/receipt/{type:.*}/{source_name:.*}',
       views: {
         'print': {
           template: require('view/common/receipt/modal.html'),

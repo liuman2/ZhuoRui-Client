@@ -17,7 +17,7 @@ module.exports = function($scope, $http, $state, $stateParams) {
           var obj = {
             name: o,
             value: $scope.data[o],
-            memo: $('#' + o).text()
+            memo: $('#' + o).find("option:selected").text()
           };
           submitData.push(obj)
         }

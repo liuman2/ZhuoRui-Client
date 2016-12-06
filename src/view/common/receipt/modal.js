@@ -2,6 +2,7 @@ var httpHelper = require('js/utils/httpHelper');
 
 module.exports = function($scope, $state, $http, $timeout) {
   var source_id = $state.params.id,
+    type = $state.params.type,
     source_name = $state.params.source_name;
 
   var jForm = $('#receipt_modal');
@@ -10,6 +11,7 @@ module.exports = function($scope, $state, $http, $timeout) {
     fields: {}
   });
 
+  $scope.formType = type;
   $scope.data = {
     id: null,
     order_id: source_id,
@@ -27,6 +29,10 @@ module.exports = function($scope, $state, $http, $timeout) {
       return;
     }
 
+    if (type == 'print') {
+      window.open('/print.html?t=receipt&m=' + source_name + '&id=' + source_id, '_blank');
+    }
+
     $scope.data.memo = $('#receipt_memo').val();
     $http({
       method: 'POST',
@@ -41,8 +47,6 @@ module.exports = function($scope, $state, $http, $timeout) {
       $scope.$emit('INCOME_MODAL_DONE');
 
       // $(e.target).href='http://baidu.com';
-
-      window.open('/print.html?t=receipt&m='+ source_name +'&id=' + source_id,  '_blank');
       $timeout(function() {
         $state.go('^', {
           reload: true

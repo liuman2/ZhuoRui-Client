@@ -7,12 +7,12 @@
   <style>
   body {
     font-family: $font-family-base;
-    font-size: $font-size-base;
+    /*font-size: $font-size-base;*/
   }
 
   table {
     width: 100%;
-    font-size: 10px;
+    font-size: 14px;
   }
 
   .print-body td {
@@ -48,6 +48,23 @@
 
   .memo div {
     padding: 5px 0;
+  }
+
+  .tt {
+    position: relative;
+    border-bottom: 1px solid #000;
+    padding-bottom: 2px;
+  }
+
+  .tt:after {
+    content: '';
+    width: 100%;
+    position: absolute;
+    left: 0;
+    top: 22px;
+    bottom: 1px;
+    border-width: 0 0 1px;
+    border-style: solid;
   }
   </style>
 </head>
@@ -248,56 +265,53 @@
     </table>
   </div>
   <div ng-if="printType =='receipt'">
-    <table style="width:100%;text-align: center;margin-top: 45px;">
+    <table style="width:100%;text-align: center;margin-top: 0;">
       <tr>
-        <td rowspan="2" style="width: 20%">
-          <img src="./img/logo.jpg" width="40" height="40" alt="">
-          <div style="font-size:9px;margin-top:3px;">卓瑞企业</div>
+        <td rowspan="3" style="width: 20%">
+          <img src="./img/logo2.jpg" width="40" alt="">
         </td>
-        <td style="font-size:16px;width: 60%;font-weight:bold;">
-          厦门卓瑞企业管理咨询有限公司
+        <td style="font-size:18px;width: 60%;font-weight:bold;">
+          卓瑞企业咨询
         </td>
-        <td style="width: 15%;">
+        <td style="width: 20%;">
         </td>
       </tr>
       <tr>
-        <td style="font-size:14px;letter-spacing:8px;">
-          收款收据
+        <td style="font-size:16px;">
+          <span class="tt">收 款 收 据</span>
         </td>
         <td>
+          <span style="margin-right: 5px;">NO：</span>
           <span style="margin-right: 10px;" ng-bind="printData.no"></span>
         </td>
       </tr>
-      <tr style="height:30px;">
-        <td></td>
+      <tr style="height:30px;font-size:10px;">
         <td ng-bind="printData.date">
-        </td>
-        <td>
         </td>
       </tr>
     </table>
-    <div style="overflow: hidden;">
+    <div style="overflow: hidden;font-size:10px;">
       <div style="border: 1px solid #333; padding-top: 5px;width:95%;float: left;">
         <table style="width:100%;" class="print-body">
           <tr>
             <td style="border:none;">
-              <span style="display: inline-block; width: 10%;">今收到</span>
-              <span ng-bind="printData.customer_name" style="display: inline-block; border:none;border-bottom: 1px solid #333; width: 85%;"></span>
+              <span style="display: inline-block; width: 45px;">今收到</span>
+              <span ng-bind="printData.customer_name" style="display: inline-block; border:none;border-bottom: 1px solid #333; min-width: 90%;"></span>
             </td>
           </tr>
           <tr>
             <td style="border:none;">
-              <span style="display: inline-block; letter-spacing:10px; width: 10%;">交来</span>
-              <span ng-bind="printData.memo" style="display: inline-block; border:none;border-bottom: 1px solid #333; width: 85%;"></span>
+              <span style="display: inline-block; letter-spacing:6px; width: 45px;">交来</span>
+              <span ng-bind="printData.memo" style="display: inline-block; border:none;border-bottom: 1px solid #333; min-width: 90%;"></span>
             </td>
           </tr>
           <tr>
             <td style="border:none;">
-              <span style="display: inline-block; width: 15%;">人民币(大写)</span>
-              <span ng-bind="currenct2Chinese(printData.received)" style="display: inline-block; border:none;border-bottom: 1px solid #333; width: 80%;"></span>
+              <span style="display: inline-block; width: 80px;">人民币(大写)</span>
+              <span ng-bind="currenct2Chinese(printData.received)" style="display: inline-block; border:none;border-bottom: 1px solid #333; min-width: 87%;"></span>
             </td>
           </tr>
-          <tr style="height: 80px;">
+          <tr style="height: 75px;">
             <td style="border:none;padding: 0;">
               <table>
                 <tr>
@@ -307,10 +321,10 @@
                   </td>
                   <td style="border:none; width: 25%;">
                     <span>￥</span>
-                    <span ng-bind="printData.received"></span>
+                    <span ng-bind="(printData.received).toFixed(2)"></span>
                   </td>
                   <td style="border:none; width: 25%;">
-                    <span>付款方式:</span>
+                    <span>付款方式：</span>
                     <span ng-bind="printData.pay_way"></span>
                   </td>
                 </tr>
@@ -319,12 +333,14 @@
           </tr>
         </table>
       </div>
-      <div style="float: left;margin-left: 3px;text-align:center; line-height:22px;width: 15px;">
-        <span style="margin-right: 5px;">①存根 白</span>
-        <span>②客户 红</span>
+      <div style="float: left;margin-left: 3px;text-align:center; width: 15px; font-size: 12px!important;">
+        <span style="display: inline-block;margin-top: 7px;">①存根</span>
+        <span style="display: inline-block;margin-top: 5px;margin-bottom: 10px;">白</span>
+        <span style="display: inline-block;">②客户</span>
+        <span style="display: inline-block;margin-top: 5px;">红</span>
       </div>
     </div>
-    <table style="width:100%; margin-top: 5px;">
+    <table style="width:100%; margin-top: 0;">
       <tr>
         <td style="width: 20%">
           <span>总经理：</span>
