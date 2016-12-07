@@ -68,7 +68,7 @@ var router = function($stateProvider, $urlRouterProvider) {
       }
     })
     .state('annual_view.receipt', {
-      url: '/annual/receipt/{source_name:.*}',
+      url: '/annual/receipt/{type:.*}/{source_name:.*}',
       views: {
         'print': {
           template: require('view/common/receipt/modal.html'),

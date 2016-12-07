@@ -201,8 +201,8 @@ module.exports = function($scope, $state, $http, $q, $timeout, $cookieStore) {
     $state.go(".progress", { id: $scope.data.id, module_name: 'History' }, { location: false });
   }
 
-  $scope.printReceipt = function() {
-    $state.go(".receipt", { source_name: 'history' }, { location: false });
+  $scope.printReceipt = function(t) {
+    $state.go(".receipt", { type: t, source_name: 'history' }, { location: false });
   }
 
   $scope.$on('PROGRESS_MODAL_DONE', function(e) {
