@@ -39,6 +39,9 @@ module.exports = function($scope, $http, $state, $stateParams) {
       case 'annual_exam':
         $state.go("annual_view", { id: item.id });
         break;
+      case 'history':
+        $state.go("history_view", { id: item.id });
+        break;
     }
   };
 
