@@ -147,7 +147,7 @@
         <div class="form-group" ng-if="data.is_old == 1">
           <label class="col-sm-2 control-label">档案号<span class="required">*</span></label>
           <div class="col-sm-6">
-            <input type="text" class="form-control" ng-model="data.code" data-rule="required; code" placeholder="区域代码+订单代码+流水号">
+            <input type="text" class="form-control" ng-model="data.code" name="code" data-rule="required; code" placeholder="区域代码+订单代码+流水号">
           </div>
         </div>
         <div class="form-group">
@@ -155,15 +155,15 @@
           <div class="col-sm-6">
             <select class="form-control select2" name="type" id="selectType" ng-model="data.type" data-rule="required;" ng-disabled="current_name == 'audit_add_s'">
               <option value="">请选择</option>
-              <option value="境内">境内注册</option>
-              <option value="境外">境外注册</option>
+              <option value="境内">境内审计</option>
+              <option value="境外">境外审计</option>
             </select>
           </div>
         </div>
         <div class="form-group">
-          <label class="col-sm-2 control-label">来源单据<span class="required">*</span></label>
+          <label class="col-sm-2 control-label">来源单据</label>
           <div class="col-sm-6">
-            <input type="text" class="form-control" ng-model="data.source_code" data-rule="required;" disabled>
+            <input type="text" class="form-control" ng-model="data.source_code" disabled placeholder="若无可不选">
           </div>
           <div class="col-sm-1 add-dictionary" ng-if="current_name != 'audit_add_s'">
             <a class="fa fa-search" ng-click="selectSource()"></a>

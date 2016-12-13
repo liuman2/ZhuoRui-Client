@@ -202,8 +202,23 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
         if (ele.value.indexOf('SJ') < 0) {
           return false;
         }
+
+        // var arrs = ['XM', 'QZ', 'QD']
+        // var areaCode = ele.value.substr(0, 2);
+        // if (['XM', 'QZ', 'QD'].indexOf(areaCode) < 0) {
+        //   return false;
+        // }
+
+        // var bizCode = ele.value.substr(2, 2);
+        // if (bizCode != 'SJ') {
+        //   return false;
+        // }
+
         return true;
       }
+    },
+    fields: {
+      code: "required; length[8]; code;remote[get:" + httpHelper.url('/Common/ExistCode?id=audit') + "]",
     }
   });
 

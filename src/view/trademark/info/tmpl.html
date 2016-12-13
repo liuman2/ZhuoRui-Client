@@ -157,13 +157,13 @@
         <div class="form-group" ng-if="data.is_old != 1">
           <label class="col-sm-2 control-label">档案号<span class="required">*</span></label>
           <div class="col-sm-8">
-            <input type="text" class="form-control" placeholder="系统自动生成" readonly>
+            <input type="text" class="form-control" ng-model="data.code" placeholder="系统自动生成" readonly>
           </div>
         </div>
         <div class="form-group" ng-if="data.is_old == 1">
           <label class="col-sm-2 control-label">档案号<span class="required">*</span></label>
           <div class="col-sm-8">
-            <input type="text" class="form-control" ng-model="data.code" data-rule="required; code;" placeholder="区域代码+订单代码+流水号">
+            <input type="text" class="form-control" ng-model="data.code" name="code" data-rule="required; code;" placeholder="区域代码+订单代码+流水号">
           </div>
         </div>
         <div class="form-group">
