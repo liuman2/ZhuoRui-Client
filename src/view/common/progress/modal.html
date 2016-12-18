@@ -8,7 +8,7 @@
       </div>
       <div class="modal-body">
         <form class="form-horizontal" id="progress_modal">
-          <div ng-if="module_type == 'p'">
+          <div ng-if="module_type == 'p' && progress.module != 'Trademark'">
             <div class="form-group">
               <label class="col-sm-3 control-label"><span ng-bind="progress.title"></span><span class="required">*</span></label>
               <div class="col-sm-7">
@@ -140,7 +140,7 @@
               </div>
             </div>
           </div>
-          <div ng-if="progress.module=='Trademark' && module_type != 'p'">
+          <div ng-if="progress.module=='Trademark' && module_type == 'p'">
             <div class="form-group">
               <label class="col-sm-3 control-label">回执时间</label>
               <div class="col-sm-7">
@@ -150,27 +150,43 @@
             <div class="form-group">
               <label class="col-sm-3 control-label">受理时间</label>
               <div class="col-sm-7">
-                <input type="text" class="form-control date-input" id="date_accept" name="date_accept" ng-model="progress.date_accept">
+                <input type="text" class="form-control date-input" id="date_accept" name="date_accept" ng-model="progress.date_accept" ng-disabled="!progress.date_receipt">
               </div>
             </div>
             <div class="form-group">
               <label class="col-sm-3 control-label">初审时间</label>
               <div class="col-sm-7">
-                <input type="text" class="form-control date-input" id="date_trial" name="date_trial" ng-model="progress.date_trial">
+                <input type="text" class="form-control date-input" id="date_trial" name="date_trial" ng-model="progress.date_trial" ng-disabled="!progress.date_accept">
               </div>
             </div>
+             <div class="form-group">
+              <label class="col-sm-3 control-label">完成时间</label>
+              <div class="col-sm-3">
+                 <select class="form-control select2" style="width: 100%;" ng-disabled="!progress.date_trial">
+                   <option value="">请选择</option>
+                   <option value="通过">通过</option>
+                   <option value="驳回">驳回</option>
+                 </select>
+              </div>
+              <div class="col-sm-4">
+                <input type="text" class="form-control date-input" id="date_trial" name="date_trial" ng-model="progress.date_trial"  ng-disabled="!progress.date_trial" placeholder="通过/驳回时间">
+              </div>
+            </div>
+          </div>
+          <div ng-if="progress.module=='Trademark' && module_type != 'p'">
             <div class="form-group">
               <label class="col-sm-3 control-label">注册时间</label>
               <div class="col-sm-7">
                 <input type="text" class="form-control date-input" id="date_regit" name="date_regit" ng-model="progress.date_regit">
               </div>
             </div>
-            <!-- <div class="form-group">
+            <div class="form-group">
               <label class="col-sm-3 control-label">续展时间</label>
               <div class="col-sm-7">
-                <input type="text" class="form-control date-input" id="date_exten" name="date_exten" ng-model="progress.date_exten">
+                <input type="text" class="form-control" id="date_exten" name="date_exten" ng-model="progress.date_exten">
               </div>
-            </div> -->
+              <label class="control-label">年</label>
+            </div>
           </div>
           <div ng-if="progress.module=='Patent' && module_type != 'p'">
             <div class="form-group">

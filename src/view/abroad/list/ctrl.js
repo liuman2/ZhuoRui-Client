@@ -20,6 +20,16 @@ module.exports = function($scope, $http, $state, $stateParams) {
     }
   }
 
+  $scope.export = function(eve) {
+    var url = "/Common/ExportExcel?tableName=reg_abroad",
+      iframe = document.createElement("iframe");
+
+    iframe.src = url;
+    iframe.style.display = "none";
+    document.body.appendChild(iframe);
+    eve.stopPropagation();
+  }
+
   $scope.orderBy = function(field) {
     if ($scope.search.orderBy.field == field) {
       $scope.search.orderBy.order = 'asc';

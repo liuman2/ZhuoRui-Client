@@ -29,6 +29,10 @@
                         <th>客户名称</th>
                         <th>联系人</th>
                         <th>联系电话</th>
+                        <th>业务员</th>
+                        <th>助理</th>
+                        <th>客户来源</th>
+                        <th>介绍人</th>
                         <th class="opt-col">操作</th>
                     </tr>
                     <tr ng-repeat="item in data.items">
@@ -37,6 +41,12 @@
                         <td ng-bind="item.name"></td>
                         <td ng-bind="item.contact"></td>
                         <td ng-bind="item.mobile"></td>
+
+                        <td ng-bind="item.salesman"></td>
+                        <td ng-bind="item.assistant_name"></td>
+                        <td ng-bind="item.source"></td>
+                        <td ng-bind="item.source_name"></td>
+
                         <td class="opt-col">
                             <a class="fa fa-info-circle" ui-sref="customer_view({id: item.id})" title="详情"></a>
                             <a class="fa fa-pencil orange" ui-sref="customer_edit({id: item.id})" title="修改"></a>
