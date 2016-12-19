@@ -150,26 +150,25 @@
             <div class="form-group">
               <label class="col-sm-3 control-label">受理时间</label>
               <div class="col-sm-7">
-                <input type="text" class="form-control date-input" id="date_accept" name="date_accept" ng-model="progress.date_accept" ng-disabled="!progress.date_receipt">
+                <input type="text" class="form-control date-input" id="date_accept" name="date_accept" ng-model="progress.date_accept">
               </div>
             </div>
             <div class="form-group">
-              <label class="col-sm-3 control-label">初审时间</label>
+              <div class="col-sm-3">
+                <select class="form-control select2" ng-model="progress.trial_type"  style="width: 100%;">
+                  <option value="">请选择</option>
+                  <option value="初审">初审时间</option>
+                  <option value="驳回">驳回时间</option>
+                </select>
+              </div>
               <div class="col-sm-7">
-                <input type="text" class="form-control date-input" id="date_trial" name="date_trial" ng-model="progress.date_trial" ng-disabled="!progress.date_accept">
+                <input type="text" class="form-control date-input" id="date_trial" ng-disabled="!progress.trial_type" name="date_trial" ng-model="progress.date_trial" placeholder="通过/驳回时间">
               </div>
             </div>
-             <div class="form-group">
-              <label class="col-sm-3 control-label">完成时间</label>
-              <div class="col-sm-3">
-                 <select class="form-control select2" style="width: 100%;" ng-disabled="!progress.date_trial">
-                   <option value="">请选择</option>
-                   <option value="通过">通过</option>
-                   <option value="驳回">驳回</option>
-                 </select>
-              </div>
-              <div class="col-sm-4">
-                <input type="text" class="form-control date-input" id="date_trial" name="date_trial" ng-model="progress.date_trial"  ng-disabled="!progress.date_trial" placeholder="通过/驳回时间">
+            <div class="form-group" ng-show="progress.trial_type == '驳回'">
+              <label class="col-sm-3 control-label">异议时间</label>
+              <div class="col-sm-7">
+                <input type="text" class="form-control date-input" id="date_allege" name="date_allege" ng-model="progress.date_allege">
               </div>
             </div>
           </div>
@@ -181,9 +180,48 @@
               </div>
             </div>
             <div class="form-group">
-              <label class="col-sm-3 control-label">续展时间</label>
+              <label class="col-sm-3 control-label">注册号</label>
               <div class="col-sm-7">
-                <input type="text" class="form-control" id="date_exten" name="date_exten" ng-model="progress.date_exten">
+                <input type="text" class="form-control" name="regit_no" ng-model="progress.regit_no">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-3 control-label">续展周期</label>
+              <div class="col-sm-7">
+                <select class="form-control select2" ng-model="progress.exten_period"  style="width: 100%;">
+                  <option value="">请选择</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+                  <option value="9">9</option>
+                  <option value="10">10</option>
+                  <option value="11">11</option>
+                  <option value="12">12</option>
+                  <option value="13">13</option>
+                  <option value="14">14</option>
+                  <option value="15">15</option>
+                  <option value="16">16</option>
+                  <option value="17">17</option>
+                  <option value="18">18</option>
+                  <option value="19">19</option>
+                  <option value="20">20</option>
+                  <option value="21">21</option>
+                  <option value="22">22</option>
+                  <option value="23">23</option>
+                  <option value="24">24</option>
+                  <option value="25">25</option>
+                  <option value="26">26</option>
+                  <option value="27">27</option>
+                  <option value="28">28</option>
+                  <option value="29">29</option>
+                  <option value="30">30</option>
+                </select>
+
               </div>
               <label class="control-label">年</label>
             </div>

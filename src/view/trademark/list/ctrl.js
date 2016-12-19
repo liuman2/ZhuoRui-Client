@@ -152,6 +152,22 @@ module.exports = function($scope, $http, $state, $stateParams) {
     $state.go(".progress", { id: item.id, module_name: 'Trademark', type: t }, { location: false });
   }
 
+  $scope.getProgressStatus = function(item) {
+    if (item.date_regit) {
+      return ' 完成';
+    }
+    if (item.date_trial) {
+      return item.trial_type;
+    }
+    if (item.date_accept) {
+      return ' 受理';
+    }
+    if (item.date_receipt) {
+      return ' 回执';
+    }
+    return ' 设置进度';
+  }
+
   $scope.$on('PROGRESS_MODAL_DONE', function(e) {
     load_data();
   });
