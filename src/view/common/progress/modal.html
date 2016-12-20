@@ -143,14 +143,20 @@
           <div ng-if="progress.module=='Trademark' && module_type == 'p'">
             <div class="form-group">
               <label class="col-sm-3 control-label">回执时间</label>
-              <div class="col-sm-7">
+              <div class="col-sm-3">
                 <input type="text" class="form-control date-input" id="date_receipt" name="date_receipt" ng-model="progress.date_receipt">
+              </div>
+              <div class="col-sm-4">
+                <input type="text" class="form-control" name="receipt_memo" ng-model="progress.receipt_memo" data-rule="length[~60];" placeholder="备注">
               </div>
             </div>
             <div class="form-group">
               <label class="col-sm-3 control-label">受理时间</label>
-              <div class="col-sm-7">
+              <div class="col-sm-3">
                 <input type="text" class="form-control date-input" id="date_accept" name="date_accept" ng-model="progress.date_accept">
+              </div>
+              <div class="col-sm-4">
+                <input type="text" class="form-control" name="accept_memo" ng-model="progress.accept_memo" data-rule="length[~60];" placeholder="备注">
               </div>
             </div>
             <div class="form-group">
@@ -161,14 +167,20 @@
                   <option value="驳回">驳回时间</option>
                 </select>
               </div>
-              <div class="col-sm-7">
+              <div class="col-sm-3">
                 <input type="text" class="form-control date-input" id="date_trial" ng-disabled="!progress.trial_type" name="date_trial" ng-model="progress.date_trial" placeholder="通过/驳回时间">
+              </div>
+              <div class="col-sm-4">
+                <input type="text" class="form-control" name="trial_memo" ng-model="progress.trial_memo" data-rule="length[~60];" placeholder="备注">
               </div>
             </div>
             <div class="form-group" ng-show="progress.trial_type == '驳回'">
               <label class="col-sm-3 control-label">异议时间</label>
-              <div class="col-sm-7">
+              <div class="col-sm-3">
                 <input type="text" class="form-control date-input" id="date_allege" name="date_allege" ng-model="progress.date_allege">
+              </div>
+              <div class="col-sm-4">
+                <input type="text" class="form-control" name="allege_memo" ng-model="progress.allege_memo" data-rule="length[~60];" placeholder="备注">
               </div>
             </div>
           </div>
@@ -221,7 +233,6 @@
                   <option value="29">29</option>
                   <option value="30">30</option>
                 </select>
-
               </div>
               <label class="control-label">年</label>
             </div>

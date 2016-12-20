@@ -16,6 +16,10 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
     actionView();
     getCustomers();
   }
+  $scope.period = {
+    disabled: false,
+    days: 0
+  };
 
   $scope.data = {}
   $scope.attachments = [];
@@ -65,6 +69,28 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
     });
   }
 
+  $scope.getEditTitle = function() {
+    if (!$scope.period.disabled) {
+      return '';
+    }
+    $('.tooltip-author').tooltipster({
+      theme: 'tooltipster-sideTip-shadow',
+      content: '离讲座开始时间已经超过' + $scope.period.days + '天，无法再修改',
+    });
+    return '离讲座开始时间已经超过' + $scope.period.days + '天，无法再修改'
+  }
+
+  $scope.getAddTitle = function() {
+    if (!$scope.period.disabled) {
+      return '';
+    }
+    $('.tooltip-author').tooltipster({
+      theme: 'tooltipster-sideTip-shadow',
+      content: '离讲座开始时间已经超过' + $scope.period.days + '天，无法再新增',
+    });
+    return '离讲座开始时间已经超过' + $scope.period.days + '天，无法再新增'
+  }
+
   function actionView() {
     $http({
       method: 'GET',
@@ -75,6 +101,7 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
     }).success(function(data) {
       $scope.data = data.lect;
       $scope.attachments = data.attachments;
+      $scope.period = data.period;
     });
   }
 

@@ -94,10 +94,11 @@
         </div>
       </div>
       <div class="box-footer">
-        <button type="button" class="btn btn-info" ui-sref="lecture_edit({id: id})" ui-sref-opts="{reload:true}">修改</button>
+        <button type="button" class="btn btn-info tooltip-author" ng-attr-title="{{getEditTitle()}}" ng-if="period.disabled">修改</button>
+        <button type="button" class="btn btn-info" ng-if="!period.disabled" ui-sref="lecture_edit({id: id})" ui-sref-opts="{reload:true}">修改</button>
       </div>
     </div>
-    <div class="box box-danger">
+    <div class="box box-danger" style="margin-bottom: 50px;">
       <div class="box-header with-border">
         <h3 class="box-title">参会客户名单</h3>
         <div class="box-tools pull-right">
@@ -140,7 +141,8 @@
         </table>
       </div>
       <div class="box-footer clearfix">
-        <button type="button" class="btn btn-info" ui-sref=".customer_add" ui-sref-opts="{location:false}">添加</button>
+        <button type="button" class="btn btn-info tooltip-author" ng-attr-title="{{getAddTitle()}}" ng-if="period.disabled">添加</button>
+        <button type="button" class="btn btn-info" ng-if="!period.disabled" ui-sref=".customer_add" ui-sref-opts="{location:false}">添加</button>
         <div pagination page-data="customers.page" page-click="go(idx)"></div>
       </div>
     </div>

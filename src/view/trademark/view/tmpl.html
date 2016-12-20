@@ -190,28 +190,37 @@
         </div>
       </div>
       <div class="box-body">
-        <div class="form-group">
+        <!-- <div class="form-group">
           <label class="col-sm-2 control-label">商标进度</label>
           <div class="col-sm-8">
             <span class="form-span" ng-bind="!!data.progress? (' ' + data.progress) : ' 无进度信息'"></span>
           </div>
-        </div>
+        </div> -->
         <div class="form-group">
           <label class="col-sm-2 control-label">回执时间</label>
-          <div class="col-sm-8">
+          <div class="col-sm-2">
             <span class="form-span" ng-bind="format(data.date_receipt, 'YYYY-MM-DD')"></span>
+          </div>
+          <div class="col-sm-4">
+            <span class="form-span" ng-bind="data.receipt_memo"></span>
           </div>
         </div>
         <div class="form-group">
           <label class="col-sm-2 control-label">受理时间</label>
-          <div class="col-sm-8">
+          <div class="col-sm-2">
             <span class="form-span" ng-bind="format(data.date_accept, 'YYYY-MM-DD')"></span>
+          </div>
+          <div class="col-sm-4">
+            <span class="form-span" ng-bind="data.accept_memo"></span>
           </div>
         </div>
         <div class="form-group">
-          <label class="col-sm-2 control-label">初审时间</label>
-          <div class="col-sm-8">
+          <label class="col-sm-2 control-label" ng-bind="data.trial_type + '时间'"></label>
+          <div class="col-sm-2">
             <span class="form-span" ng-bind="format(data.date_trial, 'YYYY-MM-DD')"></span>
+          </div>
+          <div class="col-sm-4">
+            <span class="form-span" ng-bind="data.trial_memo"></span>
           </div>
         </div>
         <div class="form-group">
@@ -221,9 +230,9 @@
           </div>
         </div>
         <div class="form-group">
-          <label class="col-sm-2 control-label">续展时间</label>
-          <div class="col-sm-8">
-            <span class="form-span" ng-bind="format(data.date_exten, 'YYYY-MM-DD')"></span>
+          <label class="col-sm-2 control-label">续展周期</label>
+          <div class="col-sm-8" ng-if="data.exten_period">
+            <span class="form-span" ng-bind="data.exten_period + ' 年'"></span>
           </div>
         </div>
       </div>

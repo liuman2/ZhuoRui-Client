@@ -46,7 +46,7 @@
                         <td ng-bind="item.source_name"></td>
 
                         <td class="opt-col">
-                            <a class="fa fa-info-circle" ui-sref="reserve.detail.view({id: item.id})" title="详情"></a>
+                            <a class="fa fa-info-circle" target="_blank" ui-sref="reserve.detail.view({id: item.id})" title="详情"></a>
                             <a class="fa fa-pencil orange" ui-sref="reserve.detail.edit({id: item.id})" title="修改"></a>
                             <a href="javascript:;" class="fa fa-check-square-o green" ng-click="transfer(item)" title="转正式客户"></a>
                             <a class="fa fa-clock-o green" ui-sref="timeline({id: item.id})" title="查看日志"></a>
