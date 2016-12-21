@@ -79,7 +79,9 @@
           </div>
           <ul class="notices-list notice-list-in-box">
             <li class="item" ng-repeat="notice in sinpleNotices.list">
+              <span class="nl_new" ng-if="notice.isNew">NEW</span>
               <a href="javascript:;" class="notice-description" ui-sref="notice_detail({id: {{notice.id}}})" ng-bind="notice.title"></a>
+              <span class="nl_time" ng-bind="format(notice.created, 'MM-DD')"></span>
             </li>
           </ul>
         </div>

@@ -69,9 +69,9 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
       case 'reg_internal':
         return '公司成立日期';
       case 'trademark':
-        return '初审时间';
+        return '注册时间';
       case 'patent':
-        return '授权时间';
+        return '注册时间';
     }
   }
 

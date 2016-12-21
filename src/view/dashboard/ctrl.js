@@ -1,8 +1,17 @@
+var moment = require('moment');
+moment.locale('zh-cn');
 module.exports = function($scope, $state, $http, $q, $timeout) {
 
   $scope.banner = {
     customers: 0,
     annuals: 0
+  }
+
+  $scope.format = function(dt, str) {
+    if (!dt) {
+      return '';
+    }
+    return moment(dt).format(str);
   }
 
   $http({

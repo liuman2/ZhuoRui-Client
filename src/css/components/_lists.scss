@@ -86,6 +86,25 @@
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+  float: left;
+}
+
+.nl_time {
+  display: inline-block;
+  float: right;
+  font-size: 13px;
+  color: #959595;
+}
+
+.nl_new {
+  display: block;
+  float: left;
+  color: #fff;
+  zoom: 1;
+  background: red;
+  overflow: hidden;
+  margin: 0 9px 0 0;
+  text-align: center;
 }
 
 .notice-list-in-box > .item {
