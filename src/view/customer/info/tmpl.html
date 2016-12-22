@@ -1,10 +1,10 @@
 <section class="content-header">
   <h1>
-        正式客户
+        意向客户
     </h1>
   <ol class="breadcrumb">
     <li><a ui-sref="dashboard"><i class="fa fa-dashboard"></i>我的面板</a></li>
-    <li><a ui-sref="customer">正式客户</a></li>
+    <li><a ui-sref="customer">意向客户</a></li>
     <li class="active" ng-bind="current_bread"></li>
   </ol>
 </section>
@@ -154,6 +154,22 @@
             <select ui-select2 class="form-control select2" id="assistantSelect2" allowclear="true" name="assistant_id" ng-view="assistant_name" ng-model="data.assistant_id" url="Member/List" paging="true" style="width: 100%;"></select>
           </div>
         </div>
+        <div class="form-group" ng-repeat="assistant in data.assistantList">
+          <label class="col-sm-2 control-label" ng-bind="$index == 0 ? '助理' : ''"></label>
+          <div class="col-sm-6">
+            <select ui-select2 class="form-control select2" id="assistantSelect2{{$index}}" name="assistant[$index]" ng-model="assistant.id" url="Member/List" paging="true" style="width: 100%;"></select>
+          </div>
+          <div class="col-sm-2">
+            <a href="javascript:;" style="display: inline-block; line-height: 30px;" ng-click="removeAssistat($index)">删除</a>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-2 control-label"></label>
+          <div class="col-sm-8">
+            <a href="javascript:;" ng-click="addAssistat()">添加助理</a>
+          </div>
+        </div>
+
         <div class="form-group">
           <label class="col-sm-2 control-label">备注</label>
           <div class="col-sm-8">

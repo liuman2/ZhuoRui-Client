@@ -34,7 +34,19 @@ module.exports = function($scope, $state, $http, $cookieStore, $q, $timeout) {
     salesman: user.name,
     assistant_id: '',
     assistant_name: '',
-    contactList: []
+    contactList: [],
+    assistantList: []
+  }
+
+  $scope.addAssistat = function() {
+    $scope.data.assistantList.push({
+      id: '',
+      name: ''
+    })
+  }
+
+  $scope.removeAssistat = function(index) {
+    $scope.data.assistantList.splice(index, 1);
   }
 
   init();
@@ -89,6 +101,16 @@ module.exports = function($scope, $state, $http, $cookieStore, $q, $timeout) {
         if ($scope.county) {
           data.county = $scope.county;
         }
+
+        if (data.assistantList.length > 0) {
+          var ids = [];
+          $.map(data.assistantList, function(assistant, index) {
+            var id = $('#assistantSelect2' + index).val();
+            ids.push(id);
+          });
+          data.assistants = ids.join(',');
+        }
+
         var url = $scope.action == 'add' ? '/Customer/Add' : '/Customer/Update';
         $http({
           method: 'POST',
@@ -152,6 +174,13 @@ module.exports = function($scope, $state, $http, $cookieStore, $q, $timeout) {
       $scope.data = data;
       setTimeout(function() {
         setArea(data);
+
+        if (data.assistantList.length) {
+          $.map(data.assistantList, function(assistant, index) {
+            var option = "<option value='" + assistant.id + "'>" + assistant.name + "</option>";
+            $('#assistantSelect2' + index).append(option).val(assistant.id).trigger('change');
+          })
+        }
       }, 10);
 
       init();
