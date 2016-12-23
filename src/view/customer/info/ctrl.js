@@ -170,6 +170,7 @@ module.exports = function($scope, $state, $http, $cookieStore, $q, $timeout) {
       if (data.contacts != '') {
         data.contactList = JSON.parse(data.contacts)
       }
+      data.assistantList = data.assistantList || [];
 
       $scope.data = data;
       setTimeout(function() {
