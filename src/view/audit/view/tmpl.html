@@ -26,12 +26,12 @@
         <span ng-if="data.status == 4" ng-bind="'已完成 | ' + format(data.date_finish, 'YYYY-MM-DD')"></span>
       </div>
     </div>
-    <div class="box box-danger">
+    <div class="box box-danger collapsed-box">
       <div class="box-header with-border">
-        <h3 class="box-title">客户基本信息</h3>
+        <h3 class="box-title">客户信息</h3>
         <div class="box-tools">
           <div class="box-tools pull-right">
-            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i>
             </button>
           </div>
         </div>
@@ -105,12 +105,12 @@
         </div>
       </div>
     </div>
-    <div class="box box-danger">
+    <div class="box box-danger collapsed-box">
       <div class="box-header with-border">
         <h3 class="box-title">注册信息</h3>
         <div class="box-tools">
           <div class="box-tools pull-right">
-            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i>
             </button>
           </div>
         </div>
@@ -176,6 +176,20 @@
             <span class="form-span" ng-bind="data.account_number"></span>
           </div>
         </div>
+      </div>
+    </div>
+
+    <div class="box box-danger">
+      <div class="box-header with-border">
+        <h3 class="box-title">审计信息</h3>
+        <div class="box-tools">
+          <div class="box-tools pull-right">
+            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="box-body">
         <div class="form-group">
           <label class="col-sm-2 control-label">账期</label>
           <div class="col-sm-8">
@@ -250,11 +264,12 @@
         </div>
       </div>
     </div>
-    <div class="box box-danger">
+
+    <div class="box box-danger collapsed-box">
       <div class="box-header with-border">
         <h3 class="box-title">开户行</h3>
         <div class="box-tools pull-right">
-          <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+          <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i>
           </button>
         </div>
       </div>
@@ -285,11 +300,12 @@
         <button type="button" class="btn btn-info" ui-sref=".bank_select({audit_id: data.id, customer_id: data.customer_id})" ui-sref-opts="{location:false}" ng-attr-title="{{data.status > 0 ? '已经提交审核，不能再新增' : '选择开户行'}}" ng-disabled="data.status > 0">选择已有开户行</button>
       </div>
     </div>
-    <div class="box box-danger">
+
+    <div class="box box-danger collapsed-box">
       <div class="box-header with-border">
         <h3 class="box-title">收款记录</h3>
         <div class="box-tools pull-right">
-          <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+          <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i>
           </button>
         </div>
       </div>
@@ -371,7 +387,7 @@
                   </div>
                 </div>
               </td>
-              <td class="summary" colspan="4">
+              <td class="summary" colspan="5">
               </td>
             </tr>
           </tbody>
@@ -383,12 +399,12 @@
         <button type="button" class="btn btn-info" ng-click="printReceipt('print')">打印收据</button>
       </div>
     </div>
-    <div class="box box-danger">
+    <div class="box box-danger collapsed-box">
       <div class="box-header with-border">
         <h3 class="box-title">其他信息</h3>
         <div class="box-tools">
           <div class="box-tools pull-right">
-            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i>
             </button>
           </div>
         </div>
@@ -422,6 +438,7 @@
     </div>
   </form>
 </section>
+
 <div ui-view="modal"></div>
 <div ui-view="progress"></div>
 <div ui-view="bank"></div>
