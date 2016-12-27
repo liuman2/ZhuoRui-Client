@@ -22,7 +22,7 @@
               </select>
             </div>
           </div>
-          <div class="form-group" ng-if="audit.order_source != 'other'">
+          <div class="form-group" ng-show="audit.order_source != 'other'">
             <label class="col-sm-2 control-label">订单名称<span class="required">*</span></label>
             <div class="col-sm-6">
               <select class="form-control select2" id="orderSelect2" name="order_id" ng-model="audit.order_id" data-rule="required;" style="width: 100%;"></select>

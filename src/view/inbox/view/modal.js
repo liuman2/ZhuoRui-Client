@@ -87,6 +87,7 @@ module.exports = function($scope, $state, $http, $timeout) {
 
   function valid_order() {
     if ($scope.audit.order_source == 'other') {
+      $scope.data.order_id = '';
       return true;
     }
     if (!$('#orderSelect2').val() || $('#orderSelect2').val().indexOf('?') >= 0) {

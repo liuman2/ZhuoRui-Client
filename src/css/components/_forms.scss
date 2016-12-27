@@ -212,8 +212,32 @@ fieldset[disabled] .form-control {
     }
   }
 }
+
 fieldset {
-    padding: 15px 0;
-    border: 1px solid #ccc;
-    margin-bottom: 20px;
+  padding: 15px 0;
+  border: 1px solid #ccc;
+  margin-bottom: 20px;
+}
+
+.audit-box {
+  padding: 0px !important;
+  border-top: 0px!important;
+  margin-bottom: 0px!important;
+  border-radius: 0px!important;
+  border-bottom: 1px solid #d2d6de!important;
+  &:last-child {
+    border-bottom: none;
+  }
+  .box-header {
+    background-color: #f5f5f5!important;
+  }
+  .box-title {
+    color:#38acff!important;
+  }
+  .box-expand {
+    left: 80px !important;
+  }
+  .btn-box-tool {
+    color: #38acff;
+  }
 }
