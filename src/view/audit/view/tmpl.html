@@ -213,6 +213,7 @@
           </div>
           <div class="box-body">
             <fieldset>
+              <legend>注册信息:</legend>
               <div class="form-group">
                 <label class="col-sm-2 control-label">账期</label>
                 <div class="col-sm-8">
@@ -276,7 +277,7 @@
               <div class="form-group">
                 <label class="col-sm-2 control-label">其他事项</label>
                 <div class="col-sm-8">
-                  <textarea class="form-control" rows="3" name="description" ng-model="data.description" data-rule="length[~100];"></textarea>
+                  <textarea style="background-color: #fff;" class="form-control" rows="3" name="description" ng-model="data.description" data-rule="length[~100];" readonly></textarea>
                 </div>
               </div>
               <div class="form-group">
@@ -285,8 +286,6 @@
                   <span class="form-span" ng-bind="!!data.progress? (' ' + data.progress) : ' 无进度信息'"></span>
                 </div>
               </div>
-            </fieldset>
-            <fieldset>
               <div class="form-group">
                 <label class="col-sm-2 control-label">业务员</label>
                 <div class="col-sm-8">
@@ -300,7 +299,7 @@
                 </div>
               </div>
               <div class="form-group">
-                <label class="col-sm-2 control-label">会计<span class="required">*</span></label>
+                <label class="col-sm-2 control-label">会计</label>
                 <div class="col-sm-8">
                   <span class="form-span" ng-bind="data.accountant_name"></span>
                 </div>
@@ -313,6 +312,7 @@
               </div>
             </fieldset>
             <fieldset>
+              <legend>收款信息:</legend>
               <table class="table table-hover">
                 <tbody>
                   <tr>
@@ -403,8 +403,9 @@
             </fieldset>
           </div>
         </div>
-
-
+      </div>
+      <div class="box-footer clearfix">
+        <button type="button" class="btn btn-info" ui-sref=".addsub()" ui-sref-opts="{location:false}">新增账期</button>
       </div>
     </div>
     <div class="box box-danger collapsed-box">
@@ -448,3 +449,4 @@
 <div ui-view="progress"></div>
 <div ui-view="bank"></div>
 <div ui-view="print"></div>
+<div ui-view="sub"></div>

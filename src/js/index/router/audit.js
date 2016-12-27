@@ -104,7 +104,6 @@ var router = function($stateProvider, $urlRouterProvider) {
         }
       }
     })
-
   .state('audit_view.bank_add', {
       url: '/bank/{customer_id: .*}/{audit_id: .*}',
       views: {
@@ -123,8 +122,7 @@ var router = function($stateProvider, $urlRouterProvider) {
         }
       }
     })
-
-  .state('audit_timeline', {
+    .state('audit_timeline', {
       url: '/view/audit/timeline/{source:.*}/{id:.*}/{name:.*}/{code:.*}',
       template: require('view/common/timeline/tmpl.html'),
       controller: require('view/common/timeline/ctrl')
@@ -158,6 +156,24 @@ var router = function($stateProvider, $urlRouterProvider) {
         'progress': {
           template: require('view/common/progress/modal.html'),
           controller: require('view/common/progress/modal')
+        }
+      }
+    })
+    .state('audit_view.addsub', {
+      url: '/sub/add',
+      views: {
+        'sub': {
+          template: require('view/audit/view/sub.html'),
+          controller: require('view/audit/view/sub')
+        }
+      }
+    })
+    .state('audit_view.editsub', {
+      url: '/sub/edit/{sub_id:.*}',
+      views: {
+        'sub': {
+          template: require('view/audit/view/sub.html'),
+          controller: require('view/audit/view/sub')
         }
       }
     })

@@ -68,7 +68,7 @@ fieldset[disabled] .form-control {
 
 .modal-body {
   min-height: 200px;
-  max-height: 600px;
+  max-height: 350px;
   overflow-y: auto;
 }
 
@@ -220,16 +220,21 @@ fieldset {
 }
 
 .audit-box {
-  padding: 0px !important;
+  padding: 5px !important;
   border-top: 0px!important;
   margin-bottom: 0px!important;
   border-radius: 0px!important;
-  border-bottom: 1px solid #d2d6de!important;
-  &:last-child {
-    border-bottom: none;
-  }
+  border-bottom: none; //1px solid #d2d6de!important;
+  // &:last-child {
+  //   border-bottom: none;
+  // }
   .box-header {
-    background-color: #f5f5f5!important;
+    background-color: #eee!important;
+    border: 1px solid #ccc;
+  }
+  .box-body {
+    border: 1px solid #ccc;
+    border-top: none;
   }
   .box-title {
     color:#38acff!important;
@@ -239,5 +244,15 @@ fieldset {
   }
   .btn-box-tool {
     color: #38acff;
+  }
+  fieldset {
+    padding: .35em .625em .75em !important;
+    margin: 0 2px 10px 0 !important;
+    border: 1px solid #eee !important;
+  }
+  legend {
+    width: auto !important;
+    border-bottom: none;
+    font-size: 14px;
   }
 }

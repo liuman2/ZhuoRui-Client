@@ -259,18 +259,13 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
   }
 
   $scope.cancel = function() {
-    if ($scope.current_name == 'audit_add') {
-      if ($scope.action == 'add') {
-        $state.go("audit");
-      } else {
-        $state.go("audit_view", {
-          id: id
-        });
-      }
+    if ($scope.action == 'add') {
+      $state.go("audit");
     } else {
-      $state.go("annual_warning");
+      $state.go("audit_view", {
+        id: id
+      });
     }
-
   }
   $('#selectType').on("change", function(e) {
     $scope.data.source_id = '';
