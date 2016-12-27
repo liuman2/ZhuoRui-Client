@@ -109,7 +109,8 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
     description: '',
     file_url: '',
     order_id: '',
-    audit_id:''
+    audit_id:'',
+    order_source:''
   }
 
 
@@ -126,6 +127,9 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
   }
 
   function valid_order() {
+    if ($scope.data.order_source == 'other') {
+      return true;
+    }
     if (!$('#orderSelect2').val() || $('#orderSelect2').val().indexOf('?') >= 0) {
       jForm.validator('showMsg', '#orderSelect2-validator', {
         type: "error",

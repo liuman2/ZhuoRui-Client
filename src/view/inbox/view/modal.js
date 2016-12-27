@@ -86,6 +86,9 @@ module.exports = function($scope, $state, $http, $timeout) {
   });
 
   function valid_order() {
+    if ($scope.audit.order_source == 'other') {
+      return true;
+    }
     if (!$('#orderSelect2').val() || $('#orderSelect2').val().indexOf('?') >= 0) {
       jForm.validator('showMsg', '#orderSelect2-validator', {
         type: "error",
