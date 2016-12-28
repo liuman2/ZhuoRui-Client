@@ -162,6 +162,26 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
     });
   }
 
+  $scope.submitSubAudit = function(sub_id) {
+    $.confirm({
+      title: false,
+      content: '您确认要提交审核？提交后不可再编辑',
+      confirmButton: '确定',
+      cancelButton: '取消',
+      confirm: function() {
+        $http({
+          method: 'GET',
+          url: '/AuditSub/Submit',
+          params: {
+            id: sub_id
+          }
+        }).success(function(data) {
+          actionView();
+        });
+      }
+    });
+  }
+
   $scope.passAudit = function() {
     $.confirm({
       title: false,
@@ -182,8 +202,32 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
     });
   }
 
+  $scope.passSubAudit = function(sub_id) {
+    $.confirm({
+      title: false,
+      content: '您确认通过审核？',
+      confirmButton: '确定',
+      cancelButton: '取消',
+      confirm: function() {
+        $http({
+          method: 'GET',
+          url: '/AuditSub/PassAudit',
+          params: {
+            id: sub_id
+          }
+        }).success(function(data) {
+          actionView();
+        });
+      }
+    });
+  }
+
   $scope.refuseAudit = function() {
     $state.go(".audit", { module_name: 'Audit' }, { location: false });
+  }
+
+  $scope.refuseSubAudit = function() {
+    $state.go(".audit", { module_name: 'SubAudit' }, { location: false });
   }
 
   $scope.done = function() {
@@ -253,6 +297,33 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
     }
 
     $state.go(".progress", { id: $scope.data.id, module_name: 'Audit', type: t }, { location: false });
+  }
+
+  $scope.progressSub = function(t, sub) {
+    // if ($scope.data.status == 4) {
+    //     alert('订单已完成，无需再更新进度');
+    //     return;
+    // }
+
+    if (sub.status < 3) {
+      $.alert({
+        title: false,
+        content: t == 'p' ? '提交人还未提交该订单，无法更新进度' : '提交人还未提交该订单，无法完善注册资料',
+        confirmButton: '确定'
+      });
+      return;
+    }
+
+    if (sub.review_status != 1) {
+      $.alert({
+        title: false,
+        content: t == 'p' ? '订单未通过审核，无法更新进度' : '订单未通过审核，无法完善注册资料',
+        confirmButton: '确定'
+      });
+      return;
+    }
+
+    $state.go(".progress", { id: sub.id, module_name: 'SubAuditAudit', type: t }, { location: false });
   }
 
   $scope.printReceipt = function(t) {
