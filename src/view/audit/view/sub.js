@@ -1,6 +1,7 @@
 var httpHelper = require('js/utils/httpHelper');
 module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
   var master_id = $state.params.id || null,
+    sub_id = $state.params.sub_id || null,
     dInput = $('.date-input'),
     jForm = $('#audit_form');
 
@@ -44,8 +45,14 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
 
   var user = $cookieStore.get('USER_INFO');
   $scope.data = {
+    id: '',
     salesman_id: user.id,
     salesman: user.name,
+  }
+
+  if (sub_id) {
+    $scope.data.id = sub_id;
+    actionView();
   }
 
   $scope.save = function() {
@@ -72,7 +79,33 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
           $state.go('^', { reload: true });
         });
       }
+    });
+  }
 
+  function actionView() {
+    $http({
+      method: 'GET',
+      url: '/AuditSub/Get',
+      params: {
+        id: sub_id
+      }
+    }).success(function(data) {
+      if (data.date_transaction && data.date_transaction.indexOf('T') > -1) {
+        data.date_transaction = data.date_transaction.split('T')[0];
+      }
+      if (data.account_period && data.account_period.indexOf('T') > -1) {
+        data.account_period = data.account_period.split('T')[0];
+      }
+      if (data.account_period2 && data.account_period2.indexOf('T') > -1) {
+        data.account_period2 = data.account_period2.split('T')[0];
+      }
+
+      if (data.date_year_end && data.date_year_end.indexOf('-') > -1) {
+        data.date_month_end = data.date_year_end.split('-')[0];
+        data.date_day_end = data.date_year_end.split('-')[1];
+      }
+
+      $scope.data = data;
     });
   }
 };

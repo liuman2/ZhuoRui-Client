@@ -14,6 +14,8 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
     review_status: -1
   }
 
+  $scope.subs = [];
+
   $scope.getYearEnd = function(v) {
     if (v) {
       var vs = v.split('-');
@@ -288,6 +290,7 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
       $scope.data = data.order;
       $scope.incomes = data.incomes;
       $scope.banks = data.banks;
+      $scope.subs = data.subs;
     });
   }
 };
