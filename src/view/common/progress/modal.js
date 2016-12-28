@@ -5,6 +5,10 @@ module.exports = function($scope, $state, $http, $timeout) {
     type = $state.params.type,
     id = $state.params.id || null;
 
+  if (module_name == 'AuditSub') {
+    id = $state.params.subId || null;
+  }
+
   $.datetimepicker.setLocale('ch');
 
   var jForm = $('#progress_modal');
@@ -46,6 +50,9 @@ module.exports = function($scope, $state, $http, $timeout) {
       break;
     case 'Annual':
       $scope.progress.title = '年检进度';
+      break;
+    case 'AuditSub':
+      $scope.progress.title = '审计进度';
       break;
   }
 
@@ -235,7 +242,10 @@ module.exports = function($scope, $state, $http, $timeout) {
           data.date_allege = data.date_allege.split('T')[0];
         }
       }
-      data.is_open_bank = data.is_open_bank + '';
+      if (data.is_open_bank != undefined) {
+        data.is_open_bank = data.is_open_bank + '';
+      }
+
       $scope.progress = angular.extend({}, $scope.progress, data);
     });
   }

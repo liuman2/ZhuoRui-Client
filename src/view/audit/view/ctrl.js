@@ -182,6 +182,14 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
     });
   }
 
+  $scope.getDisabled = function() {
+    if (!$scope.subs.length) {
+      return $scope.data.status < 3;
+    }
+
+    return $scope.subs[$scope.subs.length - 1].status < 3;
+  }
+
   $scope.passAudit = function() {
     $.confirm({
       title: false,
@@ -226,8 +234,8 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
     $state.go(".audit", { module_name: 'Audit' }, { location: false });
   }
 
-  $scope.refuseSubAudit = function() {
-    $state.go(".audit", { module_name: 'SubAudit' }, { location: false });
+  $scope.refuseSubAudit = function(sub_id) {
+    $state.go(".subaudit", { module_name: 'AuditSub', subId: sub_id}, { location: false });
   }
 
   $scope.done = function() {
@@ -236,6 +244,21 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
 
   $scope.getOrderStatus = function() {
     switch ($scope.data.status) {
+      case 0:
+        return '未提交';
+      case 1:
+        return '已提交';
+      case 2:
+        return '财务已审核';
+      case 3:
+        return '提交人已审核';
+      case 4:
+        return '完成';
+    }
+  }
+
+  $scope.getSubOrderStatus = function(sub) {
+    switch (sub.status) {
       case 0:
         return '未提交';
       case 1:
@@ -263,6 +286,16 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
 
   $scope.getReviewStatus = function() {
     switch ($scope.data.review_status) {
+      case -1:
+        return '未审核';
+      case 0:
+        return '驳回';
+      case 1:
+        return '审核通过';
+    }
+  }
+  $scope.getSubReviewStatus = function(item) {
+    switch (item.review_status) {
       case -1:
         return '未审核';
       case 0:
@@ -323,11 +356,34 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
       return;
     }
 
-    $state.go(".progress", { id: sub.id, module_name: 'SubAuditAudit', type: t }, { location: false });
+    $state.go(".progressSub", { subId: sub.id, module_name: 'AuditSub', type: t }, { location: false });
+  }
+
+  $scope.expandSub = function(item, e) {
+    if ($(e.target).closest('i').attr('class').indexOf('fa-plus') < 0) {
+      return;
+    }
+    if (item.incomes != undefined) {
+      return;
+    }
+
+    $http({
+      method: 'GET',
+      url: '/AuditSub/GetIncomes',
+      params: {
+        id: item.id
+      }
+    }).success(function(data) {
+      item.incomes = data || {};
+    });
   }
 
   $scope.printReceipt = function(t) {
     $state.go(".receipt", { type: t, source_name: 'audit' }, { location: false });
+  }
+
+  $scope.printReceiptSub = function(t, item) {
+    $state.go(".receipt_sub", { type: t, source_name: 'sub_audit', subId: item.id }, { location: false });
   }
 
   $scope.$on('PROGRESS_MODAL_DONE', function(e) {

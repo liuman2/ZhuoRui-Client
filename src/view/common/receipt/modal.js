@@ -5,6 +5,10 @@ module.exports = function($scope, $state, $http, $timeout) {
     type = $state.params.type,
     source_name = $state.params.source_name;
 
+  if (source_name == 'sub_audit') {
+    source_id = $state.params.subId;
+  }
+
   var jForm = $('#receipt_modal');
   jForm.validator({
     rules: {},

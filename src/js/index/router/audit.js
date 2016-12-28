@@ -68,6 +68,15 @@ var router = function($stateProvider, $urlRouterProvider) {
         }
       }
     })
+    .state('audit_view.income_add_sub', {
+      url: '/new/{source_name:.*}/{customer_id:.*}/{subId:.*}',
+      views: {
+        'modal': {
+          template: require('view/common/income/modal.html'),
+          controller: require('view/common/income/modal')
+        }
+      }
+    })
     .state('audit_view.income_edit', {
       url: '/edit/{tid:.*}',
       views: {
@@ -86,6 +95,15 @@ var router = function($stateProvider, $urlRouterProvider) {
         }
       }
     })
+    .state('audit_view.subaudit', {
+      url: '/audit/{module_name:.*}/{subId:.*}',
+      views: {
+        'modal': {
+          template: require('view/common/audit/modal.html'),
+          controller: require('view/common/audit/modal')
+        }
+      }
+    })
     .state('audit_view.done', {
       url: '/done/{module_name:.*}',
       views: {
@@ -97,6 +115,15 @@ var router = function($stateProvider, $urlRouterProvider) {
     })
     .state('audit_view.receipt', {
       url: '/audit/receipt/{type:.*}/{source_name:.*}',
+      views: {
+        'print': {
+          template: require('view/common/receipt/modal.html'),
+          controller: require('view/common/receipt/modal')
+        }
+      }
+    })
+    .state('audit_view.receipt_sub', {
+      url: '/audit/receipt/{type:.*}/{source_name:.*}/{subId:.*}',
       views: {
         'print': {
           template: require('view/common/receipt/modal.html'),
@@ -152,6 +179,15 @@ var router = function($stateProvider, $urlRouterProvider) {
     })
     .state('audit_view.progress', {
       url: '/progress/{id:.*}/{module_name:.*}/{type:.*}',
+      views: {
+        'progress': {
+          template: require('view/common/progress/modal.html'),
+          controller: require('view/common/progress/modal')
+        }
+      }
+    })
+    .state('audit_view.progressSub', {
+      url: '/progress/{subId:.*}/{module_name:.*}/{type:.*}',
       views: {
         'progress': {
           template: require('view/common/progress/modal.html'),
