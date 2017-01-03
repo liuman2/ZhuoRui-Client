@@ -66,6 +66,7 @@
             <th style="width: 10px">#</th>
             <th>姓名</th>
             <th>类型</th>
+            <th>状态</th>
             <th>开始时间</th>
             <th>结束时间</th>
             <th>小时数</th>
@@ -76,6 +77,7 @@
             <td ng-bind="($index+1)+'.'"></td>
             <td ng-bind="item.owner_name" ng-attr-title="{{item.owner_name}}"></td>
             <td ng-bind="getTypeName(item.type)"></td>
+            <td ng-bind="getStatusName(item.status)"></td>
             <td ng-bind="format(item.date_start, 'YYYY-MM-DD HH:mm')"></td>
             <td ng-bind="format(item.date_end, 'YYYY-MM-DD HH:mm')"></td>
             <td ng-bind="item.hours"></td>

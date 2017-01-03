@@ -2,6 +2,18 @@ var dateHelper = require('js/utils/dateHelper');
 var moment = require('moment');
 moment.locale('zh-cn');
 module.exports = function($scope, $http, $state, $stateParams) {
+  $.datetimepicker.setLocale('ch');
+  var dInput = $('.date-input');
+
+  dInput.datetimepicker({
+    timepicker: false,
+    maxDate: new Date(),
+    format: 'Y-m-d',
+    scrollInput: false,
+    onChangeDateTime: function(current_time, $input) {
+      console.log(current_time)
+    }
+  });
 
   $scope.search = {
     index: 1,
@@ -54,7 +66,25 @@ module.exports = function($scope, $http, $state, $stateParams) {
     return strs[type - 11];
   }
 
+  $scope.getStatusName = function(status) {
+    // 状态 0-带审批，1：通过审批， 2：驳回，-1：作废
+    switch(status) {
+      case 0:
+        return '待审批';
+      case 1:
+        return '通过';
+      case 2:
+        return '驳回';
+      case -1:
+        return '作废';
+    }
+  }
+
   function load_data() {
+
+    $scope.search.start_time = $('#start_time').val();
+    $scope.search.end_time = $('#end_time').val();
+
     $http({
       method: 'GET',
       url: '/Leave/Statistics',
