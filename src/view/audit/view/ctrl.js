@@ -363,9 +363,9 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
     if ($(e.target).closest('i').attr('class').indexOf('fa-plus') < 0) {
       return;
     }
-    if (item.incomes != undefined) {
-      return;
-    }
+    // if (item.incomes != undefined) {
+    //   return;
+    // }
 
     $http({
       method: 'GET',
