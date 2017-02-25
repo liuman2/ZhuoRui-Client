@@ -77,18 +77,36 @@ var router = function($stateProvider, $urlRouterProvider) {
     })
 
   .state('abroad_view.receipt', {
-    url: '/abroad/receipt/{type:.*}/{source_name:.*}',
-    views: {
-      'print': {
-        template: require('view/common/receipt/modal.html'),
-        controller: require('view/common/receipt/modal')
+      url: '/abroad/receipt/{type:.*}/{source_name:.*}',
+      views: {
+        'print': {
+          template: require('view/common/receipt/modal.html'),
+          controller: require('view/common/receipt/modal')
+        }
       }
-    }
-  })
-  .state('abroad_timeline', {
+    })
+    .state('abroad_timeline', {
       url: '/view/abroad/timeline/{source:.*}/{id:.*}/{name:.*}/{code:.*}',
       template: require('view/common/timeline/tmpl.html'),
       controller: require('view/common/timeline/ctrl')
+    })
+    .state('abroad_timeline.add', {
+      url: '/new',
+      views: {
+        'add': {
+          template: require('view/common/timeline/modal.html'),
+          controller: require('view/common/timeline/modal')
+        }
+      }
+    })
+    .state('abroad_timeline.edit', {
+      url: '/edit/{tid:.*}',
+      views: {
+        'add': {
+          template: require('view/common/timeline/modal.html'),
+          controller: require('view/common/timeline/modal')
+        }
+      }
     })
     .state('abroad.progress', {
       url: '/progress/{id:.*}/{module_name:.*}/{type: .*}',

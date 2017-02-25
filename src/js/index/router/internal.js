@@ -89,6 +89,25 @@ var router = function($stateProvider, $urlRouterProvider) {
       template: require('view/common/timeline/tmpl.html'),
       controller: require('view/common/timeline/ctrl')
     })
+    .state('internal_timeline.add', {
+      url: '/new',
+      views: {
+        'add': {
+          template: require('view/common/timeline/modal.html'),
+          controller: require('view/common/timeline/modal')
+        }
+      }
+    })
+    .state('internal_timeline.edit', {
+      url: '/edit/{tid:.*}',
+      views: {
+        'add': {
+          template: require('view/common/timeline/modal.html'),
+          controller: require('view/common/timeline/modal')
+        }
+      }
+    })
+
     .state('internal_history', {
       url: '/view/internal/history/{id:.*}',
       template: require('view/internal/history/tmpl.html'),

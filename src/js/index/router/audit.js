@@ -150,10 +150,29 @@ var router = function($stateProvider, $urlRouterProvider) {
       }
     })
     .state('audit_timeline', {
-      url: '/view/audit/timeline/{source:.*}/{id:.*}/{name:.*}/{code:.*}',
+      url: '/view/audit/timeline/{source:.*}/{masterid:.*}/{id:.*}/{name:.*}/{code:.*}',
       template: require('view/common/timeline/tmpl.html'),
       controller: require('view/common/timeline/ctrl')
     })
+    .state('audit_timeline.add', {
+      url: '/new',
+      views: {
+        'add': {
+          template: require('view/common/timeline/modal.html'),
+          controller: require('view/common/timeline/modal')
+        }
+      }
+    })
+    .state('audit_timeline.edit', {
+      url: '/edit/{tid:.*}',
+      views: {
+        'add': {
+          template: require('view/common/timeline/modal.html'),
+          controller: require('view/common/timeline/modal')
+        }
+      }
+    })
+
     .state('audit_history', {
       url: '/view/audit/history/{id:.*}',
       template: require('view/audit/history/tmpl.html'),

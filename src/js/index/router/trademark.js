@@ -80,6 +80,24 @@ var router = function($stateProvider, $urlRouterProvider) {
       template: require('view/common/timeline/tmpl.html'),
       controller: require('view/common/timeline/ctrl')
     })
+    .state('trademark_timeline.add', {
+      url: '/new',
+      views: {
+        'add': {
+          template: require('view/common/timeline/modal.html'),
+          controller: require('view/common/timeline/modal')
+        }
+      }
+    })
+    .state('trademark_timeline.edit', {
+      url: '/edit/{tid:.*}',
+      views: {
+        'add': {
+          template: require('view/common/timeline/modal.html'),
+          controller: require('view/common/timeline/modal')
+        }
+      }
+    })
 
   .state('trademark.progress', {
       url: '/progress/{id:.*}/{module_name:.*}/{type:.*}',
