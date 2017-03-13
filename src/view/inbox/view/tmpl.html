@@ -80,12 +80,27 @@
             <span class="form-span" ng-bind="data.creator_name"></span>
           </div>
         </div>
+
+        <div class="form-group">
+          <label class="col-sm-2 control-label">订单类别</label>
+          <div class="col-sm-8">
+            <span class="form-span" ng-bind="getSourceName(data.order_source)"></span>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-2 control-label">订单名称</label>
+          <div class="col-sm-8">
+            <span class="form-span" ng-bind="data.order_name"></span>
+          </div>
+        </div>
         <div class="form-group">
           <label class="col-sm-2 control-label">审核人</label>
           <div class="col-sm-8">
             <span class="form-span" ng-bind="data.audit_name"></span>
           </div>
         </div>
+
+
         <div class="form-group">
           <label class="col-sm-2 control-label">状态</label>
           <div class="col-sm-8">
