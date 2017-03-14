@@ -13,13 +13,13 @@ module.exports = function($scope, $state, $http, $timeout) {
 
   $scope.audit = {
     id: id,
-    order_source: '',
-    order_id: '',
-    order_code: '',
-    order_name: '',
-    letter_type: ''
+    order_source: $scope.data.order_source || '',
+    order_id: $scope.data.order_id || '',
+    order_code: $scope.data.order_code || '',
+    order_name: $scope.data.order_name || '',
+    letter_type: $scope.data.letter_type || '',
   }
-
+  console.log($scope.data)
   $("#orderSelect2").select2({
     language: "zh-CN",
     placeholder: "请先选择订单类别",
@@ -57,7 +57,14 @@ module.exports = function($scope, $state, $http, $timeout) {
     }
   });
 
-  $scope.typeChange = function() {
+  $timeout(function() {
+    if ($scope.data.order_name) {
+      var option = "<option value='" + $scope.data.order_id + "'>" + $scope.data.order_name + "</option>";
+      $('#orderSelect2').append(option).val($scope.data.order_id).trigger('change');
+    }
+  }, 500);
+
+  $scope.typeModalChange = function() {
     $("#orderSelect2").val(null).trigger('change');
   }
 
@@ -122,6 +129,11 @@ module.exports = function($scope, $state, $http, $timeout) {
     var order_id = $('#orderSelect2').val();
     submitData.order_id = order_id;
 
+    if (submitData.order_source == 'other') {
+      submitData.order_id = '';
+      submitData.order_code = '';
+    }
+
     $http({
       method: 'POST',
       url: '/Letter/PassInbox',
@@ -138,4 +150,5 @@ module.exports = function($scope, $state, $http, $timeout) {
       });
     });
   }
+
 };

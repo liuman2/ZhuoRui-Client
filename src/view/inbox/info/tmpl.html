@@ -10,8 +10,8 @@
   <form class="form-horizontal" id="inbox_form">
     <div class="detail-view-header-wrapper">
       <div class="box-footer detail-view-header" ui-scrollpoint ui-scrollpoint-enabled="true" ui-scrollpoint-class="fixed">
-        <!-- <button type="button" class="btn btn-default" ng-click="cancel()">取消</button> -->
         <button type="button" class="btn btn-info" ng-click="save()">保存</button>
+        <button type="button" class="btn btn-default" ng-click="cancel()">取消</button>
       </div>
     </div>
     <div class="box box-danger">
@@ -32,7 +32,7 @@
           </div>
         </div>
         <div class="form-group">
-          <label class="col-sm-2 control-label">信件类型</label>
+          <label class="col-sm-2 control-label">信件内容</label>
           <div class="col-sm-8">
             <input type="text" class="form-control" name="letter_type" ng-model="data.letter_type" placeholder="信函、邮单、杂志等" data-rule="length[~20];">
           </div>
@@ -76,7 +76,7 @@
           <div class="col-sm-2">
             <select class="form-control select2" name="order_source" ng-model="data.order_source" ng-change="typeChange(0)">
               <option value="">请选择订单类别</option>
-              <option value="reg_abroad">境外内注册</option>
+              <option value="reg_abroad">境外注册</option>
               <option value="reg_internal">境内注册</option>
               <option value="audit">审计</option>
               <option value="trademark">商标</option>
@@ -104,21 +104,17 @@
             >
           </div>
           <div class="col-sm-2">
-            <select ui-select2 class="form-control select2" id="auditSelect0" name="audit_id0" ng-view="audit_name" ng-model="data.audit_id" url="Member/List" paging="true" style="width: 100%;">
+            <select class="form-control select2" id="auditSelect0" name="audit_id0" ng-model="data.audit_id" ng-options="member.id as member.name for member in memberList" style="width: 100%;">
               <option value="">请选择审核人员</option>
             </select>
           </div>
-          <!-- <div class="col-sm-8">
-            <select ui-select2 class="form-control select2" id="auditSelect2" name="audit_id" ng-view="audit_name" ng-model="data.audit_id" url=" Member/List" paging="true" style="width: 100%;"></select>
-            <span id="auditSelect2-validator" class="select-validator"></span>
-          </div> -->
         </div>
         <div class="form-group" ng-if="action=='add'" ng-repeat="order in data.orders">
           <label class="col-sm-2 control-label" ng-bind="$index==0 ? '关联订单' : ''">关联订单</label>
           <div class="col-sm-2">
             <select class="form-control select2" name="order_source{{$index}}" ng-model="order.order_source" ng-change="typeChange($index)">
               <option value="">请选择订单类别</option>
-              <option value="reg_abroad">境外内注册</option>
+              <option value="reg_abroad">境外注册</option>
               <option value="reg_internal">境内注册</option>
               <option value="audit">审计</option>
               <option value="trademark">商标</option>
@@ -146,8 +142,9 @@
             >
           </div>
           <div class="col-sm-2">
-            <select ui-select2 class="form-control select2" id="auditSelect{{$index}}" name="audit_id{{$index}}" ng-view="audit_name" ng-model="order.audit_id" url="Member/List" paging="true" style="width: 100%;">
+            <select class="form-control select2" id="auditSelect{{$index}}" name="audit_id{{$index}}" ng-view="audit_name" ng-model="order.audit_id"  style="width: 100%;">
               <option value="">请选择审核人员</option>
+              <option ng-repeat="member in memberList" value="{{member.id}}">{{member.name}}</option>
             </select>
           </div>
           <div class="col-sm-1">

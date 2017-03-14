@@ -11,7 +11,7 @@
           <div class="form-group">
             <label class="col-sm-2 control-label">订单类别<span class="required">*</span></label>
             <div class="col-sm-6">
-              <select class="form-control select2" name="order_source" id="selectType" ng-model="audit.order_source" ng-change="typeChange()" data-rule="required;">
+              <select class="form-control select2" name="order_source" id="selectType" ng-model="audit.order_source" ng-change="typeModalChange()" data-rule="required;">
                 <option value="">请选择</option>
                 <option value="reg_abroad">境外注册</option>
                 <option value="reg_internal">境内注册</option>
@@ -29,8 +29,20 @@
               <span id="orderSelect2-validator" class="select-validator"></span>
             </div>
           </div>
+          <div class="form-group" ng-if="audit.order_source == 'other'">
+            <label class="col-sm-2 control-label">其他名称<span class="required">*</span></label>
+            <div class="col-sm-6">
+              <input
+                type="text"
+                class="form-control date-input"
+                id="orderOtherInput"
+                name="orderOtherInput"
+                ng-model="data.order_name"
+              >
+            </div>
+          </div>
           <div class="form-group">
-            <label class="col-sm-2 control-label">信件类型</label>
+            <label class="col-sm-2 control-label">信件内容</label>
             <div class="col-sm-6">
               <input type="text" class="form-control" name="letter_type" ng-model="audit.letter_type" placeholder="信函、邮单、杂志等" data-rule="length[~20];">
             </div>
