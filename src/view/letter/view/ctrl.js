@@ -78,8 +78,13 @@ module.exports = function($scope, $state, $http, $q, $cookieStore, $timeout) {
         id: id
       }
     }).success(function(data) {
-      $scope.data = data;
       user = $cookieStore.get('USER_INFO');
+      data.letter_type = user.id == data.creator_id ? data.letter_type : '--';
+      data.receiver = user.id == data.creator_id ? data.receiver : '--';
+      data.tel = user.id == data.creator_id ? data.tel : '--';
+
+      $scope.data = data;
+
       $scope.showAudit = data.audit_id == user.id;
       $scope.ownerMail = data.creator_id == user.id;
     });

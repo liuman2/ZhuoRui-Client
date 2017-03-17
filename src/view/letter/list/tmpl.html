@@ -60,11 +60,13 @@
           <tr>
             <th style="width: 10px">#</th>
             <th>信件单号</th>
+
             <th>档案号</th>
             <th>订单名称</th>
             <th>收件人</th>
             <th>电话</th>
             <th>信件内容</th>
+
             <th>寄件日期</th>
             <th style="width:75px;">创建人</th>
             <th style="width:75px;">审核人</th>
@@ -74,11 +76,13 @@
           <tr ng-repeat="item in data.items">
             <td ng-bind="($index+1)+'.'"></td>
             <td ng-bind="item.code"></td>
-            <td ng-bind="item.order_code"></td>
-            <td ng-bind="item.order_name" ng-attr-title="{{item.order_name}}"></td>
-            <td ng-bind="item.receiver"></td>
-            <td ng-bind="item.tel" ng-attr-title="{{item.tel}}"></td>
-            <td ng-bind="item.letter_type" ng-attr-title="{{item.letter_type}}"></td>
+
+            <td ng-bind="isCreator(item) ? item.order_code : '--'"></td>
+            <td ng-bind="isCreator(item) ? item.order_name : '--'"></td>
+            <td ng-bind="isCreator(item) ? item.receiver : '--'"></td>
+            <td ng-bind="isCreator(item) ? item.tel : '--'"></td>
+            <td ng-bind="isCreator(item) ? item.letter_type : '--'"></td>
+
             <td ng-bind="format(item.date_at, 'YYYY-MM-DD')"></td>
             <td ng-bind="item.creator_name"></td>
             <td ng-bind="item.audit_name"></td>

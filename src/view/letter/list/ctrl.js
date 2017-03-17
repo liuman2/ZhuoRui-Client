@@ -1,7 +1,7 @@
 var dateHelper = require('js/utils/dateHelper');
 var moment = require('moment');
 moment.locale('zh-cn');
-module.exports = function($scope, $http, $state, $stateParams) {
+module.exports = function($scope, $http, $state, $cookieStore, $stateParams) {
   var dInput = $('.date-input');
 
   $.datetimepicker.setLocale('ch');
@@ -117,6 +117,11 @@ module.exports = function($scope, $http, $state, $stateParams) {
     $scope.search.index = index;
     load_data();
   };
+
+  $scope.isCreator = function(item) {
+    var user = $cookieStore.get('USER_INFO');
+    return user.id == item.creator_id;
+  }
 
   function load_data() {
     $scope.search.start_time = $('#start_time').val();
