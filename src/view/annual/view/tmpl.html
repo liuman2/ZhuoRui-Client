@@ -360,8 +360,51 @@
         </div>
       </div>
     </div>
+    <div class="box box-danger">
+      <div class="box-header with-border">
+        <h3 class="box-title">附件</h3>
+        <div class="box-tools">
+          <div class="box-tools pull-right">
+            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="box-body table-responsive no-padding">
+        <table class="table table-hover">
+          <tbody>
+            <tr>
+              <th style="width: 10px">#</th>
+              <th>名称</th>
+              <th>附件</th>
+              <th>上传时间</th>
+              <th>备注</th>
+              <th class="opt-col">操作</th>
+            </tr>
+            <tr ng-repeat="item in attachments">
+              <td ng-bind="($index+1)+'.'"></td>
+              <td ng-bind="item.name"></td>
+              <td>
+                <a href="{{item.attachment_url}}" target="_blank" ng-if="item.attachment_url.length">
+                          点击查看
+                      </a>
+              </td>
+              <td ng-bind="format(item.date_created, 'YYYY-MM-DD')"></td>
+              <td ng-bind="item.description"></td>
+              <td class="opt-col">
+                <a href="javascript:;" class="fa fa-trash-o red" ng-click="deleteAttachment(item)" title="删除"></a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="box-footer clearfix">
+        <button type="button" class="btn btn-info" ui-sref=".attachment({source_name: 'annual_exam', source_id: data.id})" ui-sref-opts="{location:false}">新增</button>
+      </div>
+    </div>
   </form>
 </section>
 <div ui-view="modal"></div>
 <div ui-view="progress"></div>
 <div ui-view="print"></div>
+<div ui-view="attachment"></div>

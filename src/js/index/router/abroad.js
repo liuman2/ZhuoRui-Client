@@ -75,6 +75,16 @@ var router = function($stateProvider, $urlRouterProvider) {
         }
       }
     })
+    .state('abroad_view.attachment', {
+      url: '/new/attachment/{source_name:.*}/{source_id:.*}',
+      stateName: '附件',
+      views: {
+        'attachment': {
+          template: require('view/common/attachment/modal.html'),
+          controller: require('view/common/attachment/modal')
+        }
+      }
+    })
 
   .state('abroad_view.receipt', {
       url: '/abroad/receipt/{type:.*}/{source_name:.*}',

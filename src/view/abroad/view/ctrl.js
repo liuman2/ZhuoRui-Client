@@ -229,6 +229,46 @@ module.exports = function($scope, $state, $http, $q, $timeout, $cookieStore) {
       console.log(data);
       $scope.data = data.order;
       $scope.incomes = data.incomes;
+
+      loadAttachments();
     });
   }
+
+  $scope.attachments = [];
+  $scope.deleteAttachment = function(item) {
+    $.confirm({
+      title: false,
+      content: '您确认要删除吗？',
+      confirmButton: '确定',
+      cancelButton: '取消',
+      confirm: function() {
+        $http({
+          method: 'GET',
+          url: '/Attachment/Delete',
+          params: {
+            id: item.id
+          }
+        }).success(function(data) {
+          loadAttachments();
+        });
+      }
+    });
+  }
+
+  function loadAttachments() {
+    $http({
+      method: 'GET',
+      url: '/Attachment/List',
+      params: {
+        source_id: id,
+        source_name: 'reg_abroad'
+      }
+    }).success(function(data) {
+      $scope.attachments = data || [];
+    });
+  }
+
+  $scope.$on('ATTACHMENT_MODAL_DONE', function(e) {
+    loadAttachments();
+  });
 };

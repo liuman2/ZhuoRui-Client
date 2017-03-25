@@ -84,6 +84,16 @@ var router = function($stateProvider, $urlRouterProvider) {
         }
       }
     })
+    .state('internal_view.attachment', {
+      url: '/new/attachment/{source_name:.*}/{source_id:.*}',
+      stateName: '附件',
+      views: {
+        'attachment': {
+          template: require('view/common/attachment/modal.html'),
+          controller: require('view/common/attachment/modal')
+        }
+      }
+    })
     .state('internal_timeline', {
       url: '/view/internal/timeline/{source:.*}/{id:.*}/{name:.*}/{code:.*}',
       template: require('view/common/timeline/tmpl.html'),
