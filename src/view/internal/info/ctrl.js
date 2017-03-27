@@ -55,7 +55,10 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
     invoice_account: '',
     rate: '',
     assistant_id: '',
-
+    names: [{
+      name: '',
+      isFormal: false
+    }],
     is_annual: 0
   }
 
@@ -74,6 +77,17 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
       return item.finance_review_moment || item.submit_review_moment;
     }
     return '';
+  }
+
+  $scope.addName = function() {
+    $scope.data.names.push({
+      name: '',
+      isFormal: false
+    })
+  }
+
+  $scope.removeName = function(index) {
+    $scope.data.names.splice(index, 1);
   }
 
   jForm.validator({
