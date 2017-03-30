@@ -60,12 +60,18 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
       name: '',
       isFormal: false
     }],
+    shareholderList: [],
     is_annual: 0
   }
 
   if (!!id) {
     $scope.data.id = id;
     actionView();
+  }
+
+  $scope.activeTab = 0;
+  $scope.onTab = function(activeIndex) {
+    $scope.activeTab = activeIndex;
   }
 
   $scope.getTitle = function(item) {
@@ -119,6 +125,15 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
     }
   });
 
+  $scope.$on('SHAREHOLDER_DONE', function(e, result) {
+    console.log(result);
+    if (result.index == null) {
+      $scope.data.shareholderList.push(result.shareholder);
+    } else {
+      $scope.data.shareholderList[result.index - 0] = result.shareholder;
+    }
+  });
+
   $scope.save = function() {
     var isCustomerValid = valid_customer();
     var isWaiterVaild = valid_waiter();
@@ -130,6 +145,7 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
         }
         var submitData = angular.copy($scope.data);
         submitData.names = JSON.stringify(submitData.nameList);
+        submitData.shareholders = JSON.stringify(submitData.shareholderList);
 
         // submitData.date_setup = $('#date_setup').val();
         submitData.date_transaction = $('#date_transaction').val();
@@ -231,6 +247,21 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
     initDate(newValue);
   });
 
+  $scope.editShareholder = function(index, shareholder) {
+    $state.go('.shareholder_edit', {
+      index: index,
+      name: shareholder.name,
+      gender: shareholder.gender,
+      cardNo: shareholder.cardNo,
+      position: shareholder.position,
+      takes: shareholder.takes,
+    }, { location: false });
+  }
+
+  $scope.deleteShareholder = function(index, item) {
+    $scope.data.shareholderList.splice(index, 1);
+  }
+
   $('#customerSelect2').on("change", function(e) {
     var customer_id = $(e.target).val();
 
@@ -325,9 +356,16 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
       if (data.date_transaction && data.date_transaction.indexOf('T') > -1) {
         data.date_transaction = data.date_transaction.split('T')[0];
       }
+      data.nameList = [];
       data.names = data.names || '';
       if (data.names.length) {
         data.nameList = JSON.parse(data.names);
+      }
+
+      data.shareholderList = [];
+      data.shareholders = data.shareholders || '';
+      if (data.shareholders.length) {
+        data.shareholderList = JSON.parse(data.shareholders);
       }
 
       $scope.data = data;

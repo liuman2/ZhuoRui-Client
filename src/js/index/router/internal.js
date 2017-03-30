@@ -29,11 +29,66 @@ var router = function($stateProvider, $urlRouterProvider) {
         }
       }
     })
+    .state('internal_add.shareholder_add', {
+      url: '/new/shareholder',
+      stateName: '股东',
+      views: {
+        'shareholder': {
+          template: require('view/common/shareholder/modal.html'),
+          controller: require('view/common/shareholder/modal')
+        }
+      }
+    })
+    .state('internal_add.shareholder_edit', {
+      url: '/new/shareholder/{index:.*}',
+      params: {
+        name: null,
+        gender: null,
+        cardNo: null,
+        takes: null,
+        position: null,
+      },
+      stateName: '股东',
+      views: {
+        'shareholder': {
+          template: require('view/common/shareholder/modal.html'),
+          controller: require('view/common/shareholder/modal')
+        }
+      }
+    })
+
     .state('internal_edit', {
       url: '/internal/edit/{id:.*}',
       template: require('view/internal/info/tmpl.html'),
       controller: require('view/internal/info/ctrl')
     })
+    .state('internal_edit.shareholder_add', {
+      url: '/new/shareholder',
+      stateName: '股东',
+      views: {
+        'shareholder': {
+          template: require('view/common/shareholder/modal.html'),
+          controller: require('view/common/shareholder/modal')
+        }
+      }
+    })
+    .state('internal_edit.shareholder_edit', {
+      url: '/new/shareholder/{index:.*}',
+      params: {
+        name: null,
+        gender: null,
+        cardNo: null,
+        takes: null,
+      },
+      stateName: '股东',
+      views: {
+        'shareholder': {
+          template: require('view/common/shareholder/modal.html'),
+          controller: require('view/common/shareholder/modal')
+        }
+      }
+    })
+
     .state('internal_view', {
       url: '/internal/view/{id:.*}',
       template: require('view/internal/view/tmpl.html'),

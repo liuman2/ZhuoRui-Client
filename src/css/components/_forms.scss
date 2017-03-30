@@ -256,3 +256,11 @@ fieldset {
     font-size: 14px;
   }
 }
+
+.nav-tabs-custom>.nav-tabs>li.active {
+  border-top-color: #dd4b39!important;
+  cursor: default!important;
+}
+.nav-tabs-custom>.nav-tabs>li {
+  cursor: pointer!important;
+}

@@ -10,7 +10,7 @@
   </ol>
 </section>
 <section class="content">
-  <form class="form-horizontal" id="internal_form">
+  <form class="form-horizontal" id="internal_form" style="margin-bottom: 100px;">
     <div class="detail-view-header-wrapper">
       <div class="box-footer detail-view-header" ui-scrollpoint ui-scrollpoint-enabled="true" ui-scrollpoint-class="fixed">
         <button type="button" class="btn btn-default" ng-click="cancel()">取消</button>
@@ -134,275 +134,319 @@
         </div>
       </div>
     </div>
-    <div class="box box-danger">
-      <div class="box-header with-border">
-        <h3 class="box-title">注册信息</h3>
-        <div class="box-tools">
-          <div class="box-tools pull-right">
-            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-            </button>
-          </div>
-        </div>
-      </div>
-      <div class="box-body">
-        <div class="form-group" ng-if="data.is_old == 0">
-          <label class="col-sm-2 control-label">是否转秘书<span class="required">*</span></label>
-          <div class="col-sm-8">
-            <select class="form-control select2" name="is_annual" ng-model="data.is_annual" data-rule="required;">
-              <option value="0">否</option>
-              <option value="1">是</option>
-            </select>
-          </div>
-        </div>
-        <div class="form-group" ng-if="data.is_old == 0">
-          <label class="col-sm-2 control-label">字段说明</label>
-          <div class="col-sm-8">
-            <p style="line-height: 34px;">
-              <span style="color: #217f50; font-weight: bold;">是否转秘书:</span> 当客户不在本公司注册公司，只是年检转到本公司时请选择“是”，此时该订单不走审核数据。
-            </p>
-          </div>
-        </div>
-        <div class="form-group" ng-if="data.is_old != 1">
-          <label class="col-sm-2 control-label">档案号<span class="required">*</span></label>
-          <div class="col-sm-8">
-            <input type="text" class="form-control" ng-model="data.code" placeholder="系统自动生成" readonly>
-          </div>
-        </div>
-        <div class="form-group" ng-if="data.is_old == 1">
-          <label class="col-sm-2 control-label">档案号<span class="required">*</span></label>
-          <div class="col-sm-8">
-            <input type="text" class="form-control" ng-model="data.code" name="code" data-rule="required;code;" placeholder="区域代码+订单代码+流水号">
-          </div>
-        </div>
-        <div class="form-group" ng-repeat="item in data.nameList">
-          <label class="col-sm-2 control-label" ng-bind="$index==0 ? '公司名称' : ''"><span class="required">*</span></label>
-          <div class="col-sm-8">
-            <input type="text" class="form-control" name="name{{$index}}" ng-model="item.name" data-rule="required; length[~100];">
-          </div>
-          <div class="col-sm-2 add-dictionary" ng-if="data.nameList.length > 1">
-            <a class="glyphicon glyphicon-trash" ng-click="removeName($index)" title="删除" style="color: red;font-size: 18px;"></a>
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="col-sm-2 control-label"></label>
-          <div class="col-sm-8">
-            <a class="glyphicon glyphicon-plus" style="cursor: pointer;"  ng-click="addName()">添加备选名称</a>
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="col-sm-2 control-label">注册地址</label>
-          <div class="col-sm-8">
-            <input type="text" class="form-control" name="address" ng-model="data.address" data-rule="length[~300];">
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="col-sm-2 control-label">公司法人</label>
-          <div class="col-sm-8">
-            <input type="text" class="form-control" name="legal" ng-model="data.legal" data-rule="length[~20];">
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="col-sm-2 control-label">公司监事</label>
-          <div class="col-sm-8">
-            <input type="text" class="form-control" name="director" ng-model="data.director" data-rule="length[~100];">
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="col-sm-2 control-label">公司股东</label>
-          <div class="col-sm-8">
-            <input type="text" class="form-control" name="shareholder" ng-model="data.shareholder" data-rule="length[~100];">
-          </div>
-        </div>
-        <div ng-if="data.is_old == 1 || data.is_annual == 1">
-          <div class="form-group">
-            <label class="col-sm-2 control-label">公司成立日期<span class="required">*</span></label>
+
+    <div class="nav-tabs-custom">
+      <ul class="nav nav-tabs">
+        <li class="active"><a data-toggle="tab"  ng-click="onTab(0)">注册信息</a></li>
+        <li><a data-toggle="tab" ng-click="onTab(1)">股东及股份</a></li>
+        <li><a data-toggle="tab" ng-click="onTab(2)">委托事项</a></li>
+        <li><a data-toggle="tab" ng-click="onTab(3)">开票信息</a></li>
+        <li><a data-toggle="tab" ng-click="onTab(4)">其他</a></li>
+      </ul>
+      <div class="tab-content">
+        <!-- 注册信息 -->
+        <div class="tab-pane" ng-class="{'active': activeTab == 0}">
+          <div class="form-group" ng-if="data.is_old != 1">
+            <label class="col-sm-2 control-label">档案号<span class="required">*</span></label>
             <div class="col-sm-8">
-              <input type="text" class="form-control date-input" id="date_setup" name="date_setup" ng-model="data.date_setup" data-rule="required;">
+              <input type="text" class="form-control" ng-model="data.code" placeholder="系统自动生成" readonly>
+            </div>
+          </div>
+          <div class="form-group" ng-if="data.is_old == 1">
+            <label class="col-sm-2 control-label">档案号<span class="required">*</span></label>
+            <div class="col-sm-8">
+              <input type="text" class="form-control" ng-model="data.code" name="code" data-rule="required;code;" placeholder="区域代码+订单代码+流水号">
+            </div>
+          </div>
+          <div class="form-group" ng-repeat="item in data.nameList">
+            <label class="col-sm-2 control-label" ng-bind="$index==0 ? '公司名称' : ''"><span class="required">*</span></label>
+            <div class="col-sm-8">
+              <input type="text" class="form-control" name="name{{$index}}" ng-model="item.name" data-rule="required; length[~100];">
+            </div>
+            <div class="col-sm-2 add-dictionary" ng-if="data.nameList.length > 1">
+              <a class="glyphicon glyphicon-trash" ng-click="removeName($index)" title="删除" style="color: red;font-size: 18px;"></a>
             </div>
           </div>
           <div class="form-group">
-            <label class="col-sm-2 control-label">统一信用编号</label>
+            <label class="col-sm-2 control-label"></label>
             <div class="col-sm-8">
-              <input type="text" class="form-control" name="reg_no" ng-model="data.reg_no" data-rule="length[~100];">
+              <a class="glyphicon glyphicon-plus" style="cursor: pointer;"  ng-click="addName()">添加备选名称</a>
             </div>
           </div>
           <div class="form-group">
-            <label class="col-sm-2 control-label">纳税人资格</label>
+            <label class="col-sm-2 control-label">注册地址</label>
             <div class="col-sm-8">
-              <select ui-select2 class="form-control select2" name="taxpayer" ng-model="data.taxpayer" url="Dictionary/DroplistByGroup" paging="false" paramfield="group" paramvalue="纳税人资格"></select>
+              <input type="text" class="form-control" name="address" ng-model="data.address" data-rule="length[~300];">
             </div>
           </div>
           <div class="form-group">
-            <label class="col-sm-2 control-label">是否海关备案</label>
+            <label class="col-sm-2 control-label">公司法人</label>
             <div class="col-sm-8">
-              <input type="checkbox" name="is_customs" ng-true-value="1" ng-false-value="0" ng-model="data.is_customs">
-            </div>
-          </div>
-          <div class="form-group" ng-show="data.is_customs==1">
-            <label class="col-sm-2 control-label">海关备案英文名称</label>
-            <div class="col-sm-8">
-              <input type="text" class="form-control" ng-model="data.customs_name" data-rule="length[~300];">
-            </div>
-          </div>
-          <div class="form-group" ng-show="data.is_customs==1">
-            <label class="col-sm-2 control-label">海关备案英文地址</label>
-            <div class="col-sm-8">
-              <input type="text" class="form-control" ng-model="data.customs_address" data-rule="length[~300];">
+              <input type="text" class="form-control" name="legal" ng-model="data.legal" data-rule="length[~20];">
             </div>
           </div>
           <div class="form-group">
-            <label class="col-sm-2 control-label">是否在我司代理记账</label>
+            <label class="col-sm-2 control-label">身份证号码</label>
             <div class="col-sm-8">
-              <input type="checkbox" name="is_bookkeeping" ng-true-value="1" ng-false-value="0" ng-model="data.is_bookkeeping">
+              <input type="text" class="form-control" name="card_no" ng-model="data.card_no" data-rule="length[~30];">
             </div>
           </div>
-          <div class="form-group" ng-show="data.is_bookkeeping==1">
-            <label class="col-sm-2 control-label">代理记账费用</label>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">公司监事</label>
             <div class="col-sm-8">
-              <input type="text" class="form-control" name="amount_bookkeeping" ng-model="data.amount_bookkeeping" data-rule-money="[/^(([1-9]\d{0,9})|0)(\.\d{1,2})?$/, '请填写2位数的数值']" data-rule="money;">
+              <input type="text" class="form-control" name="director" ng-model="data.director" data-rule="length[~100];">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">注册资本</label>
+            <div class="col-sm-8">
+              <input type="text" class="form-control" name="capital" ng-model="data.capital" data-rule-money="[/^(([1-9]\d{0,9})|0)(\.\d{1,2})?$/, '请填写2位数的数值']" data-rule="money;">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-sm-2 control-label">经营范围</label>
+            <div class="col-sm-8">
+              <textarea class="form-control" rows="3" name="scope" ng-model="data.scope"></textarea>
+            </div>
+          </div>
+
+          <div ng-if="data.is_old == 1 || data.is_annual == 1">
+            <div class="form-group">
+              <label class="col-sm-2 control-label">公司成立日期<span class="required">*</span></label>
+              <div class="col-sm-8">
+                <input type="text" class="form-control date-input" id="date_setup" name="date_setup" ng-model="data.date_setup" data-rule="required;">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-2 control-label">统一信用编号</label>
+              <div class="col-sm-8">
+                <input type="text" class="form-control" name="reg_no" ng-model="data.reg_no" data-rule="length[~100];">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-2 control-label">纳税人资格</label>
+              <div class="col-sm-8">
+                <select ui-select2 class="form-control select2" name="taxpayer" ng-model="data.taxpayer" url="Dictionary/DroplistByGroup" paging="false" paramfield="group" paramvalue="纳税人资格"></select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-2 control-label">是否海关备案</label>
+              <div class="col-sm-8">
+                <input type="checkbox" name="is_customs" ng-true-value="1" ng-false-value="0" ng-model="data.is_customs">
+              </div>
+            </div>
+            <div class="form-group" ng-show="data.is_customs==1">
+              <label class="col-sm-2 control-label">海关备案英文名称</label>
+              <div class="col-sm-8">
+                <input type="text" class="form-control" ng-model="data.customs_name" data-rule="length[~300];">
+              </div>
+            </div>
+            <div class="form-group" ng-show="data.is_customs==1">
+              <label class="col-sm-2 control-label">海关备案英文地址</label>
+              <div class="col-sm-8">
+                <input type="text" class="form-control" ng-model="data.customs_address" data-rule="length[~300];">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-2 control-label">是否在我司代理记账</label>
+              <div class="col-sm-8">
+                <input type="checkbox" name="is_bookkeeping" ng-true-value="1" ng-false-value="0" ng-model="data.is_bookkeeping">
+              </div>
+            </div>
+            <div class="form-group" ng-show="data.is_bookkeeping==1">
+              <label class="col-sm-2 control-label">代理记账费用</label>
+              <div class="col-sm-8">
+                <input type="text" class="form-control" name="amount_bookkeeping" ng-model="data.amount_bookkeeping" data-rule-money="[/^(([1-9]\d{0,9})|0)(\.\d{1,2})?$/, '请填写2位数的数值']" data-rule="money;">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-2 control-label">开户行</label>
+              <div class="col-sm-8">
+                <select class="form-control select2" id="customerBankSelect2" name="bank_id" ng-view="bank_name" ng-model="data.bank_id" style="width: 100%;"></select>
+              </div>
+              <div class="col-sm-1 add-dictionary">
+                <a class="fa fa-plus" ng-click="addBank()"></a>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">成交日期</label>
+            <div class="col-sm-8">
+              <input type="text" class="form-control date-input" id="date_transaction" name="date_transaction" ng-model="data.date_transaction" data-rule="">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">交易币别</label>
+            <div class="col-sm-8">
+              <select ui-select2 id="currencySelect2" class="form-control select2" name="currency" ng-model="data.currency" url=" Dictionary/DroplistByGroup" paging="false" paramfield="group" paramvalue="币别" data-rule=""></select>
+              <span id="currencySelect2-validator" class="select-validator"></span>
+            </div>
+            <div class="col-sm-2 add-dictionary">
+              <a class="fa fa-plus" ui-sref=".dictionary({group: '币别'})" ui-sref-opts="{location:false}" title="新增币别"></a>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">汇率</label>
+            <div class="col-sm-8">
+              <input type="text" class="form-control" name="rate" ng-model="data.rate" data-rule-money="[/^(([1-9]\d{0,9})|0)(\.\d{1,2})?$/, '请填写2位数的数值']" data-rule="money;">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">其他事项</label>
+            <div class="col-sm-8">
+              <textarea class="form-control" rows="3" name="description" ng-model="data.description" data-rule="length[~100];"></textarea>
+            </div>
+          </div>
+        </div>
+        <!-- 公司股东 -->
+        <div class="tab-pane" ng-class="{'active': activeTab == 1}">
+          <table class="table table-hover">
+            <tbody>
+              <tr>
+                <th style="width: 10px">#</th>
+                <th>姓名</th>
+                <th>性别</th>
+                <th>身份证号码</th>
+                <th>股份比例(%)</th>
+                <th>担任职务</th>
+                <th class="opt-col">操作</th>
+              </tr>
+              <tr ng-repeat="item in data.shareholderList">
+                <td ng-bind="($index+1)+'.'"></td>
+                <td ng-bind="item.name"></td>
+                <td ng-bind="item.gender"></td>
+                <td ng-bind="item.cardNo"></td>
+                <td ng-bind="item.takes"></td>
+                <td ng-bind="item.position"></td>
+                <td class="opt-col">
+                  <a href="javascript:;" class="fa fa-pencil orange" ng-click="editShareholder($index, item)" title="修改"></a>
+                  <a href="javascript:;" class="fa fa-trash-o red" ng-click="deleteShareholder($index, item)" title="删除"></a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="box-footer clearfix">
+            <button type="button" class="btn btn-info" ui-sref=".shareholder_add()" ui-sref-opts="{location:false}">新增</button>
+          </div>
+        </div>
+        <!-- 委托事项 -->
+        <div class="tab-pane" ng-class="{'active': activeTab == 2}">
+          <table class="table table-hover">
+            <tbody>
+              <tr>
+                <th style="width: 10px">#</th>
+                <th>名称</th>
+                <th>所需资料</th>
+                <th>办理时间</th>
+                <th>收费标准</th>
+                <th>备注</th>
+                <th class="opt-col">操作</th>
+              </tr>
+              <tr ng-repeat="item in data.shareholderList">
+                <td ng-bind="($index+1)+'.'"></td>
+                <td ng-bind="item.name"></td>
+                <td ng-bind="item.material"></td>
+                <td ng-bind="item.spend"></td>
+                <td ng-bind="item.price"></td>
+                <td ng-bind="item.memo"></td>
+                <td class="opt-col">
+                  <a href="javascript:;" class="fa fa-pencil orange" ng-click="editShareholder($index, item)" title="修改"></a>
+                  <a href="javascript:;" class="fa fa-trash-o red" ng-click="deleteShareholder($index, item)" title="删除"></a>
+                </td>
+              </tr>
+              <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>0</td>
+                <td></td>
+                <td></td>
+              </tr>
+            </tbody>
+          </table>
+          <!-- <div class="form-group">
+            <label class="col-sm-2 control-label">成交金额</label>
+            <div class="col-sm-8">
+              <input type="text" class="form-control" name="amount_transaction" ng-model="data.amount_transaction" disabled>
+            </div>
+          </div> -->
+          <div class="box-footer clearfix">
+            <button type="button" class="btn btn-info" ui-sref=".shareholder_add()" ui-sref-opts="{location:false}">新增</button>
+          </div>
+        </div>
+        <!-- 开票信息 -->
+        <div class="tab-pane" ng-class="{'active': activeTab == 3}">
+          <div class="form-group">
+            <label class="col-sm-2 control-label">名称</label>
+            <div class="col-sm-8">
+              <input type="text" class="form-control" name="invoice_name" ng-model="data.invoice_name">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">纳税人识别号</label>
+            <div class="col-sm-8">
+              <input type="text" class="form-control" name="invoice_tax" ng-model="data.invoice_tax">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">地址</label>
+            <div class="col-sm-8">
+              <input type="text" class="form-control" name="invoice_address" ng-model="data.invoice_address">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">电话</label>
+            <div class="col-sm-8">
+              <input type="text" class="form-control" name="invoice_tel" ng-model="data.invoice_tel">
             </div>
           </div>
           <div class="form-group">
             <label class="col-sm-2 control-label">开户行</label>
             <div class="col-sm-8">
-              <select class="form-control select2" id="customerBankSelect2" name="bank_id" ng-view="bank_name" ng-model="data.bank_id" style="width: 100%;"></select>
-            </div>
-            <div class="col-sm-1 add-dictionary">
-              <a class="fa fa-plus" ng-click="addBank()"></a>
+              <input type="text" class="form-control" name="invoice_bank" ng-model="data.invoice_bank">
             </div>
           </div>
-        </div>
-        <div class="form-group">
-          <label class="col-sm-2 control-label">成交日期</label>
-          <div class="col-sm-8">
-            <input type="text" class="form-control date-input" id="date_transaction" name="date_transaction" ng-model="data.date_transaction" data-rule="">
+          <div class="form-group">
+            <label class="col-sm-2 control-label">开户行账号</label>
+            <div class="col-sm-8">
+              <input type="text" class="form-control" name="invoice_account" ng-model="data.invoice_account">
+            </div>
           </div>
         </div>
-        <div class="form-group" ng-if="data.is_annual != 1">
-          <label class="col-sm-2 control-label">成交金额</label>
-          <div class="col-sm-8">
-            <input type="text" class="form-control" name="amount_transaction" ng-model="data.amount_transaction" data-rule-money="[/^(([1-9]\d{0,9})|0)(\.\d{1,2})?$/, '请填写2位数的数值']" data-rule="money;">
+        <!-- 其他 -->
+        <div class="tab-pane" ng-class="{'active': activeTab == 4}">
+          <div class="form-group">
+            <label class="col-sm-2 control-label">业务员<span class="required">*</span></label>
+            <div class="col-sm-8">
+              <select ui-select2 class="form-control select2" id="salesmanSelect2" name="salesman_id" ng-view="salesman" ng-model="data.salesman_id" data-rule="required;" url=" Member/List" paging="true" style="width: 100%;"></select>
+            </div>
           </div>
-        </div>
-        <div class="form-group" ng-if="data.is_annual != 1">
-          <label class="col-sm-2 control-label">交易币别</label>
-          <div class="col-sm-8">
-            <select ui-select2 id="currencySelect2" class="form-control select2" name="currency" ng-model="data.currency" url=" Dictionary/DroplistByGroup" paging="false" paramfield="group" paramvalue="币别" data-rule=""></select>
-            <span id="currencySelect2-validator" class="select-validator"></span>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">助理</label>
+            <div class="col-sm-8">
+              <select ui-select2 class="form-control select2" id="assistantSelect2" name="assistant_id" allowclear="true"  ng-view="assistant_name" ng-model="data.assistant_id" url=" Member/List" paging="true" style="width: 100%;"></select>
+            </div>
           </div>
-          <div class="col-sm-2 add-dictionary">
-            <a class="fa fa-plus" ui-sref=".dictionary({group: '币别'})" ui-sref-opts="{location:false}" title="新增币别"></a>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">年检客服<span class="required">*</span></label>
+            <div class="col-sm-8">
+              <select ui-select2 class="form-control select2" id="waiterSelect2" name="waiter_id" ng-view="waiter_name" ng-model="data.waiter_id" data-rule="required;" url=" Member/List" paging="true" style="width: 100%;"></select>
+              <span id="waiterSelect2-validator" class="select-validator"></span>
+            </div>
           </div>
-        </div>
-        <div class="form-group" ng-if="data.is_annual != 1">
-          <label class="col-sm-2 control-label">汇率</label>
-          <div class="col-sm-8">
-            <input type="text" class="form-control" name="rate" ng-model="data.rate" data-rule-money="[/^(([1-9]\d{0,9})|0)(\.\d{1,2})?$/, '请填写2位数的数值']" data-rule="money;">
+          <div class="form-group">
+            <label class="col-sm-2 control-label">外勤</label>
+            <div class="col-sm-8">
+              <select ui-select2 class="form-control select2" id="outworkerSelect2" name="outworker_id" allowclear="true" ng-view="waiter_name" ng-model="data.outworker_id" url=" Member/List" paging="true" style="width: 100%;"></select>
+            </div>
           </div>
-        </div>
-        <div class="form-group">
-          <label class="col-sm-2 control-label">其他事项</label>
-          <div class="col-sm-8">
-            <textarea class="form-control" rows="3" name="description" ng-model="data.description" data-rule="length[~100];"></textarea>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="box box-danger">
-      <div class="box-header with-border">
-        <h3 class="box-title">开票信息</h3>
-        <div class="box-tools">
-          <div class="box-tools pull-right">
-            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-            </button>
-          </div>
-        </div>
-      </div>
-      <div class="box-body">
-        <div class="form-group">
-          <label class="col-sm-2 control-label">名称</label>
-          <div class="col-sm-8">
-            <input type="text" class="form-control" name="invoice_name" ng-model="data.invoice_name">
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="col-sm-2 control-label">纳税人识别号</label>
-          <div class="col-sm-8">
-            <input type="text" class="form-control" name="invoice_tax" ng-model="data.invoice_tax">
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="col-sm-2 control-label">地址</label>
-          <div class="col-sm-8">
-            <input type="text" class="form-control" name="invoice_address" ng-model="data.invoice_address">
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="col-sm-2 control-label">电话</label>
-          <div class="col-sm-8">
-            <input type="text" class="form-control" name="invoice_tel" ng-model="data.invoice_tel">
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="col-sm-2 control-label">开户行</label>
-          <div class="col-sm-8">
-            <input type="text" class="form-control" name="invoice_bank" ng-model="data.invoice_bank">
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="col-sm-2 control-label">开户行账号</label>
-          <div class="col-sm-8">
-            <input type="text" class="form-control" name="invoice_account" ng-model="data.invoice_account">
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="box box-danger">
-      <div class="box-header with-border">
-        <h3 class="box-title">其他信息</h3>
-        <div class="box-tools">
-          <div class="box-tools pull-right">
-            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-            </button>
-          </div>
-        </div>
-      </div>
-      <div class="box-body">
-        <!-- <div class="form-group">
-                    <label class="col-sm-2 control-label">业务员</label>
-                    <div class="col-sm-8">
-                        <input type="text" class="form-control" name="salesman" ng-model="data.salesman" disabled>
-                    </div>
-                </div> -->
-        <div class="form-group">
-          <label class="col-sm-2 control-label">业务员<span class="required">*</span></label>
-          <div class="col-sm-8">
-            <select ui-select2 class="form-control select2" id="salesmanSelect2" name="salesman_id" ng-view="salesman" ng-model="data.salesman_id" data-rule="required;" url=" Member/List" paging="true" style="width: 100%;"></select>
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="col-sm-2 control-label">助理</label>
-          <div class="col-sm-8">
-            <select ui-select2 class="form-control select2" id="assistantSelect2" name="assistant_id" allowclear="true"  ng-view="assistant_name" ng-model="data.assistant_id" url=" Member/List" paging="true" style="width: 100%;"></select>
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="col-sm-2 control-label">年检客服<span class="required">*</span></label>
-          <div class="col-sm-8">
-            <select ui-select2 class="form-control select2" id="waiterSelect2" name="waiter_id" ng-view="waiter_name" ng-model="data.waiter_id" data-rule="required;" url=" Member/List" paging="true" style="width: 100%;"></select>
-            <span id="waiterSelect2-validator" class="select-validator"></span>
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="col-sm-2 control-label">外勤</label>
-          <div class="col-sm-8">
-            <select ui-select2 class="form-control select2" id="outworkerSelect2" name="outworker_id" allowclear="true" ng-view="waiter_name" ng-model="data.outworker_id" url=" Member/List" paging="true" style="width: 100%;"></select>
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="col-sm-2 control-label">经理</label>
-          <div class="col-sm-8">
-            <select ui-select2 class="form-control select2" id="waiterSelect2" name="manager_id" allowclear="true" ng-view="manager_name" ng-model="data.manager_id" url=" Member/List" paging="true" style="width: 100%;"></select>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">经理</label>
+            <div class="col-sm-8">
+              <select ui-select2 class="form-control select2" id="waiterSelect2" name="manager_id" allowclear="true" ng-view="manager_name" ng-model="data.manager_id" url=" Member/List" paging="true" style="width: 100%;"></select>
+            </div>
           </div>
         </div>
       </div>
@@ -411,3 +455,4 @@
 </section>
 <div ui-view="modal"></div>
 <div ui-view="bank"></div>
+<div ui-view="shareholder"></div>
