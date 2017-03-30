@@ -235,8 +235,14 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
       }
     }).success(function(data) {
       console.log(data);
+      data.order.names = data.order.names || '';
+      if (data.order.names.length) {
+        data.order.nameList = JSON.parse(data.order.names);
+      }
+      data.order.name_cn = data.order.name_cn || '';
       $scope.data = data.order;
       $scope.incomes = data.incomes;
+
       loadAttachments();
     });
   }

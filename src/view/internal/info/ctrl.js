@@ -55,7 +55,8 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
     invoice_account: '',
     rate: '',
     assistant_id: '',
-    names: [{
+    names: '',
+    nameList: [{
       name: '',
       isFormal: false
     }],
@@ -80,14 +81,14 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
   }
 
   $scope.addName = function() {
-    $scope.data.names.push({
+    $scope.data.nameList.push({
       name: '',
       isFormal: false
     })
   }
 
   $scope.removeName = function(index) {
-    $scope.data.names.splice(index, 1);
+    $scope.data.nameList.splice(index, 1);
   }
 
   jForm.validator({
@@ -128,10 +129,13 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
           return;
         }
         var submitData = angular.copy($scope.data);
+        submitData.names = JSON.stringify(submitData.nameList);
+
         // submitData.date_setup = $('#date_setup').val();
         submitData.date_transaction = $('#date_transaction').val();
         var url = $scope.action == 'add' ? '/RegInternal/Add' : '/RegInternal/Update';
         var data = submitData;
+
         if ($scope.action == 'add') {
 
           if ($scope.data.is_old == 1) {
@@ -321,6 +325,11 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
       if (data.date_transaction && data.date_transaction.indexOf('T') > -1) {
         data.date_transaction = data.date_transaction.split('T')[0];
       }
+      data.names = data.names || '';
+      if (data.names.length) {
+        data.nameList = JSON.parse(data.names);
+      }
+
       $scope.data = data;
 
       var temp_rate = {
