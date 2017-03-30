@@ -57,6 +57,34 @@ var router = function($stateProvider, $urlRouterProvider) {
       }
     })
 
+    .state('internal_add.item_add', {
+      url: '/new/item',
+      stateName: '委托事项',
+      views: {
+        'internal_item': {
+          template: require('view/common/internalItem/modal.html'),
+          controller: require('view/common/internalItem/modal')
+        }
+      }
+    })
+    .state('internal_add.item_edit', {
+      url: '/new/item/{index:.*}',
+      params: {
+        name: null,
+        gender: null,
+        cardNo: null,
+        takes: null,
+        position: null,
+      },
+      stateName: '委托事项',
+      views: {
+        'internal_item': {
+          template: require('view/common/internalItem/modal.html'),
+          controller: require('view/common/internalItem/modal')
+        }
+      }
+    })
+
     .state('internal_edit', {
       url: '/internal/edit/{id:.*}',
       template: require('view/internal/info/tmpl.html'),
@@ -85,6 +113,33 @@ var router = function($stateProvider, $urlRouterProvider) {
         'shareholder': {
           template: require('view/common/shareholder/modal.html'),
           controller: require('view/common/shareholder/modal')
+        }
+      }
+    })
+    .state('internal_edit.item_add', {
+      url: '/new/item',
+      stateName: '委托事项',
+      views: {
+        'internal_item': {
+          template: require('view/common/internalItem/modal.html'),
+          controller: require('view/common/internalItem/modal')
+        }
+      }
+    })
+    .state('internal_edit.item_edit', {
+      url: '/new/item/{index:.*}',
+      params: {
+        name: null,
+        gender: null,
+        cardNo: null,
+        takes: null,
+        position: null,
+      },
+      stateName: '委托事项',
+      views: {
+        'internal_item': {
+          template: require('view/common/internalItem/modal.html'),
+          controller: require('view/common/internalItem/modal')
         }
       }
     })
