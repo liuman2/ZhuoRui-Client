@@ -327,6 +327,17 @@
               </tr>
             </tbody>
           </table>
+          <div class="box-footer clearfix">
+            <button
+              type="button"
+              class="btn btn-info"
+              ui-sref=".item_add()"
+              ui-sref-opts="{location:false}"
+              ng-if="data.status > 0"
+            >
+              新增
+            </button>
+          </div>
         </div>
         <!-- 开票信息 -->
         <div class="tab-pane" ng-class="{'active': activeTab == 3}">
@@ -531,3 +542,4 @@
 <div ui-view="progress"></div>
 <div ui-view="print"></div>
 <div ui-view="attachment"></div>
+<div ui-view="internal_item"></div>

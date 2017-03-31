@@ -204,6 +204,16 @@ var router = function($stateProvider, $urlRouterProvider) {
         }
       }
     })
+    .state('internal_view.item_add', {
+      url: '/new/item',
+      stateName: '委托事项',
+      views: {
+        'internal_item': {
+          template: require('view/common/internalItem/modal.html'),
+          controller: require('view/common/internalItem/modal')
+        }
+      }
+    })
     .state('internal_timeline', {
       url: '/view/internal/timeline/{source:.*}/{id:.*}/{name:.*}/{code:.*}',
       template: require('view/common/timeline/tmpl.html'),
