@@ -71,10 +71,10 @@ var router = function($stateProvider, $urlRouterProvider) {
       url: '/new/item/{index:.*}',
       params: {
         name: null,
-        gender: null,
-        cardNo: null,
-        takes: null,
-        position: null,
+        material: null,
+        spend: null,
+        price: null,
+        memo: null,
       },
       stateName: '委托事项',
       views: {
@@ -130,10 +130,10 @@ var router = function($stateProvider, $urlRouterProvider) {
       url: '/new/item/{index:.*}',
       params: {
         name: null,
-        gender: null,
-        cardNo: null,
-        takes: null,
-        position: null,
+        material: null,
+        spend: null,
+        price: null,
+        memo: null,
       },
       stateName: '委托事项',
       views: {

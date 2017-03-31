@@ -1,8 +1,8 @@
-module.exports = function($scope, $state, $stateParams, $timeout) {
+module.exports = function($scope, $state, $stateParams, $http, $timeout) {
   var index = $state.params.index || null;
 
 
-  console.log($scope.data.currency)
+  // console.log($scope.data.currency)
 
   var jForm = $('#internalitem_modal');
   jForm.validator({
@@ -10,18 +10,20 @@ module.exports = function($scope, $state, $stateParams, $timeout) {
     fields: {}
   });
 
-  $scope.shareholder = {
+  $scope.price = {
     name: '',
-    gender: '',
-    cardNo: '',
-    position: '',
-    takes: '',
+    material: '',
+    spend: '',
+    price: '',
+    memo: '',
   }
+
+  $scope.regItems = [];
 
   $scope.save = function() {
     jForm.isValid(function(v) {
       if (v) {
-        $scope.$emit('ITEM_DONE', { shareholder: $scope.shareholder, index: index });
+        $scope.$emit('ITEM_DONE', { price: $scope.price, index: index });
         $state.go('^');
       }
     });
@@ -29,12 +31,27 @@ module.exports = function($scope, $state, $stateParams, $timeout) {
 
   $scope.title = !!index ? '修改委托事项' : '添加委托事项'
   if (index) {
-    $scope.shareholder = {
+    $scope.price = {
       name: $stateParams.name,
-      gender: $stateParams.gender,
-      cardNo: $stateParams.cardNo,
-      position: $stateParams.position,
-      takes: $stateParams.takes,
+      material: $stateParams.material,
+      spend: $stateParams.spend,
+      price: $stateParams.price,
+      memo: $stateParams.memo,
     }
   }
+
+  $http({
+    method: 'GET',
+    url: 'Dictionary/DroplistByGroup',
+    params: {
+      group: '委托事项',
+    }
+  }).success(function(data) {
+    $scope.regItems = data.items || [];
+    $timeout(function() {
+      $('#priceItems').val($scope.price.name);
+    })
+
+    // $(".selector").find("option[text='pxx']").attr("selected",true);
+  });
 };

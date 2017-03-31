@@ -14,6 +14,22 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
     review_status: -1
   }
 
+  $scope.activeTab = 0;
+  $scope.onTab = function(activeIndex) {
+    $scope.activeTab = activeIndex;
+  }
+
+  $scope.getTotal = function() {
+    var total = 0;
+    if ($scope.data.priceList.length > 0) {
+      $.each($scope.data.priceList, function(i, p) {
+        total += (p.price - 0);
+      })
+    }
+
+    return total;
+  }
+
   $scope.getTitle = function(item) {
     if (item.review_status == 0) {
       $('.tooltip-author').tooltipster({
@@ -239,6 +255,18 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
       if (data.order.names.length) {
         data.order.nameList = JSON.parse(data.order.names);
       }
+      data.order.shareholderList = [];
+      data.order.shareholders = data.order.shareholders || '';
+      if (data.order.shareholders.length) {
+        data.order.shareholderList = JSON.parse(data.order.shareholders);
+      }
+
+      data.order.priceList = [];
+      data.order.prices = data.order.prices || '';
+      if (data.order.prices.length) {
+        data.order.priceList = JSON.parse(data.order.prices);
+      }
+
       data.order.name_cn = data.order.name_cn || '';
       $scope.data = data.order;
       $scope.incomes = data.incomes;

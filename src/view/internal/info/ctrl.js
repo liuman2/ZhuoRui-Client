@@ -61,6 +61,7 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
       isFormal: false
     }],
     shareholderList: [],
+    priceList: [],
     is_annual: 0
   }
 
@@ -134,6 +135,28 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
     }
   });
 
+  $scope.$on('ITEM_DONE', function(e, result) {
+    console.log(result);
+    if (result.index == null) {
+      $scope.data.priceList.push(result.price);
+    } else {
+      $scope.data.priceList[result.index - 0] = result.price;
+    }
+
+
+  });
+
+  $scope.getTotal = function() {
+    var total = 0;
+    if ($scope.data.priceList.length > 0) {
+      $.each($scope.data.priceList, function(i, p) {
+        total += (p.price - 0);
+      })
+    }
+
+    return total;
+  }
+
   $scope.save = function() {
     var isCustomerValid = valid_customer();
     var isWaiterVaild = valid_waiter();
@@ -146,6 +169,8 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
         var submitData = angular.copy($scope.data);
         submitData.names = JSON.stringify(submitData.nameList);
         submitData.shareholders = JSON.stringify(submitData.shareholderList);
+        submitData.prices = JSON.stringify(submitData.priceList);
+        submitData.amount_transaction = $scope.getTotal();
 
         // submitData.date_setup = $('#date_setup').val();
         submitData.date_transaction = $('#date_transaction').val();
@@ -262,6 +287,21 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
     $scope.data.shareholderList.splice(index, 1);
   }
 
+  $scope.editRegItem = function(index, price) {
+    $state.go('.item_edit', {
+      index: index,
+      name: price.name,
+      material: price.material,
+      spend: price.spend,
+      price: price.price,
+      memo: price.memo,
+    }, { location: false });
+  }
+
+  $scope.deleteRegItem = function(index, item) {
+    $scope.data.priceList.splice(index, 1);
+  }
+
   $('#customerSelect2').on("change", function(e) {
     var customer_id = $(e.target).val();
 
@@ -366,6 +406,12 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
       data.shareholders = data.shareholders || '';
       if (data.shareholders.length) {
         data.shareholderList = JSON.parse(data.shareholders);
+      }
+
+      data.priceList = [];
+      data.prices = data.prices || '';
+      if (data.prices.length) {
+        data.priceList = JSON.parse(data.prices);
       }
 
       $scope.data = data;
