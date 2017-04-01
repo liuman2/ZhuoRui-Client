@@ -26,7 +26,17 @@ module.exports = function($scope, $state, $stateParams, $http, $timeout) {
     var jForm = $('#feedback_form');
     jForm.isValid(function(v) {
       if (v) {
-        alert($scope.feedback.name_cn)
+        $http({
+          method: 'POST',
+          url: 'RegInternal/SureName',
+          data: {
+            id: $scope.data.id,
+            name: $scope.feedback.name_cn
+          }
+        }).success(function(data) {
+          $scope.data.name_cn =   $scope.feedback.name_cn;
+          $state.go('^');
+        });
       }
     });
   }

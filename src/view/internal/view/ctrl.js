@@ -199,6 +199,11 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
     }
   }
 
+  $scope.$on('ITEM_FINISH_DONE', function(e, result) {
+    console.log(result);
+    $scope.priceList[result.index] = result.price;
+  });
+
   $scope.progress = function(t) {
     // if ($scope.data.status == 4) {
     //     alert('订单已完成，无需再更新进度');
