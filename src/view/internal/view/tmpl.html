@@ -19,7 +19,7 @@
         <button type="button" class="btn btn-danger" ng-click="refuseAudit()" ng-if="data.status==1 && opers.indexOf(3) > -1">财务审核驳回</button>
         <button type="button" class="btn btn-success" ng-click="passAudit()" ng-if="data.status > 1 && data.status < 3 && opers.indexOf(4) > -1">提交审核通过</button>
         <button type="button" class="btn btn-danger" ng-click="refuseAudit()" ng-if="data.status > 1 && data.status < 3 && opers.indexOf(4) > -1">提交审核驳回</button>
-        <button type="button" class="btn btn-success" ng-click="progress('p')" ng-if="data.status >= 3">进度反馈</button>
+        <button type="button" class="btn btn-success" ng-click="feedback('p')" ng-if="data.status >= 3">进度反馈</button>
         <button type="button" class="btn btn-success" ng-click="progress('w')" ng-if="data.status >= 3">完善资料</button>
         <button type="button" class="btn btn-info" ui-sref="internal_timeline({id: data.id, name: 'reg_internal', code: data.code, source: 'view'})"><span class="fa fa-clock-o"></span>日志</button>
         <a href="/print.html?m=internal&id={{id}}" class="btn btn-info" target="_blank">打印</a>
@@ -309,7 +309,7 @@
                 <th>收费标准</th>
                 <th>备注</th>
               </tr>
-              <tr ng-repeat="item in data.priceList">
+              <tr ng-repeat="item in priceList">
                 <td ng-bind="($index+1)+'.'"></td>
                 <td ng-bind="item.name"></td>
                 <td ng-bind="item.material"></td>
@@ -317,7 +317,7 @@
                 <td ng-bind="item.price"></td>
                 <td ng-bind="item.memo"></td>
               </tr>
-              <tr ng-if="data.priceList.length > 0" style="background: #ddd;">
+              <tr ng-if="priceList.length > 0" style="background: #ddd;">
                 <td></td>
                 <td>合计：</td>
                 <td></td>
@@ -543,3 +543,4 @@
 <div ui-view="print"></div>
 <div ui-view="attachment"></div>
 <div ui-view="internal_item"></div>
+<div ui-view="feedback"></div>

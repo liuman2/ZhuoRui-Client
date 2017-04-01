@@ -11,6 +11,7 @@ module.exports = function($scope, $state, $stateParams, $http, $timeout) {
   });
 
   $scope.price = {
+    itemId: '',
     name: '',
     material: '',
     spend: '',
@@ -33,20 +34,19 @@ module.exports = function($scope, $state, $stateParams, $http, $timeout) {
       }
       if (v) {
         if ($state.current.name == 'internal_view.item_add') {
-          var newPrices = $.extend(true, [], angular.copy($scope.data.priceList));
-          newPrices.push($scope.price);
+
           var total = $scope.getTotal();
           $http({
             method: 'POST',
             url: '/RegInternal/AddRegItem',
             data: {
               id: $scope.data.id,
-              name: $scope.price.name,
-              items: JSON.stringify(newPrices),
+              item: $scope.price,
               amount_transaction: total
             }
           }).success(function(data) {
-            $scope.data.priceList.push($scope.price);
+            $scope.price.id = data.id;
+            $scope.priceList.push($scope.price);
             $scope.data.amount_transaction = total;
             $state.go('^');
           });
@@ -59,12 +59,12 @@ module.exports = function($scope, $state, $stateParams, $http, $timeout) {
   }
 
   function checkNameExist() {
-    if (!$scope.data.priceList.length) {
+    if (!$scope.priceList.length) {
       return true;
     }
 
-    var arrs = $scope.data.priceList.filter(function(item) {
-      return item.name == $scope.price.name;
+    var arrs = $scope.priceList.filter(function(item, i) {
+      return item.name == $scope.price.name && (index == null || i != (index - 0));
     });
 
     return arrs.length == 0;
@@ -73,6 +73,7 @@ module.exports = function($scope, $state, $stateParams, $http, $timeout) {
   $scope.title = !!index ? '修改委托事项' : '添加委托事项'
   if (index) {
     $scope.price = {
+      itemId: $stateParams.itemId,
       name: $stateParams.name,
       material: $stateParams.material,
       spend: $stateParams.spend,

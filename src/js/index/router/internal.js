@@ -70,6 +70,7 @@ var router = function($stateProvider, $urlRouterProvider) {
     .state('internal_add.item_edit', {
       url: '/new/item/{index:.*}',
       params: {
+        itemId: null,
         name: null,
         material: null,
         spend: null,
@@ -129,6 +130,7 @@ var router = function($stateProvider, $urlRouterProvider) {
     .state('internal_edit.item_edit', {
       url: '/new/item/{index:.*}',
       params: {
+        itemId: null,
         name: null,
         material: null,
         spend: null,
@@ -298,6 +300,16 @@ var router = function($stateProvider, $urlRouterProvider) {
         }
       }
     })
+    .state('internal_view.feedback', {
+      url: '/feedback',
+      views: {
+        'feedback': {
+          template: require('view/internal/view/feedback.html'),
+          controller: require('view/internal/view/feedback')
+        }
+      }
+    })
+
     .state('internal_add.dictionary', {
       url: '/dictionary',
       params: {

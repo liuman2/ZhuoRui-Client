@@ -343,7 +343,7 @@
                 <th>备注</th>
                 <th class="opt-col">操作</th>
               </tr>
-              <tr ng-repeat="item in data.priceList">
+              <tr ng-repeat="item in priceList">
                 <td ng-bind="($index+1)+'.'"></td>
                 <td ng-bind="item.name"></td>
                 <td ng-bind="item.material"></td>
@@ -355,7 +355,7 @@
                   <a href="javascript:;" class="fa fa-trash-o red" ng-click="deleteRegItem($index, item)" title="删除"></a>
                 </td>
               </tr>
-              <tr ng-if="data.priceList.length > 0" style="background: #ddd;">
+              <tr ng-if="priceList.length > 0" style="background: #ddd;">
                 <td></td>
                 <td>合计：</td>
                 <td></td>

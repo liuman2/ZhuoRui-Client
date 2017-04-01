@@ -61,9 +61,10 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
       isFormal: false
     }],
     shareholderList: [],
-    priceList: [],
     is_annual: 0
   }
+
+  $scope.priceList = [];
 
   if (!!id) {
     $scope.data.id = id;
@@ -137,19 +138,20 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
 
   $scope.$on('ITEM_DONE', function(e, result) {
     console.log(result);
+    result.price.id = result.price.itemId;
     if (result.index == null) {
-      $scope.data.priceList.push(result.price);
+      $scope.priceList.push(result.price);
     } else {
-      $scope.data.priceList[result.index - 0] = result.price;
+      $scope.priceList[result.index - 0] = result.price;
     }
 
-
+    // $scope.activeTab = 2;
   });
 
   $scope.getTotal = function() {
     var total = 0;
-    if ($scope.data.priceList.length > 0) {
-      $.each($scope.data.priceList, function(i, p) {
+    if ($scope.priceList.length > 0) {
+      $.each($scope.priceList, function(i, p) {
         total += (p.price - 0);
       })
     }
@@ -169,13 +171,16 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
         var submitData = angular.copy($scope.data);
         submitData.names = JSON.stringify(submitData.nameList);
         submitData.shareholders = JSON.stringify(submitData.shareholderList);
-        submitData.prices = JSON.stringify(submitData.priceList);
+        // submitData.prices = JSON.stringify(submitData.priceList);
         submitData.amount_transaction = $scope.getTotal();
 
         // submitData.date_setup = $('#date_setup').val();
         submitData.date_transaction = $('#date_transaction').val();
         var url = $scope.action == 'add' ? '/RegInternal/Add' : '/RegInternal/Update';
-        var data = submitData;
+        var data = {
+          reginternal: submitData,
+          items: $scope.priceList,
+        };
 
         if ($scope.action == 'add') {
 
@@ -192,7 +197,8 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
               is_old: $scope.data.is_old,
               is_already_annual: $scope.data.is_already_annual,
             },
-            reginternal: submitData
+            reginternal: submitData,
+            items: $scope.priceList,
           };
         }
 
@@ -290,6 +296,7 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
   $scope.editRegItem = function(index, price) {
     $state.go('.item_edit', {
       index: index,
+      itemId: price.id || null,
       name: price.name,
       material: price.material,
       spend: price.spend,
@@ -299,7 +306,7 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
   }
 
   $scope.deleteRegItem = function(index, item) {
-    $scope.data.priceList.splice(index, 1);
+    $scope.priceList.splice(index, 1);
   }
 
   $('#customerSelect2').on("change", function(e) {
@@ -390,31 +397,32 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
         id: id
       }
     }).success(function(data) {
-      // if (data.date_setup.indexOf('T') > -1) {
-      //     data.date_setup = data.date_setup.split('T')[0];
+      var order = data.order;
+      if (order.date_transaction && order.date_transaction.indexOf('T') > -1) {
+        order.date_transaction = order.date_transaction.split('T')[0];
+      }
+      order.nameList = [];
+      order.names = order.names || '';
+      if (order.names.length) {
+        order.nameList = JSON.parse(order.names);
+      }
+
+      order.shareholderList = [];
+      order.shareholders = order.shareholders || '';
+      if (order.shareholders.length) {
+        order.shareholderList = JSON.parse(order.shareholders);
+      }
+
+      // data.priceList = [];
+      // data.prices = data.prices || '';
+      // if (data.prices.length) {
+      //   data.priceList = JSON.parse(data.prices);
       // }
-      if (data.date_transaction && data.date_transaction.indexOf('T') > -1) {
-        data.date_transaction = data.date_transaction.split('T')[0];
-      }
-      data.nameList = [];
-      data.names = data.names || '';
-      if (data.names.length) {
-        data.nameList = JSON.parse(data.names);
-      }
 
-      data.shareholderList = [];
-      data.shareholders = data.shareholders || '';
-      if (data.shareholders.length) {
-        data.shareholderList = JSON.parse(data.shareholders);
-      }
 
-      data.priceList = [];
-      data.prices = data.prices || '';
-      if (data.prices.length) {
-        data.priceList = JSON.parse(data.prices);
-      }
 
-      $scope.data = data;
+      $scope.data = order;
+      $scope.priceList = data.items;
 
       var temp_rate = {
         rate: $scope.data.rate,

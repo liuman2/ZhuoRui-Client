@@ -13,7 +13,7 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
     status: 0,
     review_status: -1
   }
-
+  $scope.priceList = [];
   $scope.activeTab = 0;
   $scope.onTab = function(activeIndex) {
     $scope.activeTab = activeIndex;
@@ -21,8 +21,8 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
 
   $scope.getTotal = function() {
     var total = 0;
-    if ($scope.data.priceList.length > 0) {
-      $.each($scope.data.priceList, function(i, p) {
+    if ($scope.priceList.length > 0) {
+      $.each($scope.priceList, function(i, p) {
         total += (p.price - 0);
       })
     }
@@ -95,6 +95,10 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
         });
       }
     });
+  }
+
+  $scope.feedback = function() {
+    $state.go(".feedback", null, { location: false });
   }
 
   $scope.incomes = {
@@ -261,11 +265,7 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
         data.order.shareholderList = JSON.parse(data.order.shareholders);
       }
 
-      data.order.priceList = [];
-      data.order.prices = data.order.prices || '';
-      if (data.order.prices.length) {
-        data.order.priceList = JSON.parse(data.order.prices);
-      }
+      $scope.priceList = data.items || [];
 
       data.order.name_cn = data.order.name_cn || '';
       $scope.data = data.order;
