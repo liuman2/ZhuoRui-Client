@@ -28,15 +28,18 @@
                                 <th style="width: 10px">#</th>
                                 <th>名称</th>
                                 <th>说明</th>
+                                <th>系统内置</th>
                                 <th class="opt-col">操作</th>
                             </tr>
                             <tr ng-repeat="item in data">
                                 <td ng-bind="($index+1)+'.'"></td>
                                 <td ng-bind="item.name"></td>
                                 <td ng-bind="item.description"></td>
+                                <td ng-bind="item.is_system==1 ? '系统内置' : '用户添加'"></td>
                                 <td class="opt-col">
-                                    <a class="fa fa-pencil green" ui-sref=".edit({id: {{item.id}}})" ui-sref-opts="{location:false}" title="修改"></a>
-                                    <a href="javascript:;" class="fa fa-trash-o red" title="删除" ng-click="delete(item.id)"></a>
+                                    <a ng-if="item.is_system==1" title="系统内置数据不可修改">--</a>
+                                    <a class="fa fa-pencil green" ui-sref=".edit({id: {{item.id}}})" ui-sref-opts="{location:false}" title="修改" ng-if="item.is_system!=1"></a>
+                                    <a href="javascript:;" class="fa fa-trash-o red" title="删除" ng-click="delete(item.id)" ng-if="item.is_system!=1"></a>
                                 </td>
                             </tr>
                         </tbody>

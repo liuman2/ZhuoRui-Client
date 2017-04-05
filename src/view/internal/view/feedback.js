@@ -56,4 +56,30 @@ module.exports = function($scope, $state, $stateParams, $http, $timeout) {
       }
     });
   }
+
+  $scope.finishBase = function(item, index) {
+    console.log($scope.basePrice)
+    var feedbackForm = $('#feedback_formb' + index);
+    feedbackForm.isValid(function(v) {
+      if (v) {
+        item.status = 1;
+        var subObj = angular.copy($scope.basePrice);
+        console.log(subObj)
+
+        $http({
+          method: 'POST',
+          url: 'RegInternal/FinishBaseItem',
+          data: {
+            id: subObj.id,
+            items: JSON.stringify(subObj.items)
+          }
+        }).success(function(data) {
+          item.status = 1;
+          $scope.$emit('BASE_ITEM_FINISH_DONE', { price: item, index: index });
+          $state.go('^');
+        });
+
+      }
+    });
+  }
 };

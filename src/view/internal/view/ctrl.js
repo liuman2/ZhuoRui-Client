@@ -14,6 +14,11 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
     review_status: -1
   }
   $scope.priceList = [];
+  $scope.basePrice = {
+    id: '',
+    items: []
+  };
+  $scope.hasBase = false;
   $scope.activeTab = 0;
   $scope.onTab = function(activeIndex) {
     $scope.activeTab = activeIndex;
@@ -146,23 +151,25 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
 
   $scope.passAudit = function() {
 
-    $.confirm({
-      title: false,
-      content: '您确认通过审核？',
-      confirmButton: '确定',
-      cancelButton: '取消',
-      confirm: function() {
-        $http({
-          method: 'GET',
-          url: '/RegInternal/PassAudit',
-          params: {
-            id: $scope.data.id
-          }
-        }).success(function(data) {
-          actionView();
-        });
-      }
-    });
+    // $.confirm({
+    //   title: false,
+    //   content: '您确认通过审核？',
+    //   confirmButton: '确定',
+    //   cancelButton: '取消',
+    //   confirm: function() {
+    //     $http({
+    //       method: 'GET',
+    //       url: '/RegInternal/PassAudit',
+    //       params: {
+    //         id: $scope.data.id
+    //       }
+    //     }).success(function(data) {
+    //       actionView();
+    //     });
+    //   }
+    // });
+
+    $state.go(".pass", { module_name: 'RegInternal' }, { location: false });
   }
 
   $scope.refuseAudit = function() {
@@ -203,6 +210,12 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
     console.log(result);
     $scope.priceList[result.index] = result.price;
   });
+
+  $scope.$on('BASE_ITEM_FINISH_DONE', function(e, result) {
+    console.log(result);
+    $scope.basePrice.items[result.index] = result.price;
+  });
+
 
   $scope.progress = function(t) {
     // if ($scope.data.status == 4) {
@@ -270,7 +283,65 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
         data.order.shareholderList = JSON.parse(data.order.shareholders);
       }
 
-      $scope.priceList = data.items || [];
+      data.items = data.items || [];
+      if (data.items.length) {
+        var arrs = data.items.filter(function(item, i) {
+          return item.name == '公司基础注册';
+        });
+        if (arrs.length > 0) {
+          $scope.hasBase = true;
+
+          var str = arrs[0].sub_items || '';
+          if (str.length) {
+            $scope.basePrice = {
+              id: arrs[0].id,
+              items: JSON.parse(str)
+            };
+          } else {
+            $scope.basePrice = {
+              id: arrs[0].id,
+              items: [{
+                name: '确认注册信息',
+                finisher: '',
+                status: 0,
+                date_finished: '',
+              },{
+                name: '名称预核算',
+                finisher: '',
+                status: 0,
+                date_finished: '',
+              },{
+                name: '网上设立申请',
+                finisher: '',
+                status: 0,
+                date_finished: '',
+              },{
+                name: '办理营业执照',
+                finisher: '',
+                status: 0,
+                date_finished: '',
+              },{
+                name: '刻制企业印章',
+                finisher: '',
+                status: 0,
+                date_finished: '',
+              },{
+                name: '开立银行基本户',
+                finisher: '',
+                status: 0,
+                date_finished: '',
+              }]
+            };
+          }
+        }
+
+        // var arr1 = data.items.filter(function(item, i) {
+        //   return item.name != '公司基础注册';
+        // });
+
+        $scope.priceList = data.items || [];
+      }
+
 
       data.order.name_cn = data.order.name_cn || '';
       $scope.data = data.order;

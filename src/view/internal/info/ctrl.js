@@ -478,6 +478,8 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
   }
 
   function valid_waiter() {
+    return true;
+
     if (!$scope.data.waiter_id) {
       jForm.validator('showMsg', '#waiterSelect2-validator', {
         type: "error",

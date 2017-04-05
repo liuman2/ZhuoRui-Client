@@ -178,6 +178,16 @@ var router = function($stateProvider, $urlRouterProvider) {
         }
       }
     })
+    .state('internal_view.pass', {
+      url: '/audit/{module_name:.*}',
+      views: {
+        'modal': {
+          template: require('view/common/audit/pass.html'),
+          controller: require('view/common/audit/pass')
+        }
+      }
+    })
+
     .state('internal_view.done', {
       url: '/done/{module_name:.*}',
       views: {
