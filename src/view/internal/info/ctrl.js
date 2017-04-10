@@ -53,8 +53,9 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
     invoice_tel: '',
     invoice_bank: '',
     invoice_account: '',
-    rate: '',
+    rate: 1,
     assistant_id: '',
+    currency: '人民币',
     names: '',
     nameList: [{
       name: '',

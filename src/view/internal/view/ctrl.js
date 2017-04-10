@@ -149,26 +149,29 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
     });
   }
 
+  $scope.passAuditF = function() {
+
+    $.confirm({
+      title: false,
+      content: '您确认通过审核？',
+      confirmButton: '确定',
+      cancelButton: '取消',
+      confirm: function() {
+        $http({
+          method: 'GET',
+          url: '/RegInternal/PassAudit',
+          params: {
+            id: $scope.data.id,
+            waiter_id: 0
+          }
+        }).success(function(data) {
+          actionView();
+        });
+      }
+    });
+  }
+
   $scope.passAudit = function() {
-
-    // $.confirm({
-    //   title: false,
-    //   content: '您确认通过审核？',
-    //   confirmButton: '确定',
-    //   cancelButton: '取消',
-    //   confirm: function() {
-    //     $http({
-    //       method: 'GET',
-    //       url: '/RegInternal/PassAudit',
-    //       params: {
-    //         id: $scope.data.id
-    //       }
-    //     }).success(function(data) {
-    //       actionView();
-    //     });
-    //   }
-    // });
-
     $state.go(".pass", { module_name: 'RegInternal' }, { location: false });
   }
 
