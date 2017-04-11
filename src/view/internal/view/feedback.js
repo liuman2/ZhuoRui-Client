@@ -66,6 +66,24 @@ module.exports = function($scope, $state, $stateParams, $http, $timeout) {
         var subObj = angular.copy($scope.basePrice);
         console.log(subObj)
 
+        if (item.name == '名称预核准') {
+          $http({
+            method: 'POST',
+            url: 'RegInternal/SureName',
+            data: {
+              id: subObj.id,
+              name: $scope.feedback.name_cn,
+              items: JSON.stringify(subObj.items)
+            }
+          }).success(function(data) {
+            $scope.data.name_cn =   $scope.feedback.name_cn;
+            $scope.$emit('BASE_ITEM_FINISH_DONE', { price: item, index: index });
+            $state.go('^');
+          });
+          return;
+        }
+
+
         $http({
           method: 'POST',
           url: 'RegInternal/FinishBaseItem',

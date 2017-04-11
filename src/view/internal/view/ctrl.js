@@ -303,35 +303,40 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
           } else {
             $scope.basePrice = {
               id: arrs[0].id,
-              items: [{
+              items: [/*{
                 name: '确认注册信息',
                 finisher: '',
                 status: 0,
                 date_finished: '',
-              },{
-                name: '名称预核算',
+              },*/{
+                name: '名称预核准',
                 finisher: '',
                 status: 0,
+                date_started: '',
                 date_finished: '',
               },{
                 name: '网上设立申请',
                 finisher: '',
                 status: 0,
+                date_started: '',
                 date_finished: '',
               },{
                 name: '办理营业执照',
                 finisher: '',
                 status: 0,
+                date_started: '',
                 date_finished: '',
               },{
                 name: '刻制企业印章',
                 finisher: '',
                 status: 0,
+                date_started: '',
                 date_finished: '',
               },{
                 name: '开立银行基本户',
                 finisher: '',
                 status: 0,
+                date_started: '',
                 date_finished: '',
               }]
             };
