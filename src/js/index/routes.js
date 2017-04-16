@@ -20,7 +20,7 @@ var lectureRouter = require('./router/lecture');
 var letterRouter = require('./router/letter');
 var profileRouter = require('./router/profile');
 var messageRouter = require('./router/message');
-
+var accountRouter = require('./router/account');
 module.exports = function($stateProvider, $urlRouterProvider) {
 
   $urlRouterProvider.otherwise('/dashboard');
@@ -221,4 +221,5 @@ module.exports = function($stateProvider, $urlRouterProvider) {
   letterRouter($stateProvider, $urlRouterProvider);
   profileRouter($stateProvider, $urlRouterProvider);
   messageRouter($stateProvider, $urlRouterProvider);
+  accountRouter($stateProvider, $urlRouterProvider);
 };

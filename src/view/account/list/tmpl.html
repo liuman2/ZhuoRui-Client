@@ -1,0 +1,150 @@
+<section class="content-header">
+  <h1>
+        代账业务
+        <small>国内</small>
+    </h1>
+  <ol class="breadcrumb">
+    <li><a ui-sref="dashboard"><i class="fa fa-dashboard"></i>我的面板</a></li>
+    <li><a class="active">列表</a></li>
+  </ol>
+</section>
+<section class="content">
+  <div class="box box-danger">
+    <div class="box-header with-border">
+      <h3 class="box-title">查询条件</h3>
+      <div class="box-tools">
+        <div class="box-tools pull-right">
+          <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="box-body">
+      <div class="row">
+        <div class="col-md-4">
+          <div class="form-group">
+            <label>档案号</label>
+            <input type="text" class="form-control" name="code" ng-model="search.code">
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="form-group">
+            <label>订单名称</label>
+            <input type="text" class="form-control" name="name" ng-model="search.name">
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="form-group">
+            <label>订单状态</label>
+            <select class="form-control" ng-model="search.status">
+              <option value="">全部</option>
+              <option value="0">未提交</option>
+              <option value="1">未审核</option>
+              <option value="2">已审核</option>
+              <option value="4">完成</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">
+          <div class="form-group">
+            <label>客户名称</label>
+            <select ui-select2 class="form-control select2" name="customer_id" ng-view="customer_name" ng-model="search.customer_id" url="Customer/SearchForDropdown" paging="true" style="width: 100%;"></select>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="form-group">
+            <label>成交起始日期</label>
+            <input type="text" class="form-control date-input" id="start_time" ng-model="search.start_time">
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="form-group">
+            <label>成交结束日期</label>
+            <input type="text" class="form-control date-input" id="end_time" ng-model="search.end_time">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">
+          <div class="form-group">
+            <label>录入起始日期</label>
+            <input type="text" class="form-control date-input" id="start_create" ng-model="search.start_create">
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="form-group">
+            <label>录入结束日期</label>
+            <input type="text" class="form-control date-input" id="end_create" ng-model="search.end_create">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="box-footer">
+      <a class="btn btn-sm btn-info btn-flat pull-right" ng-click="query()">查询</a>
+    </div>
+  </div>
+  <div class="box box-danger" style="margin-bottom: 110px;">
+    <div class="box-body table-responsive no-padding">
+      <table class="table table-hover">
+        <tbody>
+          <tr>
+            <th style="width: 10px">#</th>
+            <th ng-click="orderBy('code')" class="ordertable">档案号</th>
+            <!-- <th style="width:80px;">客户名称</th> -->
+            <th ng-click="orderBy('name')" class="ordertable">公司名称</th>
+            <th style="width:110px;">订单状态</th>
+            <th style="width:80px;">审核状态</th>
+            <th style="width:55px;">转秘书</th>
+            <th style="width:100px;">注册进度</th>
+            <th ng-click="orderBy('date_created')" class="ordertable">录入时间</th>
+            <th class="tar" style="width:110px;">成交金额</th>
+            <th class="opt-col">操作</th>
+          </tr>
+          <tr ng-repeat="item in data.items">
+            <td ng-bind="getIndex($index)"></td>
+            <td ng-bind="item.code"></td>
+            <td ng-bind="item.name_cn" ng-attr-title="{{item.name}}"></td>
+            <td>
+              <span class="label" ng-class="{'label-warning': (item.status==0), 'label-success': (item.status==4), 'label-info': (item.status != 0 && item.status != 4)}" ng-bind="getOrderStatus(item.status)"></span>
+            </td>
+            <td>
+              <span id="tool-tip{{$index}}" style="cursor: default;" class="label" ng-attr-title="{{getTitle(item, $index)}}" ng-class="{'label-warning': (item.review_status==-1), 'label-success': (item.review_status==1), 'label-danger': (item.review_status==0)}" ng-bind="getReviewStatus(item.status, item.review_status)">
+                            </span>
+            </td>
+            <td ng-bind="item.is_annual==1?'是':'否'"></td>
+            <td title="点击可设置进度">
+              <a href="javascript:;" class="fa fa-hourglass-half" ng-click="progress(item, 'p')" ng-bind="!!item.progress? (' ' + item.progress) : ' 无进度信息'"></a>
+            </td>
+            <td ng-bind="format(item.date_created, 'YYYY-MM-DD HH:MM')"></td>
+            <td class="tar" ng-bind="item.amount_transaction"></td>
+            <td class="opt-col">
+              <div class="btn-group">
+                <button type="button" class="btn btn-box-tool dropdown-toggle" data-toggle="dropdown">
+                  <i class="fa fa-wrench"></i>
+                </button>
+                <ul class="dropdown-menu" role="menu">
+                  <li><a class="fa fa-info-circle" target="_blank" ui-sref="abroad_view({id: item.id})"> 详情</a></li>
+                  <!-- <li><a href="javascript:;" class="fa fa-hourglass-half" ng-click="progress(item, 'p')"> 进度反馈</a></li> -->
+                  <!-- <li><a href="javascript:;" class="fa fa-hourglass-half" ng-click="progress(item, 'w')"> 完善注册资料</a></li> -->
+                  <li class="divider"></li>
+                  <li><a href="javascript:;" class="fa fa-pencil" ng-click="edit(item)"> 修改</a></li>
+                  <li><a href="javascript:;" class="fa fa-trash-o" ng-click="delete(item)"> 删除</a></li>
+                  <li class="divider"></li>
+                  <!-- <li><a href="javascript:;" class="fa fa-history" ng-click="history(item)"> 变更记录</a></li> -->
+                  <li><a class="fa fa-clock-o" ui-sref="abroad_timeline({id: item.id, name: 'reg_abroad', code: item.code, source: 'list'})"> 操作日志</a></li>
+                </ul>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="box-footer clearfix">
+      <a ui-sref="account_add" class="btn btn-sm btn-info btn-flat pull-left">新增</a>
+      <div pagination page-data="data.page" page-click="go(idx)"></div>
+    </div>
+  </div>
+</section>
+<div ui-view="progress"></div>
