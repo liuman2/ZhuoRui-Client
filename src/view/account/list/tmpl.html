@@ -1,7 +1,6 @@
 <section class="content-header">
   <h1>
-        代账业务
-        <small>国内</small>
+        记账业务
     </h1>
   <ol class="breadcrumb">
     <li><a ui-sref="dashboard"><i class="fa fa-dashboard"></i>我的面板</a></li>
@@ -97,7 +96,7 @@
             <th style="width:110px;">订单状态</th>
             <th style="width:80px;">审核状态</th>
             <th style="width:55px;">转秘书</th>
-            <th style="width:100px;">注册进度</th>
+            <!-- <th style="width:100px;">注册进度</th> -->
             <th ng-click="orderBy('date_created')" class="ordertable">录入时间</th>
             <th class="tar" style="width:110px;">成交金额</th>
             <th class="opt-col">操作</th>
@@ -105,7 +104,7 @@
           <tr ng-repeat="item in data.items">
             <td ng-bind="getIndex($index)"></td>
             <td ng-bind="item.code"></td>
-            <td ng-bind="item.name_cn" ng-attr-title="{{item.name}}"></td>
+            <td ng-bind="item.name" ng-attr-title="{{item.name}}"></td>
             <td>
               <span class="label" ng-class="{'label-warning': (item.status==0), 'label-success': (item.status==4), 'label-info': (item.status != 0 && item.status != 4)}" ng-bind="getOrderStatus(item.status)"></span>
             </td>
@@ -114,9 +113,9 @@
                             </span>
             </td>
             <td ng-bind="item.is_annual==1?'是':'否'"></td>
-            <td title="点击可设置进度">
+            <!-- <td title="点击可设置进度">
               <a href="javascript:;" class="fa fa-hourglass-half" ng-click="progress(item, 'p')" ng-bind="!!item.progress? (' ' + item.progress) : ' 无进度信息'"></a>
-            </td>
+            </td> -->
             <td ng-bind="format(item.date_created, 'YYYY-MM-DD HH:MM')"></td>
             <td class="tar" ng-bind="item.amount_transaction"></td>
             <td class="opt-col">

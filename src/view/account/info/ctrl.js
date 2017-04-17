@@ -134,7 +134,7 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
             oldRequest: {
               is_old: $scope.data.is_old,
             },
-            accounting: submitData
+            acc: submitData
           };
         }
         $http({
