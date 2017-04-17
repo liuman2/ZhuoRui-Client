@@ -2,7 +2,7 @@ var httpHelper = require('js/utils/httpHelper');
 module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
   var id = $state.params.id || null,
     dInput = $('.date-input'),
-    jForm = $('#abroad_form');
+    jForm = $('#account_form');
 
   $.datetimepicker.setLocale('ch');
   dInput.datetimepicker({
@@ -71,7 +71,7 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
         }
 
         var bizCode = ele.value.substr(2, 2);
-        if (bizCode != 'DZ') {
+        if (bizCode != 'JZ') {
           return false;
         }
 
@@ -110,6 +110,15 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
     jForm.isValid(function(v) {
       if (v) {
         if (!isCustomerValid || !isSalesmanVaild) {
+          return;
+        }
+
+        if ($scope.data.source_type == 0 && !$scope.data.source_code) {
+          $.alert({
+            title: false,
+            content: '请选择订单来源',
+            confirmButton: '确定'
+          });
           return;
         }
 

@@ -1,10 +1,10 @@
 <section class="content-header">
   <h1>
-        代账业务
+        代理记账业务
     </h1>
   <ol class="breadcrumb">
     <li><a ui-sref="dashboard"><i class="fa fa-dashboard"></i>我的面板</a></li>
-    <li><a ui-sref="account">代账业务</a></li>
+    <li><a ui-sref="account">记账业务</a></li>
     <li class="active" ng-bind="current_bread"></li>
   </ol>
 </section>
@@ -178,12 +178,12 @@
             <input type="text" class="form-control" name="amount_transaction" ng-model="data.amount_transaction" data-rule-money="[/^(([1-9]\d{0,9})|0)(\.\d{1,2})?$/, '请填写2位小数的数值']" data-rule="money;">
           </div>
         </div>
-        <div class="form-group">
+        <!-- <div class="form-group">
           <label class="col-sm-2 control-label">其他事项</label>
           <div class="col-sm-8">
             <textarea class="form-control" rows="3" name="description" ng-model="data.description" data-rule="length[~100];"></textarea>
           </div>
-        </div>
+        </div> -->
       </div>
     </div>
     <!-- <div class="box box-danger">
