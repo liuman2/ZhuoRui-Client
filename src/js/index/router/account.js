@@ -34,6 +34,39 @@ var router = function($stateProvider, $urlRouterProvider) {
         }
       }
     })
+    .state('account_view', {
+      url: '/account/view/{id:.*}',
+      template: require('view/account/view/tmpl.html'),
+      controller: require('view/account/view/ctrl')
+    })
+    .state('account_view.income_add', {
+      url: '/new/{source_name:.*}/{customer_id:.*}',
+      views: {
+        'modal': {
+          template: require('view/common/income/modal.html'),
+          controller: require('view/common/income/modal')
+        }
+      }
+    })
+    .state('account_view.income_edit', {
+      url: '/edit/{tid:.*}',
+      views: {
+        'modal': {
+          template: require('view/common/income/modal.html'),
+          controller: require('view/common/income/modal')
+        }
+      }
+    })
+    .state('account_view.attachment', {
+      url: '/new/attachment/{source_name:.*}/{source_id:.*}',
+      stateName: '附件',
+      views: {
+        'attachment': {
+          template: require('view/common/attachment/modal.html'),
+          controller: require('view/common/attachment/modal')
+        }
+      }
+    })
 };
 
 module.exports = router;
