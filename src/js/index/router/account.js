@@ -67,6 +67,24 @@ var router = function($stateProvider, $urlRouterProvider) {
         }
       }
     })
+    .state('account_view.addsub', {
+      url: '/sub/add',
+      views: {
+        'sub': {
+          template: require('view/account/view/sub.html'),
+          controller: require('view/account/view/sub')
+        }
+      }
+    })
+    .state('account_view.editsub', {
+      url: '/sub/edit/{sub_id:.*}',
+      views: {
+        'sub': {
+          template: require('view/account/view/sub.html'),
+          controller: require('view/account/view/sub')
+        }
+      }
+    })
 };
 
 module.exports = router;

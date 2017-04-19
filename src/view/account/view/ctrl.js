@@ -18,6 +18,8 @@ module.exports = function($scope, $state, $http, $q, $timeout, $cookieStore) {
     $scope.opers = $cookieStore.get('USER_OPERS');
   }
 
+  $scope.items = [];
+
   $scope.deleteIncome = function(item) {
     if ($scope.data.status > 0) {
       $.alert({
@@ -194,7 +196,7 @@ module.exports = function($scope, $state, $http, $q, $timeout, $cookieStore) {
       console.log(data);
       $scope.data = data.order;
       $scope.incomes = data.incomes;
-
+      $scope.items = data.items || [];
       loadAttachments();
     });
   }
