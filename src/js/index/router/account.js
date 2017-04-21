@@ -14,6 +14,13 @@ var router = function($stateProvider, $urlRouterProvider) {
       template: require('view/account/info/tmpl.html'),
       controller: require('view/account/info/ctrl')
     })
+    .state('account_edit', {
+      parent: 'list',
+      url: '/account/edit/{id:.*}',
+      template: require('view/account/info/tmpl.html'),
+      controller: require('view/account/info/ctrl')
+    })
+
     .state('account_add.source', {
       params: {
         customer_id: null
@@ -82,6 +89,24 @@ var router = function($stateProvider, $urlRouterProvider) {
         'sub': {
           template: require('view/account/view/sub.html'),
           controller: require('view/account/view/sub')
+        }
+      }
+    })
+    .state('account_view.pass', {
+      url: '/account/{module_name:.*}',
+      views: {
+        'modal': {
+          template: require('view/common/audit/pass.html'),
+          controller: require('view/common/audit/pass')
+        }
+      }
+    })
+    .state('account_view.audit', {
+      url: '/account/{module_name:.*}',
+      views: {
+        'modal': {
+          template: require('view/common/audit/modal.html'),
+          controller: require('view/common/audit/modal')
         }
       }
     })

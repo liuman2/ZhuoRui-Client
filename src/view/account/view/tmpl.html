@@ -14,7 +14,7 @@
       <div class="box-footer detail-view-header" ui-scrollpoint ui-scrollpoint-enabled="true" ui-scrollpoint-class="fixed">
         <button type="button" class="btn btn-info" ui-sref="account_edit({id: id})" ng-if="data.status == 0 || data.review_status == 0" ui-sref-opts="{reload:true}">修改</button>
         <button type="button" class="btn btn-primary" ng-click="submitAudit()" ng-if="data.status == 0 || data.review_status == 0">提交审核</button>
-        <button type="button" class="btn btn-success" ng-click="passAudit()" ng-if="data.status==1 && opers.indexOf(3) > -1">财务审核通过</button>
+        <button type="button" class="btn btn-success" ng-click="passAuditF()" ng-if="data.status==1 && opers.indexOf(3) > -1">财务审核通过</button>
         <button type="button" class="btn btn-danger" ng-click="refuseAudit()" ng-if="data.status==1 && opers.indexOf(3) > -1">财务审核驳回</button>
         <button type="button" class="btn btn-success" ng-click="passAudit()" ng-if="data.status > 1 && data.status < 3 && opers.indexOf(4) > -1">提交审核通过</button>
         <button type="button" class="btn btn-danger" ng-click="refuseAudit()" ng-if="data.status > 1 && data.status < 3 && opers.indexOf(4) > -1">提交审核驳回</button>
@@ -161,17 +161,27 @@
               </button>
             </div>
             <div class="box-tools pull-right">
-              <button type="button" class="btn btn-box-tool" ui-sref="audit_edit({id: id})" ng-if="data.status == 0 || data.review_status == 0" ui-sref-opts="{reload:true}">修改</button>
-              <button type="button" class="btn btn-box-tool" ng-click="progress('p')" ng-if="data.status >= 3">进度反馈</button>
-              <button type="button" class="btn btn-box-tool" ui-sref="audit_timeline({masterid: data.id,id: data.id, name: 'audit', code: data.code, source: 'view'})"><span class="fa fa-clock-o"></span>日志</button>
-              <span>状态: </span>
-              <span class="tooltip-author" ng-if="data.status != 4" ng-bind="getOrderStatus() + ' | ' + getReviewStatus()" ng-attr-title="{{getTitle(data)}}" style="cursor: default;"></span>
-              <span ng-if="data.status == 4" ng-bind="'已完成 | ' + format(data.date_finish, 'YYYY-MM-DD')"></span>
+              <button type="button" class="btn btn-box-tool" ui-sref=".editsub({sub_id: item.id})" ui-sref-opts="{location:false}">修改</button>
+              <button type="button" class="btn btn-box-tool" ng-click="deleteSub(item.id)">删除</button>
+              <!-- <button type="button" class="btn btn-box-tool" ng-click="progress('p')" ng-if="data.status >= 3">进度反馈</button> -->
+              <!-- <button type="button" class="btn btn-box-tool" ui-sref="audit_timeline({masterid: data.id,id: data.id, name: 'audit', code: data.code, source: 'view'})"><span class="fa fa-clock-o"></span>日志</button> -->
             </div>
           </div>
           <div class="box-body">
             <fieldset>
-              <legend>基本信息:</legend>
+              <legend></legend>
+              <div class="form-group">
+                <label class="col-sm-2 control-label">账期</label>
+                <div class="col-sm-8">
+                  <span class="form-span" ng-bind="format(item.date_start, 'YYYY-MM-DD') + ' 至 ' + format(item.date_end, 'YYYY-MM-DD')"></span>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-2 control-label">月数</label>
+                <div class="col-sm-8">
+                  <span class="form-span" ng-bind="getMonths(item)"></span>
+                </div>
+              </div>
             </fieldset>
           </div>
         </div>
@@ -286,6 +296,12 @@
           <label class="col-sm-2 control-label">经理</label>
           <div class="col-sm-8">
             <span class="form-span" ng-bind="data.manager_name"></span>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-2 control-label">会计</label>
+          <div class="col-sm-8">
+            <span class="form-span" ng-bind="data.accountan_name"></span>
           </div>
         </div>
       </div>

@@ -19,6 +19,16 @@ module.exports = function($scope, $state, $http, $timeout) {
     });
   }
 
+  $scope.getPersonalType = function() {
+    switch(module_name) {
+      case 'RegInternal':
+        return '处理人员';
+      case 'Accounting':
+        return '会计人员';
+        break;
+    }
+  }
+
   var jForm = $('#audit_pass_modal');
   jForm.validator({
     rules: {},
@@ -26,7 +36,7 @@ module.exports = function($scope, $state, $http, $timeout) {
   });
 
   $scope.audit = {
-    id: module_name == 'AuditSub' ? sub_id : id,
+    id: (module_name == 'AuditSub') ? sub_id : id,
     waiter_id: ''
   }
 
@@ -39,9 +49,19 @@ module.exports = function($scope, $state, $http, $timeout) {
   }
 
   function actionAdd() {
+    var url = '';
+    switch(module_name) {
+      case 'RegInternal':
+        url = '/RegInternal/PassAudit';
+        break;
+      case 'Accounting':
+        url =  '/Accounting/PassAudit';
+        break;
+    }
+
     $http({
       method: 'POST',
-      url: '/RegInternal/PassAudit',
+      url: url,
       data: $scope.audit
     }).success(function(data) {
       if (!data.success) {

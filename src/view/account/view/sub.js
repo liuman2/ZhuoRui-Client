@@ -43,21 +43,37 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
   }
 
   var user = $cookieStore.get('USER_INFO');
-  $scope.data = {
+  $scope.subData = {
     id: '',
     date_start: '',
     date_end: '',
   }
 
   if (sub_id) {
-    $scope.data.id = sub_id;
-    actionView();
+    $scope.subData.id = sub_id;
+    console.log($scope.items)
+
+    var items = $scope.items.filter(function(item, i) {
+      return item.id == sub_id;
+    });
+
+    if (items.length) {
+      var item = items[0]
+      if (item.date_start && item.date_start.indexOf('T') > -1) {
+        item.date_start = item.date_start.split('T')[0];
+      }
+      if (item.date_end && item.date_end.indexOf('T') > -1) {
+        item.date_end = item.date_end.split('T')[0];
+      }
+
+      $scope.subData = item;
+    }
   }
 
   $scope.save = function() {
     jForm.isValid(function(v) {
       if (v) {
-        var submitData = angular.copy($scope.data);
+        var submitData = angular.copy($scope.subData);
         submitData.date_start = $('#date_start').val();
         submitData.date_end = $('#date_end').val();
         submitData.master_id = master_id;
@@ -68,37 +84,10 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
           url: url,
           data: submitData
         }).success(function(data) {
-          $scope.$emit('AUDIT_BANK_DONE');
+          $scope.$emit('UPDATE_SUB_DONE');
           $state.go('^', { reload: true });
         });
       }
-    });
-  }
-
-  function actionView() {
-    $http({
-      method: 'GET',
-      url: '/AuditSub/Get',
-      params: {
-        id: sub_id
-      }
-    }).success(function(data) {
-      if (data.date_transaction && data.date_transaction.indexOf('T') > -1) {
-        data.date_transaction = data.date_transaction.split('T')[0];
-      }
-      if (data.account_period && data.account_period.indexOf('T') > -1) {
-        data.account_period = data.account_period.split('T')[0];
-      }
-      if (data.account_period2 && data.account_period2.indexOf('T') > -1) {
-        data.account_period2 = data.account_period2.split('T')[0];
-      }
-
-      if (data.date_year_end && data.date_year_end.indexOf('-') > -1) {
-        data.date_month_end = data.date_year_end.split('-')[0];
-        data.date_day_end = data.date_year_end.split('-')[1];
-      }
-
-      $scope.data = data;
     });
   }
 };

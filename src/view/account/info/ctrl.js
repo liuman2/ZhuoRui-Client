@@ -259,11 +259,11 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
         id: id
       }
     }).success(function(data) {
-      if (data.date_transaction && data.date_transaction.indexOf('T') > -1) {
-        data.date_transaction = data.date_transaction.split('T')[0];
+      if (data.order.date_transaction && data.order.date_transaction.indexOf('T') > -1) {
+        data.order.date_transaction = data.order.date_transaction.split('T')[0];
       }
 
-      $scope.data = data;
+      $scope.data = data.order;
     });
   }
 

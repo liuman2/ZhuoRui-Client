@@ -68,6 +68,26 @@ module.exports = function($scope, $state, $http, $q, $timeout, $cookieStore) {
     });
   }
 
+  $scope.deleteSub = function(subId) {
+    $.confirm({
+      title: false,
+      content: '您确认要删除吗？',
+      confirmButton: '确定',
+      cancelButton: '取消',
+      confirm: function() {
+        $http({
+          method: 'GET',
+          url: '/Accounting/DeleteItem',
+          params: {
+            id: subId
+          }
+        }).success(function(data) {
+          actionView();
+        });
+      }
+    });
+  }
+
   $scope.incomes = {
     items: [],
     total: 0,
@@ -111,7 +131,7 @@ module.exports = function($scope, $state, $http, $q, $timeout, $cookieStore) {
     });
   }
 
-  $scope.passAudit = function() {
+  $scope.passAuditF = function() {
     $.confirm({
       title: false,
       content: '您确认通过审核？',
@@ -122,7 +142,8 @@ module.exports = function($scope, $state, $http, $q, $timeout, $cookieStore) {
           method: 'GET',
           url: '/Accounting/PassAudit',
           params: {
-            id: $scope.data.id
+            id: $scope.data.id,
+            waiter_id: 0
           }
         }).success(function(data) {
           actionView();
@@ -131,11 +152,7 @@ module.exports = function($scope, $state, $http, $q, $timeout, $cookieStore) {
     });
   }
 
-  $scope.refuseAudit = function() {
-    $state.go(".audit", { module_name: 'Accounting' }, { location: false });
-  }
-
-  $scope.getOrderStatus = function() {
+    $scope.getOrderStatus = function() {
     switch ($scope.data.status) {
       case 0:
         return '未提交';
@@ -150,6 +167,26 @@ module.exports = function($scope, $state, $http, $q, $timeout, $cookieStore) {
     }
   }
 
+  $scope.getReviewStatus = function() {
+    switch ($scope.data.review_status) {
+      case -1:
+        return '未审核';
+      case 0:
+        return '驳回';
+      case 1:
+        return '审核通过';
+    }
+  }
+
+  $scope.passAudit = function() {
+    $state.go(".pass", { module_name: 'Accounting' }, { location: false });
+  }
+
+  $scope.refuseAudit = function() {
+    $state.go(".audit", { module_name: 'Accounting' }, { location: false });
+  }
+
+
   $scope.getTitle = function(item) {
     if (item.review_status == 0) {
       $('.tooltip-author').tooltipster({
@@ -162,15 +199,11 @@ module.exports = function($scope, $state, $http, $q, $timeout, $cookieStore) {
     return '';
   }
 
-  $scope.getReviewStatus = function() {
-    switch ($scope.data.review_status) {
-      case -1:
-        return '未审核';
-      case 0:
-        return '驳回';
-      case 1:
-        return '审核通过';
-    }
+  $scope.getMonths = function(item) {
+    var startDate = new Date(item.date_start);
+    var endDate = new Date(item.date_end);
+    var totalMonth = (endDate.getFullYear() * 12 + endDate.getMonth()) - (startDate.getFullYear() * 12 + startDate.getMonth());
+    return (totalMonth + 1) + '个月';
   }
 
   $scope.printReceipt = function(t) {
@@ -182,6 +215,10 @@ module.exports = function($scope, $state, $http, $q, $timeout, $cookieStore) {
   });
 
   $scope.$on('REFUSE_MODAL_DONE', function(e) {
+    actionView();
+  });
+
+  $scope.$on('UPDATE_SUB_DONE', function(e) {
     actionView();
   });
 
