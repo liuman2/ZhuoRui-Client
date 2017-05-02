@@ -110,6 +110,25 @@ var router = function($stateProvider, $urlRouterProvider) {
         }
       }
     })
+
+    .state('account_view.progress_add', {
+      url: '/new/{item_id:.*}',
+      views: {
+        'progress': {
+          template: require('view/account/view/progress.html'),
+          controller: require('view/account/view/progress')
+        }
+      }
+    })
+    .state('account_view.progress_edit', {
+      url: '/edit/{tid:.*}',
+      views: {
+        'progress': {
+          template: require('view/account/view/progress.html'),
+          controller: require('view/account/view/progress')
+        }
+      }
+    })
 };
 
 module.exports = router;

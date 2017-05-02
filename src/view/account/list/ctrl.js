@@ -144,7 +144,7 @@ module.exports = function($scope, $http, $state, $stateParams) {
     //   return;
     // }
 
-    $state.go("abroad_edit", { id: item.id });
+    $state.go("account_edit", { id: item.id });
   }
 
   $scope.history = function(item) {

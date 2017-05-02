@@ -88,6 +88,22 @@ module.exports = function($scope, $state, $http, $q, $timeout, $cookieStore) {
     });
   }
 
+  $scope.expandSub = function(item, e) {
+    if ($(e.target).closest('i').attr('class').indexOf('fa-plus') < 0) {
+      return;
+    }
+
+    $http({
+      method: 'GET',
+      url: '/Accounting/GetPeriodProgress',
+      params: {
+        id: item.id
+      }
+    }).success(function(data) {
+      item.progressList = data || [];
+    });
+  }
+
   $scope.incomes = {
     items: [],
     total: 0,
@@ -221,6 +237,11 @@ module.exports = function($scope, $state, $http, $q, $timeout, $cookieStore) {
   $scope.$on('UPDATE_SUB_DONE', function(e) {
     actionView();
   });
+
+  $scope.$on('PROGRESS_MODAL_DONE', function(e) {
+    actionView();
+  });
+
 
   function actionView() {
     $http({
