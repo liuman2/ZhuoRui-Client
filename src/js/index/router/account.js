@@ -129,6 +129,39 @@ var router = function($stateProvider, $urlRouterProvider) {
         }
       }
     })
+    .state('account_timeline', {
+      url: '/view/account/timeline/{source:.*}/{id:.*}/{name:.*}/{code:.*}',
+      template: require('view/common/timeline/tmpl.html'),
+      controller: require('view/common/timeline/ctrl')
+    })
+    .state('account_timeline.add', {
+      url: '/new',
+      views: {
+        'add': {
+          template: require('view/common/timeline/modal.html'),
+          controller: require('view/common/timeline/modal')
+        }
+      }
+    })
+    .state('account_timeline.edit', {
+      url: '/edit/{tid:.*}',
+      views: {
+        'add': {
+          template: require('view/common/timeline/modal.html'),
+          controller: require('view/common/timeline/modal')
+        }
+      }
+    })
+
+    .state('account_view.receipt', {
+      url: '/account/receipt/{type:.*}/{source_name:.*}',
+      views: {
+        'print': {
+          template: require('view/common/receipt/modal.html'),
+          controller: require('view/common/receipt/modal')
+        }
+      }
+    })
 };
 
 module.exports = router;
