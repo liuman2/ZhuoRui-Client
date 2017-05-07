@@ -245,7 +245,8 @@
                 <tbody>
                   <tr>
                     <th style="width: 10px">#</th>
-                    <th>日期</th>
+                    <th>完成日期</th>
+                    <th>账期</th>
                     <th>进度</th>
                     <th>附件</th>
                     <th class="opt-col">操作</th>
@@ -253,6 +254,7 @@
                   <tr ng-repeat="progress in item.progressList">
                     <td ng-bind="($index+1)+'.'"></td>
                     <td ng-bind="format(progress.date_start, 'YYYY-MM-DD')"></td>
+                    <td ng-bind="progress.period"></td>
                     <td ng-bind="progress.progress"></td>
                     <td>
                       <a href="{{progress.attachment}}" target="_blank" ng-if="progress.attachment.length">

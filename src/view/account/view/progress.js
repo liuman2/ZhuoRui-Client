@@ -62,11 +62,18 @@ module.exports = function($scope, $state, $http, $timeout) {
         data.date_start = data.date_start.split('T')[0];
       }
 
+      if (data.period) {
+        var ps = data.period.split('-');
+        data.period_year = ps[0];
+        data.period_month = ps[1];
+      }
+
       $scope.progress = data;
     });
   }
 
   function actionAdd() {
+    $scope.progress.period = $scope.progress.period_year + '-' + $scope.progress.period_month;
     $http({
       method: 'POST',
       url: '/Accounting/AddProress',
@@ -85,6 +92,7 @@ module.exports = function($scope, $state, $http, $timeout) {
   }
 
   function actionUpdate() {
+    $scope.progress.period = $scope.progress.period_year + '-' + $scope.progress.period_month;
     $http({
       method: 'POST',
       url: '/Accounting/UpdateProress',
