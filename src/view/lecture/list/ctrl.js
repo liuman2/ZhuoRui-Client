@@ -76,7 +76,7 @@ module.exports = function($scope, $http, $state, $stateParams) {
 
     function load_data() {
         $scope.search.start_time = $('#start_time').val();
-        $scope.search.end_time = $('#end_time').val();
+        $scope.search.end_time = moment($('#start_time').val()).format('YYYY-MM-DD 23:59:59');
 
         $http({
             method: 'GET',
