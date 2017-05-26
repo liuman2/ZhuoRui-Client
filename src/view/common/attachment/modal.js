@@ -59,7 +59,7 @@ module.exports = function($scope, $state, $http, $timeout) {
         },
         filePostName: 'file',
         isSingleMode: true,
-        fileSizeLimit: 5 * 1024,
+        fileSizeLimit: 10 * 1024,
         accept: '*/*',
         uploadStart: function() {
             $('#btnUpload').attr('disabled', true);
@@ -83,7 +83,7 @@ module.exports = function($scope, $state, $http, $timeout) {
             $scope.$apply();
         },
         sizeError: function() {
-            alert('文件大小不能超过5M');
+            alert('文件大小不能超过10M');
             $('#btnUpload').attr('disabled', false);
             $scope.btnUploadText = '上传';
             $scope.$apply();

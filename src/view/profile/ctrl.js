@@ -38,7 +38,7 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
         },
         filePostName: 'file',
         isSingleMode: true,
-        fileSizeLimit: 5 * 1024,
+        fileSizeLimit: 10 * 1024,
         accept: 'image/*',
         uploadStart: function() {
         },
@@ -62,7 +62,7 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
             alert('格式错误');
         },
         sizeError: function() {
-            alert('文件大小不能超过5M');
+            alert('文件大小不能超过10M');
         },
         nullError: function() {
         }
