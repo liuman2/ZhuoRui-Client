@@ -30,6 +30,11 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
       break;
   }
 
+  $scope.activeTab = 0;
+  $scope.onTab = function(activeIndex) {
+    $scope.activeTab = activeIndex;
+  }
+
   var user = $cookieStore.get('USER_INFO');
 
   $scope.data = {
@@ -101,8 +106,27 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
     var isRegionValid = true; // valid_region();
     var isCurrencyValid = true; // valid_currency();
     jForm.isValid(function(v) {
+      if (!v) {
+        if (
+          !$('select[name="is_annual"]').isValid() ||
+          !$('input[name="code"]').isValid() ||
+          !$('input[name="name_en"]').isValid() ||
+          !$('input[name="date_setup"]').isValid()) {
+
+          $scope.activeTab = 0;
+          $scope.$apply();
+          return;
+        }
+      }
+
       if (v) {
         if (!isCustomerValid || !isWaiterVaild || !isRegionValid || !isCurrencyValid || !isSalesmanVaild) {
+
+          if (!isWaiterVaild || !isSalesmanVaild) {
+            $scope.activeTab = 4;
+            $scope.$apply();
+          }
+
           return;
         }
 

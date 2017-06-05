@@ -1,8 +1,4 @@
 <section class="content-header">
-  <!-- <h1>
-        注册业务
-        <small>境内</small>
-    </h1> -->
   <ol class="breadcrumb">
     <li><a ui-sref="dashboard"><i class="fa fa-dashboard"></i>我的面板</a></li>
     <li><a ui-sref="internal">境内注册业务</a></li>
@@ -137,11 +133,11 @@
 
     <div class="nav-tabs-custom">
       <ul class="nav nav-tabs">
-        <li class="active"><a data-toggle="tab"  ng-click="onTab(0)">注册信息</a></li>
-        <li><a data-toggle="tab" ng-click="onTab(1)">股东及股份</a></li>
-        <li><a data-toggle="tab" ng-click="onTab(2)">委托事项</a></li>
-        <li><a data-toggle="tab" ng-click="onTab(3)">开票信息</a></li>
-        <li><a data-toggle="tab" ng-click="onTab(4)">其他</a></li>
+        <li ng-class="{'active': activeTab == 0}"><a data-toggle="tab"  ng-click="onTab(0)">注册信息</a></li>
+        <li ng-class="{'active': activeTab == 1}"><a data-toggle="tab" ng-click="onTab(1)">股东及股份</a></li>
+        <li ng-class="{'active': activeTab == 2}"><a data-toggle="tab" ng-click="onTab(2)">委托事项</a></li>
+        <li ng-class="{'active': activeTab == 3}"><a data-toggle="tab" ng-click="onTab(3)">开票信息</a></li>
+        <li ng-class="{'active': activeTab == 4}"><a data-toggle="tab" ng-click="onTab(4)">其他</a></li>
       </ul>
       <div class="tab-content">
         <!-- 注册信息 -->
