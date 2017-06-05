@@ -20,6 +20,17 @@ var router = function($stateProvider, $urlRouterProvider) {
       template: require('view/abroad/info/tmpl.html'),
       controller: require('view/abroad/info/ctrl')
     })
+    .state('abroad_add.shareholder_add', {
+      url: '/new/shareholder',
+      stateName: '股东',
+      views: {
+        'shareholder': {
+          template: require('view/common/shareholder/modal.html'),
+          controller: require('view/common/shareholder/modal')
+        }
+      }
+    })
+
     .state('abroad_add.bank_add', {
       url: '/progress/bank/{customer_id:.*}',
       views: {
