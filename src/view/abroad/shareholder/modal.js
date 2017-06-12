@@ -1,5 +1,5 @@
 module.exports = function($scope, $state, $stateParams, $timeout) {
-  var index = $state.params.index || null;
+  var shareholderId = $state.params.shareholderId || null;
 
 
   console.log($scope.data.currency)
@@ -22,14 +22,14 @@ module.exports = function($scope, $state, $stateParams, $timeout) {
   $scope.save = function() {
     jForm.isValid(function(v) {
       if (v) {
-        $scope.$emit('SHAREHOLDER_DONE', { shareholder: $scope.shareholder, index: index });
+        $scope.$emit('SHAREHOLDER_DONE', { shareholder: $scope.shareholder, index: $stateParams.index });
         $state.go('^');
       }
     });
   }
 
-  $scope.title = !!index ? '修改股东' : '添加股东'
-  if (index) {
+  $scope.title = !!shareholderId ? '修改股东' : '添加股东'
+  if (shareholderId) {
     $scope.shareholder = {
       id: $stateParams.shareholderId,
       name: $stateParams.name,

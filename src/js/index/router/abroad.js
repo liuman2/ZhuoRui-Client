@@ -30,6 +30,25 @@ var router = function($stateProvider, $urlRouterProvider) {
         }
       }
     })
+    .state('abroad_add.shareholder_edit', {
+      url: '/new/shareholder/{shareholderId:.*}',
+      params: {
+        index: null,
+        shareholderId: null,
+        name: null,
+        gender: null,
+        cardNo: null,
+        takes: null,
+        // position: null,
+      },
+      stateName: '股东',
+      views: {
+        'shareholder': {
+          template: require('view/abroad/shareholder/modal.html'),
+          controller: require('view/abroad/shareholder/modal')
+        }
+      }
+    })
 
     .state('abroad_add.bank_add', {
       url: '/progress/bank/{customer_id:.*}',

@@ -62,7 +62,8 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
     assistant_id: '',
     is_old: 0,
     is_annual: '',
-    manager_id: null
+    manager_id: null,
+    shareholderList: []
   }
 
   if (!!id) {
@@ -298,6 +299,39 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
 
     $scope.$apply();
   });
+
+  function newGuid() {
+    var guid = "";
+    for (var i = 1; i <= 32; i++){
+      var n = Math.floor(Math.random()*16.0).toString(16);
+      guid +=   n;
+      if((i==8)||(i==12)||(i==16)||(i==20))
+        guid += "-";
+    }
+    return guid;
+  }
+
+  $scope.$on('SHAREHOLDER_DONE', function(e, result) {
+    console.log(result);
+    if (result.index == null) {
+      result.shareholder.id = newGuid();
+      $scope.data.shareholderList.push(result.shareholder);
+    } else {
+      $scope.data.shareholderList[result.index - 0] = result.shareholder;
+    }
+  });
+
+  $scope.editShareholder = function(index, shareholder) {
+    $state.go('.shareholder_edit', {
+      index: index,
+      shareholderId: shareholder.id,
+      name: shareholder.name,
+      gender: shareholder.gender,
+      cardNo: shareholder.cardNo,
+      // position: shareholder.position,
+      takes: shareholder.takes,
+    }, { location: false });
+  }
 
   var rate_obj = {
     rate: '',
