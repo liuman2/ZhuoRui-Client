@@ -25,8 +25,8 @@ var router = function($stateProvider, $urlRouterProvider) {
       stateName: '股东',
       views: {
         'shareholder': {
-          template: require('view/common/shareholder/modal.html'),
-          controller: require('view/common/shareholder/modal')
+          template: require('view/abroad/shareholder/modal.html'),
+          controller: require('view/abroad/shareholder/modal')
         }
       }
     })
