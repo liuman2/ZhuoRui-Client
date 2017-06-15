@@ -18,6 +18,11 @@ module.exports = function($scope, $state, $http, $q, $timeout, $cookieStore) {
     $scope.opers = $cookieStore.get('USER_OPERS');
   }
 
+  $scope.activeTab = 0;
+  $scope.onTab = function(activeIndex) {
+    $scope.activeTab = activeIndex;
+  }
+
   $scope.deleteIncome = function(item) {
     if ($scope.data.status > 0) {
       $.alert({
@@ -226,10 +231,10 @@ module.exports = function($scope, $state, $http, $q, $timeout, $cookieStore) {
         id: id
       }
     }).success(function(data) {
-      console.log(data);
       $scope.data = data.order;
       $scope.incomes = data.incomes;
-
+      $scope.data.shareholderList = data.shareholderList || [];
+      $scope.data.directorList = data.directorList || [];
       loadAttachments();
     });
   }

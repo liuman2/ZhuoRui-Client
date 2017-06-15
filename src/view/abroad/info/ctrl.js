@@ -63,7 +63,8 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
     is_old: 0,
     is_annual: '',
     manager_id: null,
-    shareholderList: []
+    shareholderList: [],
+    directorList: []
   }
 
   if (!!id) {
@@ -147,15 +148,36 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
           if ($scope.data.is_annual == 1) {
             submitData.date_setup = $('#date_setup').val();
           }
-
           data = {
             oldRequest: {
               is_old: $scope.data.is_old,
               is_already_annual: $scope.data.is_already_annual,
             },
-            aboad: submitData
+            aboad: submitData,
           };
         }
+
+        submitData.shareholderList = submitData.shareholderList || [];
+        if (submitData.shareholderList.length) {
+          submitData.shareholderList.forEach(function(item, i) {
+            if (item.id != null && typeof(item.id) == 'string' && item.id.indexOf('-') > -1) {
+              item.id = 0;
+            }
+          });
+        }
+
+        submitData.directorList = submitData.directorList || [];
+        if (submitData.directorList.length) {
+          submitData.directorList.forEach(function(item, i) {
+            if (item.id != null && typeof(item.id) == 'string' && item.id.indexOf('-') > -1) {
+              item.id = 0;
+            }
+          });
+        }
+
+        var holders = submitData.shareholderList.concat(submitData.directorList);
+        data.shareholderList = holders || [];
+
         $http({
           method: 'POST',
           url: url,
@@ -321,6 +343,16 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
     }
   });
 
+  $scope.$on('DIRECTOR_DONE', function(e, result) {
+    console.log(result);
+    if (result.index == null) {
+      result.director.id = newGuid();
+      $scope.data.directorList.push(result.director);
+    } else {
+      $scope.data.directorList[result.index - 0] = result.director;
+    }
+  });
+
   $scope.editShareholder = function(index, shareholder) {
     $state.go('.shareholder_edit', {
       index: index,
@@ -329,8 +361,28 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
       gender: shareholder.gender,
       cardNo: shareholder.cardNo,
       // position: shareholder.position,
+      type: '股东',
       takes: shareholder.takes,
     }, { location: false });
+  }
+
+  $scope.deleteShareholder = function(index, item) {
+    $scope.data.shareholderList.splice(index, 1);
+  }
+
+  $scope.editDirector = function(index, director) {
+    $state.go('.director_edit', {
+      index: index,
+      directorId: director.id,
+      name: director.name,
+      gender: director.gender,
+      cardNo: director.cardNo,
+      type: '董事',
+    }, { location: false });
+  }
+
+  $scope.deleteDirector = function(index, item) {
+    $scope.data.directorList.splice(index, 1);
   }
 
   var rate_obj = {
@@ -346,11 +398,16 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
         id: id
       }
     }).success(function(data) {
-      if (data.date_transaction && data.date_transaction.indexOf('T') > -1) {
-        data.date_transaction = data.date_transaction.split('T')[0];
+      var order = data.order;
+      var shareholderList = data.shareholderList || [];
+
+      if (order.date_transaction && order.date_transaction.indexOf('T') > -1) {
+        order.date_transaction = order.date_transaction.split('T')[0];
       }
 
-      $scope.data = data;
+      $scope.data = order;
+      $scope.data.shareholderList = shareholderList;
+      $scope.data.directorList = data.directorList || [];
 
       var temp_rate = {
         rate: $scope.data.rate,

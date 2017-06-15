@@ -1,43 +1,42 @@
 module.exports = function($scope, $state, $stateParams, $timeout) {
-  var shareholderId = $state.params.shareholderId || null;
+  var directorId = $state.params.directorId || null;
 
 
   console.log($scope.data.currency)
 
-  var jForm = $('#shareholder_modal');
+  var jForm = $('#director_modal');
   jForm.validator({
     rules: {},
     fields: {}
   });
 
-  $scope.shareholder = {
+  $scope.director = {
     id: '',
     name: '',
     gender: '',
     cardNo: '',
     position: '',
     takes: '',
-    type: '股东',
+    type: '董事',
   }
 
   $scope.save = function() {
     jForm.isValid(function(v) {
       if (v) {
-        $scope.$emit('SHAREHOLDER_DONE', { shareholder: $scope.shareholder, index: $stateParams.index });
+        $scope.$emit('DIRECTOR_DONE', { director: $scope.director, index: $stateParams.index });
         $state.go('^');
       }
     });
   }
 
-  $scope.title = !!shareholderId ? '修改股东' : '添加股东'
-  if (shareholderId) {
-    $scope.shareholder = {
-      id: $stateParams.shareholderId,
+  $scope.title = !!directorId ? '修改董事' : '添加董事'
+  if (directorId) {
+    $scope.director = {
+      id: $stateParams.directorId,
       name: $stateParams.name,
       gender: $stateParams.gender,
       cardNo: $stateParams.cardNo,
-      takes: $stateParams.takes,
-      type: '股东',
+      type: '董事',
     }
   }
 };

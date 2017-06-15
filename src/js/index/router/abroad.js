@@ -30,7 +30,17 @@ var router = function($stateProvider, $urlRouterProvider) {
         }
       }
     })
-    .state('abroad_add.shareholder_edit', {
+    .state('abroad_edit.shareholder_add', {
+      url: '/new/shareholder',
+      stateName: '股东',
+      views: {
+        'shareholder': {
+          template: require('view/abroad/shareholder/modal.html'),
+          controller: require('view/abroad/shareholder/modal')
+        }
+      }
+    })
+    .state('abroad_edit.shareholder_edit', {
       url: '/new/shareholder/{shareholderId:.*}',
       params: {
         index: null,
@@ -39,7 +49,6 @@ var router = function($stateProvider, $urlRouterProvider) {
         gender: null,
         cardNo: null,
         takes: null,
-        // position: null,
       },
       stateName: '股东',
       views: {
@@ -49,6 +58,46 @@ var router = function($stateProvider, $urlRouterProvider) {
         }
       }
     })
+
+    //
+    .state('abroad_add.director_add', {
+      url: '/new/director',
+      stateName: '董事',
+      views: {
+        'shareholder': {
+          template: require('view/abroad/director/modal.html'),
+          controller: require('view/abroad/director/modal')
+        }
+      }
+    })
+    .state('abroad_edit.director_add', {
+      url: '/new/director',
+      stateName: '董事',
+      views: {
+        'shareholder': {
+          template: require('view/abroad/director/modal.html'),
+          controller: require('view/abroad/director/modal')
+        }
+      }
+    })
+    .state('abroad_edit.director_edit', {
+      url: '/new/director/{directorId:.*}',
+      params: {
+        index: null,
+        directorId: null,
+        name: null,
+        gender: null,
+        cardNo: null,
+      },
+      stateName: '董事',
+      views: {
+        'shareholder': {
+          template: require('view/abroad/director/modal.html'),
+          controller: require('view/abroad/director/modal')
+        }
+      }
+    })
+
 
     .state('abroad_add.bank_add', {
       url: '/progress/bank/{customer_id:.*}',
