@@ -161,7 +161,7 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
         if (submitData.shareholderList.length) {
           submitData.shareholderList.forEach(function(item, i) {
             if (item.id != null && typeof(item.id) == 'string' && item.id.indexOf('-') > -1) {
-              item.id = 0;
+              item.id = null;
             }
           });
         }
@@ -170,7 +170,7 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
         if (submitData.directorList.length) {
           submitData.directorList.forEach(function(item, i) {
             if (item.id != null && typeof(item.id) == 'string' && item.id.indexOf('-') > -1) {
-              item.id = 0;
+              item.id = null;
             }
           });
         }

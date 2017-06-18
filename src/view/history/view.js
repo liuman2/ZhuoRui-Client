@@ -28,7 +28,22 @@ module.exports = function($scope, $state, $http, $q, $timeout, $cookieStore) {
   if ($scope.opers == undefined) {
     $scope.opers = $cookieStore.get('USER_OPERS');
   }
-
+  $scope.activeTab = 0;
+  $scope.onTab = function(activeIndex) {
+    $scope.activeTab = activeIndex;
+  }
+  $scope.getChangeName = function(type) {
+    switch(type) {
+      case 'new':
+        return '新进';
+      case 'exit':
+        return '退出';
+      case 'takes':
+        return '股份调整';
+      default:
+        return '';
+    }
+  }
   $scope.deleteIncome = function(item) {
     if ($scope.data.status > 0) {
       $.alert({
@@ -297,6 +312,9 @@ module.exports = function($scope, $state, $http, $q, $timeout, $cookieStore) {
       data.order.fields = JSON.parse(data.order.value);
       $scope.data = data.order;
       $scope.incomes = data.incomes;
+
+      $scope.data.shareholderList = data.shareholderList || [];
+      $scope.data.directorList = data.directorList || [];
 
       setModuleInfo(data.order);
     });

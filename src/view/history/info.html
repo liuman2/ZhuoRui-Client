@@ -1,147 +1,201 @@
 <section class="content-header">
-    <!-- <h1>
-        变更记录
-        <small ng-bind="module.name"></small>
-    </h1> -->
-    <ol class="breadcrumb">
-        <li><a ui-sref="dashboard"><i class="fa fa-dashboard"></i>我的面板</a></li>
-        <li><a ui-sref="history({module_id:module.id, code: module.code, source_id: module.source_id})">{{module.name}}变更记录</a></li>
-        <li class="active" ng-bind="current_bread"></li>
-    </ol>
+  <ol class="breadcrumb">
+    <li><a ui-sref="dashboard"><i class="fa fa-dashboard"></i>我的面板</a></li>
+    <li><a ui-sref="history({module_id:module.id, code: module.code, source_id: module.source_id})">{{module.name}}变更记录</a></li>
+    <li class="active" ng-bind="current_bread"></li>
+  </ol>
 </section>
 <section class="content">
-    <form class="form-horizontal" id="change_form" data-validator-option="{theme:'yellow_right_effect'}">
-        <div class="detail-view-header-wrapper">
-            <div class="box-footer detail-view-header" ui-scrollpoint ui-scrollpoint-enabled="true" ui-scrollpoint-class="fixed">
-                <button type="button" class="btn btn-default" ng-click="cancel()">取消</button>
-                <button type="button" class="btn btn-info" ng-click="save()">保存</button>
-            </div>
+  <form class="form-horizontal" id="change_form" data-validator-option="{theme:'yellow_right_effect'}">
+    <div class="detail-view-header-wrapper">
+      <div class="box-footer detail-view-header" ui-scrollpoint ui-scrollpoint-enabled="true" ui-scrollpoint-class="fixed">
+        <button type="button" class="btn btn-default" ng-click="cancel()">取消</button>
+        <button type="button" class="btn btn-info" ng-click="save()">保存</button>
+      </div>
+    </div>
+    <div class="box box-danger" ng-if="action=='add'">
+      <div class="box-header with-border">
+        <h3 class="box-title">旧数据迁移</h3>
+        <div class="box-tools">
+          <div class="box-tools pull-right">
+            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+            </button>
+          </div>
         </div>
-
-        <div class="box box-danger" ng-if="action=='add'">
-            <div class="box-header with-border">
-                <h3 class="box-title">旧数据迁移</h3>
-                <div class="box-tools">
-                    <div class="box-tools pull-right">
-                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                        </button>
-                    </div>
-                </div>
-            </div>
-            <div class="box-body">
-                <div class="form-group">
-                    <label class="col-sm-3 control-label">是否为旧变更<span class="required">*</span></label>
-                    <div class="col-sm-7">
-                        <select class="form-control select2" name="is_old" ng-model="data.is_old" data-rule="required;">
-                            <option value="">请选择</option>
-                            <option value="1">旧数据迁移</option>
-                            <option value="0">新变更</option>
-                        </select>
-                    </div>
-                </div>
-                <div ng-if="data.is_old == 1">
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label">完成日期<span class="required">*</span></label>
-                        <div class="col-sm-7">
-                            <input type="text" class="form-control date-input" id="date_finish" name="date_finish" ng-model="data.date_finish" data-rule="required;">
-                        </div>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label class="col-sm-3 control-label">字段说明</label>
-                    <div class="col-sm-7">
-                        <p style="line-height: 34px;">
-                            <span style="color: #217f50; font-weight: bold;">是否为旧变更:</span> 旧的变更数据迁移到该系统时，请选择“旧数据迁移”，旧数据迁移不走审核数据。录入完成后即属于完成的订单
-                        </p>
-                    </div>
-                </div>
-            </div>
+      </div>
+      <div class="box-body">
+        <div class="form-group">
+          <label class="col-sm-3 control-label">是否为旧变更<span class="required">*</span></label>
+          <div class="col-sm-7">
+            <select class="form-control select2" name="is_old" ng-model="data.is_old" data-rule="required;">
+              <option value="">请选择</option>
+              <option value="1">旧数据迁移</option>
+              <option value="0">新变更</option>
+            </select>
+          </div>
         </div>
-
-        <div class="box box-danger">
-            <div class="box-header with-border">
-                <h3 class="box-title">变更信息</h3>
-                <div class="box-tools">
-                    <div class="box-tools pull-right">
-                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                        </button>
-                    </div>
-                </div>
+        <div ng-if="data.is_old == 1">
+          <div class="form-group">
+            <label class="col-sm-3 control-label">完成日期<span class="required">*</span></label>
+            <div class="col-sm-7">
+              <input type="text" class="form-control date-input" id="date_finish" name="date_finish" ng-model="data.date_finish" data-rule="required;">
             </div>
-            <div class="box-body">
-                <div class="form-group">
-                    <label class="col-sm-3 control-label">档案号</label>
-                    <div class="col-sm-7">
-                        <input type="text" class="form-control" ng-model="module.code" disabled>
-                    </div>
-                </div>
-
-                <div class="form-group" ng-repeat="row in data.changes">
-                    <div class="col-sm-3">
-                        <select class="form-control select2" name="changeFieldSelect{{$index}}" ng-model="row.key" ng-change="fieldChange($index, row)">
-                            <option value="">请选择变更的字段</option>
-                            <option ng-repeat="option in changes" ng-selected="row.key == option.key" ng-disabled="option.map==true" value="{{option.key}}">{{option.value}}</option>
-                        </select>
-                    </div>
-                    <div class="col-sm-7">
-                        <input type="text" class="form-control" ng-model="row.value" data-rule="required;">
-                    </div>
-                    <div class="col-sm-2 add-dictionary">
-                        <a class="fa fa-times" ng-click="remove(row)"></a>
-                    </div>
-                </div>
-            </div>
-            <div class="box-footer">
-                <button type="button" class="btn btn-primary" ng-click="add()">添加</button>
-            </div>
+          </div>
         </div>
-        <div class="box box-danger" style="padding-bottom: 20px;">
-            <div class="box-header with-border">
-                <h3 class="box-title">订单信息</h3>
-                <div class="box-tools">
-                    <div class="box-tools pull-right">
-                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                        </button>
-                    </div>
-                </div>
-            </div>
-            <div class="box-body">
-                <div class="form-group">
-                    <label class="col-sm-3 control-label">成交日期<span class="required">*</span></label>
-                    <div class="col-sm-7">
-                        <input type="text" class="form-control date-input" id="date_transaction" name="date_transaction" ng-model="data.date_transaction" data-rule="required;">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-3 control-label">成交金额<span class="required">*</span></label>
-                    <div class="col-sm-7">
-                        <input type="text" class="form-control" name="amount_transaction" ng-model="data.amount_transaction" data-rule-money="[/^(([1-9]\d{0,9})|0)(\.\d{1,2})?$/, '请填写2位数的数值']" data-rule="required;money;">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-3 control-label">交易币别<span class="required">*</span></label>
-                    <div class="col-sm-7">
-                        <select ui-select2 class="form-control select2" id="currencySelect2" name="currency" ng-model="data.currency" url="Dictionary/DroplistByGroup" paging="false" paramfield="group" paramvalue="币别" data-rule="required;"></select>
-                        <span id="currencySelect2-validator" class="select-validator"></span>
-                    </div>
-                    <div class="col-sm-2 add-dictionary">
-                        <a class="fa fa-plus" ui-sref=".dictionary({group: '币别'})" ui-sref-opts="{location:false}" title="添加币别"></a>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-3 control-label">汇率<span class="required">*</span></label>
-                    <div class="col-sm-7">
-                        <input type="text" class="form-control" name="rate" ng-model="data.rate" data-rule-money="[/^(([1-9]\d{0,9})|0)(\.\d{1,2})?$/, '请填写2位数的数值']" data-rule="required;money;">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-3 control-label">业务员</label>
-                    <div class="col-sm-7">
-                        <select ui-select2 class="form-control select2" id="salesmanSelect2" name="salesman_id" ng-view="salesman" ng-model="data.salesman_id" data-rule="required;" url=" Member/List" paging="true" style="width: 100%;"></select>
-                    </div>
-                </div>
-            </div>
+        <div class="form-group">
+          <label class="col-sm-3 control-label">字段说明</label>
+          <div class="col-sm-7">
+            <p style="line-height: 34px;">
+              <span style="color: #217f50; font-weight: bold;">是否为旧变更:</span> 旧的变更数据迁移到该系统时，请选择“旧数据迁移”，旧数据迁移不走审核数据。录入完成后即属于完成的订单
+            </p>
+          </div>
         </div>
-    </form>
+      </div>
+    </div>
+
+    <div class="nav-tabs-custom">
+      <ul class="nav nav-tabs">
+        <li ng-class="{'active': activeTab == 0}"><a data-toggle="tab" ng-click="onTab(0)">基础变更</a></li>
+        <li ng-class="{'active': activeTab == 1}"><a data-toggle="tab"  ng-click="onTab(1)">股东变更</a></li>
+        <li ng-class="{'active': activeTab == 2}"><a data-toggle="tab" ng-click="onTab(2)">董事变更</a></li>
+      </ul>
+      <div class="tab-content">
+        <div class="tab-pane" ng-class="{'active': activeTab == 0}">
+          <div class="box-body">
+            <div class="form-group">
+              <label class="col-sm-3 control-label">档案号</label>
+              <div class="col-sm-7">
+                <input type="text" class="form-control" ng-model="module.code" disabled>
+              </div>
+            </div>
+            <div class="form-group" ng-repeat="row in data.changes">
+              <div class="col-sm-3">
+                <select class="form-control select2" name="changeFieldSelect{{$index}}" ng-model="row.key" ng-change="fieldChange($index, row)">
+                  <option value="">请选择变更的字段</option>
+                  <option ng-repeat="option in changes" ng-selected="row.key == option.key" ng-disabled="option.map==true" value="{{option.key}}">{{option.value}}</option>
+                </select>
+              </div>
+              <div class="col-sm-7">
+                <input type="text" class="form-control" name="rowvalue{{$index}}" ng-model="row.value" data-rule="required;">
+              </div>
+              <div class="col-sm-2 add-dictionary">
+                <a class="fa fa-times" ng-click="remove(row)"></a>
+              </div>
+            </div>
+          </div>
+          <div class="box-footer">
+            <button type="button" class="btn btn-primary" ng-click="add()">添加变更</button>
+          </div>
+        </div>
+        <div class="tab-pane" ng-class="{'active': activeTab == 1}">
+          <table class="table table-hover">
+            <tbody>
+              <tr>
+                <th style="width: 10px">#</th>
+                <th>姓名</th>
+                <th>性别</th>
+                <th>身份证号码</th>
+                <th>股份比例(%)</th>
+                <th>变更类别</th>
+                <th class="opt-col">操作</th>
+              </tr>
+              <tr ng-repeat="item in data.shareholderList">
+                <td ng-bind="($index+1)+'.'"></td>
+                <td ng-bind="item.name"></td>
+                <td ng-bind="item.gender"></td>
+                <td ng-bind="item.cardNo"></td>
+                <td ng-bind="item.takes"></td>
+                <td ng-bind="getChangeName(item.changed_type)"></td>
+                <td class="opt-col">
+                  <a href="javascript:;" class="fa fa-pencil orange" ng-click="editShareholder($index, item)" title="修改"></a>
+                  <a href="javascript:;" class="fa fa-trash-o red" ng-click="deleteShareholder($index, item)" title="删除"></a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="box-footer clearfix">
+            <button type="button" class="btn btn-info" ui-sref=".shareholder_add()" ui-sref-opts="{location:false}">添加股东变更</button>
+          </div>
+        </div>
+        <div class="tab-pane" ng-class="{'active': activeTab == 2}">
+          <table class="table table-hover">
+            <tbody>
+              <tr>
+                <th style="width: 10px">#</th>
+                <th>姓名</th>
+                <th>性别</th>
+                <th>身份证号码</th>
+                <th>变更类别</th>
+                <th class="opt-col">操作</th>
+              </tr>
+              <tr ng-repeat="item in data.directoryList">
+                <td ng-bind="($index+1)+'.'"></td>
+                <td ng-bind="item.name"></td>
+                <td ng-bind="item.gender"></td>
+                <td ng-bind="item.cardNo"></td>
+                <td ng-bind="getChangeName(item.changed_type)"></td>
+                <td class="opt-col">
+                  <a href="javascript:;" class="fa fa-pencil orange" ng-click="editDirectory($index, item)" title="修改"></a>
+                  <a href="javascript:;" class="fa fa-trash-o red" ng-click="deleteDirectory($index, item)" title="删除"></a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="box-footer clearfix">
+            <button type="button" class="btn btn-info" ui-sref=".directory_add()" ui-sref-opts="{location:false}">添加董事变更</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="box box-danger" style="padding-bottom: 20px;">
+      <div class="box-header with-border">
+        <h3 class="box-title">订单信息</h3>
+        <div class="box-tools">
+          <div class="box-tools pull-right">
+            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="box-body">
+        <div class="form-group">
+          <label class="col-sm-3 control-label">成交日期<span class="required">*</span></label>
+          <div class="col-sm-7">
+            <input type="text" class="form-control date-input" id="date_transaction" name="date_transaction" ng-model="data.date_transaction" data-rule="required;">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-3 control-label">成交金额<span class="required">*</span></label>
+          <div class="col-sm-7">
+            <input type="text" class="form-control" name="amount_transaction" ng-model="data.amount_transaction" data-rule-money="[/^(([1-9]\d{0,9})|0)(\.\d{1,2})?$/, '请填写2位数的数值']" data-rule="required;money;">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-3 control-label">交易币别<span class="required">*</span></label>
+          <div class="col-sm-7">
+            <select ui-select2 class="form-control select2" id="currencySelect2" name="currency" ng-model="data.currency" url="Dictionary/DroplistByGroup" paging="false" paramfield="group" paramvalue="币别" data-rule="required;"></select>
+            <span id="currencySelect2-validator" class="select-validator"></span>
+          </div>
+          <div class="col-sm-2 add-dictionary">
+            <a class="fa fa-plus" ui-sref=".dictionary({group: '币别'})" ui-sref-opts="{location:false}" title="添加币别"></a>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-3 control-label">汇率<span class="required">*</span></label>
+          <div class="col-sm-7">
+            <input type="text" class="form-control" name="rate" ng-model="data.rate" data-rule-money="[/^(([1-9]\d{0,9})|0)(\.\d{1,2})?$/, '请填写2位数的数值']" data-rule="required;money;">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-3 control-label">业务员</label>
+          <div class="col-sm-7">
+            <select ui-select2 class="form-control select2" id="salesmanSelect2" name="salesman_id" ng-view="salesman" ng-model="data.salesman_id" data-rule="required;" url=" Member/List" paging="true" style="width: 100%;"></select>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
 </section>
+<div ui-view="shareholder"></div>
+<div ui-view="directory"></div>

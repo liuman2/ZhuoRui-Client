@@ -236,6 +236,7 @@
                 <th>性别</th>
                 <th>身份证号码</th>
                 <th>股份比例(%)</th>
+                <th>类别</th>
               </tr>
               <tr ng-repeat="item in data.shareholderList">
                 <td ng-bind="($index+1)+'.'"></td>
@@ -243,6 +244,7 @@
                 <td ng-bind="item.gender"></td>
                 <td ng-bind="item.cardNo"></td>
                 <td ng-bind="item.takes"></td>
+                <td ng-bind="getChangeName(item.changed_type)"></td>
               </tr>
             </tbody>
           </table>

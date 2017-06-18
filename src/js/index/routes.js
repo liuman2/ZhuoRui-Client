@@ -49,6 +49,28 @@ module.exports = function($stateProvider, $urlRouterProvider) {
       template: require('view/history/info.html'),
       controller: require('view/history/info')
     })
+    .state('history_add.shareholder_add', {
+      url: '/new/shareholder',
+      stateName: '股东',
+      views: {
+        'shareholder': {
+          template: require('view/history/shareholder/modal.html'),
+          controller: require('view/history/shareholder/modal')
+        }
+      }
+    })
+    .state('history_add.directory_add', {
+      url: '/new/directory',
+      stateName: '股东',
+      views: {
+        'directory': {
+          template: require('view/history/directory/modal.html'),
+          controller: require('view/history/directory/modal')
+        }
+      }
+    })
+
+
     .state('history_view', {
       url: '/history/view/{id:.*}',
       template: require('view/history/view.html'),
@@ -100,6 +122,27 @@ module.exports = function($stateProvider, $urlRouterProvider) {
       template: require('view/history/info.html'),
       controller: require('view/history/info')
     })
+    .state('history_edit.shareholder_add', {
+      url: '/new/shareholder',
+      stateName: '股东',
+      views: {
+        'shareholder': {
+          template: require('view/history/shareholder/modal.html'),
+          controller: require('view/history/shareholder/modal')
+        }
+      }
+    })
+    .state('history_edit.directory_add', {
+      url: '/new/directory',
+      stateName: '董事',
+      views: {
+        'directory': {
+          template: require('view/history/directory/modal.html'),
+          controller: require('view/history/directory/modal')
+        }
+      }
+    })
+
     .state('bank', {
       url: '/bank',
       template: require('view/bank/tmpl.html'),

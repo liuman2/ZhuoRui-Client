@@ -23,6 +23,19 @@ module.exports = function($scope, $state, $http, $q, $timeout, $cookieStore) {
     $scope.activeTab = activeIndex;
   }
 
+  $scope.getChangeName = function(type) {
+    switch(type) {
+      case 'new':
+        return '新进';
+      case 'exit':
+        return '退出';
+      case 'takes':
+        return '股份调整';
+      default:
+        return '';
+    }
+  }
+
   $scope.deleteIncome = function(item) {
     if ($scope.data.status > 0) {
       $.alert({

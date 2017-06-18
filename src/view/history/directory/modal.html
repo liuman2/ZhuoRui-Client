@@ -1,0 +1,71 @@
+<div class="modal" style="display: block;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" ui-sref="^">
+          <span aria-hidden="true">×</span></button>
+        <h4 class="modal-title">董事变更</h4>
+      </div>
+      <div class="modal-body">
+        <form class="form-horizontal" id="directory_modal">
+          <div class="form-group">
+            <label class="col-sm-2 control-label">变更类型<span class="required">*</span></label>
+            <div class="col-sm-8">
+              <select class="form-control select2" ng-model="directory.changed_type" ng-change="typeChange()">
+                <option value="">请选择</option>
+                <option value="new">新进</option>
+                <option value="exit">退出</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group" ng-if="directory.changed_type == 'exit' || directory.changed_type == 'takes'">
+            <label class="col-sm-2 control-label">{{directory.changed_type == 'exit' ? '退出人员' : '调整人员'}}<span class="required">*</span></label>
+            <div class="col-sm-8">
+              <select
+                class="form-control select2"
+                name="directory.person_id"
+                ng-model="directory.person_id"
+                ng-change="personChange()"
+                data-rule="required;"
+              >
+                <option value="">请选择</option>
+                <option ng-repeat="option in holderList" value="{{option.id}}"  ng-disabled="checkSelected(option.id)">{{option.name}}</option>
+                <option value="-1">所要人员没在下拉列表中</option>
+              </select>
+            </div>
+          </div>
+
+          <div ng-if="directory.changed_type == 'new' || directory.person_id == -1">
+            <div class="form-group">
+              <label class="col-sm-2 control-label">姓名<span class="required">*</span></label>
+              <div class="col-sm-8">
+                <input type="text" class="form-control" name="directory.name" ng-model="directory.name" data-rule="required; length[~20];">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-2 control-label">性别</label>
+              <div class="col-sm-8">
+                <select class="form-control select2" ng-model="directory.gender">
+                  <option value="">选择性别</option>
+                  <option value="男">男</option>
+                  <option value="女">女</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-2 control-label">身份证</label>
+              <div class="col-sm-8">
+                <input type="text" class="form-control" name="directory.cardNo" ng-model="directory.cardNo" data-rule="length[~50];">
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default pull-left" data-dismiss="modal" ui-sref="^">取消</button>
+        <button type="button" class="btn btn-primary" ng-click="save()">确定</button>
+      </div>
+    </div>
+  </div>
+</div>

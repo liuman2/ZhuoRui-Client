@@ -27,7 +27,7 @@
         <span ng-if="data.status == 4" ng-bind="'已完成 | ' + format(data.date_finish, 'YYYY-MM-DD')"></span>
       </div>
     </div>
-    <div class="box box-danger">
+   <!--  <div class="box box-danger">
       <div class="box-header with-border">
         <h3 class="box-title">变更信息</h3>
         <div class="box-tools">
@@ -45,7 +45,68 @@
           </div>
         </div>
       </div>
+    </div> -->
+
+    <div class="nav-tabs-custom">
+      <ul class="nav nav-tabs">
+        <li ng-class="{'active': activeTab == 0}"><a data-toggle="tab" ng-click="onTab(0)">基础变更</a></li>
+        <li ng-class="{'active': activeTab == 1}"><a data-toggle="tab"  ng-click="onTab(1)">股东变更</a></li>
+        <li ng-class="{'active': activeTab == 2}"><a data-toggle="tab" ng-click="onTab(2)">董事变更</a></li>
+      </ul>
+      <div class="tab-content">
+        <div class="tab-pane" ng-class="{'active': activeTab == 0}">
+          <div class="form-group" ng-repeat="(key, value) in data.fields" style="color:#00c0ef;">
+            <label class="col-sm-2 control-label">{{fields[key]}}</label>
+            <div class="col-sm-8">
+              <span class="form-span" style="color:#00c0ef; font-weight: bold;" ng-bind="value"></span>
+            </div>
+          </div>
+        </div>
+        <div class="tab-pane" ng-class="{'active': activeTab == 1}">
+          <table class="table table-hover">
+            <tbody>
+              <tr>
+                <th style="width: 10px">#</th>
+                <th>姓名</th>
+                <th>性别</th>
+                <th>身份证号码</th>
+                <th>股份比例(%)</th>
+                <th>变更类别</th>
+              </tr>
+              <tr ng-repeat="item in data.shareholderList">
+                <td ng-bind="($index+1)+'.'"></td>
+                <td ng-bind="item.name"></td>
+                <td ng-bind="item.gender"></td>
+                <td ng-bind="item.cardNo"></td>
+                <td ng-bind="item.takes"></td>
+                <td ng-bind="getChangeName(item.changed_type)"></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="tab-pane" ng-class="{'active': activeTab == 2}">
+          <table class="table table-hover">
+            <tbody>
+              <tr>
+                <th style="width: 10px">#</th>
+                <th>姓名</th>
+                <th>性别</th>
+                <th>身份证号码</th>
+                <th>变更类别</th>
+              </tr>
+              <tr ng-repeat="item in data.directorList">
+                <td ng-bind="($index+1)+'.'"></td>
+                <td ng-bind="item.name"></td>
+                <td ng-bind="item.gender"></td>
+                <td ng-bind="item.cardNo"></td>
+                <td ng-bind="getChangeName(item.changed_type)"></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
+
     <div class="box box-danger">
       <div class="box-header with-border">
         <h3 class="box-title">订单信息</h3>
