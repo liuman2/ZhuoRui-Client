@@ -178,6 +178,27 @@ module.exports = function($scope, $state, $http, $q, $timeout, $cookieStore) {
     return '';
   }
 
+  $scope.getHistoryTitle = function(key) {
+    var titleInfo = '无变更记录'
+    if ($scope.historyRecord[key]) {
+      var titleInfo = $scope.historyRecord[key];
+      if ($scope.historyRecord[key].indexOf('|') > -1) {
+        var titles = $scope.historyRecord[key].split('|');
+        var title1 = '<span style="width: 80px; margin-right: 10px; text-align: right; display: inline-block;">上次历史值：</span>' + titles[0];
+        var title2 = '<span style="width: 80px; margin-right: 10px; text-align: right; display: inline-block;">变更时间：</span>' + titles[1];
+        titleInfo = title1 + '</br>' + title2;
+      }
+    }
+
+    $('.' + key).tooltipster({
+      theme: 'tooltipster-sideTip-shadow',
+      content: titleInfo,
+      contentAsHTML: true
+    });
+
+    return titleInfo;
+  }
+
   $scope.getReviewStatus = function() {
     switch ($scope.data.review_status) {
       case -1:
@@ -244,10 +265,13 @@ module.exports = function($scope, $state, $http, $q, $timeout, $cookieStore) {
         id: id
       }
     }).success(function(data) {
+      $scope.historyRecord = data.historyReocrd;
+
       $scope.data = data.order;
       $scope.incomes = data.incomes;
       $scope.data.shareholderList = data.shareholderList || [];
       $scope.data.directorList = data.directorList || [];
+
       loadAttachments();
     });
   }

@@ -121,12 +121,18 @@
             <label class="col-sm-2 control-label">公司中文名称</label>
             <div class="col-sm-8">
               <span class="form-span" ng-bind="data.name_cn"></span>
+              <i
+                class="fa fa-history name_cn"
+                ng-show="historyRecord.name_cn.length > 0"
+                ng-attr-title="{{getHistoryTitle('name_cn')}}"
+              ></i>
             </div>
           </div>
           <div class="form-group">
             <label class="col-sm-2 control-label">公司英文名称</label>
             <div class="col-sm-8">
               <span class="form-span" ng-bind="data.name_en"></span>
+              <i class="fa fa-history name_en" ng-show="historyRecord.name_en.length > 0" ng-attr-title="{{getHistoryTitle('name_en')}}"></i>
             </div>
           </div>
           <div class="form-group">
@@ -157,12 +163,14 @@
             <label class="col-sm-2 control-label">公司注册编号</label>
             <div class="col-sm-8">
               <span class="form-span" ng-bind="data.reg_no"></span>
+              <i class="fa fa-history reg_no" ng-show="historyRecord.reg_no.length > 0" ng-attr-title="{{getHistoryTitle('reg_no')}}"></i>
             </div>
           </div>
           <div class="form-group">
             <label class="col-sm-2 control-label">公司注册地址</label>
             <div class="col-sm-8">
               <span class="form-span" ng-bind="data.address"></span>
+              <i class="fa fa-history address" ng-show="historyRecord.address.length > 0" ng-attr-title="{{getHistoryTitle('address')}}"></i>
             </div>
           </div>
           <div class="form-group">
