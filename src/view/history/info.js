@@ -92,15 +92,7 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
         key: 'reg_no',
         value: '公司注册编号',
         map: false
-      }/*, {
-        key: 'director',
-        value: '公司董事',
-        map: false
       }, {
-        key: 'shareholder',
-        value: '公司股东',
-        map: false
-      }*/, {
         key: 'others',
         value: '其他变更',
         map: false

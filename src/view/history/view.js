@@ -314,7 +314,7 @@ module.exports = function($scope, $state, $http, $q, $timeout, $cookieStore) {
       $scope.incomes = data.incomes;
 
       $scope.data.shareholderList = data.shareholderList || [];
-      $scope.data.directorList = data.directorList || [];
+      $scope.data.directoryList = data.directoryList || [];
 
       setModuleInfo(data.order);
     });
