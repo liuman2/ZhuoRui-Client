@@ -12,12 +12,14 @@ module.exports = function($scope, $http, $state, $stateParams, $timeout) {
 
   $scope.shareholder = {
     id: '',
+    changed_type: '',
     name: '',
     gender: '',
     cardNo: '',
     takes: '',
     type: '股东',
-    person_id: ''
+    person_id: '',
+    memo: '',
   }
 
   console.log($scope.module.source_id)
@@ -25,8 +27,11 @@ module.exports = function($scope, $http, $state, $stateParams, $timeout) {
   $scope.holderList = [];
 
   $scope.typeChange = function() {
-    $scope.shareholder.person_id = '';
+    if ($scope.shareholder.changed_type != 'new') {
+      return;
+    }
 
+    $scope.shareholder.person_id = '';
     $scope.shareholder.name = '';
     $scope.shareholder.gender = '';
     $scope.shareholder.cardNo = '';
@@ -39,7 +44,7 @@ module.exports = function($scope, $http, $state, $stateParams, $timeout) {
       return h.id == $scope.shareholder.person_id;
     });
 
-    if (holders.length) {
+    if (holders.length && holders[0].id != -1) {
       $scope.shareholder.name = holders[0].name;
       $scope.shareholder.gender = holders[0].gender;
       $scope.shareholder.cardNo = holders[0].cardNo;
@@ -61,9 +66,13 @@ module.exports = function($scope, $http, $state, $stateParams, $timeout) {
     });
   }
 
-  $scope.checkSelected = function(optionId) {
+  $scope.checkDisabled = function(optionId) {
     var shareholderList = $scope.data.shareholderList || [];
     if (!shareholderList.length) {
+      return false;
+    }
+
+    if ($scope.shareholder.person_id == optionId) {
       return false;
     }
 
@@ -74,6 +83,10 @@ module.exports = function($scope, $http, $state, $stateParams, $timeout) {
     return selectedHolders.length > 0;
   }
 
+  $scope.checkedSelected = function(personId, optionId) {
+    return personId == optionId;
+  }
+
   if (shareholderId) {
     $scope.shareholder = {
       id: $stateParams.shareholderId,
@@ -82,8 +95,12 @@ module.exports = function($scope, $http, $state, $stateParams, $timeout) {
       cardNo: $stateParams.cardNo,
       takes: $stateParams.takes,
       type: '股东',
-      person_id: ''
+      person_id: $stateParams.person_id,
+      changed_type: $stateParams.changed_type,
+      memo: $stateParams.memo,
     }
+
+
   }
 
   function getShareHolders() {
@@ -92,10 +109,20 @@ module.exports = function($scope, $http, $state, $stateParams, $timeout) {
       url: '/History/GetShareHolder',
       params: {
         name: $scope.module.id,
-        id: $scope.module.source_id
+        id: $scope.module.source_id,
       }
     }).success(function(data) {
-      $.each()
+      data = data || [];
+
+      // data.forEach(function(r) {
+      //   r.disabled = checkSelected(r.id);
+      // })
+
+      // data.push({
+      //   id: -1,
+      //   name: '所要人员没在下拉列表中',
+      //   disabled: false
+      // });
       $scope.holderList = data || [];
     });
   }

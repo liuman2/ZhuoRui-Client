@@ -102,7 +102,7 @@
         <li ng-class="{'active': activeTab == 5}"><a data-toggle="tab" ng-click="onTab(5)">收款记录</a></li>
         <li ng-class="{'active': activeTab == 6}"><a data-toggle="tab" ng-click="onTab(6)">附件</a></li>
       </ul>
-      <div class="tab-content">
+      <div class="tab-content" style="padding-bottom: 100px;">
         <!-- 注册信息 -->
         <div class="tab-pane" ng-class="{'active': activeTab == 0}">
           <div class="form-group">
@@ -236,7 +236,7 @@
         </div>
         <!-- 公司股东 -->
         <div class="tab-pane" ng-class="{'active': activeTab == 1}">
-          <table class="table table-hover">
+          <table class="table table-hover" ng-if="!holderViewHistory">
             <tbody>
               <tr>
                 <th style="width: 10px">#</th>
@@ -244,7 +244,6 @@
                 <th>性别</th>
                 <th>身份证号码</th>
                 <th>股份比例(%)</th>
-                <th>类别</th>
               </tr>
               <tr ng-repeat="item in data.shareholderList">
                 <td ng-bind="($index+1)+'.'"></td>
@@ -252,14 +251,42 @@
                 <td ng-bind="item.gender"></td>
                 <td ng-bind="item.cardNo"></td>
                 <td ng-bind="item.takes"></td>
-                <td ng-bind="getChangeName(item.changed_type)"></td>
+                <!-- <td ng-bind="getChangeName(item.changed_type)"></td> -->
               </tr>
             </tbody>
           </table>
+          <table class="table table-hover" ng-if="holderViewHistory">
+            <tbody>
+              <tr>
+                <th style="width: 10px">#</th>
+                <th>姓名</th>
+                <th>性别</th>
+                <th>身份证号码</th>
+                <th>股份比例(%)</th>
+                <th>变更类型</th>
+                <th>变更日期</th>
+              </tr>
+              <tr ng-repeat="item in historyShareholder" ng-class="{'exit-line': item.changed_type == 'exit'}">
+                <td ng-bind="($index+1)+'.'"></td>
+                <td ng-bind="item.name"></td>
+                <td ng-bind="item.gender"></td>
+                <td ng-bind="item.cardNo"></td>
+                <td ng-bind="item.takes"></td>
+                <td ng-bind="getChangeName(item.changed_type)"></td>
+                <td ng-bind="format(item.date_changed, 'YYYY-MM-DD')"></td>
+              </tr>
+            </tbody>
+          </table>
+          <div ng-if="holderViewHistory && !historyShareholder.length" style="margin:10px;">
+            无历史变更记录
+          </div>
+          <div class="box-footer clearfix">
+            <button type="button" class="btn btn-info" ng-bind="holderViewHistory ? '查看当前股东' : '查看变更记录'" ng-click="getHolderHistory('股东')">查看变更记录</button>
+          </div>
         </div>
         <!-- 公司董事 -->
         <div class="tab-pane" ng-class="{'active': activeTab == 2}">
-          <table class="table table-hover">
+          <table class="table table-hover" ng-if="!directoryViewHistory">
             <tbody>
               <tr>
                 <th style="width: 10px">#</th>
@@ -275,6 +302,32 @@
               </tr>
             </tbody>
           </table>
+          <table class="table table-hover" ng-if="directoryViewHistory">
+            <tbody>
+              <tr>
+                <th style="width: 10px">#</th>
+                <th>姓名</th>
+                <th>性别</th>
+                <th>身份证号码</th>
+                <th>变更类型</th>
+                <th>变更日期</th>
+              </tr>
+              <tr ng-repeat="item in historyDirectory" ng-class="{'exit-line': item.changed_type == 'exit'}">
+                <td ng-bind="($index+1)+'.'"></td>
+                <td ng-bind="item.name"></td>
+                <td ng-bind="item.gender"></td>
+                <td ng-bind="item.cardNo"></td>
+                <td ng-bind="getChangeName(item.changed_type)"></td>
+                <td ng-bind="format(item.date_changed, 'YYYY-MM-DD')"></td>
+              </tr>
+            </tbody>
+          </table>
+          <div ng-if="directoryViewHistory && !historyDirectory.length" style="margin:10px;">
+            无历史变更记录
+          </div>
+          <div class="box-footer clearfix">
+            <button type="button" class="btn btn-info" ng-bind="directoryViewHistory ? '查看当前董事' : '查看变更记录'" ng-click="getHolderHistory('董事')">查看变更记录</button>
+          </div>
         </div>
         <!-- 开票信息 -->
         <div class="tab-pane" ng-class="{'active': activeTab == 3}">

@@ -61,6 +61,9 @@
               <span class="form-span" style="color:#00c0ef; font-weight: bold;" ng-bind="value"></span>
             </div>
           </div>
+          <div ng-if="!data.fields.length" style="padding: 10px;">
+            无基础变更数据
+          </div>
         </div>
         <div class="tab-pane" ng-class="{'active': activeTab == 1}">
           <table class="table table-hover">
@@ -72,6 +75,7 @@
                 <th>身份证号码</th>
                 <th>股份比例(%)</th>
                 <th>变更类别</th>
+                <th>备注</th>
               </tr>
               <tr ng-repeat="item in data.shareholderList">
                 <td ng-bind="($index+1)+'.'"></td>
@@ -80,6 +84,7 @@
                 <td ng-bind="item.cardNo"></td>
                 <td ng-bind="item.takes"></td>
                 <td ng-bind="getChangeName(item.changed_type)"></td>
+                <td ng-bind="item.memo"></td>
               </tr>
             </tbody>
           </table>
@@ -93,6 +98,7 @@
                 <th>性别</th>
                 <th>身份证号码</th>
                 <th>变更类别</th>
+                <th>备注</th>
               </tr>
               <tr ng-repeat="item in data.directoryList">
                 <td ng-bind="($index+1)+'.'"></td>
@@ -100,6 +106,7 @@
                 <td ng-bind="item.gender"></td>
                 <td ng-bind="item.cardNo"></td>
                 <td ng-bind="getChangeName(item.changed_type)"></td>
+                <td ng-bind="item.memo"></td>
               </tr>
             </tbody>
           </table>

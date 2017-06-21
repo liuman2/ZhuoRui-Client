@@ -12,27 +12,51 @@ module.exports = function($scope, $http, $state, $stateParams, $timeout) {
 
   $scope.directory = {
     id: '',
+    changed_type: '',
     name: '',
     gender: '',
     cardNo: '',
     type: '董事',
-    person_id: ''
+    person_id: '',
+    memo: null,
   }
 
-  console.log($scope.module.source_id)
 
   $scope.holderList = [];
 
   $scope.typeChange = function() {
-    $scope.directory.person_id = '';
+    if ($scope.directory.changed_type != 'new') {
+      return;
+    }
 
+    $scope.directory.person_id = '';
     $scope.directory.name = '';
     $scope.directory.gender = '';
     $scope.directory.cardNo = '';
   }
 
+  $scope.checkDisabled = function(optionId) {
+    var directoryList = $scope.data.directoryList || [];
+    if (!directoryList.length) {
+      return false;
+    }
+
+    if ($scope.directory.person_id == optionId) {
+      return false;
+    }
+
+    var selectedDirectorys = $.grep(directoryList, function(s, i) {
+      return s.person_id == optionId;
+    });
+
+    return selectedDirectorys.length > 0;
+  }
+
+  $scope.checkedSelected = function(personId, optionId) {
+    return personId == optionId;
+  }
+
   $scope.personChange = function() {
-    console.log($scope.directory.person_id)
     var holders = $.grep($scope.holderList, function(h, i) {
       return h.id == $scope.directory.person_id;
     });
@@ -76,8 +100,10 @@ module.exports = function($scope, $http, $state, $stateParams, $timeout) {
       name: $stateParams.name,
       gender: $stateParams.gender,
       cardNo: $stateParams.cardNo,
-      type: '股东',
-      person_id: ''
+      type: '董事',
+      person_id: $stateParams.person_id,
+      changed_type: $stateParams.changed_type,
+      memo: $stateParams.memo,
     }
   }
 
@@ -90,7 +116,7 @@ module.exports = function($scope, $http, $state, $stateParams, $timeout) {
         id: $scope.module.source_id
       }
     }).success(function(data) {
-      $.each()
+      data = data || [];
       $scope.holderList = data || [];
     });
   }

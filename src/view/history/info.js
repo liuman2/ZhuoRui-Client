@@ -54,6 +54,43 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
     }
   }
 
+  $scope.editShareholder = function(index, shareholder) {
+    $state.go('.shareholder_edit', {
+      index: index,
+      shareholderId: shareholder.id,
+      name: shareholder.name,
+      gender: shareholder.gender,
+      cardNo: shareholder.cardNo,
+      type: '股东',
+      takes: shareholder.takes,
+      person_id: shareholder.person_id,
+      changed_type: shareholder.changed_type,
+      memo: shareholder.memo,
+    }, { location: false });
+  }
+
+  $scope.deleteShareholder = function(index, item) {
+    $scope.data.shareholderList.splice(index, 1);
+  }
+
+  $scope.editDirectory = function(index, directory) {
+    $state.go('.directory_edit', {
+      index: index,
+      directoryId: directory.id,
+      name: directory.name,
+      gender: directory.gender,
+      cardNo: directory.cardNo,
+      person_id: directory.person_id,
+      changed_type: directory.changed_type,
+      memo: directory.memo,
+      type: '董事',
+    }, { location: false });
+  }
+
+  $scope.deleteDirectory = function(index, item) {
+    $scope.data.directorList.splice(index, 1);
+  }
+
   var user = $cookieStore.get('USER_INFO');
   $scope.data = {
     id: '',
@@ -302,8 +339,6 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
         submitData.directoryList = submitData.directoryList || [];
 
         data.shareholderList = submitData.shareholderList.concat(submitData.directoryList);
-
-        console.log(data);
 
 
         $http({

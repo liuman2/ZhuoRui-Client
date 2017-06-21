@@ -23,6 +23,12 @@ module.exports = function($scope, $state, $http, $q, $timeout, $cookieStore) {
     $scope.activeTab = activeIndex;
   }
 
+  $scope.holderViewHistory = false;
+  $scope.directoryViewHistory = false;
+
+  $scope.historyShareholder = [];
+  $scope.historyDirectory = [];
+
   $scope.getChangeName = function(type) {
     switch(type) {
       case 'new':
@@ -196,7 +202,7 @@ module.exports = function($scope, $state, $http, $q, $timeout, $cookieStore) {
       contentAsHTML: true
     });
 
-    return titleInfo;
+    return '';
   }
 
   $scope.getReviewStatus = function() {
@@ -294,6 +300,36 @@ module.exports = function($scope, $state, $http, $q, $timeout, $cookieStore) {
           loadAttachments();
         });
       }
+    });
+  }
+
+  $scope.getHolderHistory = function(type) {
+    if (type == '股东' && $scope.holderViewHistory) {
+      $scope.holderViewHistory = false;
+      return;
+    }
+    if (type == '董事' && $scope.directoryViewHistory) {
+      $scope.directoryViewHistory = false;
+      return;
+    }
+
+    $http({
+      method: 'GET',
+      url: '/RegAbroad/HistoryHolder',
+      params: {
+        master_id: id,
+        source: 'reg_abroad',
+        type: type,//'股东'
+      }
+    }).success(function(data) {
+      if (type == '股东') {
+        $scope.historyShareholder = data || [];
+        $scope.holderViewHistory = true;
+      } else {
+        $scope.historyDirectory = data || [];
+        $scope.directoryViewHistory = true;
+      }
+
     });
   }
 

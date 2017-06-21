@@ -21,6 +21,7 @@ var letterRouter = require('./router/letter');
 var profileRouter = require('./router/profile');
 var messageRouter = require('./router/message');
 var accountRouter = require('./router/account');
+
 module.exports = function($stateProvider, $urlRouterProvider) {
 
   $urlRouterProvider.otherwise('/dashboard');
@@ -59,9 +60,51 @@ module.exports = function($stateProvider, $urlRouterProvider) {
         }
       }
     })
+    .state('history_add.shareholder_edit', {
+      url: '/new/shareholder/{shareholderId:.*}',
+      params: {
+        index: null,
+        shareholderId: null,
+        name: null,
+        gender: null,
+        cardNo: null,
+        takes: null,
+        person_id: null,
+        changed_type: null,
+        memo: null,
+      },
+      stateName: '股东',
+      views: {
+        'shareholder': {
+          template: require('view/history/shareholder/modal.html'),
+          controller: require('view/history/shareholder/modal')
+        }
+      }
+    })
+
     .state('history_add.directory_add', {
       url: '/new/directory',
       stateName: '股东',
+      views: {
+        'directory': {
+          template: require('view/history/directory/modal.html'),
+          controller: require('view/history/directory/modal')
+        }
+      }
+    })
+    .state('history_add.directory_edit', {
+      url: '/new/director/{directoryId:.*}',
+      params: {
+        index: null,
+        directoryId: null,
+        name: null,
+        gender: null,
+        cardNo: null,
+        person_id: null,
+        changed_type: null,
+        memo: null,
+      },
+      stateName: '董事',
       views: {
         'directory': {
           template: require('view/history/directory/modal.html'),
@@ -132,8 +175,50 @@ module.exports = function($stateProvider, $urlRouterProvider) {
         }
       }
     })
+    .state('history_edit.shareholder_edit', {
+      url: '/new/shareholder/{shareholderId:.*}',
+      params: {
+        index: null,
+        shareholderId: null,
+        name: null,
+        gender: null,
+        cardNo: null,
+        takes: null,
+        person_id: null,
+        changed_type: null,
+        memo: null,
+      },
+      stateName: '股东',
+      views: {
+        'shareholder': {
+          template: require('view/history/shareholder/modal.html'),
+          controller: require('view/history/shareholder/modal')
+        }
+      }
+    })
+
     .state('history_edit.directory_add', {
       url: '/new/directory',
+      stateName: '董事',
+      views: {
+        'directory': {
+          template: require('view/history/directory/modal.html'),
+          controller: require('view/history/directory/modal')
+        }
+      }
+    })
+    .state('history_edit.directory_edit', {
+      url: '/new/director/{directoryId:.*}',
+      params: {
+        index: null,
+        directoryId: null,
+        name: null,
+        gender: null,
+        cardNo: null,
+        person_id: null,
+        changed_type: null,
+        memo: null,
+      },
       stateName: '董事',
       views: {
         'directory': {
