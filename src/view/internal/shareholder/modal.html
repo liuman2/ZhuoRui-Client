@@ -1,0 +1,48 @@
+<div class="modal" style="display: block;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" ui-sref="^">
+          <span aria-hidden="true">×</span></button>
+        <h4 class="modal-title" ng-bind="title">股东</h4>
+      </div>
+      <div class="modal-body">
+        <form class="form-horizontal" id="shareholder_modal">
+          <div class="form-group">
+            <label class="col-sm-2 control-label">姓名<span class="required">*</span></label>
+            <div class="col-sm-8">
+              <input type="text" class="form-control" name="shareholder.name" ng-model="shareholder.name" data-rule="required; length[~30];">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">性别</label>
+            <div class="col-sm-8">
+              <select class="form-control select2" ng-model="shareholder.gender">
+                <option value="">选择性别</option>
+                <option value="男">男</option>
+                <option value="女">女</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">身份证</label>
+            <div class="col-sm-8">
+              <input type="text" class="form-control" name="shareholder.cardNo" ng-model="shareholder.cardNo" data-rule="length[~50];">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">股份比例</label>
+            <div class="col-sm-8">
+              <input type="text" class="form-control" name="shareholder.takes" ng-model="shareholder.takes" data-rule-money="[/^(([1-9]\d{0,9})|0)(\.\d{1,2})?$/, '请填写2位数的数值']" data-rule="money;">
+            </div>
+            <span style="display: inline-block;line-height: 34px;">%</span>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default pull-left" data-dismiss="modal" ui-sref="^">取消</button>
+        <button type="button" class="btn btn-primary" ng-click="save()">确定</button>
+      </div>
+    </div>
+  </div>
+</div>

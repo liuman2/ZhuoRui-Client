@@ -30,6 +30,24 @@ var router = function($stateProvider, $urlRouterProvider) {
         }
       }
     })
+    .state('abroad_add.shareholder_edit', {
+      url: '/new/shareholder/{shareholderId:.*}',
+      params: {
+        index: null,
+        shareholderId: null,
+        name: null,
+        gender: null,
+        cardNo: null,
+        takes: null,
+      },
+      stateName: '股东',
+      views: {
+        'shareholder': {
+          template: require('view/abroad/shareholder/modal.html'),
+          controller: require('view/abroad/shareholder/modal')
+        }
+      }
+    })
     .state('abroad_edit.shareholder_add', {
       url: '/new/shareholder',
       stateName: '股东',
@@ -62,6 +80,23 @@ var router = function($stateProvider, $urlRouterProvider) {
     //
     .state('abroad_add.director_add', {
       url: '/new/director',
+      stateName: '董事',
+      views: {
+        'shareholder': {
+          template: require('view/abroad/director/modal.html'),
+          controller: require('view/abroad/director/modal')
+        }
+      }
+    })
+    .state('abroad_add.director_edit', {
+      url: '/new/director/{directorId:.*}',
+      params: {
+        index: null,
+        directorId: null,
+        name: null,
+        gender: null,
+        cardNo: null,
+      },
       stateName: '董事',
       views: {
         'shareholder': {
