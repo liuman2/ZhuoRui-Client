@@ -36,6 +36,7 @@ module.exports = function($scope, $state, $stateParams, $timeout) {
       name: $stateParams.name,
       gender: $stateParams.gender,
       cardNo: $stateParams.cardNo,
+      position: $stateParams.position,
       takes: $stateParams.takes,
       type: '股东',
     }

@@ -17,7 +17,7 @@ module.exports = function($scope, $state, $stateParams, $timeout) {
     cardNo: '',
     position: '',
     takes: '',
-    type: '董事',
+    type: '监事',
   }
 
   $scope.save = function() {
@@ -29,14 +29,14 @@ module.exports = function($scope, $state, $stateParams, $timeout) {
     });
   }
 
-  $scope.title = !!directorId ? '修改董事' : '添加董事'
+  $scope.title = !!directorId ? '修改监事' : '添加监事'
   if (directorId) {
     $scope.director = {
       id: $stateParams.directorId,
       name: $stateParams.name,
       gender: $stateParams.gender,
       cardNo: $stateParams.cardNo,
-      type: '董事',
+      type: '监事',
     }
   }
 };

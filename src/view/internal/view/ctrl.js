@@ -280,12 +280,6 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
       if (data.order.names.length) {
         data.order.nameList = JSON.parse(data.order.names);
       }
-      data.order.shareholderList = [];
-      data.order.shareholders = data.order.shareholders || '';
-      if (data.order.shareholders.length) {
-        data.order.shareholderList = JSON.parse(data.order.shareholders);
-      }
-
       data.items = data.items || [];
       if (data.items.length) {
         var arrs = data.items.filter(function(item, i) {
@@ -350,9 +344,9 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
         $scope.priceList = data.items || [];
       }
 
-
       data.order.name_cn = data.order.name_cn || '';
       $scope.data = data.order;
+      $scope.data.shareholderList = data.shareholderList || [];
       $scope.incomes = data.incomes;
 
       loadAttachments();

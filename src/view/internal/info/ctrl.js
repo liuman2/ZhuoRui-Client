@@ -61,8 +61,9 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
       name: '',
       isFormal: false
     }],
+    is_annual: 0,
     shareholderList: [],
-    is_annual: 0
+    directorList: []
   }
 
   $scope.priceList = [];
@@ -128,12 +129,32 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
     }
   });
 
+  function newGuid() {
+    var guid = "";
+    for (var i = 1; i <= 32; i++){
+      var n = Math.floor(Math.random()*16.0).toString(16);
+      guid +=   n;
+      if((i==8)||(i==12)||(i==16)||(i==20))
+        guid += "-";
+    }
+    return guid;
+  }
+
   $scope.$on('SHAREHOLDER_DONE', function(e, result) {
-    console.log(result);
     if (result.index == null) {
+      result.shareholder.id = newGuid();
       $scope.data.shareholderList.push(result.shareholder);
     } else {
       $scope.data.shareholderList[result.index - 0] = result.shareholder;
+    }
+  });
+
+  $scope.$on('DIRECTOR_DONE', function(e, result) {
+    if (result.index == null) {
+      result.director.id = newGuid();
+      $scope.data.directorList.push(result.director);
+    } else {
+      $scope.data.directorList[result.index - 0] = result.director;
     }
   });
 
@@ -165,17 +186,24 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
     var isWaiterVaild = valid_waiter();
     var isCurrencyValid = true; // valid_currency();
     jForm.isValid(function(v) {
+      if (!v) {
+        if (
+          !$('input[ref="name_input"]').isValid() ||
+          !$('input[name="code"]').isValid()) {
+
+          $scope.activeTab = 0;
+          $scope.$apply();
+          return;
+        }
+      }
+
       if (v) {
         if (!isCustomerValid || !isWaiterVaild || !isCurrencyValid) {
           return;
         }
         var submitData = angular.copy($scope.data);
         submitData.names = JSON.stringify(submitData.nameList);
-        submitData.shareholders = JSON.stringify(submitData.shareholderList);
-        // submitData.prices = JSON.stringify(submitData.priceList);
         submitData.amount_transaction = $scope.getTotal();
-
-        // submitData.date_setup = $('#date_setup').val();
         submitData.date_transaction = $('#date_transaction').val();
         var url = $scope.action == 'add' ? '/RegInternal/Add' : '/RegInternal/Update';
         var data = {
@@ -202,6 +230,16 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
             items: $scope.priceList,
           };
         }
+
+        submitData.shareholderList = submitData.shareholderList || [];
+        if (submitData.shareholderList.length) {
+          submitData.shareholderList.forEach(function(item, i) {
+            if (item.id != null && typeof(item.id) == 'string' && item.id.indexOf('-') > -1) {
+              item.id = null;
+            }
+          });
+        }
+        data.shareholderList = submitData.shareholderList || [];
 
         $http({
           method: 'POST',
@@ -282,16 +320,33 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
   $scope.editShareholder = function(index, shareholder) {
     $state.go('.shareholder_edit', {
       index: index,
+      shareholderId: shareholder.id,
       name: shareholder.name,
       gender: shareholder.gender,
       cardNo: shareholder.cardNo,
       position: shareholder.position,
+      type: '股东',
       takes: shareholder.takes,
     }, { location: false });
   }
 
   $scope.deleteShareholder = function(index, item) {
     $scope.data.shareholderList.splice(index, 1);
+  }
+
+  $scope.editDirector = function(index, director) {
+    $state.go('.director_edit', {
+      index: index,
+      directorId: director.id,
+      name: director.name,
+      gender: director.gender,
+      cardNo: director.cardNo,
+      type: '监事',
+    }, { location: false });
+  }
+
+  $scope.deleteDirector = function(index, item) {
+    $scope.data.directorList.splice(index, 1);
   }
 
   $scope.editRegItem = function(index, price) {
@@ -399,6 +454,7 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
       }
     }).success(function(data) {
       var order = data.order;
+
       if (order.date_transaction && order.date_transaction.indexOf('T') > -1) {
         order.date_transaction = order.date_transaction.split('T')[0];
       }
@@ -407,24 +463,15 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
       if (order.names.length) {
         order.nameList = JSON.parse(order.names);
       }
-
-      order.shareholderList = [];
-      order.shareholders = order.shareholders || '';
-      if (order.shareholders.length) {
-        order.shareholderList = JSON.parse(order.shareholders);
-      }
-
       // data.priceList = [];
       // data.prices = data.prices || '';
       // if (data.prices.length) {
       //   data.priceList = JSON.parse(data.prices);
       // }
 
-
-
       $scope.data = order;
       $scope.priceList = data.items;
-
+      $scope.data.shareholderList = data.shareholderList || [];
       var temp_rate = {
         rate: $scope.data.rate,
         currency: $scope.data.currency

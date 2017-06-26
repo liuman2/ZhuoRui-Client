@@ -63,6 +63,7 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
       cardNo: shareholder.cardNo,
       type: '股东',
       takes: shareholder.takes,
+      position: shareholder.position,
       person_id: shareholder.person_id,
       changed_type: shareholder.changed_type,
       memo: shareholder.memo,
@@ -159,11 +160,11 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
         key: 'director',
         value: '公司监事',
         map: false
-      }, {
+      }/*, {
         key: 'shareholder',
         value: '公司股东',
         map: false
-      }, {
+      }*/, {
         key: 'others',
         value: '其他变更',
         map: false

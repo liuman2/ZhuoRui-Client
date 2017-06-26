@@ -56,8 +56,8 @@
     <div class="nav-tabs-custom">
       <ul class="nav nav-tabs">
         <li ng-class="{'active': activeTab == 0}"><a data-toggle="tab" ng-click="onTab(0)">基础变更</a></li>
-        <li ng-class="{'active': activeTab == 1}"><a data-toggle="tab"  ng-click="onTab(1)">股东变更</a></li>
-        <li ng-class="{'active': activeTab == 2}"><a data-toggle="tab" ng-click="onTab(2)">董事变更</a></li>
+        <li ng-class="{'active': activeTab == 1}"><a data-toggle="tab"  ng-click="onTab(1)" ng-if="module.id == 'abroad' || module.id == 'internal'">股东变更</a></li>
+        <li ng-class="{'active': activeTab == 2}"><a data-toggle="tab" ng-click="onTab(2)" ng-if="module.id == 'abroad'">董事变更</a></li>
       </ul>
       <div class="tab-content">
         <div class="tab-pane" ng-class="{'active': activeTab == 0}">

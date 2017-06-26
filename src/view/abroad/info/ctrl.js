@@ -334,7 +334,6 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
   }
 
   $scope.$on('SHAREHOLDER_DONE', function(e, result) {
-    console.log(result);
     if (result.index == null) {
       result.shareholder.id = newGuid();
       $scope.data.shareholderList.push(result.shareholder);
