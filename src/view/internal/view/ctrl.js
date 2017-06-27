@@ -20,8 +20,25 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
   };
   $scope.hasBase = false;
   $scope.activeTab = 0;
+
+  $scope.holderViewHistory = false;
+  $scope.historyShareholder = [];
+
   $scope.onTab = function(activeIndex) {
     $scope.activeTab = activeIndex;
+  }
+
+  $scope.getChangeName = function(type) {
+    switch(type) {
+      case 'new':
+        return '新进';
+      case 'exit':
+        return '退出';
+      case 'takes':
+        return '股份调整';
+      default:
+        return '';
+    }
   }
 
   $scope.getTotal = function() {
@@ -183,6 +200,27 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
     $state.go(".done", { module_name: 'RegInternal' }, { location: false });
   }
 
+  $scope.getHistoryTitle = function(key) {
+    var titleInfo = '无变更记录'
+    if ($scope.historyRecord[key]) {
+      var titleInfo = $scope.historyRecord[key];
+      if ($scope.historyRecord[key].indexOf('|') > -1) {
+        var titles = $scope.historyRecord[key].split('|');
+        var title1 = '<span style="width: 80px; margin-right: 10px; text-align: right; display: inline-block;">变更前：</span>' + titles[0];
+        var title2 = '<span style="width: 80px; margin-right: 10px; text-align: right; display: inline-block;">变更时间：</span>' + titles[1];
+        titleInfo = title1 + '</br>' + title2;
+      }
+    }
+
+    $('.' + key).tooltipster({
+      theme: 'tooltipster-sideTip-shadow',
+      content: titleInfo,
+      contentAsHTML: true
+    });
+
+    return '';
+  }
+
   $scope.getOrderStatus = function() {
     switch ($scope.data.status) {
       case 0:
@@ -275,7 +313,8 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
         id: id
       }
     }).success(function(data) {
-      console.log(data);
+      $scope.historyRecord = data.historyReocrd;
+
       data.order.names = data.order.names || '';
       if (data.order.names.length) {
         data.order.nameList = JSON.parse(data.order.names);
@@ -371,6 +410,26 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
           loadAttachments();
         });
       }
+    });
+  }
+
+  $scope.getHolderHistory = function(type) {
+    if (type == '股东' && $scope.holderViewHistory) {
+      $scope.holderViewHistory = false;
+      return;
+    }
+
+    $http({
+      method: 'GET',
+      url: '/RegInternal/HistoryHolder',
+      params: {
+        master_id: id,
+        source: 'reg_internal',
+        type: type,//'股东'
+      }
+    }).success(function(data) {
+      $scope.historyShareholder = data || [];
+      $scope.holderViewHistory = true;
     });
   }
 

@@ -190,7 +190,7 @@ module.exports = function($scope, $state, $http, $q, $timeout, $cookieStore) {
       var titleInfo = $scope.historyRecord[key];
       if ($scope.historyRecord[key].indexOf('|') > -1) {
         var titles = $scope.historyRecord[key].split('|');
-        var title1 = '<span style="width: 80px; margin-right: 10px; text-align: right; display: inline-block;">上次历史值：</span>' + titles[0];
+        var title1 = '<span style="width: 80px; margin-right: 10px; text-align: right; display: inline-block;">变更前：</span>' + titles[0];
         var title2 = '<span style="width: 80px; margin-right: 10px; text-align: right; display: inline-block;">变更时间：</span>' + titles[1];
         titleInfo = title1 + '</br>' + title2;
       }

@@ -40,8 +40,31 @@ module.exports = function($scope, $http, $state, $stateParams, $cookieStore) {
     load_data();
   };
 
-  $scope.new_annual = function(item, type) {
+  function go2Timeline(item) {
     console.log(item);
+    var url = '';
+    switch(item.order_type) {
+      case 'reg_abroad':
+        url = $state.href('abroad_timeline', { id: item.id, name: 'reg_abroad', code: item.order_code, source: 'warning' });
+        window.open(url,'_blank');
+        break;
+      case 'reg_internal':
+        url = $state.href('internal_timeline', { id: item.id, name: 'reg_internal', code: item.order_code, source: 'warning' });
+        window.open(url,'_blank');
+        break;
+      case 'trademark':
+        url = $state.href('trademark_timeline', { id: item.id, name: 'trademark', code: item.order_code, source: 'warning' });
+        window.open(url,'_blank');
+        break;
+      case 'patent':
+        url = $state.href('patent_timeline', { id: item.id, name: 'patent', code: item.order_code, source: 'warning' });
+        window.open(url,'_blank');
+        break;
+    }
+
+  }
+
+  $scope.new_annual = function(item, type) {
     switch (type) {
       case 'annual':
         $state.go("annual_add", { order_type: item.order_type, order_id: item.id });
@@ -69,6 +92,9 @@ module.exports = function($scope, $http, $state, $stateParams, $cookieStore) {
             });
           }
         });
+        break;
+      case 'log':
+        go2Timeline(item);
         break;
     }
   };
