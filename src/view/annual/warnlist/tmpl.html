@@ -94,7 +94,9 @@
               <!-- <a href="javascript:;" ng-click="new_annual(item, 'audit')" ng-if="opers.indexOf(5) > -1 && (item.order_type == 'reg_abroad' || item.order_type == 'reg_internal')"> 马上审计</a> -->
               <a href="javascript:;" ng-click="new_annual(item, 'annual')" ng-if="opers.indexOf(5) > -1"> 马上年检</a>
               <!-- <a href="javascript:;" ng-click="new_annual(item, 'done')" ng-if="opers.indexOf(5) > -1"> 已年检</a> -->
-              <a href="javascript:;"  target="_blank" ng-click="new_annual(item, 'log')" ng-if="opers.indexOf(5) > -1"> 日志</a>
+              <a href="javascript:;" ng-click="new_annual(item, 'out')" ng-if="opers.indexOf(5) > -1 && item.order_type == 'reg_abroad'"> 转出</a>
+              <!-- <a href="javascript:;" ng-click="new_annual(item, 'logout')" ng-if="opers.indexOf(5) > -1"> 注销</a> -->
+              <a href="javascript:;" ng-click="new_annual(item, 'log')" ng-if="opers.indexOf(5) > -1"> 日志</a>
               <span ng-if="opers.indexOf(5) == -1"> 无年检权限</span>
             </td>
           </tr>

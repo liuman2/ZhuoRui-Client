@@ -96,6 +96,52 @@ module.exports = function($scope, $http, $state, $stateParams, $cookieStore) {
       case 'log':
         go2Timeline(item);
         break;
+      case 'out':
+        // 0 正常 1 转出 2 注销
+        $.confirm({
+          title: false,
+          content: '您确认要转出该笔订单，转出后不能再年检',
+          confirmButton: '确定',
+          cancelButton: '取消',
+          confirm: function() {
+            console.log(item.order_type)
+            $http({
+              method: 'POST',
+              url: '/Annual/SetOrderStatus',
+              params: {
+                orderType: item.order_type,
+                orderId: item.id,
+                status: 1
+              }
+            }).success(function(data) {
+              load_data();
+            });
+          }
+        });
+        break;
+      case 'logout':
+        // 0 正常 1 转出 2 注销
+        $.confirm({
+          title: false,
+          content: '您确认要注销该笔订单，注销后不能再年检',
+          confirmButton: '确定',
+          cancelButton: '取消',
+          confirm: function() {
+            console.log(item.order_type)
+            $http({
+              method: 'POST',
+              url: '/Annual/SetOrderStatus',
+              params: {
+                orderType: item.order_type,
+                orderId: item.id,
+                status: 2
+              }
+            }).success(function(data) {
+              load_data();
+            });
+          }
+        });
+        break;
     }
   };
 

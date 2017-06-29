@@ -21,6 +21,19 @@ var router = function($stateProvider, $urlRouterProvider) {
       template: require('view/annual/info/tmpl.html'),
       controller: require('view/annual/info/ctrl')
     })
+    .state('annual_add.customer_edit', {
+      url: '/annual/customer/edit/{customer_id:.*}',
+      views: {
+        'modal': {
+          template: require('view/common/customer/modal.html'),
+          controller: require('view/common/customer/modal')
+        }
+      }
+    })
+
+
+
+
     .state('annual_edit', {
       url: '/annual/edit/{id:.*}',
       template: require('view/annual/info/tmpl.html'),

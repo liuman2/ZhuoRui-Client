@@ -349,4 +349,16 @@ module.exports = function($scope, $state, $http, $q, $timeout, $cookieStore) {
   $scope.$on('ATTACHMENT_MODAL_DONE', function(e) {
     loadAttachments();
   });
+
+  $scope.getOrderAnnType = function(status) {
+    var statusName = status - 0;
+    switch(statusName) {
+      case 0:
+        return '正常';
+      case 1:
+        return '转秘书(转出)';
+      case 2:
+        return '注销';
+    }
+  }
 };

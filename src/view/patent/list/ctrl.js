@@ -144,7 +144,13 @@ module.exports = function($scope, $http, $state, $stateParams) {
     load_data();
   });
 
-  $scope.getOrderStatus = function(status) {
+  $scope.getOrderStatus = function(status, orderStatus) {
+    if (orderStatus != 0) {
+      if (orderStatus == 1) {
+        return '转出'
+      }
+      return '注销';
+    }
     switch (status) {
       case 0:
         return '未提交';

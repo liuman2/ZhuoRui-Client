@@ -42,6 +42,8 @@
               <option value="1">未审核</option>
               <option value="2">已审核</option>
               <option value="4">完成</option>
+              <option value="5">转出</option>
+              <option value="6">注销</option>
             </select>
           </div>
         </div>
@@ -111,7 +113,7 @@
             <td ng-bind="item.name_cn" ng-attr-title="{{item.name_cn}}"></td>
             <td ng-bind="item.name_en" ng-attr-title="{{item.name_en}}"></td>
             <td>
-              <span class="label" ng-class="{'label-warning': (item.status==0), 'label-success': (item.status==4), 'label-info': (item.status != 0 && item.status != 4)}" ng-bind="getOrderStatus(item.status)"></span>
+              <span class="label" ng-class="{'label-warning': (item.status==0 || item.order_status != 0), 'label-success': (item.status==4 && item.order_status == 0), 'label-info': (item.status != 0 && item.status != 4)}" ng-bind="getOrderStatus(item.status, item.order_status)"></span>
             </td>
             <td>
               <span id="tool-tip{{$index}}" style="cursor: default;" class="label" ng-attr-title="{{getTitle(item, $index)}}" ng-class="{'label-warning': (item.review_status==-1), 'label-success': (item.review_status==1), 'label-danger': (item.review_status==0)}" ng-bind="getReviewStatus(item.status, item.review_status)">

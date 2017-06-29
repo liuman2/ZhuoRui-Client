@@ -29,7 +29,7 @@ module.exports = function($scope, $state, $http, $cookieStore, $q, $timeout) {
     actionView();
   }
 
-  AREA_Module.area.provinceList.shift();
+  // AREA_Module.area.provinceList.shift();
   $scope.provinceList = AREA_Module.area.provinceList;
 
   $scope.changeProvince = function() {

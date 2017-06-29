@@ -245,4 +245,9 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
       return true;
     }
   }
+
+  $scope.$on('CUSTOMER_DONE', function(e, result) {
+    $scope.customerInfo = result.customer;
+    $scope.$apply();
+  });
 };
