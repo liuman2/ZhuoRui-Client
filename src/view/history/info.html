@@ -55,9 +55,10 @@
 
     <div class="nav-tabs-custom">
       <ul class="nav nav-tabs">
-        <li ng-class="{'active': activeTab == 0}"><a data-toggle="tab" ng-click="onTab(0)">基础变更</a></li>
-        <li ng-class="{'active': activeTab == 1}"><a data-toggle="tab"  ng-click="onTab(1)" ng-if="module.id == 'abroad' || module.id == 'internal'">股东变更</a></li>
-        <li ng-class="{'active': activeTab == 2}"><a data-toggle="tab" ng-click="onTab(2)" ng-if="module.id == 'abroad'">董事变更</a></li>
+        <li ng-class="{'active': activeTab == 0}"><a data-toggle="tab" ng-show="!data.logoff" ng-click="onTab(0)">基础变更</a></li>
+        <li ng-class="{'active': activeTab == 1}"><a data-toggle="tab" ng-show="!data.logoff" ng-click="onTab(1)" ng-if="module.id == 'abroad' || module.id == 'internal'">股东变更</a></li>
+        <li ng-class="{'active': activeTab == 2}"><a data-toggle="tab" ng-show="!data.logoff" ng-click="onTab(2)" ng-if="module.id == 'abroad'">董事变更</a></li>
+        <li ng-class="{'active': activeTab == 3}"><a data-toggle="tab" ng-click="onTab(3)">注销</a></li>
       </ul>
       <div class="tab-content">
         <div class="tab-pane" ng-class="{'active': activeTab == 0}">
@@ -149,10 +150,32 @@
             <button type="button" class="btn btn-info" ui-sref=".directory_add()" ui-sref-opts="{location:false}">添加董事变更</button>
           </div>
         </div>
+        <div class="tab-pane" ng-class="{'active': activeTab == 3}">
+          <div class="box-body">
+            <div class="form-group">
+              <label class="col-sm-3 control-label">档案号</label>
+              <div class="col-sm-7">
+                <input type="text" class="form-control" ng-model="module.code" disabled>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-3 control-label">是否注销</label>
+              <div class="col-sm-7">
+                <input type="checkbox" name="logoff" ng-model="data.logoff" ng-checked="data.logoff" style="position: absolute; top: 5px;">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-3 control-label">备注</label>
+              <div class="col-sm-7">
+                <textarea class="form-control" rows="3" name="logoff_memo" ng-model="data.logoff_memo" data-rule="length[~100];"></textarea>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
-    <div class="box box-danger" style="padding-bottom: 20px;">
+    <div class="box box-danger" style="padding-bottom: 50px;">
       <div class="box-header with-border">
         <h3 class="box-title">订单信息</h3>
         <div class="box-tools">

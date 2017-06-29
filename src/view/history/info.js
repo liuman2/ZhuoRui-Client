@@ -104,7 +104,9 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
     rate: '',
     currency: '',
     shareholderList: [],
-    directoryList: []
+    directoryList: [],
+    logoff: 0,
+    logoff_memo: ''
   }
 
   var fields = [];
@@ -278,7 +280,7 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
           return;
         }
 
-        if ($scope.data.changes.length == 0 && $scope.data.shareholderList.length == 0 && $scope.data.directoryList.length == 0) {
+        if ($scope.data.changes.length == 0 && $scope.data.shareholderList.length == 0 && $scope.data.directoryList.length == 0 &&  $scope.data.logoff == 0) {
           alert('您没输入任何变更数据');
           return;
         }
@@ -297,7 +299,7 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
 
         $scope.data.value = JSON.stringify(changeObj);
 
-        if ($scope.data.changes.length > 0 && $scope.data.value == '{}') {
+        if ($scope.data.changes.length > 0 && $scope.data.value == '{}' &&  $scope.data.logoff == 0) {
           alert('您没选择变更字段');
           return;
         }
@@ -449,6 +451,10 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
       $scope.data.shareholderList = data.shareholderList || [];
       $scope.data.directoryList = data.directoryList || [];
       $scope.fieldChange();
+
+      if ($scope.data.logoff) {
+        $scope.activeTab = 3;
+      }
     });
   }
 

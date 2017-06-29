@@ -316,6 +316,10 @@ module.exports = function($scope, $state, $http, $q, $timeout, $cookieStore) {
       $scope.data.shareholderList = data.shareholderList || [];
       $scope.data.directoryList = data.directoryList || [];
 
+      if ($scope.data.logoff) {
+        $scope.activeTab = 3;
+      }
+
       setModuleInfo(data.order);
     });
   }
