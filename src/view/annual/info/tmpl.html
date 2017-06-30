@@ -187,7 +187,7 @@
               <span class="form-span" ng-bind="customerInfo.contact"></span>
             </div>
           </div>
-          <div class="form-group mb-0">
+          <!-- <div class="form-group mb-0">
             <label class="col-sm-2 control-label">手机:</label>
             <div class="col-sm-8">
               <span class="form-span" ng-bind="customerInfo.mobile"></span>
@@ -198,14 +198,14 @@
             <div class="col-sm-8">
               <span class="form-span" ng-bind="customerInfo.tel"></span>
             </div>
-          </div>
+          </div> -->
           <div class="form-group mb-0">
             <label class="col-sm-2 control-label">传真:</label>
             <div class="col-sm-8">
               <span class="form-span" ng-bind="customerInfo.fax"></span>
             </div>
           </div>
-          <div class="form-group mb-0">
+          <!-- <div class="form-group mb-0">
             <label class="col-sm-2 control-label">邮箱:</label>
             <div class="col-sm-8">
               <span class="form-span" ng-bind="customerInfo.email"></span>
@@ -222,7 +222,7 @@
             <div class="col-sm-8">
               <span class="form-span" ng-bind="customerInfo.wechat"></span>
             </div>
-          </div>
+          </div> -->
           <div class="form-group mb-0">
             <label class="col-sm-2 control-label">业务员:</label>
             <div class="col-sm-8">
@@ -266,7 +266,7 @@
             </tbody>
           </table>
           <div class="box-footer clearfix">
-            <!-- <button type="button" class="btn btn-info" ui-sref=".contact_add()" ui-sref-opts="{location:false}">新增</button> -->
+            <button type="button" class="btn btn-info" ui-sref=".contact_add({customer_id: customerInfo.id})" ui-sref-opts="{location:false}">新增</button>
           </div>
         </div>
       </div>

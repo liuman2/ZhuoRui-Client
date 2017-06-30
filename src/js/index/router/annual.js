@@ -30,6 +30,36 @@ var router = function($stateProvider, $urlRouterProvider) {
         }
       }
     })
+    .state('annual_add.contact_add', {
+      url: '/annual/contact/edit/{customer_id:.*}',
+      views: {
+        'modal': {
+          template: require('view/common/contact/modal.html'),
+          controller: require('view/common/contact/modal')
+        }
+      }
+    })
+    .state('annual_add.contact_edit', {
+      url: '/annual/contact/edit/{customer_id:.*}',
+      params: {
+        index: null,
+        contactId: null,
+        name: null,
+        mobile: null,
+        tel: null,
+        position: null,
+        email: null,
+        wechat: null,
+        QQ: null
+      },
+      stateName: '联系人',
+      views: {
+        'modal': {
+          template: require('view/common/contact/modal.html'),
+          controller: require('view/common/contact/modal')
+        }
+      }
+    })
 
 
 
@@ -39,6 +69,46 @@ var router = function($stateProvider, $urlRouterProvider) {
       template: require('view/annual/info/tmpl.html'),
       controller: require('view/annual/info/ctrl')
     })
+    .state('annual_edit.customer_edit', {
+      url: '/annual/customer/edit/{customer_id:.*}',
+      views: {
+        'modal': {
+          template: require('view/common/customer/modal.html'),
+          controller: require('view/common/customer/modal')
+        }
+      }
+    })
+    .state('annual_edit.contact_add', {
+      url: '/annual/contact/edit/{customer_id:.*}',
+      views: {
+        'modal': {
+          template: require('view/common/contact/modal.html'),
+          controller: require('view/common/contact/modal')
+        }
+      }
+    })
+    .state('annual_edit.contact_edit', {
+      url: '/annual/contact/edit/{customer_id:.*}',
+      params: {
+        index: null,
+        contactId: null,
+        name: null,
+        mobile: null,
+        tel: null,
+        position: null,
+        email: null,
+        wechat: null,
+        QQ: null
+      },
+      stateName: '联系人',
+      views: {
+        'modal': {
+          template: require('view/common/contact/modal.html'),
+          controller: require('view/common/contact/modal')
+        }
+      }
+    })
+
     .state('annual_view', {
       url: '/annual/view/{id:.*}',
       template: require('view/annual/view/tmpl.html'),

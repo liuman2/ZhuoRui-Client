@@ -1,9 +1,6 @@
 module.exports = function($scope, $state, $stateParams, $timeout) {
-  var index = $state.params.index || null;
-
-
-  console.log($scope.data.currency)
-
+  var contactId = $state.params.contactId || null;
+  var index = $stateParams.index;
   var jForm = $('#contact_modal');
   jForm.validator({
     rules: {},
@@ -11,6 +8,7 @@ module.exports = function($scope, $state, $stateParams, $timeout) {
   });
 
   $scope.contact = {
+    id: '',
     name: '',
     mobile: '',
     tel: '',
@@ -23,16 +21,16 @@ module.exports = function($scope, $state, $stateParams, $timeout) {
   $scope.save = function() {
     jForm.isValid(function(v) {
       if (v) {
-        // angular.copy($scope.contact);
-        $scope.$emit('CONTACT_DONE', { contact: $scope.contact, index: index });
+        $scope.$emit('CONTACT_DONE', { contact: $scope.contact, index: $stateParams.index });
         $state.go('^');
       }
     });
   }
 
   $scope.title = !!index ? '修改联系人' : '添加联系人'
-  if (index) {
+  if (contactId) {
     $scope.contact = {
+      id: $stateParams.contactId,
       name: $stateParams.name,
       mobile: $stateParams.mobile,
       tel: $stateParams.tel,

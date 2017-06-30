@@ -34,6 +34,8 @@ var router = function($stateProvider, $urlRouterProvider) {
     .state('customer_add.contact_edit', {
       url: '/new/contact/{index:.*}',
       params: {
+        index: null,
+        contactId: null,
         name: null,
         mobile: null,
         tel: null,
@@ -69,6 +71,8 @@ var router = function($stateProvider, $urlRouterProvider) {
     .state('customer_edit.contact_edit', {
       url: '/new/contact/{index:.*}',
       params: {
+        index: null,
+        contactId: null,
         name: null,
         mobile: null,
         tel: null,

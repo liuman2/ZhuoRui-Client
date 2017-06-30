@@ -133,12 +133,14 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
         id: id
       }
     }).success(function(data) {
-      data.contacts = data.contacts || '';
-      data.contactList = [];
-      if (data.contacts != '') {
-        data.contactList = JSON.parse(data.contacts)
-      }
-      $scope.data = data;
+      var customer = data.customer;
+      var contacts = data.contacts || [];
+
+      customer.assistantList = customer.assistantList || [];
+
+      $scope.data = customer;
+      $scope.data.contactList = contacts;
+
       getOrders();
       loadAttachments();
     });

@@ -70,12 +70,10 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
         customer_id: $scope.data.customer_id
       }
     }).success(function(data) {
-      data.contacts = data.contacts || '';
-      data.contactList = [];
-      if (data.contacts != '') {
-        data.contactList = JSON.parse(data.contacts)
-      }
-      $scope.customerInfo = data;
+      var customer = data.customer;
+      var contacts = data.contacts || [];
+      $scope.customerInfo = customer;
+      $scope.customerInfo.contactList = contacts;
     });
   }
 

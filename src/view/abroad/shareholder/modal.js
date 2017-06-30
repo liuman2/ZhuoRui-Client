@@ -1,9 +1,5 @@
 module.exports = function($scope, $state, $stateParams, $timeout) {
   var shareholderId = $state.params.shareholderId || null;
-
-
-  console.log($scope.data.currency)
-
   var jForm = $('#shareholder_modal');
   jForm.validator({
     rules: {},

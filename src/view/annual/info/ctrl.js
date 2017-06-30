@@ -125,14 +125,23 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
         customer_id: $scope.data.customer_id
       }
     }).success(function(data) {
-      data.contacts = data.contacts || '';
-      data.contactList = [];
-      if (data.contacts != '') {
-        data.contactList = JSON.parse(data.contacts)
-      }
-      $scope.customerInfo = data;
+      var customer = data.customer;
+      var contacts = data.contacts || [];
+      $scope.customerInfo = customer;
+      $scope.customerInfo.contactList = contacts;
     });
   }
+
+  $scope.$on('CONTACT_DONE', function(e, result) {
+    // TODO
+    console.log(result)
+    // if (result.index == null) {
+    //   result.contact.id = newGuid();
+    //   $scope.data.contactList.push(result.contact);
+    // } else {
+    //   $scope.data.contactList[result.index - 0] = result.contact;
+    // }
+  });
 
   function getBusinessOrder() {
     $http({
