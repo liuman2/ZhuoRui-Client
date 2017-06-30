@@ -132,16 +132,48 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
     });
   }
 
+  $scope.editContact = function(index, contact) {
+    $state.go('.contact_edit', {
+      index: index,
+      contactId: contact.id,
+      name: contact.name,
+      mobile: contact.mobile,
+      tel: contact.tel,
+      position: contact.position,
+      email: contact.email,
+      wechat: contact.wechat,
+      QQ: contact.QQ
+    }, { location: false });
+  }
+
   $scope.$on('CONTACT_DONE', function(e, result) {
-    // TODO
     console.log(result)
-    // if (result.index == null) {
-    //   result.contact.id = newGuid();
-    //   $scope.data.contactList.push(result.contact);
-    // } else {
-    //   $scope.data.contactList[result.index - 0] = result.contact;
-    // }
+
+    if (result.contact.id == '') {
+      result.contact.id = 0;
+    }
+    result.contact.customer_id = $scope.data.customer_id;
+    $http({
+      method: 'POST',
+      url: '/Customer/UpdateContact',
+      data: result.contact
+    }).success(function(data) {
+     if (result.index == null) {
+        $scope.customerInfo.contactList.push(data);
+      } else {
+        $scope.customerInfo.contactList[result.index - 0] = data;
+      }
+    });
   });
+
+  // $scope.oldClick = function() {
+  //   $http({
+  //     method: 'GET',
+  //     url: '/Customer/UpdateOldConatacts',
+  //   }).success(function(data) {
+  //    alert(0)
+  //   });
+  // }
 
   function getBusinessOrder() {
     $http({

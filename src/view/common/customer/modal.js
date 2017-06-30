@@ -9,9 +9,7 @@ module.exports = function($scope, $state, $http, $stateParams, $timeout) {
     fields: {}
   });
 
-  // AREA_Module.area.provinceList.shift();
   $scope.provinceList = AREA_Module.area.provinceList;
-
   $scope.changeProvince = function() {
     $scope.city = '';
     $scope.county = '';
@@ -21,12 +19,19 @@ module.exports = function($scope, $state, $http, $stateParams, $timeout) {
     $scope.county = '';
   }
 
-  $scope.sourceChange = function() {
-    console.log($scope.data.source)
+  $scope.mailProvinceList = AREA_Module.area.provinceList;
+  $scope.changeMailProvince = function() {
+    $scope.mailling_city = '';
+    $scope.mailling_county = '';
+  }
+
+  $scope.changeMailCity = function() {
+    $scope.mailling_county = '';
   }
 
   setTimeout(function() {
     setArea($scope.customer);
+    setMailArea($scope.customer);
   }, 10);
   function setArea(data) {
     var valProvince = AREA_Module.area.provinceIndex(data.province);
@@ -53,6 +58,32 @@ module.exports = function($scope, $state, $http, $stateParams, $timeout) {
 
     $scope.$apply();
   }
+  function setMailArea(data) {
+    var valProvince = AREA_Module.area.provinceIndex(data.mailling_province);
+    if (valProvince) {
+      $('select[name="mailling_province"]').val(valProvince).trigger('change');
+      $scope.mailling_province = $scope.mailProvinceList[valProvince - 0];
+    } else {
+      return;
+    }
+
+    var valCity = AREA_Module.area.cityIndex(data.mailling_city);
+    if (valCity) {
+      $('select[name="mailling_city"]').val(valCity).trigger('change');
+      $scope.mailling_city = $scope.mailling_province.cityList[valCity - 0];
+    } else {
+      return;
+    }
+
+    var valCounty = AREA_Module.area.areaIndex(data.mailling_county);
+    if (valCounty) {
+      $('select[name="mailling_county"]').val(valCounty).trigger('change');
+      $scope.mailling_county = $scope.mailling_city.areaList[valCounty - 0];
+    }
+
+    $scope.$apply();
+  }
+
 
   $scope.save = function() {
     jForm.isValid(function(v) {
@@ -69,6 +100,16 @@ module.exports = function($scope, $state, $http, $stateParams, $timeout) {
         }
         if ($scope.county) {
           postData.county = $scope.county;
+        }
+
+        if ($scope.mailling_province) {
+          postData.mailling_province = $scope.mailling_province.name;
+        }
+        if ($scope.mailling_city) {
+          postData.mailling_city = $scope.mailling_city.name;
+        }
+        if ($scope.mailling_county) {
+          postData.mailling_county = $scope.mailling_county;
         }
 
         $http({

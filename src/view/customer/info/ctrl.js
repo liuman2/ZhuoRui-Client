@@ -112,6 +112,16 @@ module.exports = function($scope, $state, $http, $cookieStore, $q, $timeout) {
           data.county = $scope.county;
         }
 
+        if ($scope.mailling_province) {
+          data.mailling_province = $scope.mailling_province.name;
+        }
+        if ($scope.mailling_city) {
+          data.mailling_city = $scope.mailling_city.name;
+        }
+        if ($scope.mailling_county) {
+          data.mailling_county = $scope.mailling_county;
+        }
+
         if (data.assistantList.length > 0) {
           var ids = [];
           $.map(data.assistantList, function(assistant, index) {

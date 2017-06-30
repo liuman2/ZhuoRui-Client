@@ -261,28 +261,34 @@
               <span class="form-span" ng-bind="customerInfo.name"></span>
             </div>
           </div>
-          <div class="form-group mb-0" ng-if="customerInfo.industry.length > 0">
+          <div class="form-group mb-0">
             <label class="col-sm-2 control-label">所在省:</label>
             <div class="col-sm-8">
               <span class="form-span" ng-bind="customerInfo.province"></span>
             </div>
           </div>
-          <div class="form-group mb-0" ng-if="customerInfo.city.length > 0">
+          <div class="form-group mb-0">
             <label class="col-sm-2 control-label">所在市:</label>
             <div class="col-sm-8">
               <span class="form-span" ng-bind="customerInfo.city"></span>
             </div>
           </div>
-          <div class="form-group mb-0" ng-if="customerInfo.county.length > 0">
+          <div class="form-group mb-0">
             <label class="col-sm-2 control-label">所在县:</label>
             <div class="col-sm-8">
               <span class="form-span" ng-bind="customerInfo.county"></span>
             </div>
           </div>
-          <div class="form-group mb-0" ng-if="customerInfo.address.length > 0">
+          <div class="form-group mb-0">
             <label class="col-sm-2 control-label">详细地址:</label>
             <div class="col-sm-8">
               <span class="form-span" ng-bind="customerInfo.address"></span>
+            </div>
+          </div>
+          <div class="form-group mb-0">
+            <label class="col-sm-2 control-label">寄件地址:</label>
+            <div class="col-sm-8">
+              <span class="form-span" ng-bind="customerInfo.mailling_province + customerInfo.mailling_city + customerInfo.mailling_county + customerInfo.mailling_address"></span>
             </div>
           </div>
           <!-- <div class="form-group mb-0" ng-if="customerInfo.contact.length > 0">

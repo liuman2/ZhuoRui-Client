@@ -182,6 +182,12 @@
             </div>
           </div>
           <div class="form-group mb-0">
+            <label class="col-sm-2 control-label">寄件地址:</label>
+            <div class="col-sm-8">
+              <span class="form-span" ng-bind="customerInfo.mailling_province + customerInfo.mailling_city + customerInfo.mailling_county + customerInfo.mailling_address"></span>
+            </div>
+          </div>
+          <div class="form-group mb-0">
             <label class="col-sm-2 control-label">联系人:</label>
             <div class="col-sm-8">
               <span class="form-span" ng-bind="customerInfo.contact"></span>
@@ -252,6 +258,7 @@
                 <th>邮箱</th>
                 <th>微信</th>
                 <th>QQ</th>
+                <th class="opt-col">操作</th>
               </tr>
               <tr ng-repeat="item in customerInfo.contactList">
                 <td ng-bind="($index+1)+'.'"></td>
@@ -262,6 +269,9 @@
                 <td ng-bind="item.email"></td>
                 <td ng-bind="item.wechat"></td>
                 <td ng-bind="item.QQ"></td>
+                <td class="opt-col">
+                  <a href="javascript:;" class="fa fa-pencil orange" ng-click="editContact($index, item)" title="修改"></a>
+                </td>
               </tr>
             </tbody>
           </table>
