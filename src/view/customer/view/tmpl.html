@@ -79,48 +79,12 @@
             <span class="form-span" ng-bind="data.mail_address"></span>
           </div>
         </div>
-        <!-- <div class="form-group">
-          <label class="col-sm-2 control-label">联系人:</label>
-          <div class="col-sm-8">
-            <span class="form-span" ng-bind="data.contact"></span>
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="col-sm-2 control-label">手机:</label>
-          <div class="col-sm-8">
-            <span class="form-span" ng-bind="data.mobile"></span>
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="col-sm-2 control-label">座机:</label>
-          <div class="col-sm-8">
-            <span class="form-span" ng-bind="data.tel"></span>
-          </div>
-        </div> -->
         <div class="form-group">
           <label class="col-sm-2 control-label">传真:</label>
           <div class="col-sm-8">
             <span class="form-span" ng-bind="data.fax"></span>
           </div>
         </div>
-        <!-- <div class="form-group">
-          <label class="col-sm-2 control-label">邮箱:</label>
-          <div class="col-sm-8">
-            <span class="form-span" ng-bind="data.email"></span>
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="col-sm-2 control-label">QQ:</label>
-          <div class="col-sm-8">
-            <span class="form-span" ng-bind="data.QQ"></span>
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="col-sm-2 control-label">微信:</label>
-          <div class="col-sm-8">
-            <span class="form-span" ng-bind="data.wechat"></span>
-          </div>
-        </div> -->
         <div class="form-group">
           <label class="col-sm-2 control-label">业务员:</label>
           <div class="col-sm-8">
@@ -168,22 +132,26 @@
           <tr>
             <th style="width: 10px">#</th>
             <th>联系人</th>
+            <th>对接事务</th>
             <th>手机</th>
             <th>座机</th>
             <th>职务</th>
             <th>邮箱</th>
             <th>QQ</th>
             <th>微信</th>
+            <th>备注</th>
           </tr>
           <tr ng-repeat="item in data.contactList">
             <td ng-bind="($index+1)+'.'"></td>
             <td ng-bind="item.name"></td>
+            <td ng-bind="item.responsable"></td>
             <td ng-bind="item.mobile"></td>
             <td ng-bind="item.tel"></td>
             <td ng-bind="item.position"></td>
             <td ng-bind="item.email"></td>
             <td ng-bind="item.QQ"></td>
             <td ng-bind="item.wechat"></td>
+            <td ng-bind="item.memo"></td>
           </tr>
         </tbody>
       </table>

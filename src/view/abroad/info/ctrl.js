@@ -64,7 +64,8 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
     is_annual: '',
     manager_id: null,
     shareholderList: [],
-    directorList: []
+    directorList: [],
+    need_annual: '',
   }
 
   if (!!id) {
@@ -475,6 +476,14 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
   }
 
   function valid_waiter() {
+    if ($scope.data.need_annual == 0) {
+      return true;
+    }
+
+    if ($scope.data.need_annual == '') {
+      return true;
+    }
+
     if (!$scope.data.waiter_id) {
       jForm.validator('showMsg', '#waiterSelect2-validator', {
         type: "error",

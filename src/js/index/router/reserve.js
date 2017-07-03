@@ -48,7 +48,9 @@ var router = function($stateProvider, $urlRouterProvider) {
         position: null,
         email: null,
         wechat: null,
-        QQ: null
+        QQ: null,
+        responsable: null,
+        memo: null,
       },
       stateName: '联系人',
       views: {
@@ -84,7 +86,9 @@ var router = function($stateProvider, $urlRouterProvider) {
         position: null,
         email: null,
         wechat: null,
-        QQ: null
+        QQ: null,
+        responsable: null,
+        memo: null,
       },
       stateName: '联系人',
       views: {

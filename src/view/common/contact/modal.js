@@ -15,7 +15,9 @@ module.exports = function($scope, $state, $stateParams, $timeout) {
     position: '',
     email: '',
     wechat: '',
-    QQ: ''
+    QQ: '',
+    responsable: null,
+    memo: null,
   }
 
   $scope.save = function() {
@@ -37,7 +39,9 @@ module.exports = function($scope, $state, $stateParams, $timeout) {
       position: $stateParams.position,
       email: $stateParams.email,
       wechat: $stateParams.wechat,
-      QQ: $stateParams.QQ
+      QQ: $stateParams.QQ,
+      responsable: $stateParams.responsable,
+      memo: $stateParams.memo,
     }
   }
 };

@@ -383,6 +383,13 @@
             </div>
           </div>
           <div class="form-group">
+            <label class="col-sm-2 control-label">是否需要年检<span class="required">*</span></label>
+            <div class="col-sm-8">
+              <span class="form-span" ng-bind="data.need_annual == 1 ? '是' : '否'"></span>
+            </div>
+          </div>
+
+          <div class="form-group" ng-show="data.need_annual == 1">
             <label class="col-sm-2 control-label">年检客服<span class="required">*</span></label>
             <div class="col-sm-8">
               <span class="form-span" ng-bind="data.waiter_name"></span>

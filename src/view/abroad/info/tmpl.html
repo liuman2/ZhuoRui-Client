@@ -195,7 +195,7 @@
           <div class="form-group">
             <label class="col-sm-2 control-label">公司注册地区</label>
             <div class="col-sm-8">
-              <select ui-select2 class="form-control select2" name="region" ng-model="data.region" url=" Dictionary/DroplistByGroup" paging="false" paramfield="group" paramvalue="注册地区"></select>
+              <select ui-select2 class="form-control select2" name="region" ng-model="data.region" url="Dictionary/DroplistByGroup" paging="false" paramfield="group" paramvalue="注册地区"></select>
               <span id="regionSelect2-validator" class="select-validator"></span>
             </div>
             <div class="col-sm-2 add-dictionary">
@@ -384,28 +384,39 @@
           <div class="form-group">
             <label class="col-sm-2 control-label">业务员<span class="required">*</span></label>
             <div class="col-sm-8">
-              <select ui-select2 class="form-control select2" id="salesmanSelect2" name="salesman_id" ng-view="salesman" ng-model="data.salesman_id" data-rule="required;" url=" Member/List" paging="true" style="width: 100%;"></select>
+              <select ui-select2 class="form-control select2" id="salesmanSelect2" name="salesman_id" ng-view="salesman" ng-model="data.salesman_id" data-rule="required;" url="Member/List" paging="true" style="width: 100%;"></select>
               <span id="salesmanSelect2-validator" class="select-validator"></span>
             </div>
           </div>
           <div class="form-group">
             <label class="col-sm-2 control-label">助理</label>
             <div class="col-sm-8">
-              <select ui-select2 class="form-control select2" id="assistantSelect2" allowclear="true" name="assistant_id" ng-view="assistant_name" ng-model="data.assistant_id" url=" Member/List" paging="true" style="width: 100%;"></select>
+              <select ui-select2 class="form-control select2" id="assistantSelect2" allowclear="true" name="assistant_id" ng-view="assistant_name" ng-model="data.assistant_id" url="Member/List" paging="true" style="width: 100%;"></select>
             </div>
           </div>
 
           <div class="form-group">
+            <label class="col-sm-2 control-label">是否需要年检<span class="required">*</span></label>
+            <div class="col-sm-8">
+              <select class="form-control select2" name="need_annual" ng-model="data.need_annual" data-rule="required;">
+                <option value="">请选择</option>
+                <option value="1">是</option>
+                <option value="0">否</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group" ng-if="data.need_annual==1">
             <label class="col-sm-2 control-label">年检客服<span class="required">*</span></label>
             <div class="col-sm-8">
-              <select ui-select2 class="form-control select2" id="waiterSelect2" name="waiter_id" ng-view="waiter_name" ng-model="data.waiter_id" data-rule="required;" url=" Member/List" paging="true" style="width: 100%;"></select>
+              <select ui-select2 class="form-control select2" id="waiterSelect2" name="waiter_id" ng-view="waiter_name" ng-model="data.waiter_id" data-rule="required;" url="Member/List" paging="true" style="width: 100%;"></select>
               <span id="waiterSelect2-validator" class="select-validator"></span>
             </div>
           </div>
           <div class="form-group">
             <label class="col-sm-2 control-label">经理</label>
             <div class="col-sm-8">
-              <select ui-select2 class="form-control select2" id="waiterSelect2" allowclear="true" name="manager_id" ng-view="manager_name" ng-model="data.manager_id" url=" Member/List" paging="true" style="width: 100%;"></select>
+              <select ui-select2 class="form-control select2" id="waiterSelect2" allowclear="true" name="manager_id" ng-view="manager_name" ng-model="data.manager_id" url="Member/List" paging="true" style="width: 100%;"></select>
             </div>
           </div>
         </div>

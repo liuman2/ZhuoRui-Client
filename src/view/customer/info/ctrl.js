@@ -174,7 +174,9 @@ module.exports = function($scope, $state, $http, $cookieStore, $q, $timeout) {
       position: contact.position,
       email: contact.email,
       wechat: contact.wechat,
-      QQ: contact.QQ
+      QQ: contact.QQ,
+      responsable: contact.responsable,
+      memo: contact.memo
     }, { location: false });
   }
 
