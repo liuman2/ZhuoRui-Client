@@ -44,7 +44,6 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
     tel: '',
     salesman_id: user.id,
     salesman: user.name,
-
     is_old: 0,
     source_type: '',
   }
@@ -142,6 +141,14 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
           url: url,
           data: data
         }).success(function(data) {
+          if ($scope.action == 'add') {
+            $.alert({
+              title: false,
+              content: '保存成功，请新增账期',
+              confirmButton: '确定'
+            });
+          }
+
           $state.go("account_view", {
             id: data.id
           });
@@ -299,16 +306,17 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
   }
 
   function valid_salesman() {
-    if (!$scope.data.salesman_id) {
-      jForm.validator('showMsg', '#salesmanSelect2-validator', {
-        type: "error",
-        msg: "此处不能为空"
-      });
-      return false;
-    } else {
-      jForm.validator('hideMsg', '#salesmanSelect2-validator');
-      return true;
-    }
+    return true;
+    // if (!$scope.data.salesman_id) {
+    //   jForm.validator('showMsg', '#salesmanSelect2-validator', {
+    //     type: "error",
+    //     msg: "此处不能为空"
+    //   });
+    //   return false;
+    // } else {
+    //   jForm.validator('hideMsg', '#salesmanSelect2-validator');
+    //   return true;
+    // }
   }
 
   function valid_customer() {
