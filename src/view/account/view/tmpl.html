@@ -179,10 +179,20 @@
               <button type="button" class="btn btn-box-tool" data-widget="collapse" ng-click="expandSub(item, $event)"><i class="fa fa-plus"></i>
               </button>
             </div>
+
             <div class="box-tools pull-right">
-              <button type="button" class="btn btn-box-tool" ui-sref=".editsub({sub_id: item.id})" ui-sref-opts="{location:false}">修改</button>
-              <!-- <button type="button" class="btn btn-box-tool" ng-click="deleteSub(item.id)">删除</button> -->
-              <!-- <button type="button" class="btn btn-box-tool" ui-sref="audit_timeline({masterid: data.id,id: data.id, name: 'audit', code: data.code, source: 'view'})"><span class="fa fa-clock-o"></span>日志</button> -->
+              <button type="button" class="btn btn-box-tool" ui-sref=".editsub({sub_id: item.id})"  ui-sref-opts="{location:false}" ng-if="item.status == 0 || item.review_status == 0">修改</button>
+              <button type="button" class="btn btn-box-tool" ng-click="submitSubAudit(item.id)" ng-if="item.status == 0 || item.review_status == 0">提交审核</button>
+              <button type="button" class="btn btn-box-tool" ng-click="passSubAudit(item.id)" ng-if="item.status==1 && opers.indexOf(3) > -1">财务审核通过</button>
+              <button type="button" class="btn btn-box-tool" ng-click="refuseSubAudit(item.id)" ng-if="item.status==1 && opers.indexOf(3) > -1">财务审核驳回</button>
+              <button type="button" class="btn btn-box-tool" ng-click="passSubAudit(item.id)" ng-if="item.status > 1 && item.status < 3 && opers.indexOf(4) > -1">提交审核通过</button>
+              <button type="button" class="btn btn-box-tool" ng-click="refuseSubAudit(item.id)" ng-if="item.status > 1 && item.status < 3 && opers.indexOf(4) > -1">提交审核驳回</button>
+              <button type="button" class="btn btn-box-tool" ui-sref=".progress_add({item_id: item.id})" ui-sref-opts="{location:false}" ng-if="item.status >= 3">进度反馈</button>
+              <button type="button" class="btn btn-box-tool" ui-sref="audit_timeline({masterid: item.master_id, id: item.id, name: 'accounting_item', code: data.code, source: 'view'})"><span class="fa fa-clock-o"></span>日志</button>
+              <a href="/print.html?m=sub_audit&id={{item.id}}" class="btn btn-box-tool" target="_blank">打印</a>
+              <span>状态: </span>
+              <span class="tooltip-author" ng-if="item.status != 4" ng-bind="getSubOrderStatus(item) + ' | ' + getSubReviewStatus(item)" ng-attr-title="{{getTitle(item)}}" style="cursor: default;"></span>
+              <span ng-if="item.status == 4" ng-bind="'已完成 | ' + format(item.date_finish, 'YYYY-MM-DD')"></span>
             </div>
           </div>
           <div class="box-body">
@@ -223,6 +233,12 @@
                     <label class="col-sm-1 control-label">是否含税</label>
                     <div class="col-sm-8">
                       <span class="form-span" ng-bind="item.tax==0?'否':'是'"></span>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-sm-1 control-label">其他事项</label>
+                    <div class="col-sm-8">
+                      <textarea class="form-control" rows="3" name="item.memo" ng-model="item.memo" readonly style="background:#fff;border:none;"></textarea>
                     </div>
                   </div>
                 </div>

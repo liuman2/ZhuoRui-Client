@@ -127,7 +127,7 @@ module.exports = function($scope, $state, $http, $q, $timeout, $cookieStore) {
     $state.go('account');
   }
 
-  $scope.submitAudit = function() {
+  $scope.submitSubAudit = function() {
     $.confirm({
       title: false,
       content: '您确认要提交审核？提交后不可再编辑',
@@ -147,7 +147,7 @@ module.exports = function($scope, $state, $http, $q, $timeout, $cookieStore) {
     });
   }
 
-  $scope.passAuditF = function() {
+  $scope.passSubAuditF = function() {
     $.confirm({
       title: false,
       content: '您确认通过审核？',
@@ -194,11 +194,11 @@ module.exports = function($scope, $state, $http, $q, $timeout, $cookieStore) {
     }
   }
 
-  $scope.passAudit = function() {
+  $scope.passSubAudit = function() {
     $state.go(".pass", { module_name: 'Accounting' }, { location: false });
   }
 
-  $scope.refuseAudit = function() {
+  $scope.refuseSubAudit = function() {
     $state.go(".audit", { module_name: 'Accounting' }, { location: false });
   }
 
