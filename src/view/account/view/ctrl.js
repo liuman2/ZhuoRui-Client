@@ -242,6 +242,9 @@ module.exports = function($scope, $state, $http, $q, $timeout, $cookieStore) {
     actionView();
   });
 
+  $scope.onTab = function(item, i) {
+    item.activeTab = i;
+  }
 
   function actionView() {
     $http({
@@ -251,10 +254,18 @@ module.exports = function($scope, $state, $http, $q, $timeout, $cookieStore) {
         id: id
       }
     }).success(function(data) {
-      console.log(data);
+      // console.log(data);
       $scope.data = data.order;
       $scope.incomes = data.incomes;
-      $scope.items = data.items || [];
+      var items = data.items || [];
+      if (items.length > 0) {
+        $.each(items, function (i, item) {
+          item.activeTab = 0;
+        });
+      }
+      $scope.items = items;
+
+
       loadAttachments();
     });
   }

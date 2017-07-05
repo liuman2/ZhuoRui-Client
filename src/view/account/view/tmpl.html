@@ -161,7 +161,7 @@
       </div>
     </div> -->
 
-    <div class="box box-danger">
+    <div class="box box-danger" style="padding-bottom: 80px;">
       <div class="box-header with-border">
         <h3 class="box-title">账期</h3>
         <div class="box-tools">
@@ -186,21 +186,112 @@
             </div>
           </div>
           <div class="box-body">
-            <fieldset>
+
+            <div class="nav-tabs-custom" style="box-shadow:none;">
+              <ul class="nav nav-tabs">
+                <li ng-class="{'active': item.activeTab == 0}"><a data-toggle="tab"  ng-click="onTab(item, 0)">基本信息</a></li>
+                <li ng-class="{'active': item.activeTab == 2}"><a data-toggle="tab" ng-click="onTab(item, 2)">人员信息</a></li>
+                <li ng-class="{'active': item.activeTab == 1}"><a data-toggle="tab" ng-click="onTab(item, 1)" ng-if="item.tax == 1">开票信息</a></li>
+              </ul>
+              <div class="tab-content">
+                <div class="tab-pane" ng-class="{'active': item.activeTab == 0}" style="min-height: 224px;">
+                  <div class="form-group">
+                    <label class="col-sm-1 control-label">账期</label>
+                    <div class="col-sm-8">
+                      <span class="form-span" ng-bind="format(item.date_start, 'YYYY-MM-DD') + ' 至 ' + format(item.date_end, 'YYYY-MM-DD')"></span>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-sm-1 control-label">月数</label>
+                    <div class="col-sm-8">
+                      <span class="form-span" ng-bind="getMonths(item)"></span>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-sm-1 control-label">成交日期</label>
+                    <div class="col-sm-8">
+                      <span class="form-span" ng-bind="format(item.date_transaction, 'YYYY-MM-DD')"></span>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-sm-1 control-label">成交金额</label>
+                    <div class="col-sm-8">
+                      <span class="form-span" ng-bind="item.amount_transaction"></span>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-sm-1 control-label">是否含税</label>
+                    <div class="col-sm-8">
+                      <span class="form-span" ng-bind="item.tax==0?'否':'是'"></span>
+                    </div>
+                  </div>
+                </div>
+                <div class="tab-pane" ng-class="{'active': item.activeTab == 2}" style="min-height: 224px;">
+                  <div class="form-group">
+                    <label class="col-sm-1 control-label">业务员</label>
+                    <div class="col-sm-8">
+                      <span class="form-span" ng-bind="item.salesman"></span>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-sm-1 control-label">助理</label>
+                    <div class="col-sm-8">
+                      <span class="form-span" ng-bind="item.assistant_name"></span>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-sm-1 control-label">经理</label>
+                    <div class="col-sm-8">
+                      <span class="form-span" ng-bind="item.manager_name"></span>
+                    </div>
+                  </div>
+                </div>
+                <div class="tab-pane" ng-class="{'active': item.activeTab == 1}" style="min-height: 224px;">
+                  <div class="form-group">
+                    <label class="col-sm-1 control-label">名称</label>
+                    <div class="col-sm-8">
+                      <span class="form-span" ng-bind="item.invoice_name"></span>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-sm-1 control-label">纳税人识别号</label>
+                    <div class="col-sm-8">
+                      <span class="form-span" ng-bind="item.invoice_tax"></span>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-sm-1 control-label">地址</label>
+                    <div class="col-sm-8">
+                      <span class="form-span" ng-bind="item.invoice_address"></span>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-sm-1 control-label">电话</label>
+                    <div class="col-sm-8">
+                      <span class="form-span" ng-bind="item.invoice_tel"></span>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-sm-1 control-label">开户行</label>
+                    <div class="col-sm-8">
+                      <span class="form-span" ng-bind="item.invoice_bank"></span>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-sm-1 control-label">开户行账号</label>
+                    <div class="col-sm-8">
+                      <span class="form-span" ng-bind="item.invoice_account"></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- <fieldset>
               <legend>账期信息:</legend>
-              <div class="form-group">
-                <label class="col-sm-2 control-label">账期</label>
-                <div class="col-sm-8">
-                  <span class="form-span" ng-bind="format(item.date_start, 'YYYY-MM-DD') + ' 至 ' + format(item.date_end, 'YYYY-MM-DD')"></span>
-                </div>
-              </div>
-              <div class="form-group">
-                <label class="col-sm-2 control-label">月数</label>
-                <div class="col-sm-8">
-                  <span class="form-span" ng-bind="getMonths(item)"></span>
-                </div>
-              </div>
-            </fieldset>
+
+            </fieldset> -->
 
             <fieldset>
               <legend>进度反馈:</legend>

@@ -124,11 +124,16 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
         return;
       }
 
+
       if (v) {
         var submitData = angular.copy($scope.subData);
+
         submitData.date_start = $('#date_start').val();
         submitData.date_end = $('#date_end').val();
         submitData.master_id = master_id;
+
+        submitData.date_transaction = $('#date_transaction').val();
+
         var url = $scope.action == 'add' ? '/Accounting/AddItem' : '/Accounting/UpdateItem';
         $http({
           method: 'POST',
