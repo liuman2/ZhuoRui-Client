@@ -3,6 +3,7 @@ var httpHelper = require('js/utils/httpHelper');
 module.exports = function($scope, $state, $http, $timeout) {
   var module_name = $state.params.module_name,
     sub_id = $state.params.subId || null,
+    period = $state.params.period || null,
     id = $state.params.id || null;
 
 
@@ -36,7 +37,7 @@ module.exports = function($scope, $state, $http, $timeout) {
   });
 
   $scope.audit = {
-    id: (module_name == 'AuditSub') ? sub_id : id,
+    id: (module_name == 'AuditSub' || module_name == 'Accounting') ? sub_id : id,
     waiter_id: ''
   }
 

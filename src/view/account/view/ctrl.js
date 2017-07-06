@@ -127,7 +127,7 @@ module.exports = function($scope, $state, $http, $q, $timeout, $cookieStore) {
     $state.go('account');
   }
 
-  $scope.submitSubAudit = function() {
+  $scope.submitSubAudit = function(subId, index) {
     $.confirm({
       title: false,
       content: '您确认要提交审核？提交后不可再编辑',
@@ -138,7 +138,10 @@ module.exports = function($scope, $state, $http, $q, $timeout, $cookieStore) {
           method: 'GET',
           url: '/Accounting/Submit',
           params: {
-            id: $scope.data.id
+            masterId: $scope.data.id,
+            subId: subId,
+            period: index + 1,
+            code: $scope.data.code,
           }
         }).success(function(data) {
           actionView();
@@ -147,7 +150,7 @@ module.exports = function($scope, $state, $http, $q, $timeout, $cookieStore) {
     });
   }
 
-  $scope.passSubAuditF = function() {
+  $scope.passSubAuditF = function(subId, index) {
     $.confirm({
       title: false,
       content: '您确认通过审核？',
@@ -158,8 +161,11 @@ module.exports = function($scope, $state, $http, $q, $timeout, $cookieStore) {
           method: 'GET',
           url: '/Accounting/PassAudit',
           params: {
-            id: $scope.data.id,
-            waiter_id: 0
+            masterId: $scope.data.id,
+            subId: subId,
+            period: index + 1,
+            waiter_id: 0,
+            code: $scope.data.code,
           }
         }).success(function(data) {
           actionView();
@@ -194,12 +200,12 @@ module.exports = function($scope, $state, $http, $q, $timeout, $cookieStore) {
     }
   }
 
-  $scope.passSubAudit = function() {
-    $state.go(".pass", { module_name: 'Accounting' }, { location: false });
+  $scope.passSubAudit = function(sub_id, index) {
+    $state.go(".pass", { module_name: 'Accounting', subId: sub_id, period: (index + 1)}, { location: false });
   }
 
-  $scope.refuseSubAudit = function() {
-    $state.go(".audit", { module_name: 'Accounting' }, { location: false });
+  $scope.refuseSubAudit = function(sub_id, index) {
+    $state.go(".audit", { module_name: 'Accounting', subId: sub_id, period: (index + 1)}, { location: false });
   }
 
 

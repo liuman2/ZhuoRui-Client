@@ -182,11 +182,11 @@
 
             <div class="box-tools pull-right">
               <button type="button" class="btn btn-box-tool" ui-sref=".editsub({sub_id: item.id})"  ui-sref-opts="{location:false}" ng-if="item.status == 0 || item.review_status == 0">修改</button>
-              <button type="button" class="btn btn-box-tool" ng-click="submitSubAudit(item.id)" ng-if="item.status == 0 || item.review_status == 0">提交审核</button>
-              <button type="button" class="btn btn-box-tool" ng-click="passSubAudit(item.id)" ng-if="item.status==1 && opers.indexOf(3) > -1">财务审核通过</button>
-              <button type="button" class="btn btn-box-tool" ng-click="refuseSubAudit(item.id)" ng-if="item.status==1 && opers.indexOf(3) > -1">财务审核驳回</button>
-              <button type="button" class="btn btn-box-tool" ng-click="passSubAudit(item.id)" ng-if="item.status > 1 && item.status < 3 && opers.indexOf(4) > -1">提交审核通过</button>
-              <button type="button" class="btn btn-box-tool" ng-click="refuseSubAudit(item.id)" ng-if="item.status > 1 && item.status < 3 && opers.indexOf(4) > -1">提交审核驳回</button>
+              <button type="button" class="btn btn-box-tool" ng-click="submitSubAudit(item.id, $index)" ng-if="item.status == 0 || item.review_status == 0">提交审核</button>
+              <button type="button" class="btn btn-box-tool" ng-click="passSubAuditF(item.id, $index)" ng-if="item.status==1 && opers.indexOf(3) > -1">财务审核通过</button>
+              <button type="button" class="btn btn-box-tool" ng-click="refuseSubAudit(item.id, $index)" ng-if="item.status==1 && opers.indexOf(3) > -1">财务审核驳回</button>
+              <button type="button" class="btn btn-box-tool" ng-click="passSubAudit(item.id, $index)" ng-if="item.status > 1 && item.status < 3 && opers.indexOf(4) > -1">提交审核通过</button>
+              <button type="button" class="btn btn-box-tool" ng-click="refuseSubAudit(item.id, $index)" ng-if="item.status > 1 && item.status < 3 && opers.indexOf(4) > -1">提交审核驳回</button>
               <button type="button" class="btn btn-box-tool" ui-sref=".progress_add({item_id: item.id})" ui-sref-opts="{location:false}" ng-if="item.status >= 3">进度反馈</button>
               <button type="button" class="btn btn-box-tool" ui-sref="audit_timeline({masterid: item.master_id, id: item.id, name: 'accounting_item', code: data.code, source: 'view'})"><span class="fa fa-clock-o"></span>日志</button>
               <a href="/print.html?m=sub_audit&id={{item.id}}" class="btn btn-box-tool" target="_blank">打印</a>

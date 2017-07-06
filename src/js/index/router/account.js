@@ -93,7 +93,7 @@ var router = function($stateProvider, $urlRouterProvider) {
       }
     })
     .state('account_view.pass', {
-      url: '/account/{module_name:.*}',
+      url: '/account/{module_name:.*}/{subId:.*}/{period:.*}',
       views: {
         'modal': {
           template: require('view/common/audit/pass.html'),
@@ -102,7 +102,7 @@ var router = function($stateProvider, $urlRouterProvider) {
       }
     })
     .state('account_view.audit', {
-      url: '/account/{module_name:.*}',
+      url: '/account/{module_name:.*}/{subId:.*}/{period:.*}',
       views: {
         'modal': {
           template: require('view/common/audit/modal.html'),
