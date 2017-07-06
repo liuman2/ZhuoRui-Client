@@ -10,6 +10,9 @@ module.exports = function($scope, $state, $http, $timeout) {
   if (source_name == 'sub_audit') {
     source_id = $state.params.subId;
   }
+  if (source_name == 'accounting_item') {
+    source_id = $state.params.subId;
+  }
 
   $.datetimepicker.setLocale('ch');
   dInput.datetimepicker({

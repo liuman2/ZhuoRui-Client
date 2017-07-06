@@ -41,6 +41,13 @@ module.exports = function($scope, $state, $http, $timeout) {
     waiter_id: ''
   }
 
+  if (module_name == 'Accounting') {
+    $scope.audit.masterId = $scope.data.id;
+    $scope.audit.subId = sub_id;
+    $scope.audit.period = period;
+    $scope.audit.code= $scope.data.code;
+  }
+
   $scope.save = function() {
     jForm.isValid(function(v) {
       if (v) {

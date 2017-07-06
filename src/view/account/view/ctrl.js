@@ -20,6 +20,14 @@ module.exports = function($scope, $state, $http, $q, $timeout, $cookieStore) {
 
   $scope.items = [];
 
+  $scope.old = function() {
+    $http({
+      method: 'GET',
+      url: '/Accounting/OldData',
+    }).success(function(data) {
+    });
+  }
+
   $scope.deleteIncome = function(item) {
     if ($scope.data.status > 0) {
       $.alert({
@@ -68,6 +76,14 @@ module.exports = function($scope, $state, $http, $q, $timeout, $cookieStore) {
     });
   }
 
+  $scope.getDisabled = function() {
+    if (!$scope.items.length) {
+      return false;
+    }
+
+    return $scope.items[$scope.items.length - 1].status < 3;
+  }
+
   $scope.deleteSub = function(subId) {
     $.confirm({
       title: false,
@@ -89,18 +105,20 @@ module.exports = function($scope, $state, $http, $q, $timeout, $cookieStore) {
   }
 
   $scope.expandSub = function(item, e) {
-    if ($(e.target).closest('i').attr('class').indexOf('fa-plus') < 0) {
+    var ele = $(e.target).closest('i').attr('class');
+    if (ele != undefined && ele.indexOf('fa-plus') < 0) {
       return;
     }
 
     $http({
       method: 'GET',
-      url: '/Accounting/GetPeriodProgress',
+      url: '/Accounting/GetPeriodProgressWithIncomes',
       params: {
         id: item.id
       }
     }).success(function(data) {
-      item.progressList = data || [];
+      item.progressList = data.progressList || [];
+      item.incomes = data.incomes || {};
     });
   }
 
@@ -174,8 +192,8 @@ module.exports = function($scope, $state, $http, $q, $timeout, $cookieStore) {
     });
   }
 
-    $scope.getOrderStatus = function() {
-    switch ($scope.data.status) {
+  $scope.getSubOrderStatus = function(item) {
+    switch (item.status) {
       case 0:
         return '未提交';
       case 1:
@@ -189,8 +207,8 @@ module.exports = function($scope, $state, $http, $q, $timeout, $cookieStore) {
     }
   }
 
-  $scope.getReviewStatus = function() {
-    switch ($scope.data.review_status) {
+  $scope.getSubReviewStatus = function(item) {
+    switch (item.review_status) {
       case -1:
         return '未审核';
       case 0:
@@ -201,11 +219,11 @@ module.exports = function($scope, $state, $http, $q, $timeout, $cookieStore) {
   }
 
   $scope.passSubAudit = function(sub_id, index) {
-    $state.go(".pass", { module_name: 'Accounting', subId: sub_id, period: (index + 1)}, { location: false });
+    $state.go(".pass", { module_name: 'Accounting', subId: sub_id, period: (index + 1) }, { location: false });
   }
 
   $scope.refuseSubAudit = function(sub_id, index) {
-    $state.go(".audit", { module_name: 'Accounting', subId: sub_id, period: (index + 1)}, { location: false });
+    $state.go(".audit", { module_name: 'Accounting', subId: sub_id, period: (index + 1) }, { location: false });
   }
 
 
@@ -233,7 +251,7 @@ module.exports = function($scope, $state, $http, $q, $timeout, $cookieStore) {
   }
 
   $scope.$on('INCOME_MODAL_DONE', function(e) {
-    actionView();
+    $timeout(actionView, 200);
   });
 
   $scope.$on('REFUSE_MODAL_DONE', function(e) {
@@ -265,7 +283,7 @@ module.exports = function($scope, $state, $http, $q, $timeout, $cookieStore) {
       $scope.incomes = data.incomes;
       var items = data.items || [];
       if (items.length > 0) {
-        $.each(items, function (i, item) {
+        $.each(items, function(i, item) {
           item.activeTab = 0;
         });
       }

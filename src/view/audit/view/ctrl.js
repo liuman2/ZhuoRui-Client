@@ -360,7 +360,8 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
   }
 
   $scope.expandSub = function(item, e) {
-    if ($(e.target).closest('i').attr('class').indexOf('fa-plus') < 0) {
+    var ele = $(e.target).closest('i').attr('class');
+    if (ele != undefined && ele.indexOf('fa-plus') < 0) {
       return;
     }
     // if (item.incomes != undefined) {

@@ -128,6 +128,9 @@ angular.module('ui.select2', []).directive('uiSelect2', ['$timeout', function($t
             if (scope.progress && scope.progress[ngView] !== undefined) {
               viewValue = scope.progress[ngView];
             }
+            if (scope.subData && scope.subData[ngView] !== undefined) {
+              viewValue = scope.subData[ngView];
+            }
           }
 
           var option = "<option value='" + ngModel.$modelValue + "'>" + viewValue + "</option>";

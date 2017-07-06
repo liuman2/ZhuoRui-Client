@@ -47,7 +47,7 @@ var router = function($stateProvider, $urlRouterProvider) {
       controller: require('view/account/view/ctrl')
     })
     .state('account_view.income_add', {
-      url: '/new/{source_name:.*}/{customer_id:.*}',
+      url: '/new/{source_name:.*}/{customer_id:.*}/{subId:.*}',
       views: {
         'modal': {
           template: require('view/common/income/modal.html'),

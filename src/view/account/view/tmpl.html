@@ -10,18 +10,19 @@
     <div class="detail-view-header-wrapper">
       <div class="box-footer detail-view-header" ui-scrollpoint ui-scrollpoint-enabled="true" ui-scrollpoint-class="fixed">
         <button type="button" class="btn btn-info" ui-sref="account_edit({id: id})" ng-if="data.status == 0 || data.review_status == 0" ui-sref-opts="{reload:true}">修改</button>
-        <button type="button" class="btn btn-primary" ng-click="submitAudit()" ng-if="data.status == 0 || data.review_status == 0">提交审核</button>
-        <button type="button" class="btn btn-success" ng-click="passAuditF()" ng-if="data.status==1 && opers.indexOf(3) > -1">财务审核通过</button>
-        <button type="button" class="btn btn-danger" ng-click="refuseAudit()" ng-if="data.status==1 && opers.indexOf(3) > -1">财务审核驳回</button>
-        <button type="button" class="btn btn-success" ng-click="passAudit()" ng-if="data.status > 1 && data.status < 3 && opers.indexOf(4) > -1">提交审核通过</button>
-        <button type="button" class="btn btn-danger" ng-click="refuseAudit()" ng-if="data.status > 1 && data.status < 3 && opers.indexOf(4) > -1">提交审核驳回</button>
+        <!-- <button type="button" class="btn btn-primary" ng-click="submitAudit()" ng-if="data.status == 0 || data.review_status == 0">提交审核</button> -->
+        <!-- <button type="button" class="btn btn-success" ng-click="passAuditF()" ng-if="data.status==1 && opers.indexOf(3) > -1">财务审核通过</button> -->
+        <!-- <button type="button" class="btn btn-danger" ng-click="refuseAudit()" ng-if="data.status==1 && opers.indexOf(3) > -1">财务审核驳回</button> -->
+        <!-- <button type="button" class="btn btn-success" ng-click="passAudit()" ng-if="data.status > 1 && data.status < 3 && opers.indexOf(4) > -1">提交审核通过</button> -->
+        <!-- <button type="button" class="btn btn-danger" ng-click="refuseAudit()" ng-if="data.status > 1 && data.status < 3 && opers.indexOf(4) > -1">提交审核驳回</button> -->
         <button type="button" class="btn btn-info" ui-sref="account_timeline({id: data.id, name: 'accounting', code: data.code, source: 'view'})"><span class="fa fa-clock-o"></span>日志</button>
-        <a  ng-if="data.is_annual != 1" href="/print.html?m=account&id={{id}}" class="btn btn-info" target="_blank">打印</a>
-        <span>状态: </span>
+        <!-- <a  ng-if="data.is_annual != 1" href="/print.html?m=account&id={{id}}" class="btn btn-info" target="_blank">打印</a> -->
+        <!-- <span>状态: </span>
         <span class="tooltip-author" ng-if="data.status != 4" ng-bind="getOrderStatus() + ' | ' + getReviewStatus()" ng-attr-title="{{getTitle(data)}}" style="cursor: default;"></span>
-        <span ng-if="data.status == 4" ng-bind="'已完成 | ' + format(data.date_finish, 'YYYY-MM-DD')"></span>
+        <span ng-if="data.status == 4" ng-bind="'已完成 | ' + format(data.date_finish, 'YYYY-MM-DD')"></span> -->
       </div>
     </div>
+
     <div class="box box-danger">
       <div class="box-header with-border">
         <h3 class="box-title">客户基本信息</h3>
@@ -161,7 +162,7 @@
       </div>
     </div> -->
 
-    <div class="box box-danger" style="padding-bottom: 80px;">
+    <div class="box box-danger" style="padding-bottom: 100px;margin-bottom: 100px;">
       <div class="box-header with-border">
         <h3 class="box-title">账期</h3>
         <div class="box-tools">
@@ -189,14 +190,13 @@
               <button type="button" class="btn btn-box-tool" ng-click="refuseSubAudit(item.id, $index)" ng-if="item.status > 1 && item.status < 3 && opers.indexOf(4) > -1">提交审核驳回</button>
               <button type="button" class="btn btn-box-tool" ui-sref=".progress_add({item_id: item.id})" ui-sref-opts="{location:false}" ng-if="item.status >= 3">进度反馈</button>
               <button type="button" class="btn btn-box-tool" ui-sref="audit_timeline({masterid: item.master_id, id: item.id, name: 'accounting_item', code: data.code, source: 'view'})"><span class="fa fa-clock-o"></span>日志</button>
-              <a href="/print.html?m=sub_audit&id={{item.id}}" class="btn btn-box-tool" target="_blank">打印</a>
+              <a href="/print.html?m=accounting&id={{item.id}}" class="btn btn-box-tool" target="_blank">打印</a>
               <span>状态: </span>
               <span class="tooltip-author" ng-if="item.status != 4" ng-bind="getSubOrderStatus(item) + ' | ' + getSubReviewStatus(item)" ng-attr-title="{{getTitle(item)}}" style="cursor: default;"></span>
               <span ng-if="item.status == 4" ng-bind="'已完成 | ' + format(item.date_finish, 'YYYY-MM-DD')"></span>
             </div>
           </div>
           <div class="box-body">
-
             <div class="nav-tabs-custom" style="box-shadow:none;">
               <ul class="nav nav-tabs">
                 <li ng-class="{'active': item.activeTab == 0}"><a data-toggle="tab"  ng-click="onTab(item, 0)">基本信息</a></li>
@@ -301,13 +301,7 @@
                   </div>
                 </div>
               </div>
-
             </div>
-
-            <!-- <fieldset>
-              <legend>账期信息:</legend>
-
-            </fieldset> -->
 
             <fieldset>
               <legend>进度反馈:</legend>
@@ -339,7 +333,77 @@
                 </tbody>
               </table>
               <div style="margin-left:10px;">
-                <button type="button" class="btn btn-info" ui-sref=".progress_add({item_id: item.id})" ui-sref-opts="{location:false}">进度反馈</button>
+                <!-- <button type="button" class="btn btn-info" ui-sref=".progress_add({item_id: item.id})" ui-sref-opts="{location:false}">进度反馈</button> -->
+              </div>
+            </fieldset>
+
+            <fieldset>
+              <legend>收款记录:</legend>
+              <table class="table table-hover">
+                <tbody>
+                  <tr>
+                    <th style="width: 10px">#</th>
+                    <th>付款人</th>
+                    <th>收款银行</th>
+                    <th>收款账号</th>
+                    <th>收款金额</th>
+                    <th>收款方式</th>
+                    <th>收款时间</th>
+                    <th>附件</th>
+                    <th>备注</th>
+                    <th class="opt-col">操作</th>
+                  </tr>
+                  <tr ng-repeat="income in item.incomes.items">
+                    <td ng-bind="($index+1)+'.'"></td>
+                    <td ng-bind="income.payer"></td>
+                    <td ng-bind="income.bank"></td>
+                    <td ng-bind="income.account"></td>
+                    <td ng-bind="income.amount"></td>
+                    <td ng-bind="income.pay_way"></td>
+                    <td ng-bind="format(income.date_pay, 'YYYY-MM-DD')"></td>
+                    <td>
+                      <a href="{{income.attachment_url}}" target="_blank" ng-if="income.attachment_url.length">
+                        <img ng-src="{{income.attachment_url}}" width="22" height="22">
+                      </a>
+                    </td>
+                    <td ng-bind="income.description"></td>
+                    <td class="opt-col">
+                      <a ng-if="data.status == 0" class="fa fa-pencil orange" ui-sref=".income_edit({tid: {{income.id}}})" ui-sref-opts="{location:false}" title="修改"></a>
+                      <a ng-if="data.status == 0" href="javascript:;" class="fa fa-trash-o red" ng-click="deleteIncome(income)" title="删除"></a>
+                      <a href="/print.html?m=account_line&id={{income.id}}" target="_blank">打印</a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td class="summary" colspan="9">
+                      <div>
+                        <span>交易币别: </span>
+                        <span class="num" ng-bind="item.currency"></span>
+                      </div>
+                      <div>
+                        <span>应收款: </span>
+                        <span class="num receivable" ng-bind="item.amount_transaction"></span>
+                      </div>
+                      <div>
+                        <span>已收款: </span>
+                        <span class="num received" ng-bind="item.incomes.total"></span>
+                      </div>
+                      <div>
+                        <span>未收款: </span>
+                        <span class="num balance" ng-bind="item.incomes.balance"></span>
+                      </div>
+                      <div ng-if="item.currency !='人民币'">
+                        <span>汇率: </span>
+                        <span class="num" ng-bind="item.rate"></span>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <div class="box-footer clearfix">
+                <button type="button" class="btn btn-info" ui-sref=".income_add({source_name: 'accounting_item', customer_id: data.customer_id, subId: item.id})" ui-sref-opts="{location:false}">新增</button>
+                <button type="button" class="btn btn-info" ng-click="printReceipt('new')">新增收据</button>
+                <button type="button" class="btn btn-info" ng-click="printReceipt('print')">打印收据</button>
               </div>
             </fieldset>
           </div>
