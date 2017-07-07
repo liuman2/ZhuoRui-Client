@@ -28,6 +28,22 @@ module.exports = function($scope, $state, $http, $q, $timeout, $cookieStore) {
     });
   }
 
+  $scope.getPayMode = function(t) {
+    if (!t) {
+      return '';
+    }
+    switch((t-0)) {
+      case 1:
+        return '月付';
+      case 3:
+        return '季付';
+      case 6:
+        return '半年';
+      case 12:
+        return '每年';
+    }
+  }
+
   $scope.deleteIncome = function(item) {
     if ($scope.data.status > 0) {
       $.alert({
@@ -250,8 +266,20 @@ module.exports = function($scope, $state, $http, $q, $timeout, $cookieStore) {
     $state.go(".receipt", { type: t, source_name: 'accounting' }, { location: false });
   }
 
-  $scope.$on('INCOME_MODAL_DONE', function(e) {
-    $timeout(actionView, 200);
+  $scope.$on('INCOME_MODAL_DONE', function(e, dt) {
+    console.log(dt)
+    // UpdateNotifyDate
+
+    $http({
+      method: 'POST',
+      url: '/Accounting/UpdateNotifyDate',
+      params: {
+        id: id,
+        dt: dt
+      }
+    }).success(function(data) {
+      $timeout(actionView, 10);
+    });
   });
 
   $scope.$on('REFUSE_MODAL_DONE', function(e) {

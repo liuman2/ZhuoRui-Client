@@ -96,6 +96,13 @@
           </div>
         </div>
 
+        <div class="form-group">
+          <label class="col-sm-2 control-label">下期收款</label>
+          <div class="col-sm-8">
+            <span class="form-span" ng-bind="format(data.pay_notify, 'YYYY-MM-DD')"></span>
+          </div>
+        </div>
+
         <!-- <div class="form-group">
           <label class="col-sm-2 control-label">成交金额</label>
           <div class="col-sm-8">
@@ -173,7 +180,7 @@
         </div>
       </div>
       <div class="box-body" style="padding:0px;">
-        <div class="box audit-box collapsed-box"  ng-repeat="item in items">
+        <div class="box audit-box collapsed-box" ng-repeat="item in items">
           <div class="box-header">
             <h3 class="box-title" ng-bind="'账期' + ($index+1)"></h3>
             <div class="box-tools box-expand">
@@ -227,6 +234,18 @@
                     <label class="col-sm-1 control-label">成交金额</label>
                     <div class="col-sm-8">
                       <span class="form-span" ng-bind="item.amount_transaction"></span>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-sm-1 control-label">付款方式</label>
+                    <div class="col-sm-8">
+                      <span class="form-span" ng-bind="getPayMode(item.pay_mode)"></span>
+                      <select class="form-control select2" name="item.pay_mode" ng-model="item.pay_mode" readonly style="background:#fff;border:none;">
+                        <option value="1">月付</option>
+                        <option value="3">季付</option>
+                        <option value="6">半年</option>
+                        <option value="12">每年</option>
+                      </select>
                     </div>
                   </div>
                   <div class="form-group">
@@ -401,7 +420,7 @@
                 </tbody>
               </table>
               <div class="box-footer clearfix">
-                <button type="button" class="btn btn-info" ui-sref=".income_add({source_name: 'accounting_item', customer_id: data.customer_id, subId: item.id})" ui-sref-opts="{location:false}">新增</button>
+                <button type="button" class="btn btn-info" ng-disabled="$index < (items.length - 1)" ui-sref=".income_add({source_name: 'accounting_item', customer_id: data.customer_id, subId: item.id})" ui-sref-opts="{location:false}">新增</button>
                 <button type="button" class="btn btn-info" ng-click="printReceipt('new')">新增收据</button>
                 <button type="button" class="btn btn-info" ng-click="printReceipt('print')">打印收据</button>
               </div>

@@ -55,6 +55,8 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
     date_start: '',
     date_end: '',
     salesman_id: user.id,
+    salesman: user.name,
+    pay_mode: '',
   }
 
   if (sub_id) {
@@ -74,11 +76,29 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
         item.date_end = item.date_end.split('T')[0];
       }
 
+      if (item.date_transaction && item.date_transaction.indexOf('T') > -1) {
+        item.date_transaction = item.date_transaction.split('T')[0];
+      }
+
+      if (!item.pay_mode) {
+        item.pay_mode = '';
+      }
+
       $scope.subData = item;
     }
   }
 
   function valid_salesman() {
+    if (!$scope.subData.salesman_id) {
+      $scope.subData.salesman_id = $('#salesmanSelect2').val();
+    }
+    if (!$scope.subData.assistant_id) {
+      $scope.subData.assistant_id = $('#assistantSelect2').val();
+    }
+    if (!$scope.subData.manager_id) {
+      $scope.subData.manager_id = $('#managerSelect2').val();
+    }
+
     if (!$scope.subData.salesman_id) {
       jForm.validator('showMsg', '#salesmanSelect2-validator', {
         type: "error",

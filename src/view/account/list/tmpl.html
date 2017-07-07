@@ -99,6 +99,7 @@
             <!-- <th style="width:100px;">注册进度</th> -->
             <th ng-click="orderBy('date_created')" class="ordertable">录入时间</th>
             <th class="tar" style="width:110px;">成交金额</th>
+            <th>下期收款</th>
             <th class="opt-col">操作</th>
           </tr>
           <tr ng-repeat="item in data.items">
@@ -115,6 +116,7 @@
             <td ng-bind="item.source_type==1?'转秘书':'国内注册'"></td>
             <td ng-bind="format(item.date_created, 'YYYY-MM-DD HH:MM')"></td>
             <td class="tar" ng-bind="item.amount_transaction"></td>
+            <td ng-bind="format(item.pay_notify, 'YYYY-MM-DD')"></td>
             <td class="opt-col">
               <div class="btn-group">
                 <button type="button" class="btn btn-box-tool dropdown-toggle" data-toggle="dropdown">

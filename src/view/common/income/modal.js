@@ -33,6 +33,8 @@ module.exports = function($scope, $state, $http, $timeout) {
     fields: {}
   });
 
+  $scope.notify_day = 15;
+
   $scope.income = {
     id: null,
     source_id: source_id,
@@ -106,6 +108,16 @@ module.exports = function($scope, $state, $http, $timeout) {
         alert(data.message || '保存失败')
         return;
       }
+
+      if ($scope.income.source_name == 'accounting_item') {
+        var date = $('select[name="notify_year"]').val() + '-' + $('select[name="notify_month"]').val() + '-15';
+        $scope.$emit('INCOME_MODAL_DONE', date);
+        $state.go('^', {
+          reload: true
+        });
+        return;
+      }
+
 
       $scope.$emit('INCOME_MODAL_DONE');
       $state.go('^', {

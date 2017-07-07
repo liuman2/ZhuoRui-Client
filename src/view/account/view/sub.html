@@ -27,9 +27,9 @@
                   </div>
                 </div>
                 <div class="form-group">
-                  <label class="col-sm-2 control-label">成交日期</label>
+                  <label class="col-sm-2 control-label">成交日期<span class="required">*</span></label>
                   <div class="col-sm-6">
-                    <input type="text" class="form-control date-input" id="date_transaction" name="date_transaction" ng-model="subData.date_transaction">
+                    <input type="text" class="form-control date-input" id="date_transaction" name="date_transaction" ng-model="subData.date_transaction" data-rule="required;">
                   </div>
                 </div>
                 <div class="form-group">
@@ -46,6 +46,20 @@
                     />
                   </div>
                 </div>
+
+                <div class="form-group">
+                  <label class="col-sm-2 control-label">付款方式<span class="required">*</span></label>
+                  <div class="col-sm-6">
+                    <select class="form-control select2" name="pay_mode" ng-model="subData.pay_mode" data-rule="required;">
+                      <option value="">请选择</option>
+                      <option value="1">月付</option>
+                      <option value="3">季付</option>
+                      <option value="6">半年</option>
+                      <option value="12">每年</option>
+                    </select>
+                  </div>
+                </div>
+
                 <div class="form-group">
                   <label class="col-sm-2 control-label">是否含税<span class="required">*</span></label>
                   <div class="col-sm-6">
@@ -107,7 +121,7 @@
                     <select
                       ui-select2
                       class="form-control select2"
-                      id="waiterSelect2"
+                      id="managerSelect2"
                       allowclear="true"
                       name="manager_id"
                       ng-view="manager_name"

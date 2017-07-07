@@ -50,6 +50,36 @@
                             <input type="text" class="form-control date-input" id="date_pay" name="date_pay" ng-model="income.date_pay" data-rule="required;">
                         </div>
                     </div>
+                    <div class="form-group" ng-if="income.source_name == 'accounting_item'">
+                        <label class="col-sm-2 control-label">下期收款<span class="required">*</span></label>
+                        <div class="col-sm-8">
+                            <select class="form-control" name="notify_year" ng-model="notify_year" data-rule="required;" style="width:35%">
+                              <option value="">请选择年</option>
+                              <option value="2017">2017年</option>
+                              <option value="2018">2018年</option>
+                              <option value="2018">2019年</option>
+                            </select>
+                            <select class="form-control" name="notify_month" ng-model="notify_month" data-rule="required;" style="width:30%">
+                              <option value="">请选择月份</option>
+                              <option value="01">1月</option>
+                              <option value="02">2月</option>
+                              <option value="03">3月</option>
+                              <option value="04">4月</option>
+                              <option value="05">5月</option>
+                              <option value="06">6月</option>
+                              <option value="07">7月</option>
+                              <option value="08">8月</option>
+                              <option value="09">9月</option>
+                              <option value="10">10</option>
+                              <option value="11">11月</option>
+                              <option value="12">12月</option>
+                            </select>
+                            <select class="form-control" name="notify_day" ng-model="notify_day" data-rule="required;" style="width:30%">
+                              <option value="15">15日</option>
+                            </select>
+                        </div>
+                    </div>
+
                     <div class="form-group">
                         <label class="col-sm-2 control-label">附件</label>
                         <div class="col-sm-8">
