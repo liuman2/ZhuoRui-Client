@@ -91,15 +91,15 @@
           <tr>
             <th style="width: 10px">#</th>
             <th ng-click="orderBy('code')" class="ordertable">档案号</th>
-            <!-- <th style="width:80px;">客户名称</th> -->
             <th ng-click="orderBy('name')" class="ordertable">公司名称</th>
             <th style="width:110px;">订单状态</th>
             <th style="width:80px;">审核状态</th>
-            <th style="width:80px;">来源</th>
-            <!-- <th style="width:100px;">注册进度</th> -->
-            <th ng-click="orderBy('date_created')" class="ordertable">录入时间</th>
-            <th class="tar" style="width:110px;">成交金额</th>
+            <!-- <th style="width:80px;">来源</th> -->
+            <!-- <th ng-click="orderBy('date_created')" class="ordertable">录入时间</th> -->
+            <!-- <th class="tar" style="width:110px;">成交金额</th> -->
             <th>下期收款</th>
+            <th>账期</th>
+            <th>已处理</th>
             <th class="opt-col">操作</th>
           </tr>
           <tr ng-repeat="item in data.items">
@@ -113,10 +113,14 @@
               <span id="tool-tip{{$index}}" style="cursor: default;" class="label" ng-attr-title="{{getTitle(item, $index)}}" ng-class="{'label-warning': (item.review_status==-1), 'label-success': (item.review_status==1), 'label-danger': (item.review_status==0)}" ng-bind="getReviewStatus(item.status, item.review_status)">
                             </span>
             </td>
-            <td ng-bind="item.source_type==1?'转秘书':'国内注册'"></td>
-            <td ng-bind="format(item.date_created, 'YYYY-MM-DD HH:MM')"></td>
-            <td class="tar" ng-bind="item.amount_transaction"></td>
+            <!-- <td ng-bind="item.source_type==1?'转秘书':'国内注册'"></td> -->
+            <!-- <td ng-bind="format(item.date_created, 'YYYY-MM-DD HH:MM')"></td> -->
+            <!-- <td class="tar" ng-bind="item.amount_transaction"></td> -->
             <td ng-bind="format(item.pay_notify, 'YYYY-MM-DD')"></td>
+
+            <td ng-bind="format(item.date_start, 'YYYY-MM') + ' 至 ' + format(item.date_end, 'YYYY-MM')"></td>
+            <td ng-bind="item.period"></td>
+
             <td class="opt-col">
               <div class="btn-group">
                 <button type="button" class="btn btn-box-tool dropdown-toggle" data-toggle="dropdown">

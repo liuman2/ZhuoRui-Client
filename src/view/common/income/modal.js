@@ -95,6 +95,9 @@ module.exports = function($scope, $state, $http, $timeout) {
       }
 
       $scope.income = data;
+      if (source_name == 'accounting_item') {
+        $scope.income.source_name = source_name;
+      }
     });
   }
 
@@ -134,6 +137,15 @@ module.exports = function($scope, $state, $http, $timeout) {
     }).success(function(data) {
       if (!data.success) {
         alert(data.message || '保存失败')
+        return;
+      }
+
+      if ($scope.income.source_name == 'accounting_item') {
+        var date = $('select[name="notify_year"]').val() + '-' + $('select[name="notify_month"]').val() + '-15';
+        $scope.$emit('INCOME_MODAL_DONE', date);
+        $state.go('^', {
+          reload: true
+        });
         return;
       }
 

@@ -56,7 +56,7 @@ var router = function($stateProvider, $urlRouterProvider) {
       }
     })
     .state('account_view.income_edit', {
-      url: '/edit/{tid:.*}',
+      url: '/edit/{tid:.*}/{source_name:.*}',
       views: {
         'modal': {
           template: require('view/common/income/modal.html'),

@@ -20,6 +20,10 @@ module.exports = function($scope, $http, $state, $stateParams) {
     }
   }
 
+  $scope.getAccPeriod = function(item) {
+
+  }
+
   $scope.export = function(eve) {
     var url = "/Common/ExportExcel?tableName=reg_abroad",
       iframe = document.createElement("iframe");
