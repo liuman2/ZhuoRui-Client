@@ -72,8 +72,9 @@
             <th style="width: 10px">#</th>
             <th style="width: 100px">档案号</th>
             <th style="width: 80px">订单类型</th>
-            <th style="max-width: 120px">名称</th>
-            <th style="width: 105px">年检基准日</th>
+            <th style="max-width: 100px">名称</th>
+            <th style="width: 80px">最近联系日</th>
+            <th style="width: 100px">年检基准日</th>
             <th style="width: 80px">上次年检</th>
             <th style="width: 80px">超期(月)</th>
             <th style="width: 85px">业务员</th>
@@ -85,6 +86,7 @@
             <td ng-bind="item.order_code"></td>
             <td ng-bind="item.order_type_name"></td>
             <td ng-bind="item.order_name" ng-attr-title="{{item.order_name}}"></td>
+            <td ng-bind="format(item.date_last, 'YYYY-MM-DD')" ng-attr-title="{{item.title_last}}"></td>
             <td ng-bind="format(item.date_setup, 'YYYY-MM-DD')"></td>
             <td ng-bind="item.annual_year"></td>
             <td ng-bind="getMonth(item)" ng-class="{'red-warning': getRedWarning(item)}"></td>

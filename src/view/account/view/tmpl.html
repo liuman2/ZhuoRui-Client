@@ -215,7 +215,7 @@
                   <div class="form-group">
                     <label class="col-sm-1 control-label">账期</label>
                     <div class="col-sm-8">
-                      <span class="form-span" ng-bind="format(item.date_start, 'YYYY-MM-DD') + ' 至 ' + format(item.date_end, 'YYYY-MM-DD')"></span>
+                      <span class="form-span" ng-bind="format(item.date_start, 'YYYY-MM') + ' 至 ' + format(item.date_end, 'YYYY-MM')"></span>
                     </div>
                   </div>
                   <div class="form-group">
@@ -240,12 +240,6 @@
                     <label class="col-sm-1 control-label">付款方式</label>
                     <div class="col-sm-8">
                       <span class="form-span" ng-bind="getPayMode(item.pay_mode)"></span>
-                      <select class="form-control select2" name="item.pay_mode" ng-model="item.pay_mode" readonly style="background:#fff;border:none;">
-                        <option value="1">月付</option>
-                        <option value="3">季付</option>
-                        <option value="6">半年</option>
-                        <option value="12">每年</option>
-                      </select>
                     </div>
                   </div>
                   <div class="form-group">

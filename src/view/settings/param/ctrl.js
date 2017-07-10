@@ -9,6 +9,14 @@ module.exports = function($scope, $http, $state, $stateParams) {
 
   $scope.data = {};
 
+  // $scope.old = function() {
+  //   $http({
+  //     method: 'GET',
+  //     url: '/Timeline/UpdateOldData',
+  //   }).success(function(data) {
+  //   });
+  // }
+
   $scope.save = function() {
     jForm.isValid(function(v) {
       if (v) {

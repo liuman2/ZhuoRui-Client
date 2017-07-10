@@ -99,6 +99,13 @@ module.exports = function($scope, $state, $http, $timeout) {
     items: []
   };
 
+  $scope.getTitle = function(item) {
+    if (item.log_type === 1) {
+      return item.title + '(年检)';
+    }
+    return item.title;
+  }
+
   $scope.format = function(dt, str) {
     if (!dt) {
       return '';

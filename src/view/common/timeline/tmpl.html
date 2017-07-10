@@ -31,7 +31,7 @@
           <i class="fa fa-clock-o bg-blue"></i>
           <div class="timeline-item">
             <span class="time"><i class="fa fa-clock-o"></i> <span ng-bind="format(item.date_created, 'YYYY-MM-DD HH:mm:ss')"></span></span>
-            <h3 class="timeline-header"><a href="javascript:;" ng-bind="item.title"></a></h3>
+            <h3 class="timeline-header"><a href="javascript:;" ng-bind="getTitle(item)"></a></h3>
             <div class="timeline-body">
               <span ng-bind="format(item.date_business, 'YYYY-MM-DD')"></span>
               <span ng-bind="item.content"></span>

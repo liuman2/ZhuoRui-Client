@@ -25,7 +25,8 @@ module.exports = function($scope, $state, $http, $timeout) {
     source_name: $state.params.name,
     title: '',
     content: '',
-    date_business: ''
+    date_business: '',
+    log_type: '',
   }
 
   $scope.save = function() {
