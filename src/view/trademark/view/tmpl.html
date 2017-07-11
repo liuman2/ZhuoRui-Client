@@ -276,7 +276,7 @@
               <td ng-bind="item.description"></td>
               <td class="opt-col">
                 <a ng-if="data.status == 0" class="fa fa-pencil orange" ui-sref=".income_edit({tid: {{item.id}}})" ui-sref-opts="{location:false}" title="修改"></a>
-                <a ng-if="data.status == 0" href="javascript:;" class="fa fa-trash-o red" ng-click="deleteIncome(item)" title="删除"></a>
+                <!-- <a ng-if="data.status == 0" href="javascript:;" class="fa fa-trash-o red" ng-click="deleteIncome(item)" title="删除"></a> -->
                 <a href="/print.html?m=trademark_line&id={{item.id}}" target="_blank">打印</a>
               </td>
             </tr>
