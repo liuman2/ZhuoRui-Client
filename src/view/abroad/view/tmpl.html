@@ -413,6 +413,8 @@
                   <th>收款银行</th>
                   <th>收款账号</th>
                   <th>收款金额</th>
+                  <th>币别</th>
+                  <th>汇率</th>
                   <th>收款方式</th>
                   <th>收款时间</th>
                   <th>附件</th>
@@ -425,6 +427,8 @@
                   <td ng-bind="item.bank"></td>
                   <td ng-bind="item.account"></td>
                   <td ng-bind="item.amount"></td>
+                  <td ng-bind="item.currency"></td>
+                  <td ng-bind="item.rate"></td>
                   <td ng-bind="item.pay_way"></td>
                   <td ng-bind="format(item.date_pay, 'YYYY-MM-DD')"></td>
                   <td>
@@ -443,12 +447,12 @@
                   <td></td>
                   <td class="summary" colspan="2">
                     <div>
-                      <span>交易币别: </span>
-                      <span class="num" ng-bind="data.currency"></span>
+                      <span>本币: </span>
+                      <span class="num">人民币</span>
                     </div>
                     <div>
                       <span>应收款: </span>
-                      <span class="num receivable" ng-bind="data.amount_transaction"></span>
+                      <span class="num receivable" ng-bind="incomes.amount"></span>
                     </div>
                     <div>
                       <span>已收款: </span>
@@ -458,32 +462,10 @@
                       <span>未收款: </span>
                       <span class="num balance" ng-bind="incomes.balance"></span>
                     </div>
-                    <div ng-if="data.currency !='人民币'">
-                      <span>汇率: </span>
-                      <span class="num" ng-bind="data.rate"></span>
-                    </div>
                   </td>
                   <td class="summary" colspan="2">
-                    <div ng-if="data.currency !='人民币'">
-                      <div>
-                        <span>本币: </span>
-                        <span class="num">人民币</span>
-                      </div>
-                      <div>
-                        <span>应收款: </span>
-                        <span class="num receivable" ng-bind="incomes.local_amount"></span>
-                      </div>
-                      <div>
-                        <span>已收款: </span>
-                        <span class="num received" ng-bind="incomes.local_total"></span>
-                      </div>
-                      <div>
-                        <span>未收款: </span>
-                        <span class="num balance" ng-bind="incomes.local_balance"></span>
-                      </div>
-                    </div>
                   </td>
-                  <td class="summary" colspan="4">
+                  <td class="summary" colspan="7">
                   </td>
                 </tr>
               </tbody>

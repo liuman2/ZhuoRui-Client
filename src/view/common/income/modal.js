@@ -25,7 +25,6 @@ module.exports = function($scope, $state, $http, $timeout) {
     }
   });
 
-  console.log($scope.data.currency)
 
   var jForm = $('#income_modal');
   jForm.validator({
@@ -69,6 +68,15 @@ module.exports = function($scope, $state, $http, $timeout) {
         }
       }
     });
+  }
+
+  $scope.currencyChange = function(e) {
+    if ($scope.income.currency == '人民币') {
+      $scope.income.rate = 1;
+    } else if ($scope.income.rate == 1) {
+      $scope.income.rate = '';
+    }
+    $scope.$apply();
   }
 
   $scope.bankChange = function(e) {
@@ -120,7 +128,6 @@ module.exports = function($scope, $state, $http, $timeout) {
         });
         return;
       }
-
 
       $scope.$emit('INCOME_MODAL_DONE');
       $state.go('^', {

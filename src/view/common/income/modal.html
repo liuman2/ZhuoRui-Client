@@ -1,108 +1,136 @@
 <div class="modal" style="display: block;">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close" ui-sref="^">
-                    <span aria-hidden="true">×</span></button>
-                <h4 class="modal-title" ng-bind="title">添加收款</h4>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" ui-sref="^">
+          <span aria-hidden="true">×</span></button>
+        <h4 class="modal-title" ng-bind="title">添加收款</h4>
+      </div>
+      <div class="modal-body">
+        <form class="form-horizontal" id="income_modal">
+          <div class="form-group">
+            <label class="col-sm-2 control-label">付款人<span class="required">*</span></label>
+            <div class="col-sm-8">
+              <input type="text" class="form-control" name="title" ng-model="income.payer" data-rule="required; length[~100];">
             </div>
-            <div class="modal-body">
-                <form class="form-horizontal" id="income_modal">
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label">付款人<span class="required">*</span></label>
-                        <div class="col-sm-8">
-                            <input type="text" class="form-control" name="title" ng-model="income.payer" data-rule="required; length[~100];">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label">收款金额<span class="required">*</span></label>
-                        <div class="col-sm-8">
-                            <input type="text" class="form-control" name="amount" ng-model="income.amount" data-rule="required; range[0~9999999]">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label">收款银行</label>
-                        <div class="col-sm-8">
-                            <!-- <input type="text" class="form-control" name="bank" ng-model="income.bank" data-rule="length[~100];"> -->
-                            <select class="form-control select2" id="selectBanks" name="bank" ng-model="income.bank" ng-change="bankChange($event)">
-                                <option value="">请选择</option>
-                                <option ng-repeat="option in banks" value="{{option.name}}">{{option.name}}</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label">收款账号</label>
-                        <div class="col-sm-8">
-                            <input type="text" class="form-control" name="account" ng-model="income.account" data-rule="length[~100];" disabled>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label">收款方式<span class="required">*</span></label>
-                        <div class="col-sm-8">
-                            <select ui-select2 class="form-control select2" name="pay_way" ng-model="income.pay_way" url="Dictionary/DroplistByGroup" paging="false" paramfield="group" paramvalue="付款方式" data-rule="required;"></select>
-                            <span id="payWaySelect2-validator" class="select-validator"></span>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label">收款日期<span class="required">*</span></label>
-                        <div class="col-sm-8">
-                            <input type="text" class="form-control date-input" id="date_pay" name="date_pay" ng-model="income.date_pay" data-rule="required;">
-                        </div>
-                    </div>
-                    <div class="form-group" ng-if="income.source_name == 'accounting_item'">
-                        <label class="col-sm-2 control-label">下期收款<span class="required">*</span></label>
-                        <div class="col-sm-8">
-                            <select class="form-control" name="notify_year" ng-model="notify_year" data-rule="required;" style="width:35%">
-                              <option value="">请选择年</option>
-                              <option value="2017">2017年</option>
-                              <option value="2018">2018年</option>
-                              <option value="2018">2019年</option>
-                            </select>
-                            <select class="form-control" name="notify_month" ng-model="notify_month" data-rule="required;" style="width:30%">
-                              <option value="">请选择月份</option>
-                              <option value="01">1月</option>
-                              <option value="02">2月</option>
-                              <option value="03">3月</option>
-                              <option value="04">4月</option>
-                              <option value="05">5月</option>
-                              <option value="06">6月</option>
-                              <option value="07">7月</option>
-                              <option value="08">8月</option>
-                              <option value="09">9月</option>
-                              <option value="10">10</option>
-                              <option value="11">11月</option>
-                              <option value="12">12月</option>
-                            </select>
-                            <select class="form-control" name="notify_day" ng-model="notify_day" data-rule="required;" style="width:30%">
-                              <option value="15">15日</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label">附件</label>
-                        <div class="col-sm-8">
-                            <div class="input-group">
-                                <input type="text" name="attachment_url" ng-model="income.attachment_url" class="form-control" readonly>
-                                <span class="input-group-btn">
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">收款币别<span class="required">*</span></label>
+            <div class="col-sm-8">
+              <select
+                class="form-control select2"
+                name="income_currency"
+                ng-model="income.currency"
+                ng-change="currencyChange()"
+                data-rule="required;"
+              >
+                <option value="">请选择</option>
+                <option value="人民币">人民币</option>
+                <option value="港币">港币</option>
+                <option value="美元">美元</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">汇率<span class="required">*</span></label>
+            <div class="col-sm-8">
+              <input
+                type="text"
+                class="form-control"
+                name="income_rate"
+                ng-model="income.rate"
+                ng-disabled="income.currency=='人民币'"
+                data-rule-money="[/^(([1-9]\d{0,9})|0)(\.\d{1,2})?$/, '请填写2位数的数值']"
+                data-rule="required;money;"
+              >
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">收款金额<span class="required">*</span></label>
+            <div class="col-sm-8">
+              <input type="text" class="form-control" name="amount" ng-model="income.amount" data-rule="required; range[0~9999999]">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">收款银行<span class="required">*</span></label>
+            <div class="col-sm-8">
+              <select class="form-control select2" id="selectBanks" name="bank" ng-model="income.bank" ng-change="bankChange($event)">
+                <option value="">请选择</option>
+                <option ng-repeat="option in banks" value="{{option.name}}">{{option.name}}</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">收款账号</label>
+            <div class="col-sm-8">
+              <input type="text" class="form-control" name="account" ng-model="income.account" data-rule="length[~100];" disabled>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">收款方式<span class="required">*</span></label>
+            <div class="col-sm-8">
+              <select ui-select2 class="form-control select2" name="pay_way" ng-model="income.pay_way" url="Dictionary/DroplistByGroup" paging="false" paramfield="group" paramvalue="付款方式" data-rule="required;"></select>
+              <span id="payWaySelect2-validator" class="select-validator"></span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">收款日期<span class="required">*</span></label>
+            <div class="col-sm-8">
+              <input type="text" class="form-control date-input" id="date_pay" name="date_pay" ng-model="income.date_pay" data-rule="required;">
+            </div>
+          </div>
+          <div class="form-group" ng-if="income.source_name == 'accounting_item'">
+            <label class="col-sm-2 control-label">下期收款<span class="required">*</span></label>
+            <div class="col-sm-8">
+              <select class="form-control" name="notify_year" ng-model="notify_year" data-rule="required;" style="width:35%">
+                <option value="">请选择年</option>
+                <option value="2017">2017年</option>
+                <option value="2018">2018年</option>
+                <option value="2018">2019年</option>
+              </select>
+              <select class="form-control" name="notify_month" ng-model="notify_month" data-rule="required;" style="width:30%">
+                <option value="">请选择月份</option>
+                <option value="01">1月</option>
+                <option value="02">2月</option>
+                <option value="03">3月</option>
+                <option value="04">4月</option>
+                <option value="05">5月</option>
+                <option value="06">6月</option>
+                <option value="07">7月</option>
+                <option value="08">8月</option>
+                <option value="09">9月</option>
+                <option value="10">10</option>
+                <option value="11">11月</option>
+                <option value="12">12月</option>
+              </select>
+              <select class="form-control" name="notify_day" ng-model="notify_day" data-rule="required;" style="width:30%">
+                <option value="15">15日</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">附件</label>
+            <div class="col-sm-8">
+              <div class="input-group">
+                <input type="text" name="attachment_url" ng-model="income.attachment_url" class="form-control" readonly>
+                <span class="input-group-btn">
                                       <div type="button" class="btn btn-info btn-flat" id="btnUpload" >{{btnUploadText}}</div>
                                 </span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label">备注</label>
-                        <div class="col-sm-8">
-                            <textarea class="form-control" rows="3" name="description" ng-model="income.description" data-rule=" length[~100];"></textarea>
-                        </div>
-                    </div>
-                </form>
+              </div>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default pull-left" data-dismiss="modal" ui-sref="^">取消</button>
-                <button type="button" class="btn btn-primary" ng-click="save()">保存</button>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">备注</label>
+            <div class="col-sm-8">
+              <textarea class="form-control" rows="3" name="description" ng-model="income.description" data-rule=" length[~100];"></textarea>
             </div>
-        </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default pull-left" data-dismiss="modal" ui-sref="^">取消</button>
+        <button type="button" class="btn btn-primary" ng-click="save()">保存</button>
+      </div>
     </div>
+  </div>
 </div>
