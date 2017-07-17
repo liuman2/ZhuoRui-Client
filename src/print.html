@@ -264,33 +264,35 @@
       </tr>
     </table>
 
-    <table style="width:100%; margin-top: 5px; font-size: 12px;" ng-show="showFooter('abroad')">
+    <table style="width:100%; margin-top: 5px; font-size: 10px;" ng-show="showFooter('abroad')">
       <tr>
-        <td style="width: 14.28%">
+        <td style="width: 25%; font-size: 10px;">
           <span>总经理：</span>
           <span></span>
         </td>
-        <td style="width: 14.28%">
+        <td style="width: 25%; font-size: 10px">
           <span>财务主管：</span>
           <span></span>
         </td>
-        <td style="width: 14.28%">
-          <span>出纳：</span>
+        <td style="width: 25%; font-size: 10px">
+          <span>出&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;纳：</span>
           <span ng-bind="printData.cashier"></span>
         </td>
-        <td style="width: 14.28%">
+        <td style="width: 25%; font-size: 10px">
           <span>订单审核：</span>
           <span ng-bind="printData.accounter"></span>
         </td>
-        <td style="width: 14.28%">
+      </tr>
+      <tr>
+        <td style="width: 50%; font-size: 10px;" colspan="2">
           <span>渠道商：</span>
           <span ng-bind="printData.trader"></span>
         </td>
-        <td style="width: 14.28%">
+        <td style="width: 25%; font-size: 10px;">
           <span>客户归属：</span>
           <span ng-bind="printData.saleman"></span>
         </td>
-        <td style="width: 14.28%">
+        <td style="width: 25%; font-size: 10px;">
           <span>订单归属：</span>
           <span ng-bind="printData.creator"></span>
         </td>
