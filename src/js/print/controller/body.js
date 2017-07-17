@@ -41,6 +41,36 @@ module.exports = function($scope, $http, $state, $stateParams, $location, $timeo
     }).error(function() {});
   }
 
+  $scope.showFooter = function(name) {
+    var m = urlParam('m');
+    if (name == 'normal' && m.indexOf('abroad') < 0) {
+      return true;
+    }
+    if (name == 'abroad' && m.indexOf('abroad') > -1) {
+      return true;
+    }
+
+    return false;
+  }
+
+  $scope.getOthers = function(printData) {
+    if (printData.print_type != 'history') {
+      return printData.others;
+    }
+
+    if (!printData.others) {
+      return '';
+    }
+
+    if (printData.others == '{}') {
+      return '';
+    }
+
+    var obj = JSON.parse(printData.others);
+    return obj.others || '';
+  }
+
+
 
   $scope.currenct2Chinese = function(Num) {
     if (Num === 0) {

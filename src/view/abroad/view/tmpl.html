@@ -371,17 +371,24 @@
         <!-- 其他 -->
         <div class="tab-pane" ng-class="{'active': activeTab == 4}">
           <div class="form-group">
-            <label class="col-sm-2 control-label">业务员</label>
+            <label class="col-sm-2 control-label">客户归属</label>
             <div class="col-sm-8">
               <span class="form-span" ng-bind="data.salesman"></span>
             </div>
           </div>
           <div class="form-group">
-            <label class="col-sm-2 control-label">助理</label>
+            <label class="col-sm-2 control-label">订单归属</label>
             <div class="col-sm-8">
               <span class="form-span" ng-bind="data.assistant_name"></span>
             </div>
           </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">渠道商</label>
+            <div class="col-sm-8">
+              <span class="form-span" ng-bind="data.trader_name"></span>
+            </div>
+          </div>
+
           <div class="form-group">
             <label class="col-sm-2 control-label">是否需要年检<span class="required">*</span></label>
             <div class="col-sm-8">

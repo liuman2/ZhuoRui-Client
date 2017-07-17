@@ -50,6 +50,10 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
     is_open_bank: 0,
     salesman_id: user.id,
     salesman: user.name,
+
+    assistant_id: user.id,
+    assistant_name: user.name,
+
     waiter_id: '',
     customer_id: '',
     invoice_name: '',
@@ -59,7 +63,6 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
     invoice_bank: '',
     rate: '',
     invoice_account: '',
-    assistant_id: '',
     is_old: 0,
     is_annual: '',
     manager_id: null,
@@ -403,6 +406,11 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
 
       if (order.date_transaction && order.date_transaction.indexOf('T') > -1) {
         order.date_transaction = order.date_transaction.split('T')[0];
+      }
+
+      if (!order.assistant_id) {
+        order.assistant_id = user.id;
+        order.assistant_name = user.name;
       }
 
       $scope.data = order;
