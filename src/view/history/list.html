@@ -15,7 +15,6 @@
     <div class="box box-danger">
         <div class="box-header with-border">
             <h3 class="box-title">档案号: {{module.code}}</h3>
-            <button type="button" class="btn btn-primary" ng-click="showChange()" ng-bind="showChanges ? '显示订单记录' : '显示变更记录'"></button>
             <div class="box-tools">
                 <div class="box-tools pull-right">
                     <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
@@ -23,7 +22,10 @@
                 </div>
             </div>
             <div>
-                订单名称：{{data.orderName}}
+                <h3 class="box-title">订单名称: {{data.orderName}}</h3>
+            </div>
+            <div>
+                <button type="button" class="btn btn-primary" ng-click="showChange()" ng-bind="showChanges ? '显示订单记录' : '显示变更记录'"></button>
             </div>
         </div>
 
