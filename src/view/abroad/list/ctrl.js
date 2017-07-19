@@ -20,6 +20,33 @@ module.exports = function($scope, $http, $state, $stateParams) {
     }
   }
 
+  $scope.getAnnual = function(item) {
+    if (item.is_annual == 0) {
+      return '-';
+    }
+    if (!item.annual_date) {
+      return '去年检';
+    }
+
+    if (item.annual_id) {
+      return '年检详情';
+    }
+    return '-';
+  }
+
+  $scope.goAnnual = function (item) {
+    var url = '';
+    if (!item.annual_date) {
+      url = $state.href('annual_add', { order_type: 'reg_abroad', order_id: item.id });
+      window.open(url,'_blank');
+    }
+
+    if (item.annual_id) {
+      url = $state.href('annual_view', { id: item.annual_id });
+      window.open(url,'_blank');
+    }
+  }
+
   $scope.export = function(eve) {
     var url = "/Common/ExportExcel?tableName=reg_abroad",
       iframe = document.createElement("iframe");

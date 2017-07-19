@@ -123,6 +123,14 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
           $scope.$apply();
           return;
         }
+
+        if (
+          !$('select[name="need_annual"]').isValid()) {
+
+          $scope.activeTab = 4;
+          $scope.$apply();
+          return;
+        }
       }
 
       if (v) {
@@ -461,6 +469,7 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
   }
 
   function valid_salesman() {
+    return true;
     if (!$scope.data.salesman_id) {
       jForm.validator('showMsg', '#salesmanSelect2-validator', {
         type: "error",

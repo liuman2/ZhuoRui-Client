@@ -104,6 +104,7 @@
             <th ng-click="orderBy('date_created')" class="ordertable">录入时间</th>
             <th ng-click="orderBy('date_setup')" class="ordertable" style="width:80px;">成立日期</th>
             <th class="tar" style="width:110px;">成交金额</th>
+            <th style="width:80px;">年检</th>
             <th class="opt-col">操作</th>
           </tr>
           <tr ng-repeat="item in data.items">
@@ -126,6 +127,9 @@
             <td ng-bind="format(item.date_created, 'YYYY-MM-DD HH:MM')"></td>
             <td ng-bind="format(item.date_setup, 'YYYY-MM-DD')"></td>
             <td class="tar" ng-bind="item.amount_transaction"></td>
+            <td>
+              <a href="javascript:;" ng-click="goAnnual(item)" ng-bind="getAnnual(item)"></a>
+            </td>
             <td class="opt-col">
               <div class="btn-group">
                 <button type="button" class="btn btn-box-tool dropdown-toggle" data-toggle="dropdown">

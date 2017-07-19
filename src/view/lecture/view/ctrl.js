@@ -57,15 +57,23 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
   };
 
   $scope.deleteCustomer = function(item) {
-    $http({
-      method: 'GET',
-      url: '/Lecture/DeleteLeactureCustomer',
-      params: {
-        leactureId: id,
-        customerId: item.customer_id
+    $.confirm({
+      title: false,
+      content: '您确认要删除吗？',
+      confirmButton: '确定',
+      cancelButton: '取消',
+      confirm: function() {
+        $http({
+          method: 'GET',
+          url: '/Lecture/DeleteLeactureCustomer',
+          params: {
+            leactureId: id,
+            customerId: item.customer_id
+          }
+        }).success(function(data) {
+          getCustomers();
+        });
       }
-    }).success(function(data) {
-      getCustomers();
     });
   }
 
