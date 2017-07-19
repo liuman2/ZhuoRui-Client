@@ -60,6 +60,7 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
   }
 
   $('#orderSelect2').on("change", function(e) {
+    $scope.getSelectShow();
     var orders = $('#orderSelect2').select2('data');
     if (!orders.length) {
       customerId = null;
@@ -121,31 +122,31 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
     }).success(function(data) {
       console.log(data)
       setMailArea(data.customer);
-      $scope.data.address = data.customer.mailling_address || '';
+      $scope.data.address = data.customer.address || '';
     });
   }
 
   function setMailArea(data) {
-    var valProvince = AREA_Module.area.provinceIndex(data.mailling_province);
+    var valProvince = AREA_Module.area.provinceIndex(data.province);
     if (valProvince) {
-      $('select[name="mailling_province"]').val(valProvince).trigger('change');
-      $scope.mailling_province = $scope.mailProvinceList[valProvince - 0];
+      $('select[name="province"]').val(valProvince).trigger('change');
+      $scope.province = $scope.mailProvinceList[valProvince - 0];
     } else {
       return;
     }
 
-    var valCity = AREA_Module.area.cityIndex(data.mailling_city);
+    var valCity = AREA_Module.area.cityIndex(data.city);
     if (valCity) {
-      $('select[name="mailling_city"]').val(valCity).trigger('change');
-      $scope.mailling_city = $scope.mailling_province.cityList[valCity - 0];
+      $('select[name="city"]').val(valCity).trigger('change');
+      $scope.city = $scope.province.cityList[valCity - 0];
     } else {
       return;
     }
 
-    var valCounty = AREA_Module.area.areaIndex(data.mailling_county);
+    var valCounty = AREA_Module.area.areaIndex(data.county);
     if (valCounty) {
-      $('select[name="mailling_county"]').val(valCounty).trigger('change');
-      $scope.mailling_county = $scope.mailling_city.areaList[valCounty - 0];
+      $('select[name="county"]').val(valCounty).trigger('change');
+      $scope.county = $scope.city.areaList[valCounty - 0];
     }
   }
 
@@ -227,6 +228,16 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
         var order_id = $('#orderSelect2').val();
         submitData.order_id = order_id;
 
+        if ($scope.province) {
+          submitData.province = $scope.province.name;
+        }
+        if ($scope.city) {
+          submitData.city = $scope.city.name;
+        }
+        if ($scope.county) {
+          submitData.county = $scope.county;
+        }
+
         var url = $scope.action == 'add' ? '/Letter/Add' : '/Letter/Update';
 
         $http({
@@ -254,13 +265,39 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
 
   $scope.mailProvinceList = AREA_Module.area.provinceList;
   $scope.changeMailProvince = function() {
-    $scope.mailling_city = '';
-    $scope.mailling_county = '';
+    $scope.city = '';
+    $scope.county = '';
   }
 
   $scope.changeMailCity = function() {
-    $scope.mailling_county = '';
+    $scope.county = '';
   }
+
+  $scope.getSelectShow = function() {
+    return !!$('#orderSelect2').val();
+  }
+
+  $scope.selectSource = function() {
+    if (!$scope.data.order_id) {
+      $.alert({
+        title: false,
+        content: '请选择订单',
+        confirmButton: '确定'
+      });
+      return;
+    }
+
+    $state.go(".source", null, { location: false });
+  }
+
+  $scope.$on('SOURCE_DONE', function(e, s) {
+    console.log(s)
+    // $scope.data.source_id = s.id;
+    // $scope.data.source_code = s.code;
+
+    $scope.data.receiver = s.name;
+    $scope.data.tel = s.mobile;
+  });
 
   $('input[name="code"]').focus();
 
@@ -277,7 +314,7 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
       }
 
       $scope.data = data;
-
+      setMailArea(data);
       $timeout(function() {
         if (data.order_name) {
           var option = "<option value='" + data.order_id + "'>" + data.order_name + "</option>";

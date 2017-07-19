@@ -68,6 +68,9 @@
           <div class="col-sm-6">
             <input type="text" class="form-control" name="receiver" ng-model="data.receiver" data-rule="required; length[~30];">
           </div>
+          <div class="col-sm-1 add-dictionary" ng-if="getSelectShow()">
+            <a class="fa fa-search" ng-click="selectSource()"></a>
+          </div>
         </div>
         <div class="form-group">
           <label class="col-sm-2 control-label"><span>收件人电话</span></label>
@@ -79,15 +82,15 @@
         <div class="form-group">
           <label class="col-sm-2 control-label">收件人地址</label>
           <div class="col-sm-6">
-            <select style="width:18%" class="form-control" name="mailling_province" ng-model="mailling_province" mailling_province-change="changeMailProvince()" ng-options="province.name for province in mailProvinceList">
+            <select style="width:18%" class="form-control" name="province" ng-model="province" ng-change="changeMailProvince()" ng-options="province.name for province in mailProvinceList">
               <option value="">请选择省份</option>
             </select>
 
-            <select style="width:18%" class="form-control" name="mailling_city" ng-model="mailling_city" ng-change="changeMailCity()" ng-options="city.name for city in mailling_province.cityList">
+            <select style="width:18%" class="form-control" name="city" ng-model="city" ng-change="changeMailCity()" ng-options="city.name for city in province.cityList">
               <option value="">请选择城市</option>
             </select>
 
-            <select style="width:18%" class="form-control" name="mailling_county" ng-model="mailling_county" ng-options="county for county in mailling_city.areaList">
+            <select style="width:18%" class="form-control" name="county" ng-model="county" ng-options="county for county in city.areaList">
               <option value="">请选择县/区</option>
             </select>
 
@@ -102,6 +105,7 @@
             <input type="text" class="form-control" name="address" ng-model="data.address" data-rule="length[~200];">
           </div>
         </div> -->
+
         <div class="form-group">
           <label class="col-sm-2 control-label">快递公司</label>
           <div class="col-sm-6">
@@ -135,3 +139,4 @@
     </div>
   </form>
 </section>
+<div ui-view="source"></div>

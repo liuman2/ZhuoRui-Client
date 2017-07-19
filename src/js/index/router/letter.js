@@ -13,6 +13,23 @@ var router = function($stateProvider, $urlRouterProvider) {
       template: require('view/letter/info/tmpl.html'),
       controller: require('view/letter/info/ctrl')
     })
+    .state('letter_add.source', {
+      views: {
+        'source': {
+          template: require('view/letter/info/source.html'),
+          controller: require('view/letter/info/source')
+        }
+      }
+    })
+    .state('letter_edit.source', {
+      views: {
+        'source': {
+          template: require('view/letter/info/source.html'),
+          controller: require('view/letter/info/source')
+        }
+      }
+    })
+
     .state('letter_edit', {
       url: '/letter/edit/{id:.*}',
       template: require('view/letter/info/tmpl.html'),
