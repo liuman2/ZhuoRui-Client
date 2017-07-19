@@ -15,6 +15,8 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
     }
   });
 
+  var customerId = null;
+
   $("#orderSelect2").select2({
     language: "zh-CN",
     placeholder: "请先选择订单类别",
@@ -60,9 +62,13 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
   $('#orderSelect2').on("change", function(e) {
     var orders = $('#orderSelect2').select2('data');
     if (!orders.length) {
+      customerId = null;
+      getCustomerInfo();
       return false;
     }
     if (orders[0].order_id == undefined) {
+      customerId = null;
+      getCustomerInfo();
       return false;
     }
     var order_id = $(e.target).val();
@@ -75,10 +81,14 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
     if (selectOrders.length) {
       $scope.data.order_code = selectOrders[0].order_code;
       $scope.data.order_name = selectOrders[0].order_name;
+      customerId = selectOrders[0].customer_id;
     } else {
       $scope.data.order_code = '';
       $scope.data.order_name = '';
+      customerId = null;
     }
+
+    getCustomerInfo();
     $scope.$apply();
   });
 
@@ -94,6 +104,49 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
       break;
     default:
       break;
+  }
+
+  function getCustomerInfo() {
+    if (!customerId) {
+      // TODO:
+      return;
+    }
+
+    $http({
+      method: 'GET',
+      url: '/Customer/Get',
+      params: {
+        id: customerId
+      }
+    }).success(function(data) {
+      console.log(data)
+      setMailArea(data.customer);
+      $scope.data.address = data.customer.mailling_address || '';
+    });
+  }
+
+  function setMailArea(data) {
+    var valProvince = AREA_Module.area.provinceIndex(data.mailling_province);
+    if (valProvince) {
+      $('select[name="mailling_province"]').val(valProvince).trigger('change');
+      $scope.mailling_province = $scope.mailProvinceList[valProvince - 0];
+    } else {
+      return;
+    }
+
+    var valCity = AREA_Module.area.cityIndex(data.mailling_city);
+    if (valCity) {
+      $('select[name="mailling_city"]').val(valCity).trigger('change');
+      $scope.mailling_city = $scope.mailling_province.cityList[valCity - 0];
+    } else {
+      return;
+    }
+
+    var valCounty = AREA_Module.area.areaIndex(data.mailling_county);
+    if (valCounty) {
+      $('select[name="mailling_county"]').val(valCounty).trigger('change');
+      $scope.mailling_county = $scope.mailling_city.areaList[valCounty - 0];
+    }
   }
 
   var user = $cookieStore.get('USER_INFO');
@@ -198,6 +251,18 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
       });
     }
   }
+
+  $scope.mailProvinceList = AREA_Module.area.provinceList;
+  $scope.changeMailProvince = function() {
+    $scope.mailling_city = '';
+    $scope.mailling_county = '';
+  }
+
+  $scope.changeMailCity = function() {
+    $scope.mailling_county = '';
+  }
+
+  $('input[name="code"]').focus();
 
   function actionView() {
     $http({

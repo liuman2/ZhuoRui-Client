@@ -49,7 +49,15 @@
             <span class="form-span" ng-bind="data.source_name"></span>
           </div>
         </div>
-        <div class="form-group">
+
+        <div class="form-group mb-0">
+          <label class="col-sm-2 control-label">详细地址:</label>
+          <div class="col-sm-8">
+            <span class="form-span" ng-bind="data.province + data.city + data.county + data.address"></span>
+          </div>
+        </div>
+
+        <!-- <div class="form-group">
           <label class="col-sm-2 control-label">所在省:</label>
           <div class="col-sm-8">
             <span class="form-span" ng-bind="data.province"></span>
@@ -72,13 +80,21 @@
           <div class="col-sm-8">
             <span class="form-span" ng-bind="data.address"></span>
           </div>
-        </div>
-        <div class="form-group">
+        </div> -->
+        <div class="form-group mb-0">
           <label class="col-sm-2 control-label">寄件地址:</label>
           <div class="col-sm-8">
-            <span class="form-span" ng-bind="data.mail_address"></span>
+            <span class="form-span" ng-bind="data.mailling_province + data.mailling_city + data.mailling_county + data.mailling_address"></span>
           </div>
         </div>
+
+        <!-- <div class="form-group">
+          <label class="col-sm-2 control-label">寄件地址:</label>
+          <div class="col-sm-8">
+            <span class="form-span" ng-bind="data.mailling_address"></span>
+          </div>
+        </div> -->
+
         <div class="form-group">
           <label class="col-sm-2 control-label">传真:</label>
           <div class="col-sm-8">
