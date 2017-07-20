@@ -65,6 +65,7 @@
             <th>注册进度</th>
             <th>成交日期</th>
             <th class="tar">成交金额</th>
+            <th>收据编号</th>
             <th class="opt-col">操作</th>
           </tr>
           <tr ng-repeat="item in data.items">
@@ -83,6 +84,7 @@
             </td>
             <td ng-bind="format(item.date_transaction, 'YYYY-MM-DD')"></td>
             <td class="tar" ng-bind="item.amount_transaction"></td>
+            <td ng-bind="item.receipt_no"></td>
             <td class="opt-col">
               <div class="btn-group">
                 <button type="button" class="btn btn-box-tool dropdown-toggle" data-toggle="dropdown">

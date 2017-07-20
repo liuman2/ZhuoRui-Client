@@ -24,6 +24,10 @@ module.exports = function($scope, $state, $http, $q, $cookieStore, $timeout) {
     });
   }
 
+  $scope.print = function() {
+    $state.go(".print", { id: id }, { location: false });
+  }
+
   $scope.format = function(dt, str) {
     if (!dt) {
       return '';

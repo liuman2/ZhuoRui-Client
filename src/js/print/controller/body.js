@@ -7,6 +7,27 @@ module.exports = function($scope, $http, $state, $stateParams, $location, $timeo
   var t = urlParam('t') || '';
   $scope.printType = t;
 
+  $scope.mail = null;
+
+  if (t === 'address') {
+    $http({
+      method: 'GET',
+      url: '/Letter/GetAddress',
+      params: {
+        id: urlParam('id')
+      }
+    }).success(function(data) {
+      if (!!data) {
+        $scope.mail = data;
+        $timeout(function() {
+          window.print();
+        }, 400);
+      }
+    });
+
+    return;
+  }
+
   if (!t) {
     $http({
       method: 'GET',

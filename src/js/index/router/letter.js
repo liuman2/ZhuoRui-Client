@@ -7,6 +7,15 @@ var router = function($stateProvider, $urlRouterProvider) {
       template: require('view/letter/list/tmpl.html'),
       controller: require('view/letter/list/ctrl')
     })
+    .state('letter.print', {
+      url: '/letter/print/{id:.*}',
+      views: {
+        'modal': {
+          template: require('view/common/printAddress/modal.html'),
+          controller: require('view/common/printAddress/modal')
+        }
+      }
+    })
     .state('letter_add', {
       parent: 'list',
       url: '/letter/add',
@@ -40,6 +49,16 @@ var router = function($stateProvider, $urlRouterProvider) {
       template: require('view/letter/view/tmpl.html'),
       controller: require('view/letter/view/ctrl')
     })
+    .state('letter_view.print', {
+      url: '/letter/print/{id:.*}',
+      views: {
+        'modal': {
+          template: require('view/common/printAddress/modal.html'),
+          controller: require('view/common/printAddress/modal')
+        }
+      }
+    })
+
     .state('letter_view.audit', {
       url: '/letter/{module_name:.*}',
       views: {

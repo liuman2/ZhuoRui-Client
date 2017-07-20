@@ -1,0 +1,50 @@
+<div class="modal" style="display: block;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" ui-sref="^">
+          <span aria-hidden="true">×</span></button>
+        <h4 class="modal-title">寄件地址</h4>
+      </div>
+      <div class="modal-body">
+        <form class="form-horizontal" id="receipt_modal">
+          <div class="form-group">
+            <label class="col-sm-2 control-label"><span>收件人</span><span class="required">*</span></label>
+            <div class="col-sm-8">
+              <input type="text" class="form-control" name="receiver" ng-model="mail.receiver" data-rule="required; length[~30];">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label"><span>收件人电话</span></label>
+            <div class="col-sm-8">
+              <input type="text" class="form-control" name="tel" ng-model="mail.tel" data-rule="length[~20];">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-sm-2 control-label">收件人地址</label>
+            <div class="col-sm-8">
+              <select style="width:18%" class="form-control" name="province" ng-model="province" ng-change="changeMailProvince()" ng-options="province.name for province in mailProvinceList">
+                <option value="">请选择省份</option>
+              </select>
+
+              <select style="width:18%" class="form-control" name="city" ng-model="city" ng-change="changeMailCity()" ng-options="city.name for city in province.cityList">
+                <option value="">请选择城市</option>
+              </select>
+
+              <select style="width:18%" class="form-control" name="county" ng-model="county" ng-options="county for county in city.areaList">
+                <option value="">请选择县/区</option>
+              </select>
+
+              <input style="width:44%" type="text" class="form-control" placeholder="详细地址" ng-model="mail.address" data-rule="length[~200];">
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default pull-left" data-dismiss="modal" ui-sref="^">取消</button>
+        <button class="btn btn-primary" ng-click="save($event)" ng-bind="formType=='new'?'保存' : '打印'"></button>
+      </div>
+    </div>
+  </div>
+</div>

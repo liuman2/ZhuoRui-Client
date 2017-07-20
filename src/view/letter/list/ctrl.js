@@ -26,6 +26,10 @@ module.exports = function($scope, $http, $state, $cookieStore, $stateParams) {
     status: ''
   }
 
+  $scope.print = function(id) {
+    $state.go(".print", { id: id }, { location: false });
+  }
+
   $scope.getTitle = function(item, i) {
     if (item.review_status == -1) {
       $('#tool-tip' + i).tooltipster({
