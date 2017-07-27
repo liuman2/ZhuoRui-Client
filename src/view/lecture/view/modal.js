@@ -1,9 +1,9 @@
-module.exports = function ($scope, $http, $state) {
+module.exports = function($scope, $http, $state) {
     var lecture_id = $state.params.id || null;
 
     $scope.selectedMembers = {};
 
-     $scope.search = {
+    $scope.search = {
         index: 1,
         size: 20,
         lectureId: lecture_id,
@@ -29,14 +29,14 @@ module.exports = function ($scope, $http, $state) {
 
         $scope.isSelectAll = $event.target.checked;
         if ($scope.isSelectAll) {
-            $scope.data.items.forEach(function (value, index, array) {
+            $scope.data.items.forEach(function(value, index, array) {
                 if (!$scope.selectedMembers.hasOwnProperty(value.id)) {
                     $scope.selectedMembers[value.id] = value;
                 }
             })
             $scope.currentIndexChecked = $scope.data.items.length;
         } else {
-            $scope.data.items.forEach(function (value, index, array) {
+            $scope.data.items.forEach(function(value, index, array) {
                 if ($scope.selectedMembers.hasOwnProperty(value.id)) {
                     delete $scope.selectedMembers[value.id];
                 }
@@ -61,7 +61,7 @@ module.exports = function ($scope, $http, $state) {
         }
         if (action == 'remove' && $scope.selectedMembers.hasOwnProperty(item.id)) {
             delete $scope.selectedMembers[item.id];
-            $scope.data.items.forEach(function (m, index) {
+            $scope.data.items.forEach(function(m, index) {
                 if (m.id === item.id) {
                     $scope.currentIndexChecked--;
                 }
@@ -76,8 +76,11 @@ module.exports = function ($scope, $http, $state) {
 
     $scope.save = function() {
         var ids = [];
-        $.each($scope.selectedMembers, function (k, v) {
-            ids.push(v.id);
+        $.each($scope.selectedMembers, function(k, v) {
+            ids.push({
+                contact_id: v.id,
+                customer_id: v.customer_id,
+            });
         });
 
         if (!ids.length) {
@@ -90,7 +93,7 @@ module.exports = function ($scope, $http, $state) {
             url: '/Lecture/SaveCustomer',
             data: {
                 leactueId: lecture_id,
-                customerIds: ids
+                request: ids
             }
         }).success(function(data) {
             $scope.$emit('CUSTOMER_MODAL_DONE');

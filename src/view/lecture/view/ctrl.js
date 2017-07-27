@@ -68,7 +68,7 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
           url: '/Lecture/DeleteLeactureCustomer',
           params: {
             leactureId: id,
-            customerId: item.customer_id
+            contactId: item.contact_id
           }
         }).success(function(data) {
           getCustomers();
