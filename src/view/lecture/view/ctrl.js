@@ -46,6 +46,23 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
     return moment(dt).format(str);
   }
 
+  $scope.onExport = function(eve) {
+    if (!$scope.customers.items.length) {
+      $.alert({
+        title: false,
+        content: '无参会客户名单数据',
+        confirmButton: '确定'
+      });
+      return;
+    }
+    var url = "/Lecture/Export?lectureId=" + id,
+      iframe = document.createElement("iframe");
+
+    iframe.src = url;
+    iframe.style.display = "none";
+    document.body.appendChild(iframe);
+    eve.stopPropagation();
+  }
 
   $scope.$on('CUSTOMER_MODAL_DONE', function(e) {
     getCustomers();
@@ -119,7 +136,7 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
       url: '/Lecture/GetDetails',
       params: $scope.search
     }).success(function(data) {
-      $scope.customers = data;
+      $scope.customers = data || [];
     });
   }
 };

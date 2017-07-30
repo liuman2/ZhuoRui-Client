@@ -4,6 +4,8 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
     dInput = $('.date-input'),
     jForm = $('#letter_form');
 
+  $scope.memberList = [];
+
   $.datetimepicker.setLocale('ch');
   dInput.datetimepicker({
     timepicker: true,
@@ -54,9 +56,136 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
       }
     }
   });
+  var orderList = [];
+  $scope.typeChange = function(index) {
+    if ($scope.action == 'update') {
+      $("#orderSelect2").val(null).trigger('change');
+      return;
+    }
+    orderList = [];
+    $("#orderSelect" + index).select2({
+      language: "zh-CN",
+      placeholder: "请先选择订单类别",
+      ajax: {
+        url: httpHelper.url("Letter/SearchOrder"),
+        dataType: 'json',
+        data: function(params) {
+          console.log(params)
+          var _params = {};
+          _params['name'] = params.term || '';
+          _params['type'] = $scope.action == 'update' ? ($scope.data.order_source || '') : ($scope.data.orders[index].order_source || '');
+          _params['index'] = params.page || 1;
+          _params['size'] = 10;
+          return _params;
+        },
+        processResults: function(data, params) {
+          params.page = params.page || 1;
+          $.map(data.items, function(item) {
+            item.id = item.order_id;
+            item.text = item.order_name;
+          });
+          if (!data.page) {
+            data.page = {
+              total_page: 1
+            }
+          }
+          orderList = orderList.concat(data.items);
+          return {
+            results: data.items,
+            pagination: {
+              more: params.page < data.page.total_page
+            }
+          };
+        }
+      }
+    });
 
-  $scope.typeChange = function() {
-    $("#orderSelect2").val(null).trigger('change');
+    $("#orderSelect" + index).val(null).trigger('change');
+
+    $("#orderSelect" + index).on("change", function(e) {
+      var orders = orderList || $('#orderSelect' + index).select2('data');
+      if (!orders.length) {
+        if ($scope.action == 'add') {
+          $scope.data.orders[index].order_id = '';
+          $scope.data.orders[index].order_name = '';
+          $scope.data.orders[index].order_code = '';
+        }
+        if ($scope.action == 'update') {
+          $scope.data.order_id = '';
+          $scope.data.order_name = '';
+          $scope.data.order_code = '';
+        }
+
+        return;
+      }
+      if ($scope.action == 'add') {
+        $scope.data.orders[index].order_id = $('#orderSelect' + index).val();
+        var selectOrders = $.grep(orders, function(o) {
+          return o.id == $scope.data.orders[index].order_id;
+        });
+        $scope.data.orders[index].order_name = selectOrders[0].order_name;
+        $scope.data.orders[index].order_code = selectOrders[0].order_code;
+        setDefaultAuditor(index, selectOrders[0]);
+
+        if (index == 0) {
+          customerId = selectOrders[0].customer_id;
+          getCustomerInfo();
+        }
+      }
+      if ($scope.action == 'update') {
+        $scope.data.order_id = $('#orderSelect' + index).val();
+        var selectOrders = $.grep(orders, function(o) {
+          return o.id == $scope.data.order_id;
+        });
+        $scope.data.order_name = selectOrders[0].order_name;
+        $scope.data.order_code = selectOrders[0].order_code;
+        setDefaultAuditor(0, selectOrders[0]);
+      }
+    });
+
+    $("#auditSelect" + index).on("change", function(e) {
+      var members = $scope.memberList;
+      if (!members.length) {
+        if ($scope.action == 'add') {
+          $scope.data.orders[index].audit_id = '';
+        }
+        if ($scope.action == 'update') {
+          $scope.data.audit_id = '';
+        }
+        return;
+      }
+      if ($scope.action == 'add') {
+        $scope.data.orders[index].audit_id = $('#auditSelect' + index).val();
+      }
+      if ($scope.action == 'update') {
+        $scope.data.audit_id = $('#auditSelect' + index).val();
+      }
+    });
+  }
+
+  $scope.onAdd = function() {
+    $scope.data.orders.push({
+      order_source: '',
+      order_id: '',
+      order_name: '',
+      order_code: '',
+      audit_id: ''
+    })
+  }
+
+  function setDefaultAuditor(index, selectedOrder) {
+    var defaultAuditorId = selectedOrder.assistant_id || selectedOrder.salesman_id;
+    if (!defaultAuditorId) {
+      return;
+    }
+
+    if ($scope.action == 'add') {
+      $scope.data.orders[index].audit_id = defaultAuditorId;
+      $scope.$apply();
+    }
+    if ($scope.action == 'update') {
+
+    }
   }
 
   $('#orderSelect2').on("change", function(e) {
@@ -163,10 +292,33 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
     description: '',
     file_url: '',
     order_id: '',
-    audit_id:'',
-    order_source:''
+    audit_id: '',
+    order_source: '',
+
+    orders: [{
+      order_source: '',
+      order_id: '',
+      order_name: '',
+      order_code: '',
+      audit_id: ''
+    }]
   }
 
+  function getMember() {
+    $http({
+      method: 'GET',
+      url: '/Member/List',
+      params: {
+        index: 1,
+        size: 9999,
+        name: ''
+      }
+    }).success(function(data) {
+      $scope.memberList = data.items || [];
+    });
+  }
+
+  getMember();
 
   if (!!id) {
     $scope.data.id = id;
@@ -181,23 +333,71 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
   }
 
   function valid_order() {
-    if ($scope.data.order_source == 'other') {
-      $scope.data.order_id = '';
+    if ($scope.action == 'update') {
+      if ($scope.data.order_source == 'other') {
+        $scope.data.order_id = '';
+        return true;
+      }
+      if (!$('#orderSelect2').val() || $('#orderSelect2').val().indexOf('?') >= 0) {
+        jForm.validator('showMsg', '#orderSelect2-validator', {
+          type: "error",
+          msg: "此处不能为空"
+        });
+        return false;
+      } else {
+        jForm.validator('hideMsg', '#orderSelect2-validator');
+        return true;
+      }
+    }
+
+    return true;
+
+  }
+
+  function valid_add() {
+    if ($scope.action == 'update') {
       return true;
     }
-    if (!$('#orderSelect2').val() || $('#orderSelect2').val().indexOf('?') >= 0) {
-      jForm.validator('showMsg', '#orderSelect2-validator', {
-        type: "error",
-        msg: "此处不能为空"
+    if (!$scope.data.orders.length) {
+      $.alert({
+        title: false,
+        content: '请选择关联订单',
+        confirmButton: '确定'
       });
       return false;
-    } else {
-      jForm.validator('hideMsg', '#orderSelect2-validator');
-      return true;
     }
+    var isOk = true;
+    for (var i = 0; i < $scope.data.orders.length; i++) {
+      var order = $scope.data.orders[i];
+      if (order.order_source != 'other' && !order.order_id) {
+        isOk = false;
+        $.alert({
+          title: false,
+          content: '请选择关联订单',
+          confirmButton: '确定'
+        });
+        break;
+      }
+
+      if (!order.audit_id) {
+        isOk = false;
+        $.alert({
+          title: false,
+          content: '请选择审核人',
+          confirmButton: '确定'
+        });
+        break;
+      }
+    }
+
+    return isOk;
   }
 
   function valid_audit() {
+    if ($scope.action == 'add') {
+      return true;
+    }
+
     if (!$('#auditSelect2').val() || $('#auditSelect2').val().indexOf('?') >= 0) {
       jForm.validator('showMsg', '#auditSelect2-validator', {
         type: "error",
@@ -222,6 +422,10 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
           return;
         }
 
+        if(!valid_add()) {
+          return;
+        }
+
         var submitData = angular.copy($scope.data);
         submitData.date_at = $('#date_at').val();
 
@@ -238,13 +442,27 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
           submitData.county = $scope.county;
         }
 
-        var url = $scope.action == 'add' ? '/Letter/Add' : '/Letter/Update';
+        var url = $scope.action == 'add' ? '/Letter/InsertLetter' : '/Letter/Update';
 
         $http({
           method: 'POST',
           url: url,
-          data: submitData
+          data: {
+            l: submitData,
+            orders: submitData.orders || []
+          }
         }).success(function(data) {
+          if ($scope.action == 'add') {
+            $.alert({
+              title: false,
+              content: '保存成功',
+              confirmButton: '确定'
+            });
+
+            $state.go('letter');
+            return;
+          }
+
           $state.go("letter_view", {
             id: data.id
           });
@@ -292,8 +510,8 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
 
   $scope.$on('SOURCE_DONE', function(e, s) {
     console.log(s)
-    // $scope.data.source_id = s.id;
-    // $scope.data.source_code = s.code;
+      // $scope.data.source_id = s.id;
+      // $scope.data.source_code = s.code;
 
     $scope.data.receiver = s.name;
     $scope.data.tel = s.mobile;

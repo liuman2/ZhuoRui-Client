@@ -79,16 +79,37 @@ module.exports = function($scope, $http, $state, $stateParams, $location, $timeo
       return printData.others;
     }
 
+    var otherDesc = [];
+    var shareholderChange = urlParam('shareholder') || ''
+    var directoryChange = urlParam('directory') || ''
+
+    if (shareholderChange && (shareholderChange - 0) > 0) {
+      otherDesc.push('股东变更');
+    }
+    if (directoryChange && (directoryChange - 0) > 0) {
+      otherDesc.push('董事变更');
+    }
+
     if (!printData.others) {
-      return '';
+      return otherDesc.join(',');
     }
 
     if (printData.others == '{}') {
-      return '';
+      return otherDesc.join(',');
     }
 
     var obj = JSON.parse(printData.others);
-    return obj.others || '';
+    if (obj === undefined) {
+      return otherDesc.join(',');
+    }
+
+    for(var o in obj) {
+      if (obj[o]) {
+        otherDesc.push(obj[o]);
+      }
+    }
+
+    return otherDesc.join(',') || '';
   }
 
 

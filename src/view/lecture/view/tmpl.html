@@ -140,6 +140,8 @@
       <div class="box-footer clearfix">
         <button type="button" class="btn btn-info tooltip-author" ng-attr-title="{{getAddTitle()}}" ng-if="period.disabled">添加</button>
         <button type="button" class="btn btn-info" ng-if="!period.disabled" ui-sref=".customer_add" ui-sref-opts="{location:false}">添加</button>
+        <button type="button" class="btn btn-info" ng-click="onExport($event)">导出</button>
+
         <div pagination page-data="customers.page" page-click="go(idx)"></div>
       </div>
     </div>
