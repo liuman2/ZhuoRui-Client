@@ -329,6 +329,11 @@ module.exports = function($stateProvider, $urlRouterProvider) {
       template: require('view/notice/view/tmpl.html'),
       controller: require('view/notice/view/ctrl')
     })
+    .state('logoff_order', {
+      url: '/logoff/list',
+      template: require('view/logoff/list/tmpl.html'),
+      controller: require('view/logoff/list/ctrl')
+    })
 
   dashboardRouter($stateProvider, $urlRouterProvider);
   reserveRouter($stateProvider, $urlRouterProvider);
