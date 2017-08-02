@@ -1,10 +1,7 @@
 <section class="content-header">
-  <!-- <h1>
-        意向客户
-    </h1> -->
   <ol class="breadcrumb">
     <li><a ui-sref="dashboard"><i class="fa fa-dashboard"></i>我的面板</a></li>
-    <li><a ui-sref="customer">意向客户列表</a></li>
+    <li><a ui-sref="customer">正式客户列表</a></li>
     <li class="active">详情</li>
   </ol>
 </section>
@@ -57,43 +54,12 @@
           </div>
         </div>
 
-        <!-- <div class="form-group">
-          <label class="col-sm-2 control-label">所在省:</label>
-          <div class="col-sm-8">
-            <span class="form-span" ng-bind="data.province"></span>
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="col-sm-2 control-label">所在市:</label>
-          <div class="col-sm-8">
-            <span class="form-span" ng-bind="data.city"></span>
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="col-sm-2 control-label">所在县:</label>
-          <div class="col-sm-8">
-            <span class="form-span" ng-bind="data.county"></span>
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="col-sm-2 control-label">详细地址:</label>
-          <div class="col-sm-8">
-            <span class="form-span" ng-bind="data.address"></span>
-          </div>
-        </div> -->
         <div class="form-group mb-0">
           <label class="col-sm-2 control-label">寄件地址:</label>
           <div class="col-sm-8">
             <span class="form-span" ng-bind="data.mailling_province + data.mailling_city + data.mailling_county + data.mailling_address"></span>
           </div>
         </div>
-
-        <!-- <div class="form-group">
-          <label class="col-sm-2 control-label">寄件地址:</label>
-          <div class="col-sm-8">
-            <span class="form-span" ng-bind="data.mailling_address"></span>
-          </div>
-        </div> -->
 
         <div class="form-group">
           <label class="col-sm-2 control-label">传真:</label>

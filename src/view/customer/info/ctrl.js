@@ -94,6 +94,16 @@ module.exports = function($scope, $state, $http, $cookieStore, $q, $timeout) {
     var jForm = $('.form-horizontal');
     jForm.isValid(function(v) {
       if (v) {
+
+        if ($scope.data.source == '客户介绍' && !$scope.data.source_id ) {
+          $.alert({
+            title: false,
+            content: '请选择介绍人',
+            confirmButton: '确定'
+          });
+          return;
+        }
+
         $scope.data.contacts = '';
         // if ($scope.data.contactList.length) {
         //   $scope.data.contacts = JSON.stringify($scope.data.contactList);

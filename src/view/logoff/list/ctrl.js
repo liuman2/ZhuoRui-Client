@@ -44,11 +44,13 @@ module.exports = function($scope, $http, $state, $stateParams, $cookieStore) {
         return '转出';
       case 2:
         return '注销';
+      case 3:
+        return '暂不年检';
     }
   }
 
   $scope.revert = function(item) {
-    var status = ['转出', '注销'];
+    var status = ['转出', '注销', '暂不年检'];
     var msg = `${item.order_type_name}订单【${item.order_name || item.order_code}】，已${status[item.order_status - 1]}，确定要恢复年检吗？`;
     $.confirm({
       title: false,

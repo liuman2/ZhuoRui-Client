@@ -1,5 +1,6 @@
 var dateHelper = require('js/utils/dateHelper');
-
+var moment = require('moment');
+moment.locale('zh-cn');
 module.exports = function($scope, $http, $state, $stateParams) {
 
     $scope.search = {
@@ -18,6 +19,13 @@ module.exports = function($scope, $http, $state, $stateParams) {
             total_size: 0
         }
     };
+
+    $scope.format = function(dt, str) {
+        if (!dt) {
+          return '';
+        }
+        return moment(dt).format(str);
+      }
 
     $scope.export = function(eve) {
         var url = "/Customer/Export",

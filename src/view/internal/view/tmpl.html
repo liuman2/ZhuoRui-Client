@@ -9,7 +9,8 @@
   <form class="form-horizontal view-form" id="internal_form">
     <div class="detail-view-header-wrapper">
       <div class="box-footer detail-view-header" ui-scrollpoint ui-scrollpoint-enabled="true" ui-scrollpoint-class="fixed">
-        <button type="button" class="btn btn-info" ui-sref="internal_edit({id: id})" ng-if="data.status == 0 || data.review_status == 0" ui-sref-opts="{reload:true}">修改</button>
+        <!-- <button type="button" class="btn btn-info" ui-sref="internal_edit({id: id})" ng-if="data.status == 0 || data.review_status == 0" ui-sref-opts="{reload:true}">修改</button> -->
+        <button type="button" class="btn btn-info" ui-sref="internal_edit({id: id})" ui-sref-opts="{reload:true}">修改</button>
         <button type="button" class="btn btn-primary" ng-click="submitAudit()" ng-if="data.status == 0 || data.review_status == 0">提交审核</button>
         <button type="button" class="btn btn-success" ng-click="passAuditF()" ng-if="data.status==1 && opers.indexOf(3) > -1">财务审核通过</button>
         <button type="button" class="btn btn-danger" ng-click="refuseAudit()" ng-if="data.status==1 && opers.indexOf(3) > -1">财务审核驳回</button>

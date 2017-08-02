@@ -227,6 +227,9 @@ module.exports = function($scope, $http, $state, $stateParams) {
       if (orderStatus == 1) {
         return '转出'
       }
+      if (orderStatus == 3) {
+        return '暂不年检'
+      }
       return '注销';
     }
     switch (status) {
