@@ -19,6 +19,16 @@ module.exports = function($scope, $http, $state, $stateParams) {
         }
     };
 
+    $scope.export = function(eve) {
+        var url = "/Customer/Export",
+            iframe = document.createElement("iframe");
+
+        iframe.src = url;
+        iframe.style.display = "none";
+        document.body.appendChild(iframe);
+        eve.stopPropagation();
+    }
+
     $scope.query = function() {
         load_data();
     };

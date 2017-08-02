@@ -1,10 +1,7 @@
 <section class="content-header">
-    <!-- <h1>
-        意向客户
-    </h1> -->
     <ol class="breadcrumb">
         <li><a ui-sref="dashboard"><i class="fa fa-dashboard"></i>我的面板</a></li>
-        <li><a class="active">意向客户列表</a></li>
+        <li><a class="active">正式客户列表</a></li>
     </ol>
 </section>
 <section class="content">
@@ -58,6 +55,7 @@
         </div>
         <div class="box-footer clearfix">
             <a ui-sref="customer_add" class="btn btn-sm btn-info btn-flat pull-left">新增客户</a>
+            <!-- <a class="btn btn-sm btn-info btn-flat pull-left" style="margin-left: 10px;" ng-click="export($event)">导出</a> -->
             <div pagination page-data="data.page" page-click="go(idx)"></div>
         </div>
     </div>
