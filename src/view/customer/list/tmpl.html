@@ -59,7 +59,7 @@
         </div>
         <div class="box-footer clearfix">
             <a ui-sref="customer_add" class="btn btn-sm btn-info btn-flat pull-left">新增客户</a>
-            <!-- <a class="btn btn-sm btn-info btn-flat pull-left" style="margin-left: 10px;" ng-click="export($event)">导出</a> -->
+            <a class="btn btn-sm btn-info btn-flat pull-left" style="margin-left: 10px;" ng-if="opers.indexOf(6) > -1" ng-click="export($event)">导出</a>
             <div pagination page-data="data.page" page-click="go(idx)"></div>
         </div>
     </div>

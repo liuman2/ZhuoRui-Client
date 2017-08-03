@@ -6,10 +6,10 @@ module.exports = function($scope, $http, $state, $stateParams) {
   $scope.search = {
     index: 1,
     size: 20,
-    customer_id: '',
-    status: '',
-    start_time: '',
-    end_time: ''
+
+    name: '',
+    order_type: '',
+    area: ''
   }
 
   var dInput = $('.date-input');
@@ -196,8 +196,8 @@ module.exports = function($scope, $http, $state, $stateParams) {
   }
 
   function load_data() {
-    $scope.search.start_time = $('#start_time').val();
-    $scope.search.end_time = $('#end_time').val();
+    // $scope.search.start_time = $('#start_time').val();
+    // $scope.search.end_time = $('#end_time').val();
 
     $http({
       method: 'GET',

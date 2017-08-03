@@ -20,6 +20,10 @@ module.exports = function($scope, $http, $state, $stateParams) {
     }
   }
 
+  if ($scope.opers == undefined) {
+    $scope.opers = $cookieStore.get('USER_OPERS');
+  }
+
   $scope.getAnnual = function(item) {
     if (item.is_annual == 0) {
       return '-';

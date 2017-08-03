@@ -20,6 +20,10 @@ module.exports = function($scope, $http, $state, $stateParams) {
         }
     };
 
+    if ($scope.opers == undefined) {
+        $scope.opers = $cookieStore.get('USER_OPERS');
+    }
+
     $scope.transferBack = function(id) {
         $.confirm({
             title: false,
