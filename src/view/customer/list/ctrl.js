@@ -20,12 +20,32 @@ module.exports = function($scope, $http, $state, $stateParams) {
         }
     };
 
+    $scope.transferBack = function(id) {
+        $.confirm({
+            title: false,
+            content: '您确认要转为意向客户吗？',
+            confirmButton: '确定',
+            cancelButton: '取消',
+            confirm: function() {
+                $http({
+                    method: 'GET',
+                    url: '/Customer/TransferBack',
+                    params: {
+                        id: id
+                    }
+                }).success(function(data) {
+                    load_data();
+                });
+            }
+        });
+    }
+
     $scope.format = function(dt, str) {
         if (!dt) {
-          return '';
+            return '';
         }
         return moment(dt).format(str);
-      }
+    }
 
     $scope.export = function(eve) {
         var url = "/Customer/Export",

@@ -48,6 +48,7 @@
                         <td ng-bind="item.business_count"></td>
                         <td ng-bind="format(item.date_created, 'YYYY-MM-DD HH:mm')"></td>
                         <td class="opt-col">
+                            <a class="fa fa-reply orange"  title="转为意向客户" ng-click="transferBack(item.id)"></a>
                             <a class="fa fa-info-circle" target="_blank" ui-sref="customer_view({id: item.id})" title="详情"></a>
                             <a class="fa fa-pencil orange" ui-sref="customer_edit({id: item.id})" title="修改"></a>
                             <a class="fa fa-clock-o green" ui-sref="customer_timeline({id: item.id})" title="查看日志"></a>
