@@ -354,11 +354,13 @@ module.exports = function($scope, $state, $http, $q, $timeout, $cookieStore) {
     var statusName = status - 0;
     switch(statusName) {
       case 0:
-        return '正常';
+        return '正常年检';
       case 1:
         return '转秘书(转出)';
       case 2:
         return '注销';
+      case 3:
+        return '暂不年检';
     }
   }
 };
