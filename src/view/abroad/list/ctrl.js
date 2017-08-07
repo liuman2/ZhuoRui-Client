@@ -1,19 +1,19 @@
 var dateHelper = require('js/utils/dateHelper');
 var moment = require('moment');
 moment.locale('zh-cn');
-module.exports = function($scope, $http, $state, $stateParams) {
+module.exports = function($scope, $http, $cookieStore, $state, $stateParams) {
 
   $scope.search = {
     index: 1,
     size: 20,
-    customer_id: '',
+    // customer_id: '',
     status: '',
-    start_time: '',
-    end_time: '',
+    // start_time: '',
+    // end_time: '',
     name: '',
-    code: '',
-    start_create: '',
-    end_create: '',
+    // code: '',
+    // start_create: '',
+    // end_create: '',
     orderBy: {
       field: 'code',
       order: 'desc'
@@ -273,10 +273,10 @@ module.exports = function($scope, $http, $state, $stateParams) {
   }
 
   function load_data() {
-    $scope.search.start_time = $('#start_time').val();
-    $scope.search.end_time = $('#end_time').val();
-    $scope.search.start_create = $('#start_create').val();
-    $scope.search.end_create = $('#end_create').val();
+    // $scope.search.start_time = $('#start_time').val();
+    // $scope.search.end_time = $('#end_time').val();
+    // $scope.search.start_create = $('#start_create').val();
+    // $scope.search.end_create = $('#end_create').val();
 
     $http({
       method: 'GET',
