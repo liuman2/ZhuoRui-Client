@@ -38,7 +38,9 @@ var webpackConfig = {
             'nice-validator/dist/local/zh-CN.js',
             'jquery-datetimepicker',
             'moment',
-            'tooltipster'
+            'tooltipster',
+            'fullcalendar',
+            'fullcalendar/dist/locale/zh-cn.js',
         ]
     },
     output: {
