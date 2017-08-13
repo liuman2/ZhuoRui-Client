@@ -14,16 +14,34 @@
               <input ng-disabled="!schedule.editable" type="text" class="form-control" name="title" ng-model="schedule.title" data-rule="required; length[~120];">
             </div>
           </div>
+
+          <div class="form-group">
+            <label class="col-sm-2 control-label">全天事件<span class="required">*</span></label>
+            <div class="col-sm-7">
+              <select ng-disabled="!schedule.editable" class="form-control select2" name="all_day" ng-model="schedule.all_day" data-rule="required;" style="width: 100%;">
+                  <option value="0">否</option>
+                  <option value="1">是</option>
+                </select>
+            </div>
+          </div>
           <div class="form-group">
             <label class="col-sm-2 control-label">开始时间<span class="required">*</span></label>
             <div class="col-sm-7">
               <input ng-disabled="!schedule.editable" type="text" class="form-control date-input" name="schedule_start" ng-model="schedule.start" data-rule="required;">
             </div>
           </div>
-          <div class="form-group">
+
+          <div class="form-group" ng-if="schedule.all_day == 0">
             <label class="col-sm-2 control-label">结束时间</label>
             <div class="col-sm-7">
               <input ng-disabled="!schedule.editable" type="text" class="form-control date-input" name="schedule_end" ng-model="schedule.end">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-sm-2 control-label">地点</label>
+            <div class="col-sm-7">
+              <input ng-disabled="!schedule.editable" type="text" class="form-control" name="location" ng-model="schedule.location" data-rule="length[~120];">
             </div>
           </div>
 

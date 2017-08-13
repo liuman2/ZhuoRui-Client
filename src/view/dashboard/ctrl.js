@@ -19,6 +19,7 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
       location: '',
       memo: '',
       editable: true,
+      all_day: 0,
     }
   }
 
@@ -90,7 +91,7 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
       },
       eventRender: function(event, element) {
         var copyEvent = angular.copy(event);
-        console.log(copyEvent);
+
         var end = '';
         if (copyEvent.end) {
           end = copyEvent.end.format("YYYY-MM-DD HH:MM");
@@ -125,19 +126,25 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
 
         var members = [];
         var peopleDisplay = 'none';
+        var endDisplay = 'none';
         if (copyEvent.type == 1) {
           peopleDisplay = 'block';
           for (var i = 0; i < copyEvent.peoples.length; i++) {
             members.push(copyEvent.peoples[i].name);
           }
         }
+        if (!copyEvent.allDay) {
+          endDisplay = 'block';
+        }
 
         var peopleNmaes = members.join(', ');
         var content = '<div class="event-tip">\
           <div class="mt-10 mb-10"><span class="column">主&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;题:</span><span class="column-value">' + copyEvent.title + '</span></div>\
+          <div class="mb-10"><span class="column">全天事件:</span><span class="column-value">' + (copyEvent.allDay ? "是" : "否") + '</span></div>\
           <div class="mb-10"><span class="column">开始时间:</span><span class="column-value">' + copyEvent.start.format("YYYY-MM-DD HH:MM") + '</span></div>\
-          <div class="mb-10"><span class="column">结束时间:</span><span class="column-value">' + end + '</span></div>\
-          <div class="mb-10"><span class="column">优&nbsp;&nbsp;先&nbsp;&nbsp;级:</span><span class="column-value">' + priority + '</span></div>\
+          <div class="mb-10" style="display:' + endDisplay + ';"><span class="column">结束时间:</span><span class="column-value">' + end + '</span></div>\
+          <div class="mb-10"><span class="column">地&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;点:</span><span class="column-value">' + copyEvent.location + '</span></div>\
+          <div class="mb-10"><span class="column">优&nbsp;&nbsp;先&nbsp;&nbsp;级:</span><span class="column-value"><span class="tip-color" style="background: ' + copyEvent.color + '; border: 1px solid ' + copyEvent.color + ';"></span>' + priority + '</span></div>\
           <div class="mb-10"><span class="column">权限范围:</span><span class="column-value">' + forp + '</span></div>\
           <div class="mb-10" style="display:' + peopleDisplay + ';"><span class="column">参与人员:</span><span class="column-value">' + peopleNmaes + '</span></div>\
           <div class="mb-10"><span class="column">备&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;注:</span><span class="column-value">' + copyEvent.memo + '</span></div>\
