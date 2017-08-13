@@ -1,0 +1,73 @@
+<div class="modal" style="display: block;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" ui-sref="^">
+          <span aria-hidden="true">×</span></button>
+        <h4 class="modal-title" ng-bind="eventTilte">添加日程</h4>
+      </div>
+      <div class="modal-body">
+        <form class="form-horizontal" id="schedule_modal">
+          <div class="form-group">
+            <label class="col-sm-2 control-label">主题<span class="required">*</span></label>
+            <div class="col-sm-7">
+              <input ng-disabled="!schedule.editable" type="text" class="form-control" name="title" ng-model="schedule.title" data-rule="required; length[~120];">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">开始时间<span class="required">*</span></label>
+            <div class="col-sm-7">
+              <input ng-disabled="!schedule.editable" type="text" class="form-control date-input" name="schedule_start" ng-model="schedule.start" data-rule="required;">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">结束时间</label>
+            <div class="col-sm-7">
+              <input ng-disabled="!schedule.editable" type="text" class="form-control date-input" name="schedule_end" ng-model="schedule.end">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-sm-2 control-label">优先级<span class="required">*</span></label>
+            <div class="col-sm-7">
+              <select id="select2Color"  ng-disabled="!schedule.editable" class="form-control select2" name="color" ng-model="schedule.color" data-rule="required;" style="width: 100%;">
+              </select>
+              <span id="select2Color-validator" class="select-validator"></span>
+            </div>
+          </div>
+
+          <div class="form-group" title="个人：仅自己可见，部门：部分人可见，全公司：所有人可见">
+            <label class="col-sm-2 control-label">权限范围<span class="required">*</span></label>
+            <div class="col-sm-7">
+              <select ng-disabled="!schedule.editable" class="form-control select2" name="type" ng-model="schedule.type" data-rule="required;" style="width: 100%;">
+                  <option value="0">个人</option>
+                  <option value="1">部门</option>
+                  <option value="2">全公司</option>
+                </select>
+            </div>
+          </div>
+
+          <div class="form-group" ng-show="schedule.type == 1" id="rowpeople">
+            <label class="col-sm-2 control-label">参与人员<span class="required">*</span></label>
+            <div class="col-sm-7">
+              <select ng-disabled="!schedule.editable" multiple class="form-control select2" id="joinPeople" name="joinPeople" ng-model="schedule.people" style="width: 100%;">
+              </select>
+              <span id="peopleSelect2-validator" class="select-validator"></span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">备注</label>
+            <div class="col-sm-7">
+              <textarea ng-disabled="!schedule.editable" class="form-control" rows="3" name="memo" ng-model="schedule.memo" data-rule=" length[~300];"></textarea>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer" ng-if="schedule.editable">
+        <button type="button" class="btn btn-default pull-left" data-dismiss="modal" ui-sref="^">取消</button>
+        <button type="button" class="btn btn-danger"  ng-if="schedule.id > 0" ng-click="delete()">删除</button>
+        <button type="button" class="btn btn-primary" ng-click="save()">保存</button>
+      </div>
+    </div>
+  </div>
+</div>

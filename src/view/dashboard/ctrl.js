@@ -7,6 +7,39 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
     annuals: 0
   }
 
+  function initData() {
+    $scope.schedule = {
+      id: '',
+      title: '',
+      start: '',
+      end: '',
+      color: '', // #9FE1E7
+      type: 0,
+      people: [],
+      location: '',
+      memo: '',
+      editable: true,
+    }
+  }
+
+  $scope.memberList = [];
+
+  function getMember() {
+    $http({
+      method: 'GET',
+      url: '/Member/List',
+      params: {
+        index: 1,
+        size: 9999,
+        name: ''
+      }
+    }).success(function(data) {
+      $scope.memberList = data.items || [];
+    });
+  }
+
+  getMember();
+
   $scope.format = function(dt, str) {
     if (!dt) {
       return '';
@@ -19,7 +52,6 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
     url: '/Home/DashboardInfo'
   }).success(function(data) {
     $scope.banner = data.banner;
-    // $scope.recently_customers = data.customers || [];
   });
 
   $http({
@@ -30,42 +62,131 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
     $scope.sinpleNotices = data;
   });
 
-  $('#calendar').fullCalendar({
-    header: {
-      left: 'prev,next today',
-      center: 'title',
-      right: 'month,agendaWeek,agendaDay'
-    },
-    defaultView: 'month',
-    editable: true,
-    events: [{
-        id: 12,
-        title: '开会',
-        start: '2017-08-07T16:00:00',
-        editable: false,
+  function initCalendar() {
+    $('#calendar').fullCalendar({
+      droppable: true,
+      header: {
+        left: 'prev,next today',
+        center: 'title',
+        right: 'month,agendaWeek,agendaDay'
       },
-      {
-        id: 13,
-        title: '拜访客户',
-        start: '2017-08-08T13:00:00',
-        end: '2017-08-08T15:00:00',
-        color: 'red',
+      defaultView: 'month',
+      editable: true,
+
+      events: function(start, end, timezone, callback) {
+        // var date = this.getDate().format('YYYY-MM');
+        $.ajax({
+          url: '/Schedule/Search',
+          dataType: 'json',
+          // data: {
+          //   id: { $id },
+          //   date: date,
+          // },
+          success: function(data) {
+            var events = data;
+            callback(events);
+          }
+        });
       },
-    ],
-    dayClick: function(date, jsEvent, view) {
-      alert('Clicked on: ' + date.format());
-      // alert('Coordinates: ' + jsEvent.pageX + ',' + jsEvent.pageY);
+      eventRender: function(event, element) {
+        var copyEvent = angular.copy(event);
+        console.log(copyEvent);
+        var end = '';
+        if (copyEvent.end) {
+          end = copyEvent.end.format("YYYY-MM-DD HH:MM");
+        }
+        var priority = '';
+        var forp = '';
+        switch (copyEvent.color) {
+          case '#51B749':
+            priority = '重要但不紧急';
+            break;
+          case '#DC2127':
+            priority = '重要且紧急';
+            break;
+          case '#DBADFF':
+            priority = '不重要但紧急';
+            break;
+          case '#5484ED':
+            priority = '不重要不紧急';
+            break;
+        }
+        switch (copyEvent.type) {
+          case 0:
+            forp = '个人';
+            break;
+          case 1:
+            forp = '部门';
+            break;
+          case 2:
+            forp = '全公司';
+            break;
+        }
 
-      // alert('Current view: ' + view.name);
+        var members = [];
+        var peopleDisplay = 'none';
+        if (copyEvent.type == 1) {
+          peopleDisplay = 'block';
+          for (var i = 0; i < copyEvent.peoples.length; i++) {
+            members.push(copyEvent.peoples[i].name);
+          }
+        }
 
-      // change the day's background color just for fun
-      // $(this).css('background-color', 'red');
-    },
-    eventClick: function(calEvent, jsEvent, view) {
-      alert('Event: ' + calEvent.title);
-      // alert('Coordinates: ' + jsEvent.pageX + ',' + jsEvent.pageY);
-      // alert('View: ' + view.name);
-      // $(this).css('border-color', 'red');
-    }
-  })
+        var peopleNmaes = members.join(', ');
+        var content = '<div class="event-tip">\
+          <div class="mt-10 mb-10"><span class="column">主&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;题:</span><span class="column-value">' + copyEvent.title + '</span></div>\
+          <div class="mb-10"><span class="column">开始时间:</span><span class="column-value">' + copyEvent.start.format("YYYY-MM-DD HH:MM") + '</span></div>\
+          <div class="mb-10"><span class="column">结束时间:</span><span class="column-value">' + end + '</span></div>\
+          <div class="mb-10"><span class="column">优&nbsp;&nbsp;先&nbsp;&nbsp;级:</span><span class="column-value">' + priority + '</span></div>\
+          <div class="mb-10"><span class="column">权限范围:</span><span class="column-value">' + forp + '</span></div>\
+          <div class="mb-10" style="display:' + peopleDisplay + ';"><span class="column">参与人员:</span><span class="column-value">' + peopleNmaes + '</span></div>\
+          <div class="mb-10"><span class="column">备&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;注:</span><span class="column-value">' + copyEvent.memo + '</span></div>\
+          </div>';
+
+        element.tooltipster({
+          theme: 'tooltipster-sideTip-shadow',
+          position: 'right',
+          content: content,
+
+          contentAsHTML: true
+        });
+      },
+
+      dayClick: function(date, jsEvent, view) {
+        initData();
+        var dt = date.format();
+        $scope.schedule.start = dt.replace('T', ' ');
+        $state.go(".event_add", null, { location: false });
+      },
+      eventClick: function(calEvent, jsEvent, view) {
+        if (!calEvent.editable) {
+          return;
+        }
+
+        var copyEvent = angular.copy(calEvent);
+
+        if (typeof(copyEvent.start) == 'object') {
+          copyEvent.start = copyEvent.start.format('YYYY-MM-DD HH:MM');
+          copyEvent.start = copyEvent.start.replace('T', ' ');
+        }
+        if (typeof(copyEvent.end) == 'object') {
+          if (copyEvent.end) {
+            copyEvent.end = copyEvent.end.format('YYYY-MM-DD HH:MM');
+            copyEvent.end = copyEvent.end.replace('T', ' ');
+          }
+        }
+
+        $scope.schedule = copyEvent;
+        $state.go(".event_edit", null, { location: false });
+      }
+    })
+  }
+
+  $scope.$on('EVENT_MODAL_DONE', function(e) {
+    initCalendar();
+
+    $("#calendar").fullCalendar('refetchEvents');
+  });
+
+  initCalendar();
 };
