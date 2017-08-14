@@ -71,6 +71,7 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
         center: 'title',
         right: 'month,agendaWeek,agendaDay'
       },
+      displayEventTime : false,
       defaultView: 'month',
       editable: true,
 
@@ -94,7 +95,7 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
 
         var end = '';
         if (copyEvent.end) {
-          end = copyEvent.end.format("YYYY-MM-DD HH:MM");
+          end = moment(copyEvent.end).format('YYYY-MM-DD HH:mm');
         }
         var priority = '';
         var forp = '';
@@ -117,7 +118,7 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
             forp = '个人';
             break;
           case 1:
-            forp = '部门';
+            forp = '指定人员';
             break;
           case 2:
             forp = '全公司';
@@ -141,12 +142,13 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
         var content = '<div class="event-tip">\
           <div class="mt-10 mb-10"><span class="column">主&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;题:</span><span class="column-value">' + copyEvent.title + '</span></div>\
           <div class="mb-10"><span class="column">全天事件:</span><span class="column-value">' + (copyEvent.allDay ? "是" : "否") + '</span></div>\
-          <div class="mb-10"><span class="column">开始时间:</span><span class="column-value">' + copyEvent.start.format("YYYY-MM-DD HH:MM") + '</span></div>\
+          <div class="mb-10"><span class="column">开始时间:</span><span class="column-value">' + moment(copyEvent.start).format('YYYY-MM-DD HH:mm') + '</span></div>\
           <div class="mb-10" style="display:' + endDisplay + ';"><span class="column">结束时间:</span><span class="column-value">' + end + '</span></div>\
           <div class="mb-10"><span class="column">地&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;点:</span><span class="column-value">' + copyEvent.location + '</span></div>\
           <div class="mb-10"><span class="column">优&nbsp;&nbsp;先&nbsp;&nbsp;级:</span><span class="column-value"><span class="tip-color" style="background: ' + copyEvent.color + '; border: 1px solid ' + copyEvent.color + ';"></span>' + priority + '</span></div>\
           <div class="mb-10"><span class="column">权限范围:</span><span class="column-value">' + forp + '</span></div>\
           <div class="mb-10" style="display:' + peopleDisplay + ';"><span class="column">参与人员:</span><span class="column-value">' + peopleNmaes + '</span></div>\
+          <div class="mb-10"><span class="column">创&nbsp;&nbsp;建&nbsp;&nbsp;人:</span><span class="column-value">' + copyEvent.creator + '</span></div>\
           <div class="mb-10"><span class="column">备&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;注:</span><span class="column-value">' + copyEvent.memo + '</span></div>\
           </div>';
 
@@ -161,7 +163,12 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
 
       dayClick: function(date, jsEvent, view) {
         initData();
-        var dt = date.format();
+        var dt = moment(date).format('YYYY-MM-DD HH:mm'); // date.format();
+
+        if (view.name == 'month') {
+          dt = moment(date).format('YYYY-MM-DD') + ' '+ moment(new Date()).format('HH:mm')
+        }
+
         $scope.schedule.start = dt.replace('T', ' ');
         $state.go(".event_add", null, { location: false });
       },
@@ -173,12 +180,12 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
         var copyEvent = angular.copy(calEvent);
 
         if (typeof(copyEvent.start) == 'object') {
-          copyEvent.start = copyEvent.start.format('YYYY-MM-DD HH:MM');
+          copyEvent.start = moment(copyEvent.start).format('YYYY-MM-DD HH:mm'); //copyEvent.start.format('YYYY-MM-DD HH:MM');
           copyEvent.start = copyEvent.start.replace('T', ' ');
         }
         if (typeof(copyEvent.end) == 'object') {
           if (copyEvent.end) {
-            copyEvent.end = copyEvent.end.format('YYYY-MM-DD HH:MM');
+            copyEvent.end = moment(copyEvent.end).format('YYYY-MM-DD HH:mm'); // copyEvent.end.format('YYYY-MM-DD HH:MM');
             copyEvent.end = copyEvent.end.replace('T', ' ');
           }
         }

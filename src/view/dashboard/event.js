@@ -8,7 +8,7 @@ module.exports = function($scope, $state, $http, $timeout) {
   $.datetimepicker.setLocale('ch');
   dInput.datetimepicker({
     timepicker: true,
-    step: 5,
+    step: 10,
     format: 'Y-m-d H:i',
     scrollInput: false,
     onChangeDateTime: function(current_time, $input) {}
@@ -65,6 +65,9 @@ module.exports = function($scope, $state, $http, $timeout) {
           submitData.people = $('#joinPeople').val().join(',');
         }
         submitData.color = $('#select2Color').val();
+
+        submitData.start = $('input[name="schedule_start"]').val();
+        submitData.end = $('input[name="schedule_end"]').val();
 
         $http({
           method: 'POST',
