@@ -110,3 +110,14 @@
   margin-right: 5px;
   vertical-align: middle;
 }
+.portal-task-blank {
+  text-align: center;
+  .ico {
+    height: 100px;
+    text-align: center;
+    background: url("../img/page_schedule.png") center center no-repeat;
+  }
+  p {
+    color: #a0aebf;
+  }
+}

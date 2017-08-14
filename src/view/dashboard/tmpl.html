@@ -30,11 +30,6 @@
       <div class="box box-danger">
         <div class="box-header with-border">
           <h3 class="box-title">我的日程</h3>
-          <div class="box-tools pull-right">
-            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-            </button>
-            <!-- <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button> -->
-          </div>
         </div>
         <div class="box-body" style="min-height: 100px;">
           <div id="calendar">
@@ -43,6 +38,31 @@
         </div>
       </div>
     </div>
+    <div class="col-md-3">
+      <div class="box box-danger">
+        <div class="box-header with-border">
+          <h3 class="box-title">今日工作</h3>
+          <!-- <div class="box-tools pull-right">
+            <button type="button" class="btn btn-box-tool"><i class="fa fa-plus"></i>
+            </button>
+          </div> -->
+        </div>
+        <div class="box-body">
+          <div class="portal-task-blank" ng-if="!todayList.length">
+            <div class="ico"></div>
+            <p>今日没有工作安排</p>
+          </div>
+          <ul class="notices-list notice-list-in-box">
+            <li class="item" ng-repeat="item in todayList">
+              <span class="task-color" style="border: 1px solid {{item.color}};background: {{item.color}};"></span>
+              <span class="task-time" ng-bind="item.timeStr"></span>
+              <span class="task-title" ng-bind="item.title"></span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
     <div class="col-md-3">
       <div class="box box-danger">
         <div class="box-header with-border">

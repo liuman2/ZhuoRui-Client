@@ -24,6 +24,7 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
   }
 
   $scope.memberList = [];
+  $scope.todayList = [];
 
   function getMember() {
     $http({
@@ -62,6 +63,15 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
     console.log(data)
     $scope.sinpleNotices = data;
   });
+
+  function getTodayEvents() {
+    $http({
+      method: 'GET',
+      url: '/Schedule/GetToday'
+    }).success(function(data) {
+      $scope.todayList = data || [];
+    });
+  }
 
   function initCalendar() {
     $('#calendar').fullCalendar({
@@ -198,9 +208,10 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
 
   $scope.$on('EVENT_MODAL_DONE', function(e) {
     initCalendar();
-
     $("#calendar").fullCalendar('refetchEvents');
+    getTodayEvents();
   });
 
   initCalendar();
+  getTodayEvents();
 };

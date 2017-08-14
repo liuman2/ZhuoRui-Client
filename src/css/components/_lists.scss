@@ -89,6 +89,31 @@
   float: left;
 }
 
+.notices-list {
+  .task-color {
+    width: 16px;
+    height: 16px;
+    display: inline-block;
+    margin-right: 5px;
+    vertical-align: top;
+  }
+  .task-time {
+    display: inline-block;
+    margin-right: 10px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+  .task-title {
+    display: inline-block;
+    color: #999;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    max-width: 60%;
+  }
+}
+
 .nl_time {
   display: inline-block;
   float: right;
