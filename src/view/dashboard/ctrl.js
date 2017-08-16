@@ -81,10 +81,60 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
         center: 'title',
         right: 'month,agendaWeek,agendaDay'
       },
-      displayEventTime : false,
+      displayEventTime: false,
       defaultView: 'month',
       editable: true,
-
+      /*events: [{
+        // Just an event
+        title: 'Long Event',
+        start: '2017-02-07',
+        end: '2017-02-10',
+        className: 'scheduler_basic_event'
+      }, {
+        // Custom repeating event
+        id: 999,
+        title: 'Repeating Event',
+        start: '2017-02-09T16:00:00',
+        className: 'scheduler_basic_event'
+      }, {
+        // Custom repeating event
+        id: 999,
+        title: 'Repeating Event',
+        start: '2017-02-16T16:00:00',
+        className: 'scheduler_basic_event'
+      }, {
+        // Just an event
+        title: 'Lunch',
+        start: '2017-02-12T12:00:00',
+        className: 'scheduler_basic_event',
+      }, {
+        // Just an event
+        title: 'Happy Hour',
+        start: '2017-02-12T17:30:00',
+        className: 'scheduler_basic_event'
+      }, {
+        // Monthly event
+        id: 111,
+        title: 'Meeting 123',
+        start: '2015-08-01T00:00:00',
+        className: 'scheduler_basic_event',
+        repeat: 1
+      }, {
+        // Annual avent
+        id: 222,
+        title: 'Birthday Party',
+        start: '2017-02-04T07:00:00',
+        description: 'This is a cool event',
+        className: 'scheduler_basic_event',
+        repeat: 2
+      }, {
+        // Weekday event
+        title: 'Click for Google',
+        url: 'http://google.com/',
+        start: '2017-02-28',
+        className: 'scheduler_basic_event',
+        dow: [1, 5]
+      }],*/
       events: function(start, end, timezone, callback) {
         // var date = this.getDate().format('YYYY-MM');
         $.ajax({
@@ -176,7 +226,7 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
         var dt = moment(date).format('YYYY-MM-DD HH:mm'); // date.format();
 
         if (view.name == 'month') {
-          dt = moment(date).format('YYYY-MM-DD') + ' '+ moment(new Date()).format('HH:mm')
+          dt = moment(date).format('YYYY-MM-DD') + ' ' + moment(new Date()).format('HH:mm')
         }
 
         $scope.schedule.start = dt.replace('T', ' ');
