@@ -24,6 +24,45 @@
                 </select>
             </div>
           </div>
+
+          <div class="form-group">
+            <label class="col-sm-2 control-label">性质<span class="required">*</span></label>
+            <div class="col-sm-7">
+              <select ng-disabled="!schedule.editable" class="form-control select2" name="property" ng-model="schedule.property" data-rule="required;" style="width: 100%;">
+                  <option value="">请选择</option>
+                  <option value="0">会议</option>
+                  <option value="1">拜访客户</option>
+                  <option value="2">其它</option>
+                </select>
+            </div>
+          </div>
+          <div class="form-group" ng-if="schedule.property == '0'">
+            <label class="col-sm-2 control-label">会议类型<span class="required">*</span></label>
+            <div class="col-sm-7">
+              <input ng-disabled="!schedule.editable" type="text" class="form-control" name="meeting_type" ng-model="schedule.meeting_type" data-rule="required; length[1~20];">
+            </div>
+          </div>
+          <div class="form-group" ng-if="schedule.property == '0'">
+            <label class="col-sm-2 control-label">主持人<span class="required">*</span></label>
+            <div class="col-sm-7">
+              <select
+                ng-disabled="!schedule.editable"
+                class="form-control select2"
+                id="presenter_id"
+                name="presenter_id"
+                ng-model="schedule.presenter_id"
+                ng-options="item.id as item.name for item in memberList"
+                data-rule="required;"
+                style="width: 100%;"
+              >
+                <option value="">请选择</option>
+              </select>
+              <!-- <span id="presenter_id-validator" class="select-validator"></span> -->
+            </div>
+          </div>
+
+
+
           <div class="form-group">
             <label class="col-sm-2 control-label">开始时间<span class="required">*</span></label>
             <div class="col-sm-7">

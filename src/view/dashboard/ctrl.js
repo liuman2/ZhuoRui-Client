@@ -20,6 +20,8 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
       memo: '',
       editable: true,
       all_day: 0,
+      property: '',
+      presenter_id: ''
     }
   }
 
@@ -140,10 +142,6 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
         $.ajax({
           url: '/Schedule/Search',
           dataType: 'json',
-          // data: {
-          //   id: { $id },
-          //   date: date,
-          // },
           success: function(data) {
             var events = data;
             callback(events);
@@ -198,10 +196,19 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
           endDisplay = 'block';
         }
 
+        var propertyDisplay = 'none';
+        var propertyArr = ['会议', '拜访客户', '其它']
+        if (copyEvent.property == 0) {
+          propertyDisplay = 'block';
+        }
+
         var peopleNmaes = members.join(', ');
         var content = '<div class="event-tip">\
           <div class="mt-10 mb-10"><span class="column">主&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;题:</span><span class="column-value">' + copyEvent.title + '</span></div>\
           <div class="mb-10"><span class="column">全天事件:</span><span class="column-value">' + (copyEvent.allDay ? "是" : "否") + '</span></div>\
+          <div class="mb-10" ><span class="column">性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;质:</span><span class="column-value">' + (propertyArr[copyEvent.property] || '其它') + '</span></div>\
+          <div class="mb-10" style="display:' + propertyDisplay + ';"><span class="column">会议类型:</span><span class="column-value">' + (copyEvent.meeting_type || '')  + '</span></div>\
+          <div class="mb-10" style="display:' + propertyDisplay + ';"><span class="column">主&nbsp;&nbsp;持&nbsp;&nbsp;人:</span><span class="column-value">' + (copyEvent.presenter || '')  + '</span></div>\
           <div class="mb-10"><span class="column">开始时间:</span><span class="column-value">' + moment(copyEvent.start).format('YYYY-MM-DD HH:mm') + '</span></div>\
           <div class="mb-10" style="display:' + endDisplay + ';"><span class="column">结束时间:</span><span class="column-value">' + end + '</span></div>\
           <div class="mb-10"><span class="column">地&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;点:</span><span class="column-value">' + copyEvent.location + '</span></div>\
@@ -240,12 +247,12 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
         var copyEvent = angular.copy(calEvent);
 
         if (typeof(copyEvent.start) == 'object') {
-          copyEvent.start = moment(copyEvent.start).format('YYYY-MM-DD HH:mm'); //copyEvent.start.format('YYYY-MM-DD HH:MM');
+          copyEvent.start = moment(copyEvent.start).format('YYYY-MM-DD HH:mm');
           copyEvent.start = copyEvent.start.replace('T', ' ');
         }
         if (typeof(copyEvent.end) == 'object') {
           if (copyEvent.end) {
-            copyEvent.end = moment(copyEvent.end).format('YYYY-MM-DD HH:mm'); // copyEvent.end.format('YYYY-MM-DD HH:MM');
+            copyEvent.end = moment(copyEvent.end).format('YYYY-MM-DD HH:mm');
             copyEvent.end = copyEvent.end.replace('T', ' ');
           }
         }
