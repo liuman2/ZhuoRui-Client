@@ -5,7 +5,7 @@
     </h1> -->
     <ol class="breadcrumb">
         <li><a ui-sref="dashboard"><i class="fa fa-dashboard"></i>我的面板</a></li>
-        <li><a ui-sref="customer">意向客户</a></li>
+        <li><a ui-sref="customer">正式客户</a></li>
         <li class="active">跟踪日志</li>
     </ol>
 </section>
@@ -30,7 +30,10 @@
                 <li ng-repeat="item in data.items">
                     <i class="fa fa-clock-o bg-blue"></i>
                     <div class="timeline-item">
-                        <span class="time"><i class="fa fa-clock-o"></i> <span ng-bind="fromNow(item.date_created)"></span></span>
+                        <span class="time">
+                            <i class="fa fa-user" ng-if="item.creator"></i> <span ng-if="item.creator" ng-bind="item.creator" style="margin-right: 10px;"></span>
+                            <i class="fa fa-clock-o"></i> <span ng-bind="fromNow(item.date_created)"></span>
+                        </span>
                         <h3 class="timeline-header"><a href="javascript:;" ng-bind="item.title"></a></h3>
                         <div class="timeline-body">
                             <span ng-bind="format(item.date_business, 'YYYY-MM-DD')"></span>

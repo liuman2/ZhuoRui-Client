@@ -1,7 +1,7 @@
 var dateHelper = require('js/utils/dateHelper');
 var moment = require('moment');
 moment.locale('zh-cn');
-module.exports = function($scope, $http, $state, $stateParams) {
+module.exports = function($scope, $http, $state, $cookieStore, $stateParams) {
 
     $scope.search = {
         userId: $scope.userInfo.id,
