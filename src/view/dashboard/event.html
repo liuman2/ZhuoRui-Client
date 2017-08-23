@@ -67,12 +67,12 @@
             </div>
           </div>
 
-          <!-- <div class="form-group">
+          <div class="form-group" ng-show="false">
             <label class="col-sm-2 control-label">是否重复<span class="required">*</span></label>
             <div class="col-sm-7 mt-5">
               <input ng-disabled="!schedule.editable" type="checkbox" name="is_repeat" ng-model="schedule.is_repeat" id="isRepeat">
             </div>
-          </div> -->
+          </div>
 
           <div class="form-group" ng-if="schedule.is_repeat">
             <label class="col-sm-2 control-label">重复类型<span class="required">*</span></label>
@@ -120,12 +120,12 @@
             </div>
           </div>
 
-          <div class="form-group" ng-show="schedule.is_repeat">
+          <!-- <div class="form-group" ng-show="schedule.is_repeat">
             <label class="col-sm-2 control-label">重复截止至<span class="required">*</span></label>
             <div class="col-sm-7">
               <input ng-disabled="!schedule.editable" type="text" class="form-control" id="repeat_end" name="repeat_end" ng-model="schedule.repeat_end">
             </div>
-          </div>
+          </div> -->
 
           <div class="form-group">
             <label class="col-sm-2 control-label">地点</label>
