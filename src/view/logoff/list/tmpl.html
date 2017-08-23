@@ -24,12 +24,11 @@
         </div>
         <div class="col-md-3">
           <div class="form-group">
-            <select class="form-control select2" name="order_type" ng-model="search.order_type">
-              <option value="">订单类型</option>
-              <option value="reg_abroad">境外注册</option>
-              <option value="reg_internal">境内注册</option>
-              <option value="trademark">商标</option>
-              <option value="patent">专利</option>
+            <select class="form-control select2" name="order_type" ng-model="search.order_status">
+              <option value="">所有订单状态</option>
+              <option value="1">转出</option>
+              <option value="2">注销</option>
+              <option value="3">暂不年检</option>
             </select>
           </div>
         </div>
@@ -56,9 +55,12 @@
           <tr>
             <th style="width: 10px">#</th>
             <th style="width: 100px">档案号</th>
-            <th style="width: 80px">订单类型</th>
+            <!-- <th style="width: 80px">订单类型</th> -->
             <th style="max-width: 100px">名称</th>
+            <th style="width: 100px">最近联系日</th>
+            <th style="width: 100px">年检基准日</th>
             <th style="width: 80px">上次年检</th>
+            <th style="width: 80px">超期(月)</th>
             <th style="width: 85px">业务员</th>
             <th style="width: 85px">年检客服</th>
             <th style="width: 80px">状态</th>
@@ -67,9 +69,12 @@
           <tr ng-repeat="item in data.items">
             <td ng-bind="($index+1)+'.'"></td>
             <td ng-bind="item.order_code"></td>
-            <td ng-bind="item.order_type_name"></td>
+            <!-- <td ng-bind="item.order_type_name"></td> -->
             <td ng-bind="item.order_name" ng-attr-title="{{item.order_name}}"></td>
-            <td ng-bind="format(item.annual_date, 'YYYY-MM-DD')"></td>
+            <td ng-bind="format(item.date_last, 'YYYY-MM-DD')" ng-attr-title="{{item.title_last}}"></td>
+            <td ng-bind="format(item.date_setup, 'YYYY-MM-DD')"></td>
+            <td ng-bind="item.annual_year"></td>
+            <td ng-bind="getMonth(item)" ng-class="{'red-warning': getRedWarning(item)}"></td>
             <td ng-bind="item.saleman"></td>
             <td ng-bind="item.waiter"></td>
             <td ng-bind="getOrderStatus(item.order_status)"></td>

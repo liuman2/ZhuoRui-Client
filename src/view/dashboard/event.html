@@ -60,9 +60,6 @@
               <!-- <span id="presenter_id-validator" class="select-validator"></span> -->
             </div>
           </div>
-
-
-
           <div class="form-group">
             <label class="col-sm-2 control-label">开始时间<span class="required">*</span></label>
             <div class="col-sm-7">
@@ -70,10 +67,63 @@
             </div>
           </div>
 
-          <div class="form-group" ng-show="schedule.all_day == 0">
+          <!-- <div class="form-group">
+            <label class="col-sm-2 control-label">是否重复<span class="required">*</span></label>
+            <div class="col-sm-7 mt-5">
+              <input ng-disabled="!schedule.editable" type="checkbox" name="is_repeat" ng-model="schedule.is_repeat" id="isRepeat">
+            </div>
+          </div> -->
+
+          <div class="form-group" ng-if="schedule.is_repeat">
+            <label class="col-sm-2 control-label">重复类型<span class="required">*</span></label>
+            <div class="col-sm-7">
+              <select
+                ng-disabled="!schedule.editable"
+                class="form-control select2"
+                name="repeat_type"
+                ng-model="schedule.repeat_type"
+                data-rule="required;"
+                style="width: 100%;"
+              >
+                <option value="">请选择</option>
+                <option value="1">每周</option>
+                <option value="2">每月</option>
+                <option value="3">每年</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group" ng-if="schedule.is_repeat && schedule.repeat_type == '1'">
+            <label class="col-sm-2 control-label">重复<span class="required">*</span></label>
+            <div class="col-sm-7 mt-5">
+              <input ng-disabled="getRepeatWeekDisabled(0)" type="checkbox" name="repeat_w0" ng-change="repeatWeekChange(0, $event)" ng-true-value="0" ng-model="repeatWeek.repeat_w0" id="repeat_w0">
+              <label for="repeat_w0" style="margin-right: 5px;">星期日</label>
+              <input ng-disabled="getRepeatWeekDisabled(1)" type="checkbox" name="repeat_w1" ng-change="repeatWeekChange(1, $event)" ng-true-value="1" ng-model="repeatWeek.repeat_w1" id="repeat_w1">
+              <label for="repeat_w1" style="margin-right: 5px;">星期一</label>
+              <input ng-disabled="getRepeatWeekDisabled(2)" type="checkbox" name="repeat_w2" ng-change="repeatWeekChange(2, $event)" ng-true-value="2" ng-model="repeatWeek.repeat_w2" id="repeat_w2">
+              <label for="repeat_w2" style="margin-right: 5px;">星期二</label>
+              <input ng-disabled="getRepeatWeekDisabled(3)" type="checkbox" name="repeat_w3" ng-change="repeatWeekChange(3, $event)" ng-true-value="3" ng-model="repeatWeek.repeat_w3" id="repeat_w3">
+              <label for="repeat_w3" style="margin-right: 5px;">星期三</label>
+              <input ng-disabled="getRepeatWeekDisabled(4)" type="checkbox" name="repeat_w4" ng-change="repeatWeekChange(4, $event)" ng-true-value="4" ng-model="repeatWeek.repeat_w4" id="repeat_w4">
+              <label for="repeat_w4" style="margin-right: 5px;">星期四</label>
+              <input ng-disabled="getRepeatWeekDisabled(5)" type="checkbox" name="repeat_w5" ng-change="repeatWeekChange(5, $event)" ng-true-value="5" ng-model="repeatWeek.repeat_w5" id="repeat_w5">
+              <label for="repeat_w5" style="margin-right: 5px;">星期五</label>
+              <input ng-disabled="getRepeatWeekDisabled(6)" type="checkbox" name="repeat_w6" ng-change="repeatWeekChange(6, $event)" ng-true-value="6" ng-model="repeatWeek.repeat_w6" id="repeat_w6">
+              <label for="repeat_w6">星期六</label>
+            </div>
+          </div>
+
+          <div class="form-group" ng-if="schedule.all_day == 0 && !schedule.is_repeat">
             <label class="col-sm-2 control-label">结束时间</label>
             <div class="col-sm-7">
               <input ng-disabled="!schedule.editable" type="text" class="form-control date-input" name="schedule_end" ng-model="schedule.end">
+            </div>
+          </div>
+
+          <div class="form-group" ng-show="schedule.is_repeat">
+            <label class="col-sm-2 control-label">重复截止至<span class="required">*</span></label>
+            <div class="col-sm-7">
+              <input ng-disabled="!schedule.editable" type="text" class="form-control" id="repeat_end" name="repeat_end" ng-model="schedule.repeat_end">
             </div>
           </div>
 

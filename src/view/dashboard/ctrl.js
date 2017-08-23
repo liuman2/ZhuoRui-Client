@@ -21,7 +21,9 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
       editable: true,
       all_day: 0,
       property: '',
-      presenter_id: ''
+      presenter_id: '',
+      is_repeat: false,
+      repeat_type: '',
     }
   }
 

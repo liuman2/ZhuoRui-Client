@@ -18,7 +18,7 @@
         </div>
       </div>
     </div>
-    <div class="box-body">
+    <!-- <div class="box-body">
       <div class="row">
         <div class="col-md-4">
           <div class="form-group">
@@ -62,6 +62,28 @@
     </div>
     <div class="box-footer">
       <a class="btn btn-sm btn-info btn-flat pull-right" ng-click="query()">查询</a>
+    </div> -->
+    <div class="box-body">
+      <div class="row">
+        <div class="col-md-3">
+          <div class="form-group">
+            <input type="text" class="form-control" name="name" ng-model="search.name" placeholder="关键字(档案号、订单名称)">
+          </div>
+        </div>
+        <!-- <div class="col-md-3">
+          <div class="form-group">
+            <select class="form-control select2" name="area" ng-model="search.area">
+              <option value="">全部区域</option>
+              <option value="XM">厦门</option>
+              <option value="QZ">泉州</option>
+              <option value="QD">青岛</option>
+            </select>
+          </div>
+        </div> -->
+        <div class="col-md-3">
+          <a class="btn btn-sm btn-info btn-flat" ng-click="query()">查询</a>
+        </div>
+      </div>
     </div>
   </div>
   <div class="box box-danger" style="margin-bottom: 110px;">
@@ -71,7 +93,7 @@
           <tr>
             <th style="width: 10px">#</th>
             <th style="width: 100px">档案号</th>
-            <th style="width: 80px">订单类型</th>
+            <!-- <th style="width: 80px">订单类型</th> -->
             <th style="max-width: 100px">名称</th>
             <th style="width: 100px">最近联系日</th>
             <th style="width: 100px">年检基准日</th>
@@ -84,7 +106,7 @@
           <tr ng-repeat="item in data.items">
             <td ng-bind="($index+1)+'.'"></td>
             <td ng-bind="item.order_code"></td>
-            <td ng-bind="item.order_type_name"></td>
+            <!-- <td ng-bind="item.order_type_name"></td> -->
             <td ng-bind="item.order_name" ng-attr-title="{{item.order_name}}"></td>
             <td ng-bind="format(item.date_last, 'YYYY-MM-DD')" ng-attr-title="{{item.title_last}}"></td>
             <td ng-bind="format(item.date_setup, 'YYYY-MM-DD')"></td>

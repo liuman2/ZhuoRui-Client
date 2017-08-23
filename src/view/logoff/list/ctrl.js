@@ -5,7 +5,7 @@ module.exports = function($scope, $http, $state, $stateParams, $cookieStore) {
 
   $scope.search = {
     title: '',
-    order_type: '',
+    order_status: '',
     area: ''
   }
 
@@ -35,6 +35,62 @@ module.exports = function($scope, $http, $state, $stateParams, $cookieStore) {
       return '';
     }
     return moment(dt).format(str);
+  }
+
+  $scope.getMonth = function(item) {
+    // item.month <= 0 ? '-' : item.month
+    var dt = item.date_setup;
+    var t2 = moment();
+    if (dt && dt.indexOf('T') > -1) {
+      dt = dt.split('T')[0];
+      var t1 = moment(dt);
+      if (t1.year() == t2.year()) {
+        return '-';
+      }
+    }
+
+    if (item.annual_year == t2.year()) {
+      return '-';
+    }
+
+    return item.month <= 0 ? '-' : item.month
+  }
+
+  $scope.getRedWarning = function(item) {
+    if (item.month > 0) {
+      return true;
+    }
+    // return item.month > 0;
+    var dt = item.date_setup;
+    if (dt && dt.indexOf('T') > -1) {
+      dt = dt.split('T')[0];
+
+      var t1 = moment(dt);
+      var t2 = moment();
+
+      if (t1.year() == t2.year()) {
+        return false;
+      }
+
+      if (t1.month() == t2.month()) {
+        if (t1.date() <= t2.date()) {
+          return true;
+        }
+        return false;
+      }
+
+      var m2 = moment().add(2, 'month');
+      var m1 = new Date(m2.year(), t1.month(), t1.date());
+      if (m1.getMonth() == m2.month()) {
+        return false;
+      }
+      if (m1 >= m2) {
+        return false;
+      }
+      return true;
+    } else {
+      return false;
+    }
   }
 
   $scope.getOrderStatus = function(status) {

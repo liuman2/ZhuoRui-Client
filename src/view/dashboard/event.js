@@ -1,8 +1,10 @@
 var httpHelper = require('js/utils/httpHelper');
-
+var moment = require('moment');
+moment.locale('zh-cn');
 module.exports = function($scope, $state, $http, $timeout) {
   console.log($scope.schedule)
   var dInput = $('.date-input'),
+    endInput = $('#repeat_end'),
     scheduleForm = $('#schedule_modal');
 
   $.datetimepicker.setLocale('ch');
@@ -14,10 +16,62 @@ module.exports = function($scope, $state, $http, $timeout) {
     onChangeDateTime: function(current_time, $input) {}
   });
 
+  endInput.datetimepicker({
+    timepicker: false,
+    format: 'Y-m-d',
+    scrollInput: false,
+    onChangeDateTime: function(current_time, $input) {}
+  });
+
   $scope.eventTilte = '添加日程';
+  $scope.repeatWeek = {
+    repeat_w0: '',
+    repeat_w1: '',
+    repeat_w2: '',
+    repeat_w3: '',
+    repeat_w4: '',
+    repeat_w5: '',
+    repeat_w6: '',
+  };
 
   if ($scope.schedule.id) {
     $scope.eventTilte = $scope.schedule.editable ? '修改日程' : '查看日程';
+  } else {
+    var dt = $scope.schedule.start ? moment($scope.schedule.start)._d : new Date();
+    var week = dt.getDay();
+    $scope.dow = [week];
+
+    $scope.repeatWeek = {
+      repeat_w0: week == 0 ? '0' : '',
+      repeat_w1: week == 1 ? '1' : '',
+      repeat_w2: week == 2 ? '2' : '',
+      repeat_w3: week == 3 ? '3' : '',
+      repeat_w4: week == 4 ? '4' : '',
+      repeat_w5: week == 5 ? '5' : '',
+      repeat_w6: week == 6 ? '6' : '',
+    };
+  }
+
+
+
+  $scope.getRepeatWeekDisabled = function(v) {
+    if (!$scope.schedule.editable) {
+      return true;
+    }
+
+    var isInDow = $scope.dow.indexOf(v) > -1;
+    if ($scope.dow.length == 1 && isInDow) {
+      return true;
+    }
+    return false;
+  }
+
+  $scope.repeatWeekChange = function(v, e) {
+    console.log(v);
+    console.log(e)
+    $scope.dow = [1, 2];
+
+    // TODO
   }
 
   function valid_people() {
@@ -110,7 +164,8 @@ module.exports = function($scope, $state, $http, $timeout) {
     rules: {},
     fields: {
       schedule_start: "开始时间:match[lte, schedule_end, date];",
-      schedule_end: "结束时间:match[gte, schedule_start, date];"
+      schedule_end: "结束时间:match[gte, schedule_start, date];",
+      repeat_end: "重复截止时间:match[gt, schedule_start, date]; required(#isRepeat:checked);",
     }
   });
 

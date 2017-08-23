@@ -66,7 +66,6 @@
   display: inline-block;
   margin-right: 5px;
   vertical-align: middle;
-
   // border: 1px solid #51B749;
   // background: #51B749;
 }
@@ -110,6 +109,7 @@
   margin-right: 5px;
   vertical-align: middle;
 }
+
 .portal-task-blank {
   text-align: center;
   .ico {
@@ -120,4 +120,45 @@
   p {
     color: #a0aebf;
   }
+}
+
+input[type=checkbox] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  line-height: 14px;
+  margin: 0;
+  cursor: pointer;
+  vertical-align: middle;
+  background: transparent;
+  border: 1px solid #a5a5a5;
+  border: none\9;
+  position: relative;
+  text-align: center;
+}
+
+input[type=checkbox]:focus {
+  outline: none;
+}
+
+input[type=checkbox]:checked::after {
+  display: block;
+  position: absolute;
+  top: -1px;
+  left: -1px;
+  width: 14px;
+  height: 14px;
+}
+
+input[type=checkbox]:checked::after {
+  content: url(../img/icon/icon_checkbox_active.png);
+}
+
+input[type=checkbox][disabled] {
+  cursor: not-allowed;
+}
+
+.mt-5 {
+  margin-top: 5px;
 }
