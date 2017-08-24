@@ -36,7 +36,7 @@
             </span>
             <h3 class="timeline-header"><a href="javascript:;" ng-bind="getTitle(item)"></a></h3>
             <div class="timeline-body">
-              <span ng-bind="(item.is_system == '0'  ? '待办日期：' : '') + format(item.date_business, 'YYYY-MM-DD')" style="margin-right: 10px;"></span>
+              <span ng-if="item.is_system == '0'" ng-bind="(item.log_type == 1  ? '待办日期：' : '日期：') + format(item.date_business, 'YYYY-MM-DD')" style="margin-right: 10px;"></span>
               <span ng-bind="(item.is_system == '0'  ? '内容：' : '') + item.content"></span>
             </div>
             <div class="timeline-footer" ng-if="item.is_system == '0'">
