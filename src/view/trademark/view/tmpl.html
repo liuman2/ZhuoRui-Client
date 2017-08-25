@@ -331,9 +331,16 @@
       </div>
       <div class="box-body">
         <div class="form-group">
-          <label class="col-sm-2 control-label">业务员</label>
+          <label class="col-sm-2 control-label">客户归属</label>
           <div class="col-sm-8">
             <span class="form-span" ng-bind="data.salesman"></span>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-2 control-label">订单归属</label>
+          <div class="col-sm-8">
+            <span class="form-span" ng-bind="data.creator"></span>
+            <button type="button" class="btn btn-info" ui-sref=".creator()" ui-sref-opts="{location:false}">修改</button>
           </div>
         </div>
         <div class="form-group">

@@ -127,6 +127,15 @@ var router = function($stateProvider, $urlRouterProvider) {
         }
       }
     })
+    .state('trademark_view.creator', {
+      url: '/creator',
+      views: {
+        'modal': {
+          template: require('view/common/creator/modal.html'),
+          controller: require('view/common/creator/modal')
+        }
+      }
+    })
     .state('trademark_add.dictionary', {
       url: '/dictionary',
       params: {

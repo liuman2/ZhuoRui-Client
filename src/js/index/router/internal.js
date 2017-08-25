@@ -241,6 +241,15 @@ var router = function($stateProvider, $urlRouterProvider) {
         }
       }
     })
+    .state('internal_view.creator', {
+      url: '/creator',
+      views: {
+        'modal': {
+          template: require('view/common/creator/modal.html'),
+          controller: require('view/common/creator/modal')
+        }
+      }
+    })
     .state('internal_view.pass', {
       url: '/audit/{module_name:.*}',
       views: {

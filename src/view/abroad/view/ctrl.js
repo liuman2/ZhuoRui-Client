@@ -186,7 +186,7 @@ module.exports = function($scope, $state, $http, $q, $timeout, $cookieStore) {
 
   $scope.getHistoryTitle = function(key) {
     var titleInfo = '无变更记录'
-    if ($scope.historyRecord[key]) {
+    if ($scope.historyRecord && $scope.historyRecord[key]) {
       var titleInfo = $scope.historyRecord[key];
       if ($scope.historyRecord[key].indexOf('|') > -1) {
         var titles = $scope.historyRecord[key].split('|');
@@ -260,6 +260,10 @@ module.exports = function($scope, $state, $http, $q, $timeout, $cookieStore) {
   });
 
   $scope.$on('FINISH_MODAL_DONE', function(e) {
+    actionView();
+  });
+
+  $scope.$on('CREATOR_MODAL_DONE', function(e) {
     actionView();
   });
 

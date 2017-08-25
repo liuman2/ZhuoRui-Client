@@ -133,6 +133,10 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
     $state.go(".done", { module_name: 'Trademark' }, { location: false });
   }
 
+  $scope.$on('CREATOR_MODAL_DONE', function(e) {
+    actionView();
+  });
+
   $scope.progress = function(t) {
     // if ($scope.data.status == 4) {
     //     alert('订单已完成，无需再更新进度');

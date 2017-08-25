@@ -292,6 +292,15 @@ var router = function($stateProvider, $urlRouterProvider) {
         }
       }
     })
+    .state('abroad_view.creator', {
+      url: '/creator',
+      views: {
+        'modal': {
+          template: require('view/common/creator/modal.html'),
+          controller: require('view/common/creator/modal')
+        }
+      }
+    })
 };
 
 module.exports = router;

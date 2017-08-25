@@ -132,6 +132,10 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
     $state.go(".done", { module_name: 'Patent' }, { location: false });
   }
 
+  $scope.$on('CREATOR_MODAL_DONE', function(e) {
+    actionView();
+  });
+
   $scope.getOrderStatus = function() {
     switch ($scope.data.status) {
       case 0:

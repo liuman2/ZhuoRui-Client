@@ -66,6 +66,15 @@ var router = function($stateProvider, $urlRouterProvider) {
         }
       }
     })
+    .state('patent_view.creator', {
+      url: '/creator',
+      views: {
+        'modal': {
+          template: require('view/common/creator/modal.html'),
+          controller: require('view/common/creator/modal')
+        }
+      }
+    })
     .state('patent_view.receipt', {
       url: '/patent/receipt/{type:.*}/{source_name:.*}',
       views: {

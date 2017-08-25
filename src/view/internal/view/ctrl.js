@@ -199,6 +199,9 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
   $scope.done = function() {
     $state.go(".done", { module_name: 'RegInternal' }, { location: false });
   }
+  $scope.$on('CREATOR_MODAL_DONE', function(e) {
+    actionView();
+  });
 
   $scope.getHistoryTitle = function(key) {
     var titleInfo = '无变更记录'
