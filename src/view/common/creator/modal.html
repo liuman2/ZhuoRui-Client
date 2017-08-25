@@ -11,7 +11,7 @@
           <div class="form-group">
             <label class="col-sm-2 control-label">订单归属人<span class="required">*</span></label>
             <div class="col-sm-8">
-              <select class="form-control" name="creator.creator_id" ng-model="creator.creator_id" data-rule="required;">
+              <select class="form-control" id="editCreator" name="creator.creator_id" ng-model="creator.creator_id" data-rule="required;">
                 <option value="">请选择</option>
                 <option ng-repeat="option in members" value="{{option.id}}">{{option.name}}</option>
               </select>

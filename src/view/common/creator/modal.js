@@ -24,7 +24,8 @@ module.exports = function($scope, $state, $http, $timeout) {
 
   $scope.creator = {
     id: id,
-    creator_id: ''
+    creator_id: '',
+    creator: ''
   }
 
   $scope.save = function() {
@@ -50,6 +51,8 @@ module.exports = function($scope, $state, $http, $timeout) {
     }
     jForm.isValid(function(v) {
       if (v) {
+        $scope.creator.creator = $("#editCreator").find("option:selected").text();
+
         $http({
           method: 'POST',
           url: url,
