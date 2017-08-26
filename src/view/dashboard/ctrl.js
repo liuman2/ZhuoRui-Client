@@ -24,6 +24,8 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
       presenter_id: '',
       is_repeat: false,
       repeat_type: '',
+      dow: [],
+      repeat_end: '',
     }
   }
 
@@ -77,6 +79,17 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
     });
   }
 
+  // var defaultEvents = [{
+  //   title: 'Click for Google',
+  //   url: 'http://google.com/',
+  //   start: '2017-08-01',
+  //   className: 'scheduler_basic_event',
+  //   dow: [1, 5],
+  //   is_repeat: true,
+  //   repeat_start: '2017-08-01',
+  //   repeat_end: '2018-08-01',
+  // }];
+
   function initCalendar() {
     $('#calendar').fullCalendar({
       droppable: true,
@@ -88,59 +101,9 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
       displayEventTime: false,
       defaultView: 'month',
       editable: true,
-      /*events: [{
-        // Just an event
-        title: 'Long Event',
-        start: '2017-02-07',
-        end: '2017-02-10',
-        className: 'scheduler_basic_event'
-      }, {
-        // Custom repeating event
-        id: 999,
-        title: 'Repeating Event',
-        start: '2017-02-09T16:00:00',
-        className: 'scheduler_basic_event'
-      }, {
-        // Custom repeating event
-        id: 999,
-        title: 'Repeating Event',
-        start: '2017-02-16T16:00:00',
-        className: 'scheduler_basic_event'
-      }, {
-        // Just an event
-        title: 'Lunch',
-        start: '2017-02-12T12:00:00',
-        className: 'scheduler_basic_event',
-      }, {
-        // Just an event
-        title: 'Happy Hour',
-        start: '2017-02-12T17:30:00',
-        className: 'scheduler_basic_event'
-      }, {
-        // Monthly event
-        id: 111,
-        title: 'Meeting 123',
-        start: '2015-08-01T00:00:00',
-        className: 'scheduler_basic_event',
-        repeat: 1
-      }, {
-        // Annual avent
-        id: 222,
-        title: 'Birthday Party',
-        start: '2017-02-04T07:00:00',
-        description: 'This is a cool event',
-        className: 'scheduler_basic_event',
-        repeat: 2
-      }, {
-        // Weekday event
-        title: 'Click for Google',
-        url: 'http://google.com/',
-        start: '2017-02-28',
-        className: 'scheduler_basic_event',
-        dow: [1, 5]
-      }],*/
       events: function(start, end, timezone, callback) {
-        // var date = this.getDate().format('YYYY-MM');
+        console.log(moment(start).format('YYYY-MM-DD HH:mm'))
+        console.log(moment(end).format('YYYY-MM-DD HH:mm'))
         $.ajax({
           url: '/Schedule/Search',
           dataType: 'json',
@@ -151,8 +114,20 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
         });
       },
       eventRender: function(event, element) {
-        var copyEvent = angular.copy(event);
+        if (event.is_repeat && event.repeat_type == 1) {
+          var theDate = moment(event.start);
+          var repeatStart = moment(event.repeat_start);
+          var repeatEnd = moment(event.repeat_end);
 
+          if (event.start.isBefore(repeatStart)) {
+            return false;
+          }
+          if (event.start.isAfter(repeatEnd)) {
+            return false;
+          }
+        }
+
+        var copyEvent = angular.copy(event);
         var end = '';
         if (copyEvent.end) {
           end = moment(copyEvent.end).format('YYYY-MM-DD HH:mm');
@@ -209,10 +184,11 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
           <div class="mt-10 mb-10"><span class="column">主&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;题:</span><span class="column-value">' + copyEvent.title + '</span></div>\
           <div class="mb-10"><span class="column">全天事件:</span><span class="column-value">' + (copyEvent.allDay ? "是" : "否") + '</span></div>\
           <div class="mb-10" ><span class="column">性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;质:</span><span class="column-value">' + (propertyArr[copyEvent.property] || '其它') + '</span></div>\
-          <div class="mb-10" style="display:' + propertyDisplay + ';"><span class="column">会议类型:</span><span class="column-value">' + (copyEvent.meeting_type || '')  + '</span></div>\
-          <div class="mb-10" style="display:' + propertyDisplay + ';"><span class="column">主&nbsp;&nbsp;持&nbsp;&nbsp;人:</span><span class="column-value">' + (copyEvent.presenter || '')  + '</span></div>\
+          <div class="mb-10" style="display:' + propertyDisplay + ';"><span class="column">会议类型:</span><span class="column-value">' + (copyEvent.meeting_type || '') + '</span></div>\
+          <div class="mb-10" style="display:' + propertyDisplay + ';"><span class="column">主&nbsp;&nbsp;持&nbsp;&nbsp;人:</span><span class="column-value">' + (copyEvent.presenter || '') + '</span></div>\
           <div class="mb-10"><span class="column">开始时间:</span><span class="column-value">' + moment(copyEvent.start).format('YYYY-MM-DD HH:mm') + '</span></div>\
           <div class="mb-10" style="display:' + endDisplay + ';"><span class="column">结束时间:</span><span class="column-value">' + end + '</span></div>\
+          <div class="mb-10"><span class="column">重复事件:</span><span class="column-value">' + (copyEvent.is_repeat == 1 ? '是' : '否') + '</span></div>\
           <div class="mb-10"><span class="column">地&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;点:</span><span class="column-value">' + copyEvent.location + '</span></div>\
           <div class="mb-10"><span class="column">优&nbsp;&nbsp;先&nbsp;&nbsp;级:</span><span class="column-value"><span class="tip-color" style="background: ' + copyEvent.color + '; border: 1px solid ' + copyEvent.color + ';"></span>' + priority + '</span></div>\
           <div class="mb-10"><span class="column">权限范围:</span><span class="column-value">' + forp + '</span></div>\
@@ -229,7 +205,6 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
           contentAsHTML: true
         });
       },
-
       dayClick: function(date, jsEvent, view) {
         initData();
         var dt = moment(date).format('YYYY-MM-DD HH:mm'); // date.format();
@@ -257,6 +232,11 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
             copyEvent.end = moment(copyEvent.end).format('YYYY-MM-DD HH:mm');
             copyEvent.end = copyEvent.end.replace('T', ' ');
           }
+        }
+
+        if (copyEvent.repeat_end) {
+          copyEvent.repeat_end = moment(copyEvent.repeat_end).format('YYYY-MM-DD');
+          copyEvent.repeat_end = copyEvent.repeat_end.replace('T', ' ');
         }
 
         $scope.schedule = copyEvent;

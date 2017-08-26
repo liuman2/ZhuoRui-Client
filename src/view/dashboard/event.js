@@ -36,10 +36,25 @@ module.exports = function($scope, $state, $http, $timeout) {
 
   if ($scope.schedule.id) {
     $scope.eventTilte = $scope.schedule.editable ? '修改日程' : '查看日程';
+
+    if ($scope.schedule.repeat_type == 1) {
+      $scope.repeatWeek = {
+        repeat_w0: $scope.schedule.dow.indexOf(0) > -1 ? '0' : '',
+        repeat_w1: $scope.schedule.dow.indexOf(1) > -1 ? '1' : '',
+        repeat_w2: $scope.schedule.dow.indexOf(2) > -1 ? '2' : '',
+        repeat_w3: $scope.schedule.dow.indexOf(3) > -1 ? '3' : '',
+        repeat_w4: $scope.schedule.dow.indexOf(4) > -1 ? '4' : '',
+        repeat_w5: $scope.schedule.dow.indexOf(5) > -1 ? '5' : '',
+        repeat_w6: $scope.schedule.dow.indexOf(6) > -1 ? '6' : '',
+      };
+    }
+    if ($scope.schedule.is_repeat) {
+      $scope.schedule.is_repeat = $scope.schedule.is_repeat + '';
+    }
   } else {
     var dt = $scope.schedule.start ? moment($scope.schedule.start)._d : new Date();
     var week = dt.getDay();
-    $scope.dow = [week];
+    $scope.schedule.dow = [week];
 
     $scope.repeatWeek = {
       repeat_w0: week == 0 ? '0' : '',
@@ -52,26 +67,25 @@ module.exports = function($scope, $state, $http, $timeout) {
     };
   }
 
-
-
   $scope.getRepeatWeekDisabled = function(v) {
     if (!$scope.schedule.editable) {
       return true;
     }
 
-    var isInDow = $scope.dow.indexOf(v) > -1;
-    if ($scope.dow.length == 1 && isInDow) {
+    var isInDow = $scope.schedule.dow.indexOf(v) > -1;
+    if ($scope.schedule.dow.length == 1 && isInDow) {
       return true;
     }
     return false;
   }
 
   $scope.repeatWeekChange = function(v, e) {
-    console.log(v);
-    console.log(e)
-    $scope.dow = [1, 2];
-
-    // TODO
+    var index = $scope.schedule.dow.indexOf(v);
+    if (index > -1) {
+      $scope.schedule.dow.splice(index, 1);
+    } else {
+      $scope.schedule.dow.push(v);
+    }
   }
 
   function valid_people() {
@@ -122,6 +136,12 @@ module.exports = function($scope, $state, $http, $timeout) {
 
         submitData.start = $('input[name="schedule_start"]').val();
         submitData.end = $('input[name="schedule_end"]').val();
+        submitData.repeat_end = $('input[name="repeat_end"]').val();
+        if (submitData.is_repeat && submitData.repeat_type == '1') {
+          submitData.repeat_dow = $scope.schedule.dow.join(',');
+        } else {
+          submitData.repeat_dow = '';
+        }
 
         $http({
           method: 'POST',
