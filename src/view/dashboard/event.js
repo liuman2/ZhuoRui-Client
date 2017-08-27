@@ -158,9 +158,13 @@ module.exports = function($scope, $state, $http, $timeout) {
   }
 
   $scope.delete = function() {
+    var msg = '您确认要删除吗？';
+    if ($scope.schedule.is_repeat == 1) {
+      msg = '该事件是重复事件，删除后将删除这一系列的事件，是否删除？';
+    }
     $.confirm({
       title: false,
-      content: '您确认要删除吗？',
+      content: msg,
       confirmButton: '确定',
       cancelButton: '取消',
       confirm: function() {
