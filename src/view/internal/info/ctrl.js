@@ -41,8 +41,11 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
     mobile: '',
     customer_address: '',
     tel: '',
-    salesman_id: user.id,
-    salesman: user.name,
+    salesman_id: '', //user.id,
+    salesman: '', //user.name,
+
+    creator: user.name,
+
     waiter_id: '',
     outworker_id: '',
     manager_id: '',
@@ -389,6 +392,11 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
       $scope.data.contact = select_customers[0].contact || null;
       $scope.data.mobile = select_customers[0].mobile || null;
       $scope.data.tel = select_customers[0].tel || null;
+
+      if (!id) {
+        $scope.data.salesman_id = select_customers[0].salesman_id || null;
+        $scope.data.salesman = select_customers[0].salesman || null;
+      }
 
       // if (!$scope.data.invoice_name.length) {
       //     $scope.data.invoice_name = select_customers[0].name;

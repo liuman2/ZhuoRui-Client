@@ -113,8 +113,7 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
     var isCurrencyValid = true; // valid_currency();
     jForm.isValid(function(v) {
       if (!v) {
-        if (
-          !$('select[name="is_annual"]').isValid() ||
+        if (!$('select[name="is_annual"]').isValid() ||
           !$('input[name="code"]').isValid() ||
           !$('input[name="name_en"]').isValid() ||
           !$('input[name="date_setup"]').isValid()) {
@@ -124,8 +123,7 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
           return;
         }
 
-        if (
-          !$('select[name="need_annual"]').isValid()) {
+        if (!$('select[name="need_annual"]').isValid()) {
 
           $scope.activeTab = 4;
           $scope.$apply();
@@ -284,9 +282,10 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
       $scope.data.mobile = select_customers[0].mobile || null;
       $scope.data.tel = select_customers[0].tel || null;
 
-      $scope.data.salesman_id = select_customers[0].salesman_id || null;
-      $scope.data.salesman = select_customers[0].salesman || null;
-
+      if (!id) {
+        $scope.data.salesman_id = select_customers[0].salesman_id || null;
+        $scope.data.salesman = select_customers[0].salesman || null;
+      }
       // if (!$scope.data.invoice_name.length) {
       //     $scope.data.invoice_name = select_customers[0].name;
       // }
@@ -339,10 +338,10 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
 
   function newGuid() {
     var guid = "";
-    for (var i = 1; i <= 32; i++){
-      var n = Math.floor(Math.random()*16.0).toString(16);
-      guid +=   n;
-      if((i==8)||(i==12)||(i==16)||(i==20))
+    for (var i = 1; i <= 32; i++) {
+      var n = Math.floor(Math.random() * 16.0).toString(16);
+      guid += n;
+      if ((i == 8) || (i == 12) || (i == 16) || (i == 20))
         guid += "-";
     }
     return guid;
