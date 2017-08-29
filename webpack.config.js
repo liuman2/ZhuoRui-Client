@@ -41,7 +41,6 @@ var webpackConfig = {
             'tooltipster',
             'fullcalendar',
             'fullcalendar/dist/locale/zh-cn.js',
-            'jquery-easy-loading'
         ]
     },
     output: {

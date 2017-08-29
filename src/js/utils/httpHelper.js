@@ -34,29 +34,38 @@ module.exports = exports = function($httpProvider) {
           config.url += `?s=${Math.random()}`;
         }
         if (config.needLoading === true) {
-          var ele = 'body';
-          if ($('.modal').length) {
-            ele = '.modal';
-          }
-          config.loadingElement = ele;
+          // var ele = 'body';
+          // if ($('.modal').length) {
+          //   ele = '.modal';
+          // }
+          // config.loadingElement = ele;
 
-          $(ele).loading();
+          // $(ele).loading();
+
+          layer.load(2);
+          // layer.msg("请稍等", {
+          //   icon: 16,
+          //   zIndex: 999,
+          //   shade: [.3, "#ccc"]
+          // });
         }
         return config;
       },
       'response': function(response) {
         console.log(response.config)
         if (response.config.needLoading === true) {
-          $(response.config.loadingElement).loading('stop');
+          // $(response.config.loadingElement).loading('stop');
+          layer.closeAll();
         }
 
         return response;
       },
       'responseError': function(rejection) {
         if (rejection.config.needLoading === true) {
-          $(rejection.config.loadingElement).loading('stop');
+          // $(rejection.config.loadingElement).loading('stop');
+          layer.closeAll();
         }
-        $('body').loading('stop');
+
         if (rejection.config.errorHandler !== false) {
           if (rejection.status == 401 || rejection.status == 404) {
             location.href = '/login.html';
