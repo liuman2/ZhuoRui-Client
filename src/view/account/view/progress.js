@@ -77,6 +77,7 @@ module.exports = function($scope, $state, $http, $timeout) {
     $http({
       method: 'POST',
       url: '/Accounting/AddProress',
+      needLoading: true,
       data: { progress: $scope.progress }
     }).success(function(data) {
       if (!data.success) {
@@ -96,6 +97,7 @@ module.exports = function($scope, $state, $http, $timeout) {
     $http({
       method: 'POST',
       url: '/Accounting/UpdateProress',
+      needLoading: true,
       data: { progress: $scope.progress }
     }).success(function(data) {
       if (!data.success) {

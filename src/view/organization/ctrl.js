@@ -17,6 +17,7 @@ module.exports = function($scope, $http, $state, $stateParams) {
                 $http({
                     method: 'POST',
                     data: $scope.form,
+                    needLoading: true,
                     url: '/Organization/Update'
                 }).success(function(data) {
                     if (!data.success) {

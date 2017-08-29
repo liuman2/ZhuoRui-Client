@@ -154,6 +154,7 @@ module.exports = function($scope, $state, $http, $cookieStore, $q, $timeout) {
         var url = $scope.action == 'add' ? '/Customer/Add' : '/Customer/Update';
         $http({
           method: 'POST',
+          needLoading: true,
           url: url,
           data: {
             c: data,

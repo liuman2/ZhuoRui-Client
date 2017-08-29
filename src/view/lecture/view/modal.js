@@ -91,6 +91,7 @@ module.exports = function($scope, $http, $state) {
         $http({
             method: 'POST',
             url: '/Lecture/SaveCustomer',
+            needLoading: true,
             data: {
                 leactueId: lecture_id,
                 request: ids

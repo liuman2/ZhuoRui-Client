@@ -124,6 +124,11 @@ module.exports = function($scope, $state, $http, $timeout) {
       var isPeopleValid = valid_people();
       var isColorValid = valid_color();
       $('#rowpeople').find('.n-error').remove();
+
+      if (!$scope.schedule.is_repeat) {
+        $('#repeatEnd').find('.n-error').remove();
+      }
+
       var errorLength = scheduleForm.find('.n-error').length;
       if (errorLength == 0 && isPeopleValid && isColorValid) {
         var submitData = angular.copy($scope.schedule);
@@ -146,6 +151,7 @@ module.exports = function($scope, $state, $http, $timeout) {
         $http({
           method: 'POST',
           url: submitData.id > 0 ? '/Schedule/Update' : '/Schedule/Add',
+          needLoading: true,
           data: submitData
         }).success(function(data) {
           $scope.$emit('EVENT_MODAL_DONE');

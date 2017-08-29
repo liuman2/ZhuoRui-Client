@@ -115,6 +115,7 @@ module.exports = function($scope, $state, $http, $stateParams, $timeout) {
         $http({
           method: 'POST',
           url: '/Customer/UpdateShortInfo',
+          needLoading: true,
           data: postData
         }).success(function(data) {
           if (!data.success) {

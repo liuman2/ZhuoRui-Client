@@ -5,7 +5,7 @@ require('select2/dist/css/select2.css');
 require('nice-validator/dist/jquery.validator.css');
 require('libs/zTree/css/metroStyle/metroStyle.css');
 require('libs/jquery-confirm/jquery-confirm.min.css');
-
+require('jquery-easy-loading/dist/jquery.loading.min.css');
 var routing = require('./routes');
 
 var httpHelper = require('js/utils/httpHelper');

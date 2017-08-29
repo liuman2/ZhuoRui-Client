@@ -56,6 +56,7 @@ module.exports = function($scope, $state, $http, $timeout) {
         $http({
           method: 'POST',
           url: url,
+          needLoading: true,
           data: $scope.creator
         }).success(function(data) {
           if (!data.success) {

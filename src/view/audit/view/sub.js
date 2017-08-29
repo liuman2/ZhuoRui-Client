@@ -73,6 +73,7 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
         $http({
           method: 'POST',
           url: url,
+          needLoading: true,
           data: submitData
         }).success(function(data) {
           $scope.$emit('AUDIT_BANK_DONE');

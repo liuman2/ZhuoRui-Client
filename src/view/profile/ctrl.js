@@ -14,6 +14,7 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
                 $http({
                     method: 'POST',
                     url: '/Account/ChangePwd',
+                    needLoading: true,
                     data: $scope.data
                 }).success(function(data) {
                     if (!data.success) {

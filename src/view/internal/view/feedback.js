@@ -47,6 +47,7 @@ module.exports = function($scope, $state, $stateParams, $http, $timeout) {
         $http({
           method: 'POST',
           url: 'RegInternal/FinishItem',
+          needLoading: true,
           data: item
         }).success(function(data) {
           item.status = 1;
@@ -70,6 +71,7 @@ module.exports = function($scope, $state, $stateParams, $http, $timeout) {
           $http({
             method: 'POST',
             url: 'RegInternal/SureName',
+            needLoading: true,
             data: {
               id: subObj.id,
               name: $scope.feedback.name_cn,
@@ -87,6 +89,7 @@ module.exports = function($scope, $state, $stateParams, $http, $timeout) {
         $http({
           method: 'POST',
           url: 'RegInternal/FinishBaseItem',
+          needLoading: true,
           data: {
             id: subObj.id,
             items: JSON.stringify(subObj.items)

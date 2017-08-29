@@ -80,6 +80,7 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
 
         $http({
           method: 'POST',
+          needLoading: true,
           url: url,
           data: submitData
         }).success(function(data) {

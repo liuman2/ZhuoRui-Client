@@ -191,7 +191,8 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
         $http({
           method: 'POST',
           url: url,
-          data: data
+          data: data,
+          needLoading: true,
         }).success(function(data) {
           $state.go("abroad_view", {
             id: data.id

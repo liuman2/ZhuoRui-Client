@@ -61,6 +61,7 @@ module.exports = function($scope, $state, $http, $timeout) {
         $http({
             method: 'POST',
             url: '/RegInternal/AddHistory',
+            needLoading: true,
             data: $scope.data
         }).success(function(data) {
             $scope.$emit('HISTORY_MODAL_DONE');
@@ -74,6 +75,7 @@ module.exports = function($scope, $state, $http, $timeout) {
         $http({
             method: 'POST',
             url: '/RegInternal/UpdateHistory',
+            needLoading: true,
             data: $scope.data
         }).success(function(data) {
             $scope.$emit('HISTORY_MODAL_DONE');

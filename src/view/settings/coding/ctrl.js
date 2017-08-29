@@ -24,6 +24,7 @@ module.exports = function($scope, $http, $state, $stateParams) {
         $http({
           method: 'POST',
           url: '/Settings/Update',
+          needLoading: true,
           data: $scope.data
         }).success(function(data) {
           load_data();

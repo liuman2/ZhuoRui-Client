@@ -70,6 +70,7 @@ module.exports = function($scope, $state, $http, $timeout) {
     $http({
       method: 'POST',
       url: url,
+      needLoading: true,
       data: $scope.audit
     }).success(function(data) {
       if (!data.success) {

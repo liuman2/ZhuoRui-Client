@@ -57,6 +57,7 @@ module.exports = function($scope, $state, $http, $timeout) {
         $http({
             method: 'POST',
             url: '/RegAbroad/AddHistory',
+            needLoading: true,
             data: $scope.data
         }).success(function(data) {
             $scope.$emit('HISTORY_MODAL_DONE');

@@ -66,6 +66,7 @@ module.exports = function($scope, $state, $http, $timeout) {
         $http({
             method: 'POST',
             url: '/CustomerTimeline/Add',
+            needLoading: true,
             data: $scope.timeline
         }).success(function(data) {
             $scope.$emit('R_TIMELINE_MODAL_DONE');
@@ -78,6 +79,7 @@ module.exports = function($scope, $state, $http, $timeout) {
         $http({
             method: 'POST',
             url: '/CustomerTimeline/Update',
+            needLoading: true,
             data: $scope.timeline
         }).success(function(data) {
             $scope.$emit('R_TIMELINE_MODAL_DONE');

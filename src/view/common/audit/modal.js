@@ -37,6 +37,7 @@ module.exports = function($scope, $state, $http, $timeout) {
     $http({
       method: 'POST',
       url: '/' + module_name + '/RefuseAudit',
+      needLoading: true,
       data: $scope.audit
     }).success(function(data) {
       if (!data.success) {

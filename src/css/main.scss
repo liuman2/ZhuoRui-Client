@@ -162,3 +162,7 @@ input[type=checkbox][disabled] {
 .mt-5 {
   margin-top: 5px;
 }
+
+.loading-overlay {
+  z-index: 9999!important;
+}

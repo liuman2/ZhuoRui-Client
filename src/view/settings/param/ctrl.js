@@ -33,6 +33,7 @@ module.exports = function($scope, $http, $state, $stateParams) {
         $http({
           method: 'POST',
           url: '/Settings/ParamUpdate',
+          needLoading: true,
           data: submitData
         }).success(function(data) {
           load_data();

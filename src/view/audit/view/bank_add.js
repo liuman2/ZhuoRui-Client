@@ -47,6 +47,7 @@ module.exports = function($scope, $state, $http, $timeout) {
         $http({
             method: 'POST',
             url: '/Audit/AddBank',
+            needLoading: true,
             data: $scope.data
         }).success(function(data) {
             $scope.$emit('AUDIT_BANK_DONE');

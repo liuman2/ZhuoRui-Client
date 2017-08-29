@@ -24,6 +24,7 @@ console.log(group)
         $http({
             method: 'POST',
             url: '/Dictionary/Add',
+            needLoading: true,
             data: $scope.dictionary
         }).success(function(data) {
             $state.go('^');

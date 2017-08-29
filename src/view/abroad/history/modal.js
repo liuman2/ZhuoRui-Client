@@ -61,7 +61,8 @@ module.exports = function($scope, $state, $http, $timeout) {
         $http({
             method: 'POST',
             url: '/RegAbroad/AddHistory',
-            data: $scope.data
+            data: $scope.data,
+            needLoading: true,
         }).success(function(data) {
             $scope.$emit('HISTORY_MODAL_DONE');
             $state.go('^', { reload: true });
@@ -74,7 +75,8 @@ module.exports = function($scope, $state, $http, $timeout) {
         $http({
             method: 'POST',
             url: '/RegAbroad/UpdateHistory',
-            data: $scope.data
+            data: $scope.data,
+            needLoading: true,
         }).success(function(data) {
             $scope.$emit('HISTORY_MODAL_DONE');
             $state.go('^', { reload: true });

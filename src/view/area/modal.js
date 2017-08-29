@@ -47,6 +47,7 @@ module.exports = function($scope, $state, $http, $timeout) {
         $http({
             method: 'POST',
             url: '/Area/Add',
+            needLoading: true,
             data: $scope.area
         }).success(function(data) {
             $scope.$emit('AREA_MODAL_DONE');
@@ -58,6 +59,7 @@ module.exports = function($scope, $state, $http, $timeout) {
         $http({
             method: 'POST',
             url: '/Area/Update',
+            needLoading: true,
             data: $scope.area
         }).success(function(data) {
             $scope.$emit('AREA_MODAL_DONE');

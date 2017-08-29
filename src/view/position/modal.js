@@ -47,6 +47,7 @@ module.exports = function($scope, $state, $http, $timeout) {
         $http({
             method: 'POST',
             url: '/Position/Add',
+            needLoading: true,
             data: $scope.area
         }).success(function(data) {
             $scope.$emit('POSITION_MODAL_DONE');
@@ -58,6 +59,7 @@ module.exports = function($scope, $state, $http, $timeout) {
         $http({
             method: 'POST',
             url: '/Position/Update',
+            needLoading: true,
             data: $scope.area
         }).success(function(data) {
             $scope.$emit('POSITION_MODAL_DONE');

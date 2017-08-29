@@ -49,6 +49,7 @@ module.exports = function($scope, $state, $http, $timeout) {
         $http({
             method: 'POST',
             url: '/Customer/AddBank',
+            needLoading: true,
             data: $scope.data
         }).success(function(data) {
             alert('添加成功，请按‘关闭’按钮');
@@ -59,6 +60,7 @@ module.exports = function($scope, $state, $http, $timeout) {
         $http({
             method: 'POST',
             url: '/Customer/UpdateBank',
+            needLoading: true,
             data: $scope.data
         }).success(function(data) {
             alert('修改成功，请按‘关闭’按钮');

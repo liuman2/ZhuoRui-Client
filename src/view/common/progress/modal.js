@@ -175,6 +175,7 @@ module.exports = function($scope, $state, $http, $timeout) {
     $http({
       method: 'POST',
       url: '/' + module_name + '/UpdateProgress',
+      needLoading: true,
       data: $scope.progress
     }).success(function(data) {
       if (!data.success) {

@@ -48,6 +48,7 @@ module.exports = function($scope, $state, $http, $timeout) {
         $http({
             method: 'POST',
             url: '/Role/Add',
+            needLoading: true,
             data: $scope.role
         }).success(function(data) {
             $scope.$emit('ROLE_MODAL_DONE');
@@ -59,6 +60,7 @@ module.exports = function($scope, $state, $http, $timeout) {
         $http({
             method: 'POST',
             url: '/Role/Update',
+            needLoading: true,
             data: $scope.role
         }).success(function(data) {
             $scope.$emit('ROLE_MODAL_DONE');

@@ -46,6 +46,7 @@ module.exports = function($scope, $state, $http, $timeout) {
         $http({
             method: 'POST',
             url: '/Dictionary/Add',
+            needLoading: true,
             data: $scope.dictionary
         }).success(function(data) {
             $scope.$emit('DICT_MODAL_DONE');
@@ -57,6 +58,7 @@ module.exports = function($scope, $state, $http, $timeout) {
         $http({
             method: 'POST',
             url: '/Dictionary/Update',
+            needLoading: true,
             data: $scope.dictionary
         }).success(function(data) {
             $scope.$emit('DICT_MODAL_DONE');

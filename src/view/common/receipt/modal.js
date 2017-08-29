@@ -41,6 +41,7 @@ module.exports = function($scope, $state, $http, $timeout) {
     $http({
       method: 'POST',
       url: !!$scope.data.id ? '/Receipt/Update' : '/Receipt/Add',
+      needLoading: true,
       data: $scope.data
     }).success(function(data) {
       if (!data.success) {

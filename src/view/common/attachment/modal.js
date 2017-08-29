@@ -36,6 +36,7 @@ module.exports = function($scope, $state, $http, $timeout) {
         $http({
             method: 'POST',
             url: '/Attachment/Add',
+            needLoading: true,
             data: $scope.attachment
         }).success(function(data) {
             if (!data.success) {

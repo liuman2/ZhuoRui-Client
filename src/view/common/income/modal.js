@@ -113,6 +113,7 @@ module.exports = function($scope, $state, $http, $timeout) {
     $http({
       method: 'POST',
       url: '/Income/Add',
+      needLoading: true,
       data: $scope.income
     }).success(function(data) {
       if (!data.success) {
@@ -140,6 +141,7 @@ module.exports = function($scope, $state, $http, $timeout) {
     $http({
       method: 'POST',
       url: '/Income/Update',
+      needLoading: true,
       data: $scope.income
     }).success(function(data) {
       if (!data.success) {

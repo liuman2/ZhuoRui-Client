@@ -77,6 +77,7 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
         $http({
           method: 'POST',
           url: '/Leave/Add',
+          needLoading: true,
           data: submitData
         }).success(function(data) {
           initData();

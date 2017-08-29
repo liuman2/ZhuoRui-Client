@@ -358,6 +358,7 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
           confirm: function() {
             $http({
               method: 'POST',
+              needLoading: true,
               url: url,
               data: {
                 l: submitData,

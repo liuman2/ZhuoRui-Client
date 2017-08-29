@@ -47,6 +47,7 @@ module.exports = function($scope, $state, $http, $timeout) {
         $http({
             method: 'POST',
             url: '/Bank/Add',
+            needLoading: true,
             data: $scope.data
         }).success(function(data) {
             $scope.$emit('COMPANY_BANK_MODAL_DONE');
@@ -60,6 +61,7 @@ module.exports = function($scope, $state, $http, $timeout) {
         $http({
             method: 'POST',
             url: '/Bank/Update',
+            needLoading: true,
             data: $scope.data
         }).success(function(data) {
             $scope.$emit('COMPANY_BANK_MODAL_DONE');

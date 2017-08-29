@@ -39,6 +39,7 @@ module.exports = function($scope, $state, $stateParams, $http, $timeout) {
           $http({
             method: 'POST',
             url: '/RegInternal/AddRegItem',
+            needLoading: true,
             data: {
               id: $scope.data.id,
               item: $scope.price,

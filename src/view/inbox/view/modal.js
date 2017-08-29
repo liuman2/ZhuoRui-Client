@@ -137,6 +137,7 @@ module.exports = function($scope, $state, $http, $timeout) {
     $http({
       method: 'POST',
       url: '/Letter/PassInbox',
+      needLoading: true,
       data: submitData
     }).success(function(data) {
       if (!data.success) {

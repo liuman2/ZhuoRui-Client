@@ -90,6 +90,7 @@ module.exports = function($scope, $state, $http, $timeout) {
 
                 $http({
                     method: 'POST',
+                    needLoading: true,
                     url: url,
                     data: $scope.data
                 }).success(function(data) {

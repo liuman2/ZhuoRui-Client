@@ -71,13 +71,26 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
   });
 
   function getTodayEvents() {
+
+
     $http({
       method: 'GET',
       url: '/Schedule/GetToday'
     }).success(function(data) {
       $scope.todayList = data || [];
+      $('body').loading('stop');
     });
   }
+
+  // $('body').loading({
+  //   onStart: function(loading) {
+  //     loading.overlay.slideDown(400);
+  //   },
+  //   onStop: function(loading) {
+  //     loading.overlay.slideUp(400);
+  //   }
+  // });
+  // $('body').loading('stop');
 
   // var defaultEvents = [{
   //   title: 'Click for Google',
