@@ -334,6 +334,12 @@ module.exports = function($stateProvider, $urlRouterProvider) {
       template: require('view/logoff/list/tmpl.html'),
       controller: require('view/logoff/list/ctrl')
     })
+    .state('receipt_list', {
+      url: '/receipt/list',
+      template: require('view/receipt/tmpl.html'),
+      controller: require('view/receipt/ctrl')
+    })
+
 
   dashboardRouter($stateProvider, $urlRouterProvider);
   reserveRouter($stateProvider, $urlRouterProvider);
