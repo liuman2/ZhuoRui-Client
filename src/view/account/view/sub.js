@@ -54,8 +54,9 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
     id: '',
     date_start: '',
     date_end: '',
-    salesman_id: user.id,
-    salesman: user.name,
+    // salesman_id: user.id,
+    // salesman: user.name,
+    creator: user.name,
     pay_mode: '',
   }
 
@@ -89,6 +90,8 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
   }
 
   function valid_salesman() {
+    return true;
+
     if (!$scope.subData.salesman_id) {
       $scope.subData.salesman_id = $('#salesmanSelect2').val();
     }
@@ -152,6 +155,8 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
         submitData.date_end = $('#date_end').val();
         submitData.master_id = master_id;
 
+        submitData.trader_id = $('#traderSelect2').val();
+
         submitData.date_transaction = $('#date_transaction').val();
 
         var url = $scope.action == 'add' ? '/Accounting/AddItem' : '/Accounting/UpdateItem';
@@ -159,7 +164,7 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
           method: 'POST',
           url: url,
           needLoading: true,
-          data: submitData
+          data: {item: submitData, customer_id: $scope.data.customer_id}
         }).success(function(data) {
           $scope.$emit('UPDATE_SUB_DONE');
           $state.go('^', { reload: true });

@@ -272,9 +272,22 @@
                 </div>
               </div>
               <div class="form-group">
-                <label class="col-sm-2 control-label">业务员</label>
+                <label class="col-sm-2 control-label">客户归属</label>
                 <div class="col-sm-8">
                   <span class="form-span" ng-bind="data.salesman"></span>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-2 control-label">订单归属</label>
+                <div class="col-sm-8">
+                  <span class="form-span" ng-bind="data.creator"></span>
+                  <!-- <button type="button" class="btn btn-info" ui-sref=".creator()" ui-sref-opts="{location:false}">修改</button> -->
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-2 control-label">渠道商</label>
+                <div class="col-sm-8">
+                  <span class="form-span" ng-bind="data.trader_name"></span>
                 </div>
               </div>
               <div class="form-group">
@@ -471,12 +484,32 @@
                   <span class="form-span" ng-bind="!!item.progress? (' ' + item.progress) : ' 无进度信息'"></span>
                 </div>
               </div>
-              <div class="form-group">
+              <!-- <div class="form-group">
                 <label class="col-sm-2 control-label">业务员</label>
                 <div class="col-sm-8">
                   <span class="form-span" ng-bind="item.salesman"></span>
                 </div>
+              </div> -->
+              <div class="form-group">
+                <label class="col-sm-2 control-label">客户归属</label>
+                <div class="col-sm-8">
+                  <span class="form-span" ng-bind="item.salesman"></span>
+                </div>
               </div>
+              <div class="form-group">
+                <label class="col-sm-2 control-label">订单归属</label>
+                <div class="col-sm-8">
+                  <span class="form-span" ng-bind="item.creator"></span>
+                  <!-- <button type="button" class="btn btn-info" ui-sref=".creator()" ui-sref-opts="{location:false}">修改</button> -->
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-2 control-label">渠道商</label>
+                <div class="col-sm-8">
+                  <span class="form-span" ng-bind="item.trader_name"></span>
+                </div>
+              </div>
+
               <div class="form-group">
                 <label class="col-sm-2 control-label">助理</label>
                 <div class="col-sm-8">

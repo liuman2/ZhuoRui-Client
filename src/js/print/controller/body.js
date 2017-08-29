@@ -64,10 +64,10 @@ module.exports = function($scope, $http, $state, $stateParams, $location, $timeo
 
   $scope.showFooter = function(name) {
     var m = urlParam('m');
-    if (name == 'normal' && m.indexOf('abroad') < 0) {
+    if (name == 'new' && m.indexOf('annual') < 0) {
       return true;
     }
-    if (name == 'abroad' && m.indexOf('abroad') > -1) {
+    if (name == 'old' && m.indexOf('annual') > -1) {
       return true;
     }
 

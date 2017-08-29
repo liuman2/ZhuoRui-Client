@@ -67,8 +67,11 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
     customer_address: '',
     tel: '',
     is_open_bank: 0,
-    salesman_id: user.id,
-    salesman: user.name,
+
+    salesman_id: '', //user.id,
+    salesman: '', //user.name,
+    creator: user.name,
+
     customer_id: '',
     invoice_name: '',
     invoice_tax: '',

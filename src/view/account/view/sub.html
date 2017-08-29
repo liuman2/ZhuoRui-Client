@@ -79,9 +79,9 @@
               </div>
               <div class="tab-pane" ng-class="{'active': activeTab == 2}">
                 <div class="form-group">
-                  <label class="col-sm-2 control-label">业务员<span class="required">*</span></label>
+                  <label class="col-sm-2 control-label">客户归属<span class="required">*</span></label>
                   <div class="col-sm-6">
-                    <select
+                    <!-- <select
                       ui-select2
                       class="form-control select2"
                       id="salesmanSelect2"
@@ -94,9 +94,39 @@
                       style="width: 100%;"
                     >
                     </select>
-                    <span id="salesmanSelect2-validator" class="select-validator"></span>
+                    <span id="salesmanSelect2-validator" class="select-validator"></span> -->
+                    <input type="text" class="form-control" ng-model="data.salesman" disabled>
                   </div>
                 </div>
+
+                <div class="form-group">
+                  <label class="col-sm-2 control-label">订单归属</label>
+                  <div class="col-sm-6">
+                    <input type="text" class="form-control" ng-model="subData.creator" disabled>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="col-sm-2 control-label">渠道商</label>
+                  <div class="col-sm-6">
+                    <select
+                      ui-select2
+                      class="form-control select2"
+                      id="traderSelect2"
+                      name="trader_id"
+                      ng-view="trader_name"
+                      ng-model="subData.trader_id"
+                      data-formatfields="code,text"
+                      data-formatcaptions="编号,名称"
+                      url="Customer/SearchForDropdown"
+                      paging="true"
+                      style="width: 100%;"
+                      readonly
+                    ></select>
+                    <span id="traderSelect2-validator" class="select-validator"></span>
+                  </div>
+                </div>
+
                 <div class="form-group">
                   <label class="col-sm-2 control-label">助理</label>
                   <div class="col-sm-6">
