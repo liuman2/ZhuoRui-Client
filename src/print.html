@@ -238,7 +238,7 @@
         </td>
       </tr>
     </table>
-    <table style="width:100%; margin-top: 5px;" ng-show="showFooter('old')">
+    <table style="width:100%; margin-top: 5px;" ng-show="false">
       <tr>
         <td style="width: 16.66%">
           <span>审核：</span>
@@ -267,7 +267,7 @@
       </tr>
     </table>
 
-    <table style="width:100%; margin-top: 5px; font-size: 10px;" ng-show="showFooter('new')">
+    <table style="width:100%; margin-top: 5px; font-size: 10px;" >
       <tr>
         <td style="width: 25%; font-size: 10px;">
           <span>总经理：</span>
@@ -296,7 +296,7 @@
           <span ng-bind="printData.saleman"></span>
         </td>
         <td style="width: 25%; font-size: 10px;">
-          <span>订单归属：</span>
+          <span ng-bind="model=='annual' ? '订单提交：' : '订单归属：'"></span>
           <span ng-bind="printData.creator"></span>
         </td>
       </tr>

@@ -7,6 +7,8 @@ module.exports = function($scope, $http, $state, $stateParams, $location, $timeo
   var t = urlParam('t') || '';
   $scope.printType = t;
 
+  $scope.model = urlParam('m');
+
   $scope.mail = null;
 
   if (t === 'address') {
@@ -64,12 +66,12 @@ module.exports = function($scope, $http, $state, $stateParams, $location, $timeo
 
   $scope.showFooter = function(name) {
     var m = urlParam('m');
-    if (name == 'new' && m.indexOf('annual') < 0) {
-      return true;
-    }
-    if (name == 'old' && m.indexOf('annual') > -1) {
-      return true;
-    }
+    // if (name == 'new' && m.indexOf('annual') < 0) {
+    //   return true;
+    // }
+    // if (name == 'old' && m.indexOf('annual') > -1) {
+    //   return true;
+    // }
 
     return false;
   }
