@@ -201,8 +201,6 @@ module.exports = function($scope, $state, $http, $q, $timeout, $cookieStore) {
       content: titleInfo,
       contentAsHTML: true
     });
-
-    return '';
   }
 
   $scope.getReviewStatus = function() {
@@ -283,6 +281,12 @@ module.exports = function($scope, $state, $http, $q, $timeout, $cookieStore) {
       $scope.data.directorList = data.directorList || [];
 
       loadAttachments();
+
+      if (data.historyReocrd) {
+        for (var key in data.historyReocrd) {
+          $scope.getHistoryTitle(key);
+        }
+      }
     });
   }
 

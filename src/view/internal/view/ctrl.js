@@ -392,6 +392,12 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
       $scope.incomes = data.incomes;
 
       loadAttachments();
+
+      if (data.historyReocrd) {
+        for (var key in data.historyReocrd) {
+          $scope.getHistoryTitle(key);
+        }
+      }
     });
   }
 
