@@ -25,7 +25,7 @@
                         </div>
                         <div class="timeline-footer">
                             <a ng-if="item.source!='history'" class="btn btn-primary btn-xs" ui-sref="{{item.router}}({id: item.source_id})">详情</a>
-                            <a ng-if="item.source=='history'" class="btn btn-primary btn-xs" ui-sref="{{item.router}}({change_id: item.source_id})">详情</a>
+                            <a ng-if="item.source=='history'" class="btn btn-primary btn-xs" ui-sref="{{item.router}}({id: item.source_id})">详情</a>
                             <a class="btn btn-primary btn-xs"  ng-click="hasRead(item.id)"">我知道了</a>
                         </div>
                     </div>
