@@ -321,6 +321,21 @@ module.exports = function($scope, $state, $http, $q, $timeout, $cookieStore) {
       }
 
       setModuleInfo(data.order);
+
+      getCustomer($scope.data.customer_id);
     });
   }
+
+  function getCustomer(customer_id) {
+    $http({
+      method: 'GET',
+      url: '/Customer/Get',
+      params: {
+        id: customer_id
+      }
+    }).success(function(data) {
+      $scope.data.salesman_id = data.customer.salesman_id;
+      $scope.data.salesman = data.customer.salesman;
+    });
+  }  
 };

@@ -2,6 +2,7 @@ var httpHelper = require('js/utils/httpHelper');
 module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
   var id = $state.params.id || null,
     dInput = $('.date-input'),
+    customer_id = $state.params.customer_id || null,
     jForm = $('#change_form');
 
   $scope.changes = [];
@@ -99,8 +100,8 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
     customer_id: $state.params.customer_id,
     changes: [],
     amount_transaction: null,
-    salesman_id: user.id,
-    salesman: user.name,
+    // salesman_id: user.id,
+    // salesman: user.name,
     rate: '',
     currency: '',
     shareholderList: [],
@@ -351,7 +352,7 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
           data: data
         }).success(function(data) {
           // $state.go("history_view", { module_id: $scope.module.id, code: $scope.module.code });
-          $state.go("history", { module_id: $scope.module.id, code: $scope.module.code, source_id: $scope.module.source_id });
+          $state.go("history", { module_id: $scope.module.id, code: $scope.module.code, source_id: $scope.module.source_id, customer_id: $scope.data.customer_id });
         });
       }
     });
@@ -471,4 +472,19 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
       return true;
     }
   }
+
+  function getCustomer() {
+    $http({
+      method: 'GET',
+      url: '/Customer/Get',
+      params: {
+        id: customer_id
+      }
+    }).success(function(data) {
+      $scope.data.salesman_id = data.customer.salesman_id;
+      $scope.data.salesman = data.customer.salesman;
+    });
+  }
+
+  getCustomer();
 };

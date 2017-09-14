@@ -5,7 +5,7 @@
     </h1> -->
   <ol class="breadcrumb">
     <li><a ui-sref="dashboard"><i class="fa fa-dashboard"></i>我的面板</a></li>
-    <li><a ui-sref="history({module_id:module.id, code: module.code, source_id: module.source_id})">{{module.name}}变更记录</a></li>
+    <li><a ui-sref="history({module_id:module.id, code: module.code, source_id: module.source_id, customer_id: data.customer_id})">{{module.name}}变更记录</a></li>
     <li class="active">详情</li>
   </ol>
 </section>
@@ -157,7 +157,7 @@
           </div>
         </div>
         <div class="form-group">
-          <label class="col-sm-2 control-label">业务员</label>
+          <label class="col-sm-2 control-label">客户归属</label>
           <div class="col-sm-8">
             <span class="form-span" ng-bind="data.salesman"></span>
           </div>
