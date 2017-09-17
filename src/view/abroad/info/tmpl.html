@@ -429,9 +429,15 @@
             </div>
           </div>
           <div class="form-group">
-            <label class="col-sm-2 control-label">经理</label>
+            <label class="col-sm-2 control-label">注册提成所有人</label>
             <div class="col-sm-8">
-              <select ui-select2 class="form-control select2" id="waiterSelect2" allowclear="true" name="manager_id" ng-view="manager_name" ng-model="data.manager_id" url="Member/List" paging="true" style="width: 100%;"></select>
+              <select ui-select2 class="form-control select2" id="managerSelect2" allowclear="true" name="manager_id" ng-view="manager_name" ng-model="data.manager_id" url="Member/List" paging="true" style="width: 100%;"></select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">年检提成所有人</label>
+            <div class="col-sm-8">
+              <select ui-select2 class="form-control select2" id="annual_ownerSelect2" allowclear="true" name="annual_owner" ng-view="annual_owner_name" ng-model="data.annual_owner" url="Member/List" paging="true" style="width: 100%;"></select>
             </div>
           </div>
         </div>

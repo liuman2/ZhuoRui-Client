@@ -76,6 +76,40 @@ module.exports = function($scope, $http, $state, $stateParams, $location, $timeo
     return false;
   }
 
+  $scope.getTakeName = function() {
+    var mname = urlParam('m');
+    switch(mname) {
+      case "abroad":
+      case "abroad_line":
+        return "注册提成：";
+      case "history":
+      case "history_line":
+        return "变更提成：";
+      case "annual":
+      case "annual_line":
+          return "年检提成：";
+      default:
+        return "";
+    }
+  }
+
+  $scope.getTakeManName = function() {
+    var mname = urlParam('m');
+    switch(mname) {
+      case "abroad":
+      case "abroad_line":
+        return $scope.printData.manager_name;
+      case "history":
+      case "history_line":
+        return $scope.printData.change_owner_name;
+      case "annual":
+      case "annual_line":
+        return $scope.printData.annual_owner_name;
+      default:
+        return "";
+    }
+  }
+
   $scope.getOthers = function(printData) {
     if (printData.print_type != 'history') {
       return printData.others;

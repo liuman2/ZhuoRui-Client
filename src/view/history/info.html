@@ -59,6 +59,7 @@
         <li ng-class="{'active': activeTab == 1}"><a data-toggle="tab" ng-show="!data.logoff" ng-click="onTab(1)" ng-if="module.id == 'abroad' || module.id == 'internal'">股东变更</a></li>
         <li ng-class="{'active': activeTab == 2}"><a data-toggle="tab" ng-show="!data.logoff" ng-click="onTab(2)" ng-if="module.id == 'abroad'">董事变更</a></li>
         <li ng-class="{'active': activeTab == 3}"><a data-toggle="tab" ng-click="onTab(3)">注销</a></li>
+        <li ng-class="{'active': activeTab == 4}"><a data-toggle="tab" ng-click="onTab(4)">转卖</a></li>
       </ul>
       <div class="tab-content">
         <div class="tab-pane" ng-class="{'active': activeTab == 0}">
@@ -172,6 +173,49 @@
             </div>
           </div>
         </div>
+
+        <div class="tab-pane" ng-class="{'active': activeTab == 4}">
+          <div class="box-body">
+            <div class="form-group">
+              <label class="col-sm-3 control-label">档案号</label>
+              <div class="col-sm-7">
+                <input type="text" class="form-control" ng-model="module.code" disabled>
+              </div>
+            </div>            
+            <div class="form-group">
+              <label class="col-sm-3 control-label">新档案号</label>
+              <div class="col-sm-7">
+                <input type="text" class="form-control" placeholder="提交审核通过后，系统自动生成" disabled>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-3 control-label">转卖后归属地<span class="required">*</span></label>
+              <div class="col-sm-7">
+                <select ui-select2 class="form-control select2" name="area_id" ng-view="area_name" ng-model="data.area_id" url="Area/Search" paging="true" data-rule="required;"></select>
+                <span id="area-validator" class="cust-validator"></span>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="col-sm-3 control-label">是否转卖</label>
+              <div class="col-sm-7">
+                <input type="checkbox" name="logoff" ng-model="data.logoff" ng-checked="data.logoff" style="position: absolute; top: 5px;">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-3 control-label">转卖价格</label>
+              <div class="col-sm-7">
+                <input type="text" class="form-control" name="amount_transaction" ng-model="data.amount_transaction" data-rule-money="[/^(([1-9]\d{0,9})|0)(\.\d{1,2})?$/, '请填写2位数的数值']" data-rule="required;money;">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-3 control-label">备注</label>
+              <div class="col-sm-7">
+                <textarea class="form-control" rows="3" name="logoff_memo" ng-model="data.logoff_memo" data-rule="length[~100];"></textarea>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -221,6 +265,13 @@
             <!-- <select ui-select2 class="form-control select2" id="salesmanSelect2" name="salesman_id" ng-view="salesman" ng-model="data.salesman_id" data-rule="required;" url=" Member/List" paging="true" style="width: 100%;"></select> -->
           </div>
         </div>
+        <div class="form-group">
+          <label class="col-sm-3 control-label">变更提成所有人</label>
+          <div class="col-sm-7">
+            <select ui-select2 class="form-control select2" id="change_ownerSelect2" allowclear="true" name="change_owner" ng-view="change_owner_name" ng-model="data.annual_owner" url="Member/List" paging="true" style="width: 100%;"></select>
+          </div>
+        </div>
+
       </div>
     </div>
   </form>
