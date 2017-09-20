@@ -260,16 +260,20 @@
                     <th>订单类型</th>
                     <th>档案号</th>
                     <th>订单名称</th>
+                    <th>英文名</th>
                     <th>订单状态</th>
-                    <th>录入时间</th>
+                    <th>注册时间</th>
+                    <!-- <th>录入时间</th> -->
                   </tr>
                   <tr ng-repeat="item in customerOrders">
                     <td ng-bind="($index+1)+'.'"></td>
                     <td ng-bind="item.order_type_name"></td>
                     <td ng-bind="item.order_code"></td>
                     <td ng-bind="item.order_name" ng-attr-title="{{item.order_name}}"></td>
+                    <td ng-bind="item.order_name_en" ng-attr-title="{{item.order_name_en}}"></td>
                     <td ng-bind="getStatus(item)"></td>
-                    <td ng-bind="format(item.date_created, 'YYYY-MM-DD HH:MM')"></td>
+                    <td ng-bind="format(item.date_setup, 'YYYY-MM-DD')"></td>
+                    <!-- <td ng-bind="format(item.date_created, 'YYYY-MM-DD HH:MM')"></td> -->
                   </tr>
                 </tbody>
               </table>

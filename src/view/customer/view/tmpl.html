@@ -233,6 +233,7 @@
             <th>档案号</th>
             <th>订单名称</th>
             <th>订单状态</th>
+            <th>注册时间</th>
             <th>录入时间</th>
             <th class="opt-col">操作</th>
           </tr>
@@ -242,6 +243,7 @@
             <td ng-bind="item.order_code"></td>
             <td ng-bind="item.order_name" ng-attr-title="{{item.order_name}}"></td>
             <td ng-bind="getStatus(item)"></td>
+            <td ng-bind="format(item.date_setup, 'YYYY-MM-DD')"></td>
             <td ng-bind="format(item.date_created, 'YYYY-MM-DD HH:MM')"></td>
             <td class="opt-col">
               <a href="javascript:;" ng-click="orderDetail(item)"> 详情</a>

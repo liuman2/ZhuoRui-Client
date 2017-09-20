@@ -78,6 +78,28 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
     });
   }
 
+  $scope.getStatus = function(item) {
+    switch (item.status) {
+      case 0:
+        return '未提交';
+      case 1:
+        return '已提交';
+      case 2:
+        return '财务已审核';
+      case 3:
+        return '提交人已审核';
+      case 4:
+        return '完成';
+    }
+  }
+
+  $scope.format = function(dt, str) {
+    if (!dt) {
+      return '';
+    }
+    return moment(dt).format(str);
+  }
+
   $scope.incomes = {
     items: [],
     total: 0,
