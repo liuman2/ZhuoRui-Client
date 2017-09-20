@@ -74,6 +74,7 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
       var contacts = data.contacts || [];
       $scope.customerInfo = customer;
       $scope.customerInfo.contactList = contacts;
+      $scope.customerOrders = data.orders || [];
     });
   }
 

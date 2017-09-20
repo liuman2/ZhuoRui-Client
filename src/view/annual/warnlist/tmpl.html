@@ -95,6 +95,7 @@
             <th style="width: 100px">档案号</th>
             <!-- <th style="width: 80px">订单类型</th> -->
             <th style="max-width: 100px">名称</th>
+            <th style="width:70px;">注册地</th>
             <th style="width: 100px">最近联系日</th>
             <th style="width: 100px">待办日</th>
             <th style="width: 100px">年检基准日</th>
@@ -109,6 +110,7 @@
             <td ng-bind="item.order_code"></td>
             <!-- <td ng-bind="item.order_type_name"></td> -->
             <td ng-bind="item.order_name" ng-attr-title="{{item.order_name}}"></td>
+            <td ng-bind="item.region"></td>
             <td ng-bind="format(item.date_last, 'YYYY-MM-DD')" ng-attr-title="{{item.title_last}}"></td>
             <td ng-bind="format(item.date_wait, 'YYYY-MM-DD')"></td>
             <!-- <td ng-bind="format(item.date_setup, 'YYYY-MM-DD')"></td> -->

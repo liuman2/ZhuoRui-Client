@@ -53,8 +53,8 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
     name_en: '',
     salesman_id: user.id,
     salesman: user.name,
-    waiter_id: user.id,
-    waiter_name: user.name,
+    waiter_id: '', // user.id,
+    waiter_name: '', // user.name,
     assistant_id: '',
     assistant_name: '',
     currency: '',
@@ -130,6 +130,7 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
       var contacts = data.contacts || [];
       $scope.customerInfo = customer;
       $scope.customerInfo.contactList = contacts;
+      $scope.customerOrders = data.orders || [];
     });
   }
 
@@ -201,6 +202,10 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
       $scope.data.salesman = data.salesman;
       $scope.data.assistant_id = data.assistant_id;
       $scope.data.assistant_name = data.assistant_name;
+
+      $scope.data.waiter_id = data.waiter_id;
+      $scope.data.waiter_name = data.waiter_name;
+      $scope.data.order_owner = data.order_owner;
 
       if (data.date_setup && data.date_setup.indexOf('T') > -1) {
         $scope.data.date_setup_for_ann = data.date_setup.split('T')[0];

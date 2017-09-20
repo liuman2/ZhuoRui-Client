@@ -116,23 +116,35 @@
           </div>
         </div>
         <div class="form-group">
-          <label class="col-sm-2 control-label">业务员</label>
-          <div class="col-sm-8">
-            <span class="form-span" ng-bind="data.salesman"></span>
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="col-sm-2 control-label">助理</label>
-          <div class="col-sm-8">
-            <span class="form-span" ng-bind="data.assistant_name"></span>
-          </div>
-        </div>
-        <div class="form-group">
           <label class="col-sm-2 control-label">年检客服</label>
           <div class="col-sm-8">
             <span class="form-span" ng-bind="data.waiter_name"></span>
           </div>
         </div>
+
+        <div class="form-group">
+          <label class="col-sm-2 control-label">客户归属</label>
+          <div class="col-sm-8" ng-bind="data.salesman" style="line-height: 30px;">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-2 control-label">订单归属</label>
+          <div class="col-sm-8" ng-bind="data.order_owner" style="line-height: 30px;">
+          </div>
+        </div>
+
+        <!-- <div class="form-group">
+          <label class="col-sm-2 control-label">客户归属</label>
+          <div class="col-sm-8">
+            <span class="form-span" ng-bind="data.salesman"></span>
+          </div>
+        </div> -->
+        <!-- <div class="form-group">
+          <label class="col-sm-2 control-label">助理</label>
+          <div class="col-sm-8">
+            <span class="form-span" ng-bind="data.assistant_name"></span>
+          </div>
+        </div> -->
         <!-- <div class="form-group">
           <label class="col-sm-2 control-label">会计</label>
           <div class="col-sm-8">
@@ -237,70 +249,112 @@
           <a href="javascript:;" class="col-sm-2 control-label" ng-click="showCustomerInfo()" ng-if="customerInfo==null">显示客户信息</a>
         </div>
         <div ng-if="customerInfo != null">
-          <div class="form-group mb-0">
-            <label class="col-sm-2 control-label">客户名称:</label>
-            <div class="col-sm-8">
-              <span class="form-span" ng-bind="customerInfo.name"></span>
+          <div>
+            <div class="box-body no-padding">
+              <div class="form-group mb-0">
+                <label class="col-sm-2 control-label">客户名称:</label>
+                <div class="col-sm-8">
+                  <span class="form-span" ng-bind="customerInfo.name"></span>
+                </div>
+              </div>
+              <div class="form-group mb-0">
+                <label class="col-sm-2 control-label">详细地址:</label>
+                <div class="col-sm-8">
+                  <span class="form-span" ng-bind="customerInfo.province + customerInfo.city + customerInfo.county + customerInfo.address"></span>
+                </div>
+              </div>
+              <div class="form-group mb-0">
+                <label class="col-sm-2 control-label">寄件地址:</label>
+                <div class="col-sm-8">
+                  <span class="form-span" ng-bind="customerInfo.mailling_province + customerInfo.mailling_city + customerInfo.mailling_county + customerInfo.mailling_address"></span>
+                </div>
+              </div>
+              <div class="form-group mb-0">
+                <label class="col-sm-2 control-label">传真:</label>
+                <div class="col-sm-8">
+                  <span class="form-span" ng-bind="customerInfo.fax"></span>
+                </div>
+              </div>
+              <div class="form-group mb-0">
+                <label class="col-sm-2 control-label">业务员:</label>
+                <div class="col-sm-8">
+                  <span class="form-span" ng-bind="customerInfo.salesman"></span>
+                </div>
+              </div>
+              <div class="form-group mb-0">
+                <label class="col-sm-2 control-label">助理:</label>
+                <div class="col-sm-8">
+                  <span class="form-span" ng-bind="customerInfo.assistant_name"></span>
+                </div>
+              </div>
             </div>
           </div>
-          <div class="form-group mb-0">
-            <label class="col-sm-2 control-label">详细地址:</label>
-            <div class="col-sm-8">
-              <span class="form-span" ng-bind="customerInfo.province + customerInfo.city + customerInfo.county + customerInfo.address"></span>
+
+          <div>
+            <div class="box-header with-border">
+              <h3 class="box-title">联系人</h3>
+            </div>
+            <div class="box-body table-responsive no-padding">
+              <table class="table table-hover">
+                <tbody>
+                  <tr>
+                    <th style="width: 10px">#</th>
+                    <th>联系人</th>
+                    <th>对接事务</th>
+                    <th>手机</th>
+                    <th>座机</th>
+                    <th>职务</th>
+                    <th>邮箱</th>
+                    <th>微信</th>
+                    <th>QQ</th>
+                    <th>备注</th>
+                  </tr>
+                  <tr ng-repeat="item in customerInfo.contactList">
+                    <td ng-bind="($index+1)+'.'"></td>
+                    <td ng-bind="item.name"></td>
+                    <td ng-bind="item.responsable"></td>
+                    <td ng-bind="item.mobile"></td>
+                    <td ng-bind="item.tel"></td>
+                    <td ng-bind="item.position"></td>
+                    <td ng-bind="item.email"></td>
+                    <td ng-bind="item.wechat"></td>
+                    <td ng-bind="item.QQ"></td>
+                    <td ng-bind="item.memo"></td>
+                  </tr>
+                </tbody>
+              </table>
+              <div ng-if="!customerInfo.contactList.length" style="padding: 20px; font-size: 14px;">
+                无联系人资料
+              </div>
             </div>
           </div>
-          <div class="form-group mb-0">
-            <label class="col-sm-2 control-label">寄件地址:</label>
-            <div class="col-sm-8">
-              <span class="form-span" ng-bind="customerInfo.mailling_province + customerInfo.mailling_city + customerInfo.mailling_county + customerInfo.mailling_address"></span>
+          <div>
+            <div class="box-header with-border">
+              <h3 class="box-title">在我司业务</h3>
+            </div>
+            <div class="box-body table-responsive no-padding">
+              <table class="table table-hover">
+                <tbody>
+                  <tr>
+                    <th style="width: 10px">#</th>
+                    <th>订单类型</th>
+                    <th>档案号</th>
+                    <th>订单名称</th>
+                    <th>订单状态</th>
+                    <th>录入时间</th>
+                  </tr>
+                  <tr ng-repeat="item in customerOrders">
+                    <td ng-bind="($index+1)+'.'"></td>
+                    <td ng-bind="item.order_type_name"></td>
+                    <td ng-bind="item.order_code"></td>
+                    <td ng-bind="item.order_name" ng-attr-title="{{item.order_name}}"></td>
+                    <td ng-bind="getStatus(item)"></td>
+                    <td ng-bind="format(item.date_created, 'YYYY-MM-DD HH:MM')"></td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
           </div>
-          <div class="form-group mb-0" ng-if="customerInfo.fax.length > 0">
-            <label class="col-sm-2 control-label">传真:</label>
-            <div class="col-sm-8">
-              <span class="form-span" ng-bind="customerInfo.fax"></span>
-            </div>
-          </div>
-          <div class="form-group mb-0">
-            <label class="col-sm-2 control-label">业务员:</label>
-            <div class="col-sm-8">
-              <span class="form-span" ng-bind="customerInfo.salesman"></span>
-            </div>
-          </div>
-          <div class="form-group mb-0">
-            <label class="col-sm-2 control-label">助理:</label>
-            <div class="col-sm-8">
-              <span class="form-span" ng-bind="customerInfo.assistant_name"></span>
-            </div>
-          </div>
-          <table class="table table-hover">
-            <tbody>
-              <tr>
-                <th style="width: 10px">#</th>
-                <th>联系人</th>
-                <th>对接事务</th>
-                <th>手机</th>
-                <th>座机</th>
-                <th>职务</th>
-                <th>邮箱</th>
-                <th>QQ</th>
-                <th>微信</th>
-                <th>备注</th>
-              </tr>
-              <tr ng-repeat="item in customerInfo.contactList">
-                <td ng-bind="($index+1)+'.'"></td>
-                <td ng-bind="item.name"></td>
-                <td ng-bind="item.responsable"></td>
-                <td ng-bind="item.mobile"></td>
-                <td ng-bind="item.tel"></td>
-                <td ng-bind="item.position"></td>
-                <td ng-bind="item.email"></td>
-                <td ng-bind="item.QQ"></td>
-                <td ng-bind="item.wechat"></td>
-                <td ng-bind="item.memo"></td>
-              </tr>
-            </tbody>
-          </table>
         </div>
       </div>
     </div>
