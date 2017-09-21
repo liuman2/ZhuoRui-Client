@@ -13,7 +13,6 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
     format: 'Y-m-d',
     scrollInput: false,
     onChangeDateTime: function(current_time, $input) {
-      console.log(current_time)
     }
   });
 
@@ -107,7 +106,8 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
     shareholderList: [],
     directoryList: [],
     logoff: 0,
-    logoff_memo: ''
+    logoff_memo: '',
+    area_id: '',
   }
 
   var fields = [];
@@ -235,6 +235,20 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
       break;
   }
 
+  if ($scope.action == 'add') {
+    $http({
+      method: 'GET',
+      needLoading: true,
+      url: '/History/GetSourceOrderInfo',
+      params: {
+        id: $state.params.source_id,
+        module: $state.params.module_id,
+      }
+    }).success(function(data) {
+      $scope.data.resell_price = data.resell_price;
+    });
+  }
+
   angular.copy(fields, $scope.changes);
 
   if (!!id) {
@@ -273,6 +287,19 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
     }
   }
 
+  function valid_area() {
+    if (!$scope.data.area_id) {
+      jForm.validator('showMsg', '#area-validator', {
+          type: "error",
+          msg: "此处不能为空"
+      });
+      return false;
+    } else {
+      jForm.validator('hideMsg', '#area-validator');
+      return true;
+    }
+  }
+
   $scope.save = function() {
     var isCurrencyValid = valid_currency();
     jForm.isValid(function(v) {
@@ -281,11 +308,26 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
           return;
         }
 
-        if ($scope.data.changes.length == 0 && $scope.data.shareholderList.length == 0 && $scope.data.directoryList.length == 0 &&  $scope.data.logoff == 0) {
-          alert('您没输入任何变更数据');
+        if ($scope.data.changes.length == 0 &&
+          $scope.data.shareholderList.length == 0 &&
+          $scope.data.directoryList.length == 0 &&
+          ($scope.data.logoff == 0 || $scope.data.logoff == false)) {
+          $.alert({
+            title: false,
+            content: '您没输入任何变更数据',
+            confirmButton: '确定'
+          });
           return;
         }
 
+        if ($scope.data.logoff == 2) {
+          var areaIsValid = valid_area();
+          if (!areaIsValid) {
+            return;
+          }
+        }
+console.log($scope.data)
+return;
         var tempChanges = angular.copy($scope.data.changes);
         $scope.data.order_code = $state.params.code;
         $scope.data.source_id = $state.params.source_id;
