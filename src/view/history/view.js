@@ -316,8 +316,11 @@ module.exports = function($scope, $state, $http, $q, $timeout, $cookieStore) {
       $scope.data.shareholderList = data.shareholderList || [];
       $scope.data.directoryList = data.directoryList || [];
 
-      if ($scope.data.logoff) {
+      if ($scope.data.logoff == 1) {
         $scope.activeTab = 3;
+      }
+      if ($scope.data.logoff == 2) {
+        $scope.activeTab = 4;
       }
 
       setModuleInfo(data.order);
@@ -337,5 +340,5 @@ module.exports = function($scope, $state, $http, $q, $timeout, $cookieStore) {
       $scope.data.salesman_id = data.customer.salesman_id;
       $scope.data.salesman = data.customer.salesman;
     });
-  }  
+  }
 };

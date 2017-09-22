@@ -103,7 +103,7 @@
             <th style="width: 80px">超期(月)</th>
             <th style="width: 85px">业务员</th>
             <th style="width: 85px">年检客服</th>
-            <th class="opt-col">操作</th>
+            <th class="opt-col" style="width: 100px">操作</th>
           </tr>
           <tr ng-repeat="item in data.items">
             <td ng-bind="($index+1)+'.'"></td>
@@ -120,13 +120,32 @@
             <td ng-bind="item.saleman"></td>
             <td ng-bind="item.waiter"></td>
             <td class="opt-col">
-              <!-- <a href="javascript:;" ng-click="new_annual(item, 'audit')" ng-if="opers.indexOf(5) > -1 && (item.order_type == 'reg_abroad' || item.order_type == 'reg_internal')"> 马上审计</a> -->
-              <a href="javascript:;" ng-click="new_annual(item, 'annual')" ng-if="opers.indexOf(5) > -1"> 马上年检</a>
-              <!-- <a href="javascript:;" ng-click="new_annual(item, 'done')" ng-if="opers.indexOf(5) > -1"> 已年检</a> -->
-              <a href="javascript:;" ng-click="new_annual(item, 'out')" ng-if="opers.indexOf(5) > -1 && item.order_type == 'reg_abroad'"> 转出</a>
-              <a href="javascript:;" ng-click="new_annual(item, 'not_annual')" ng-if="opers.indexOf(5) > -1 && item.order_type == 'reg_abroad'"> 暂不年检</a>
-              <a href="javascript:;" ng-click="new_annual(item, 'log')" ng-if="opers.indexOf(5) > -1"> 日志</a>
-              <span ng-if="opers.indexOf(5) == -1"> 无年检权限</span>
+              <div class="btn-group">
+                <button type="button" class="btn btn-box-tool dropdown-toggle" data-toggle="dropdown">
+                  <i class="fa fa-wrench"></i>
+                </button>
+                <ul class="dropdown-menu" role="menu">
+                  <li>
+                    <a href="javascript:;" ng-click="new_annual(item, 'annual')" ng-if="opers.indexOf(5) > -1"> 马上年检</a>
+                  </li>
+                  <li>
+                    <a href="javascript:;" ng-click="new_annual(item, 'out')" ng-if="opers.indexOf(5) > -1 && item.order_type == 'reg_abroad'"> 转出</a>
+                  </li>
+                  <li>
+                    <a href="javascript:;" ng-click="new_annual(item, 'not_annual')" ng-if="opers.indexOf(5) > -1 && item.order_type == 'reg_abroad'"> 暂不年检</a>
+                  </li>
+                  <li>
+                    <a href="javascript:;" ng-click="new_annual(item, 'for_sale')" ng-if="opers.indexOf(5) > -1"> 待售</a>
+                  </li>
+                  <li class="divider"></li>
+                  <li>
+                    <a href="javascript:;" ng-click="new_annual(item, 'log')" ng-if="opers.indexOf(5) > -1"> 日志</a>
+                  </li>
+                  <li>
+                    <a href="javascript:;" ng-if="opers.indexOf(5) == -1"> 无年检权限</a>
+                  </li>
+                </ul>
+              </div>
             </td>
           </tr>
         </tbody>
@@ -134,3 +153,4 @@
     </div>
   </div>
 </section>
+<div ui-view="modal"></div>

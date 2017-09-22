@@ -326,8 +326,7 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
             return;
           }
         }
-console.log($scope.data)
-return;
+
         var tempChanges = angular.copy($scope.data.changes);
         $scope.data.order_code = $state.params.code;
         $scope.data.source_id = $state.params.source_id;
@@ -496,8 +495,11 @@ return;
       $scope.data.directoryList = data.directoryList || [];
       $scope.fieldChange();
 
-      if ($scope.data.logoff) {
+      if ($scope.data.logoff == 1) {
         $scope.activeTab = 3;
+      }
+      if ($scope.data.logoff == 2) {
+        $scope.activeTab = 4;
       }
     });
   }

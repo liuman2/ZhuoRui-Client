@@ -1,0 +1,29 @@
+<div class="modal" style="display: block;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" ui-sref="^">
+          <span aria-hidden="true">×</span></button>
+        <h4 class="modal-title">预售</h4>
+      </div>
+      <div class="modal-body">
+        <form class="form-horizontal" id="forsale_modal">
+          <div class="form-group">
+            <label class="col-sm-2 control-label">预售价格<span class="required">*</span></label>
+            <div class="col-sm-8">
+              <input type="text" class="form-control" name="resell_price" ng-model="resell_price" data-rule="required; range[0~9999999]">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label"></label>
+            <div class="col-sm-8">设置预售后，该笔订单将不再预警列表中显示。</div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default pull-left" data-dismiss="modal" ui-sref="^">取消</button>
+        <button class="btn btn-primary" ng-click="save($event)">保存</button>
+      </div>
+    </div>
+  </div>
+</div>

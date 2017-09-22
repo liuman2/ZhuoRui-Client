@@ -177,7 +177,18 @@ module.exports = function($scope, $http, $state, $stateParams) {
       if (orderStatus == 1) {
         return '转出'
       }
-      return '注销';
+      if (orderStatus == 2) {
+        return '注销'
+      }
+      if (orderStatus == 3) {
+        return '暂不年检'
+      }
+      if (orderStatus == 4) {
+        return '待售'
+      }
+      if (orderStatus == 5) {
+        return '转卖'
+      }
     }
     switch (status) {
       case 0:

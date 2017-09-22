@@ -174,7 +174,7 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
   }
 
   function setDefaultAuditor(index, selectedOrder) {
-    var defaultAuditorId = selectedOrder.assistant_id || selectedOrder.salesman_id;
+    var defaultAuditorId = selectedOrder.creator_id || selectedOrder.assistant_id;
     if (!defaultAuditorId) {
       return;
     }

@@ -7,8 +7,19 @@ var router = function($stateProvider, $urlRouterProvider) {
       template: require('view/annual/warnlist/tmpl.html'),
       controller: require('view/annual/warnlist/ctrl')
     })
-
-
+    .state('annual_warning.forsale', {
+      url: '/annual/warning/forsale',
+      params: {
+        order_id: null,
+        order_type: null,
+      },
+      views: {
+        'modal': {
+          template: require('view/common/forsale/modal.html'),
+          controller: require('view/common/forsale/modal')
+        }
+      }
+    })
   .state('annual', {
       // parent: 'list',
       url: '/annual',

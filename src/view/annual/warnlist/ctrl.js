@@ -143,7 +143,7 @@ module.exports = function($scope, $http, $state, $stateParams, $cookieStore) {
         });
         break;
       case 'not_annual':
-        // 0 正常 1 转出 2 注销 3 暂不年检
+        // 0 正常 1 转出 2 注销 3 暂不年检 4 待售 5 转卖
         $.confirm({
           title: false,
           content: '您确定不年检这笔订单？',
@@ -164,6 +164,9 @@ module.exports = function($scope, $http, $state, $stateParams, $cookieStore) {
             });
           }
         });
+        break;
+      case 'for_sale':
+        $state.go('.forsale', { order_id: item.id, order_type: item.order_type }, { location: false });
         break;
     }
   };
@@ -231,6 +234,10 @@ module.exports = function($scope, $http, $state, $stateParams, $cookieStore) {
     }
     return moment(dt).format(str);
   }
+
+  $scope.$on('FORSALE_MODAL_DONE', function(e) {
+    load_data();
+  });
 
   function load_data() {
     $http({

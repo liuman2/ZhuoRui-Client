@@ -52,7 +52,8 @@
         <li ng-class="{'active': activeTab == 0}" ng-show="!data.logoff"><a data-toggle="tab" ng-click="onTab(0)">基础变更</a></li>
         <li ng-class="{'active': activeTab == 1}" ng-show="!data.logoff"><a data-toggle="tab"  ng-click="onTab(1)">股东变更</a></li>
         <li ng-class="{'active': activeTab == 2}" ng-show="!data.logoff"><a data-toggle="tab" ng-click="onTab(2)">董事变更</a></li>
-        <li ng-class="{'active': activeTab == 3}"><a data-toggle="tab" ng-click="onTab(3)">注销</a></li>
+        <li ng-class="{'active': activeTab == 3}"><a data-toggle="tab" ng-show="data.logoff != 2" ng-click="onTab(3)">注销</a></li>
+        <li ng-class="{'active': activeTab == 4}"><a data-toggle="tab" ng-show="data.logoff != 1" ng-click="onTab(4)">转卖</a></li>
       </ul>
       <div class="tab-content">
         <div class="tab-pane" ng-class="{'active': activeTab == 0}">
@@ -124,7 +125,6 @@
               <label class="col-sm-3 control-label">是否注销</label>
               <div class="col-sm-7">
                 <span class="form-span" ng-bind="data.logoff==1 ? '注销' : '否'" style="padding-left: 0;"></span>
-                <!-- <input type="checkbox" name="logoff" disabled ng-model="data.logoff" ng-checked="data.logoff" style="position: absolute; top: 5px;"> -->
               </div>
             </div>
             <div class="form-group">
@@ -135,7 +135,34 @@
             </div>
           </div>
         </div>
-
+        <div class="tab-pane" ng-class="{'active': activeTab == 4}">
+          <div class="box-body">
+            <div class="form-group">
+              <label class="col-sm-3 control-label">档案号</label>
+              <div class="col-sm-7">
+                <span class="form-span" ng-bind="data.order_code" style="padding-left: 0;"></span>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-3 control-label">是否转卖</label>
+              <div class="col-sm-7">
+                <span class="form-span" ng-bind="data.logoff==2 ? '转卖' : '否'" style="padding-left: 0;"></span>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-3 control-label">转卖后档案归属地<span class="required">*</span></label>
+              <div class="col-sm-7">
+                <span class="form-span" ng-bind="data.area_name" style="padding-left: 0;"></span>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-3 control-label">备注</label>
+              <div class="col-sm-7">
+                <textarea style="border: none; background: #fff; padding-left: 0;" class="form-control" disabled rows="3" name="logoff_memo" ng-model="data.logoff_memo" data-rule="length[~100];"></textarea>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
