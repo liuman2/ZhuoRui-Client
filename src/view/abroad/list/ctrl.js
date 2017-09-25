@@ -241,7 +241,7 @@ module.exports = function($scope, $http, $cookieStore, $state, $stateParams) {
         return '待售'
       }
       if (orderStatus == 5) {
-        return '转卖'
+        return '卖出'
       }
     }
     switch (status) {
@@ -255,6 +255,8 @@ module.exports = function($scope, $http, $cookieStore, $state, $stateParams) {
         return '提交人已审核';
       case 4:
         return '完成';
+      case 5:
+        return '买入';
     }
   }
 
