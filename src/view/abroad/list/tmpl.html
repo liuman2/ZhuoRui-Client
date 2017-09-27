@@ -30,9 +30,6 @@
           <div class="form-group">
             <select class="form-control" ng-model="search.status">
               <option value="">订单状态</option>
-              <option value="0">未提交</option>
-              <option value="1">未审核</option>
-              <option value="2">已审核</option>
               <option value="4">完成</option>
               <option value="5">转出</option>
               <option value="6">注销</option>
@@ -138,8 +135,8 @@
             <!-- <th style="width:80px;">客户名称</th> -->
             <th ng-click="orderBy('name_cn')" class="ordertable">公司中文名称</th>
             <th ng-click="orderBy('name_en')" class="ordertable">公司英文名称</th>
-            <th style="width:110px;">订单状态</th>
-            <th style="width:80px;">审核状态</th>
+            <th style="width:80px;">订单状态</th>
+            <th style="width:110px;">审核状态</th>
             <th style="width:55px;">转秘书</th>
             <th style="width:100px;">注册进度</th>
             <th ng-click="orderBy('date_created')" class="ordertable">录入时间</th>
@@ -151,15 +148,13 @@
           <tr ng-repeat="item in data.items">
             <td ng-bind="getIndex($index)"></td>
             <td ng-bind="item.code"></td>
-            <!-- <td ng-bind="item.customer_name" ng-attr-title="{{item.customer_name}}"></td> -->
             <td ng-bind="item.name_cn" ng-attr-title="{{item.name_cn}}"></td>
             <td ng-bind="item.name_en" ng-attr-title="{{item.name_en}}"></td>
             <td>
-              <span class="label" ng-class="{'label-warning': (item.status==0 || item.order_status != 0), 'label-success': (item.status==4 && item.order_status == 0), 'label-info': (item.status != 0 && item.status != 4)}" ng-bind="getOrderStatus(item.status, item.order_status)"></span>
+              <span ng-class="{'color-success': (item.status==4 && item.order_status == 0), 'color-warning': (item.order_status != 0)}" ng-bind="getOrderStatus(item.status, item.order_status)"></span>
             </td>
             <td>
-              <span id="tool-tip{{$index}}" style="cursor: default;" class="label" ng-attr-title="{{getTitle(item, $index)}}" ng-class="{'label-warning': (item.review_status==-1), 'label-success': (item.review_status==1), 'label-danger': (item.review_status==0)}" ng-bind="getReviewStatus(item.status, item.review_status)">
-                            </span>
+              <span ng-class="{'color-danger': (item.review_status==0)}" ng-bind="getReviewStatus(item.status, item.review_status)"></span>
             </td>
             <td ng-bind="item.is_annual==1?'是':'否'"></td>
             <td title="点击可设置进度">

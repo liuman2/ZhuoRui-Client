@@ -20,78 +20,39 @@
     </div>
     <div class="box-body">
       <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-3">
           <div class="form-group">
-            <label>档案号</label>
-            <input type="text" class="form-control" name="code" ng-model="search.code">
+            <input type="text" class="form-control" name="name" ng-model="search.name" placeholder="关键字(档案号、订单名称)">
           </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-3">
           <div class="form-group">
-            <label>商标名称</label>
-            <input type="text" class="form-control" name="name" ng-model="search.name">
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="form-group">
-            <label>订单状态</label>
             <select class="form-control" ng-model="search.status">
-              <option value="">全部</option>
-              <option value="0">未提交</option>
-              <option value="1">未审核</option>
-              <option value="2">已审核</option>
+              <option value="">订单状态</option>
               <option value="4">完成</option>
+              <option value="5">转出</option>
               <option value="6">注销</option>
+              <option value="7">暂不年检</option>
               <option value="8">待售</option>
               <option value="9">卖出</option>
               <option value="10">买入</option>
             </select>
           </div>
         </div>
-      </div>
-      <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-3">
           <div class="form-group">
-            <label>客户名称</label>
-            <select ui-select2 class="form-control select2" name="customer_id" ng-view="customer_name" ng-model="search.customer_id" url="Customer/SearchForDropdown" paging="true" style="width: 100%;"></select>
+            <select class="form-control select2" name="area" ng-model="search.area">
+              <option value="">全部区域</option>
+              <option value="XM">厦门</option>
+              <option value="QZ">泉州</option>
+              <option value="QD">青岛</option>
+            </select>
           </div>
         </div>
-        <div class="col-md-4">
-          <div class="form-group">
-            <label>成交起始日期</label>
-            <input type="text" class="form-control date-input" id="start_time" ng-model="search.start_time">
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="form-group">
-            <label>成交结束日期</label>
-            <input type="text" class="form-control date-input" id="end_time" ng-model="search.end_time">
-          </div>
+        <div class="col-md-3">
+          <a class="btn btn-sm btn-info btn-flat" ng-click="query()">查询</a>
         </div>
       </div>
-      <div class="row">
-        <div class="col-md-4">
-          <div class="form-group">
-            <label>申请人</label>
-            <input type="search.applicant" class="form-control" name="applicant" ng-model="search.applicant">
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="form-group">
-            <label>录入起始日期</label>
-            <input type="text" class="form-control date-input" id="start_create" ng-model="search.start_create">
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="form-group">
-            <label>录入结束日期</label>
-            <input type="text" class="form-control date-input" id="end_create" ng-model="search.end_create">
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="box-footer">
-      <a class="btn btn-sm btn-info btn-flat pull-right" ng-click="query()">查询</a>
     </div>
   </div>
   <div class="box box-danger" style="margin-bottom: 110px;">
@@ -118,11 +79,10 @@
             <td ng-bind="item.trademark_type" ng-attr-title="{{item.trademark_type}}"></td>
             <td ng-bind="item.applicant" ng-attr-title="{{item.applicant}}"></td>
             <td>
-              <span class="label" ng-class="{'label-warning': (item.status==0 || item.order_status != 0), 'label-success': (item.status==4 && item.order_status == 0), 'label-info': (item.status != 0 && item.status != 4)}" ng-bind="getOrderStatus(item.status, item.order_status)"></span>
+              <span ng-class="{'color-success': (item.status==4 && item.order_status == 0), 'color-warning': (item.order_status != 0)}" ng-bind="getOrderStatus(item.status, item.order_status)"></span>
             </td>
             <td>
-              <span id="tool-tip{{$index}}" style="cursor: default;" class="label" ng-attr-title="{{getTitle(item, $index)}}" ng-class="{'label-warning': (item.review_status==-1), 'label-success': (item.review_status==1), 'label-danger': (item.review_status==0)}" ng-bind="getReviewStatus(item.status, item.review_status)">
-                            </span>
+              <span ng-class="{'color-danger': (item.review_status==0)}" ng-bind="getReviewStatus(item.status, item.review_status)"></span>
             </td>
             <td title="点击可设置进度">
               <a href="javascript:;" class="fa fa-hourglass-half" ng-click="progress(item, 'p')" ng-bind="getProgressStatus(item)"></a>

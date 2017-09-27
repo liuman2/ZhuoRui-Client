@@ -8,6 +8,7 @@ module.exports = function($scope, $http, $cookieStore, $state, $stateParams) {
     size: 20,
     // customer_id: '',
     status: '',
+    order_status: '',
     // start_time: '',
     // end_time: '',
     name: '',
@@ -246,13 +247,10 @@ module.exports = function($scope, $http, $cookieStore, $state, $stateParams) {
     }
     switch (status) {
       case 0:
-        return '未提交';
       case 1:
-        return '已提交';
       case 2:
-        return '财务已审核';
       case 3:
-        return '提交人已审核';
+        return '未完成';
       case 4:
         return '完成';
       case 5:
@@ -267,7 +265,14 @@ module.exports = function($scope, $http, $cookieStore, $state, $stateParams) {
       case 0:
         return '驳回';
       case 1:
-        return '审核通过';
+        {
+          if (status == 2) {
+            return '财务已审核';
+          }
+          if (status >= 3) {
+            return '已审核';
+          }
+        }
     }
   }
 

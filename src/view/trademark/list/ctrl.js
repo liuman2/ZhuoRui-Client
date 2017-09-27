@@ -192,17 +192,32 @@ module.exports = function($scope, $http, $state, $stateParams) {
     }
     switch (status) {
       case 0:
-        return '未提交';
       case 1:
-        return '已提交';
       case 2:
-        return '财务已审核';
       case 3:
-        return '提交人已审核';
+        return '未完成';
       case 4:
         return '完成';
       case 5:
         return '买入';
+    }
+  }
+
+  $scope.getReviewStatus = function(status, review_status) {
+    switch (review_status) {
+      case -1:
+        return '未审核';
+      case 0:
+        return '驳回';
+      case 1:
+        {
+          if (status == 2) {
+            return '财务已审核';
+          }
+          if (status >= 3) {
+            return '已审核';
+          }
+        }
     }
   }
 
@@ -216,17 +231,6 @@ module.exports = function($scope, $http, $state, $stateParams) {
       return item.finance_review_moment || item.submit_review_moment;
     }
     return '';
-  }
-
-  $scope.getReviewStatus = function(status, review_status) {
-    switch (review_status) {
-      case -1:
-        return '未审核';
-      case 0:
-        return '驳回';
-      case 1:
-        return '审核通过';
-    }
   }
 
   $scope.format = function(dt, str) {

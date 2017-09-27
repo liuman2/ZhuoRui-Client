@@ -20,6 +20,52 @@
     </div>
     <div class="box-body">
       <div class="row">
+        <div class="col-md-3">
+          <div class="form-group">
+            <input type="text" class="form-control" name="name" ng-model="search.name" placeholder="关键字(档案号、公司名称)">
+          </div>
+        </div>
+        <!-- <div class="col-md-3">
+          <div class="form-group">
+            <select class="form-control" ng-model="search.status">
+              <option value="">审核状态</option>
+              <option value="">全部</option>
+              <option value="0">未提交</option>
+              <option value="1">未审核</option>
+              <option value="2">已审核</option>
+              <option value="4">完成</option>
+            </select>
+          </div>
+        </div> -->
+        <div class="col-md-3">
+          <div class="form-group">
+            <select class="form-control select2" name="area" ng-model="search.area">
+              <option value="">全部区域</option>
+              <option value="XM">厦门</option>
+              <option value="QZ">泉州</option>
+              <option value="QD">青岛</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <a class="btn btn-sm btn-info btn-flat" ng-click="query()">查询</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- <div class="box box-danger">
+    <div class="box-header with-border">
+      <h3 class="box-title">查询条件</h3>
+      <div class="box-tools">
+        <div class="box-tools pull-right">
+          <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="box-body">
+      <div class="row">
         <div class="col-md-4">
           <div class="form-group">
             <label>档案号</label>
@@ -83,7 +129,7 @@
     <div class="box-footer">
       <a class="btn btn-sm btn-info btn-flat pull-right" ng-click="query()">查询</a>
     </div>
-  </div>
+  </div> -->
   <div class="box box-danger" style="margin-bottom: 110px;">
     <div class="box-body table-responsive no-padding">
       <table class="table table-hover">
@@ -92,8 +138,8 @@
             <th style="width: 10px">#</th>
             <th ng-click="orderBy('code')" class="ordertable">档案号</th>
             <th ng-click="orderBy('name')" class="ordertable">公司名称</th>
-            <th style="width:110px;">订单状态</th>
-            <th style="width:80px;">审核状态</th>
+            <!-- <th style="width:110px;">订单状态</th>
+            <th style="width:80px;">审核状态</th> -->
             <!-- <th style="width:80px;">来源</th> -->
             <!-- <th ng-click="orderBy('date_created')" class="ordertable">录入时间</th> -->
             <!-- <th class="tar" style="width:110px;">成交金额</th> -->
@@ -106,13 +152,13 @@
             <td ng-bind="getIndex($index)"></td>
             <td ng-bind="item.code"></td>
             <td ng-bind="item.name" ng-attr-title="{{item.name}}"></td>
-            <td>
+            <!-- <td>
               <span class="label" ng-class="{'label-warning': (item.status==0), 'label-success': (item.status==4), 'label-info': (item.status != 0 && item.status != 4)}" ng-bind="getOrderStatus(item.status)"></span>
             </td>
             <td>
               <span id="tool-tip{{$index}}" style="cursor: default;" class="label" ng-attr-title="{{getTitle(item, $index)}}" ng-class="{'label-warning': (item.review_status==-1), 'label-success': (item.review_status==1), 'label-danger': (item.review_status==0)}" ng-bind="getReviewStatus(item.status, item.review_status)">
                             </span>
-            </td>
+            </td> -->
             <!-- <td ng-bind="item.source_type==1?'转秘书':'国内注册'"></td> -->
             <!-- <td ng-bind="format(item.date_created, 'YYYY-MM-DD HH:MM')"></td> -->
             <!-- <td class="tar" ng-bind="item.amount_transaction"></td> -->
