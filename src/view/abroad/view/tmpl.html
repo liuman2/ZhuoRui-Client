@@ -492,9 +492,9 @@
             </table>
           </div>
           <div class="box-footer clearfix">
-            <button type="button" class="btn btn-info" ui-sref=".income_add({source_name: 'reg_abroad', customer_id: data.customer_id})" ui-sref-opts="{location:false}">新增</button>
-            <button type="button" class="btn btn-info" ng-click="printReceipt('new')">新增收据</button>
-            <button type="button" class="btn btn-info" ng-click="printReceipt('print')">打印收据</button>
+            <button type="button" class="btn btn-info" ui-sref=".income_add({source_name: 'reg_abroad', customer_id: data.customer_id})" ui-sref-opts="{location:false}" ng-disabled="data.is_annual == 1">新增</button>
+            <button type="button" class="btn btn-info" ng-click="printReceipt('new')" ng-disabled="data.is_annual == 1">新增收据</button>
+            <button type="button" class="btn btn-info" ng-click="printReceipt('print')" ng-disabled="data.is_annual == 1">打印收据</button>
           </div>
         </div>
         <!-- 附件 -->
