@@ -311,6 +311,10 @@ module.exports = function($scope, $state, $http, $q, $timeout, $cookieStore) {
     });
   }
 
+  $scope.updateBank = function(item) {
+
+  }
+
   $scope.getHolderHistory = function(type) {
     if (type == '股东' && $scope.holderViewHistory) {
       $scope.holderViewHistory = false;
