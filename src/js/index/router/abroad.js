@@ -14,6 +14,21 @@ var router = function($stateProvider, $urlRouterProvider) {
       template: require('view/abroad/list/tmpl.html'),
       controller: require('view/abroad/list/ctrl')
     })
+    .state('abroad.bank', {
+      url: '/abroad/bank',
+      params: {
+        tid: null,
+        order_id: null,
+        customer_id: null,
+        module_name: null,
+      },
+      views: {
+        'bank': {
+          template: require('view/common/businessBank/modal.html'),
+          controller: require('view/common/businessBank/modal')
+        }
+      }
+    })
     .state('abroad_add', {
       parent: 'list',
       url: '/abroad/add',
@@ -209,6 +224,22 @@ var router = function($stateProvider, $urlRouterProvider) {
         }
       }
     })
+    .state('abroad_view.bank', {
+        url: '/abroad/bank',
+        params: {
+          tid: null,
+          order_id: null,
+          customer_id: null,
+          module_name: null,
+        },
+        views: {
+          'bank': {
+            template: require('view/common/businessBank/modal.html'),
+            controller: require('view/common/businessBank/modal')
+          }
+        }
+      })
+
     .state('abroad_timeline', {
       url: '/view/abroad/timeline/{source:.*}/{id:.*}/{name:.*}/{code:.*}',
       template: require('view/common/timeline/tmpl.html'),

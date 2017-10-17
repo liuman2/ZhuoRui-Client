@@ -279,7 +279,7 @@ module.exports = function($scope, $state, $http, $q, $timeout, $cookieStore) {
       $scope.incomes = data.incomes;
       $scope.data.shareholderList = data.shareholderList || [];
       $scope.data.directorList = data.directorList || [];
-
+      $scope.banks = data.banks;
       loadAttachments();
 
       if (data.historyReocrd) {

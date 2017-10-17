@@ -102,6 +102,7 @@
         <li ng-class="{'active': activeTab == 4}"><a data-toggle="tab" ng-click="onTab(4)">其他</a></li>
         <li ng-class="{'active': activeTab == 5}"><a data-toggle="tab" ng-click="onTab(5)">收款记录</a></li>
         <li ng-class="{'active': activeTab == 6}"><a data-toggle="tab" ng-click="onTab(6)">附件</a></li>
+        <li ng-class="{'active': activeTab == 7}"><a data-toggle="tab" ng-click="onTab(7)">开户行</a></li>
       </ul>
       <div class="tab-content" style="padding-bottom: 100px;">
         <!-- 注册信息 -->
@@ -531,6 +532,42 @@
             <button type="button" class="btn btn-info" ui-sref=".attachment({source_name: 'reg_abroad', source_id: data.id})" ui-sref-opts="{location:false}">新增</button>
           </div>
         </div>
+
+        <!-- 开户行 -->
+        <div class="tab-pane" ng-class="{'active': activeTab == 7}">
+          <div class="box-body table-responsive no-padding">
+            <table class="table table-hover">
+              <tbody>
+                <tr>
+                  <th style="width: 10px">#</th>
+                  <th>银行名称</th>
+                  <th>地址</th>
+                  <th>客户经理</th>
+                  <th>联系方式</th>
+                  <th>开户时间</th>
+                  <th>备注</th>
+                  <th class="opt-col">操作</th>
+                </tr>
+                <tr ng-repeat="item in banks">
+                  <td ng-bind="($index+1)+'.'"></td>
+                  <td ng-bind="item.name"></td>
+                  <td ng-bind="item.address"></td>
+                  <td ng-bind="item.manager"></td>
+                  <td ng-bind="item.tel"></td>
+                  <td ng-bind="format(item.date_setup, 'YYYY-MM-DD')"></td>
+                  <td ng-bind="item.memo"></td>
+                  <td class="opt-col">
+                    <a href="javascript:;" ng-click="updateBank(item)">修改</a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="box-footer clearfix">
+            <!-- <button type="button" class="btn btn-info" ui-sref=".attachment({source_name: 'reg_abroad', source_id: data.id})" ui-sref-opts="{location:false}">新增</button> -->
+          </div>
+        </div>
+
       </div>
     </div>
   </form>

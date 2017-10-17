@@ -223,6 +223,10 @@ module.exports = function($scope, $http, $cookieStore, $state, $stateParams) {
     $state.go(".progress", { id: item.id, module_name: 'RegAbroad', type: t }, { location: false });
   }
 
+  $scope.bank = function(item) {
+    $state.go(".bank", { order_id: item.id, module_name: 'reg_abroad', customer_id: item.customer_id }, { location: false });
+  }
+
   $scope.$on('PROGRESS_MODAL_DONE', function(e) {
     load_data();
   });
