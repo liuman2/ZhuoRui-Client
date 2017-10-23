@@ -2,7 +2,19 @@ module.exports = function($scope, $state, $http, $timeout) {
   var customer_id = $state.params.customer_id,
     tid = $state.params.tid,
     module_name = $state.params.module_name || null,
+    dInput = $('.date-input'),
     source_id = $state.params.order_id || null;
+
+  $.datetimepicker.setLocale('ch');
+  dInput.datetimepicker({
+    timepicker: false,
+    maxDate: new Date(),
+    format: 'Y-m-d',
+    scrollInput: false,
+    onChangeDateTime: function(current_time, $input) {
+      console.log(current_time)
+    }
+  });
 
   var jForm = $('#bank_modal');
   jForm.validator({
@@ -26,6 +38,8 @@ module.exports = function($scope, $state, $http, $timeout) {
   }
 
   $scope.save = function() {
+    $scope.data.date_setup = $('#date_setup').val();
+
     jForm.isValid(function(v) {
       if (v) {
         if (tid) {

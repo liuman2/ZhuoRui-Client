@@ -37,6 +37,7 @@
             <th style="width: 100px">档案号</th>
             <th style="max-width: 100px">名称</th>
             <th style="max-width: 100px">英文</th>
+            <th style="max-width: 80px">开户行数</th>
             <th style="max-width: 80px">预售价格</th>
             <th style="max-width: 100px">是否转秘书</th>
             <th style="width:70px;">注册地</th>
@@ -51,6 +52,7 @@
             <td ng-bind="item.order_code"></td>
             <td ng-bind="item.order_name" ng-attr-title="{{item.order_name}}"></td>
             <td ng-bind="item.order_name_en" ng-attr-title="{{item.order_name_en}}"></td>
+            <td ng-bind="item.bank_count"></td>
             <td ng-bind="item.resell_price"></td>
             <td ng-bind="item.is_annual == 1 ? '是' : '否'"></td>
             <td ng-bind="item.region"></td>

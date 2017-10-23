@@ -189,7 +189,10 @@ module.exports = function($scope, $http, $cookieStore, $state, $stateParams) {
       return;
     }
 
-    $state.go("history", { module_id: 'abroad', code: item.code, source_id: item.id, customer_id: item.customer_id });
+    // $state.go("history", { module_id: 'abroad', code: item.code, source_id: item.id, customer_id: item.customer_id });
+
+    var url = $state.href('history', { module_id: 'abroad', code: item.code, source_id: item.id, customer_id: item.customer_id });
+    window.open(url,'_blank');
   }
 
   $scope.progress = function(item, t) {

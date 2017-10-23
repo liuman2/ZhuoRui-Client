@@ -198,7 +198,11 @@ module.exports = function($scope, $http, $state, $stateParams) {
             return;
         }
 
-        $state.go("history_edit", {module_id: $scope.module.id, code:$scope.module.code, source_id: $scope.module.source_id, id: item.id});
+        // $state.go("history_edit", {module_id: $scope.module.id, code:$scope.module.code, source_id: $scope.module.source_id, id: item.id});
+
+        var url = $state.href('history_edit', {module_id: $scope.module.id, code:$scope.module.code, source_id: $scope.module.source_id, id: item.id});
+        window.open(url,'_blank');
+
     }
 
     $scope.delete = function(item) {

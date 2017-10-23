@@ -100,7 +100,10 @@ module.exports = function($scope, $http, $state, $stateParams) {
       return;
     }
 
-    $state.go("history", { module_id: 'trademark', code: item.code, source_id: item.id, customer_id: item.customer_id });
+    // $state.go("history", { module_id: 'trademark', code: item.code, source_id: item.id, customer_id: item.customer_id });
+
+    var url = $state.href('history', { module_id: 'trademark', code: item.code, source_id: item.id, customer_id: item.customer_id });
+    window.open(url,'_blank');
   }
 
   $scope.edit = function(item) {
@@ -122,7 +125,10 @@ module.exports = function($scope, $http, $state, $stateParams) {
       return;
     }*/
 
-    $state.go("trademark_edit", { id: item.id });
+    // $state.go("trademark_edit", { id: item.id });
+
+    var url = $state.href('trademark_edit', { id: item.id });
+    window.open(url,'_blank');
   }
 
   $scope.progress = function(item, t) {

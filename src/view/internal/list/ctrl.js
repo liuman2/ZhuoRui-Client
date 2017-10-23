@@ -109,7 +109,10 @@ module.exports = function($scope, $http, $state, $stateParams) {
       return;
     }*/
 
-    $state.go("internal_edit", { id: item.id });
+    // $state.go("internal_edit", { id: item.id });
+
+    var url = $state.href('internal_edit', { id: item.id });
+    window.open(url,'_blank');
   }
 
   $scope.history = function(item) {
@@ -119,7 +122,10 @@ module.exports = function($scope, $http, $state, $stateParams) {
     }
 
     // $state.go("internal_history", {id: item.id});
-    $state.go("history", { module_id: 'internal', code: item.code, source_id: item.id, customer_id: item.customer_id });
+    // $state.go("history", { module_id: 'internal', code: item.code, source_id: item.id, customer_id: item.customer_id });
+
+    var url = $state.href('history', { module_id: 'internal', code: item.code, source_id: item.id, customer_id: item.customer_id });
+    window.open(url,'_blank');
   }
 
   $scope.progress = function(item, t) {

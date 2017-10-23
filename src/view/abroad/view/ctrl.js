@@ -312,7 +312,7 @@ module.exports = function($scope, $state, $http, $q, $timeout, $cookieStore) {
   }
 
   $scope.updateBank = function(item) {
-
+    // $state.go(".bank", { order_id: item.id, module_name: 'reg_abroad', customer_id: item.customer_id }, { location: false });
   }
 
   $scope.getHolderHistory = function(type) {

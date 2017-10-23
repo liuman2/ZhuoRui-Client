@@ -148,7 +148,10 @@ module.exports = function($scope, $http, $state, $stateParams) {
     //   return;
     // }
 
-    $state.go("account_edit", { id: item.id });
+    // $state.go("account_edit", { id: item.id });
+
+    var url = $state.href('account_edit', { id: item.id });
+    window.open(url,'_blank');
   }
 
   $scope.history = function(item) {

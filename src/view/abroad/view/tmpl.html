@@ -546,7 +546,7 @@
                   <th>联系方式</th>
                   <th>开户时间</th>
                   <th>备注</th>
-                  <th class="opt-col">操作</th>
+                  <!-- <th class="opt-col">操作</th> -->
                 </tr>
                 <tr ng-repeat="item in banks">
                   <td ng-bind="($index+1)+'.'"></td>
@@ -556,9 +556,9 @@
                   <td ng-bind="item.tel"></td>
                   <td ng-bind="format(item.date_setup, 'YYYY-MM-DD')"></td>
                   <td ng-bind="item.memo"></td>
-                  <td class="opt-col">
+                  <!-- <td class="opt-col">
                     <a href="javascript:;" ng-click="updateBank(item)">修改</a>
-                  </td>
+                  </td> -->
                 </tr>
               </tbody>
             </table>
