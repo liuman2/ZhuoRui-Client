@@ -1,0 +1,106 @@
+<section class="content-header">
+  <!-- <h1>
+        意向客户
+    </h1> -->
+  <ol class="breadcrumb">
+    <li><a ui-sref="dashboard"><i class="fa fa-dashboard"></i>我的面板</a></li>
+    <li><a ui-sref="customer">银行资料</a></li>
+    <li class="active" ng-bind="current_bread"></li>
+  </ol>
+</section>
+<section class="content">
+  <div class="detail-view-header-wrapper">
+    <div class="box-footer detail-view-header" ui-scrollpoint ui-scrollpoint-enabled="true" ui-scrollpoint-class="fixed">
+      <button type="button" class="btn btn-default" ng-click="cancel()">取消</button>
+      <button type="button" class="btn btn-info" ng-click="save()">保存</button>
+    </div>
+  </div>
+  <div class="box box-danger">
+    <div class="box-header with-border">
+      <h3 class="box-title">基本信息</h3>
+      <div class="box-tools pull-right">
+        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+        </button>
+      </div>
+    </div>
+    <form class="form-horizontal">
+      <div class="box-body">
+
+        <div class="form-group">
+          <label class="col-sm-2 control-label">银行名称<span class="required">*</span></label>
+          <div class="col-sm-8">
+            <input type="text" class="form-control" name="name" ng-model="data.name" data-rule="required; length[~120];">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-2 control-label">地区</label>
+          <div class="col-sm-8">
+            <select class="form-control select2" name="area" ng-model="data.area">
+              <option value="">请选择</option>
+              <option value="厦门">厦门</option>
+              <option value="泉州">泉州</option>
+              <option value="青岛">青岛</option>
+              <option value="香港">香港</option>
+            </select>
+          </div>
+          <div class="col-sm-2 add-dictionary">
+            <!-- <a class="fa fa-plus" ui-sref=".dictionary({group: '行业类别'})" ui-sref-opts="{location:false}" title="新增行业类别"></a> -->
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-2 control-label">银行地址</label>
+          <div class="col-sm-8">
+            <input type="text" class="form-control" name="address" ng-model="data.address" data-rule="length[~300];">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-2 control-label">备注</label>
+          <div class="col-sm-8">
+            <textarea class="form-control" rows="3" name="memo" ng-model="data.memo" data-rule="length[~300];"></textarea>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="box box-danger" style="padding-bottom: 50px;">
+    <div class="box-header with-border">
+      <h3 class="box-title">客户经理</h3>
+      <div class="box-tools">
+        <div class="box-tools pull-right">
+          <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="box-body table-responsive no-padding">
+      <table class="table table-hover">
+        <tbody>
+          <tr>
+            <th style="width: 10px">#</th>
+            <th>姓名</th>
+            <th>手机</th>
+            <th>邮箱</th>
+            <th>备注</th>
+            <th class="opt-col">操作</th>
+          </tr>
+          <tr ng-repeat="item in data.contactList">
+            <td ng-bind="($index+1)+'.'"></td>
+            <td ng-bind="item.name"></td>
+            <td ng-bind="item.tel"></td>
+            <td ng-bind="item.email"></td>
+            <td ng-bind="item.memo"></td>
+            <td class="opt-col">
+              <a href="javascript:;" class="fa fa-pencil orange" ng-click="editContact($index, item)" title="修改"></a>
+              <!-- <a href="javascript:;" class="fa fa-trash-o red" ng-click="deleteContact($index, item)" title="删除"></a> -->
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="box-footer clearfix">
+      <button type="button" class="btn btn-info" ui-sref=".contact_add()" ui-sref-opts="{location:false}">新增</button>
+    </div>
+  </div>
+</section>
+<div ui-view="modal"></div>
+<div ui-view="contact"></div>

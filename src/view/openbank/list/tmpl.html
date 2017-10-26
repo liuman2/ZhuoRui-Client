@@ -1,0 +1,50 @@
+<section class="content-header">
+  <ol class="breadcrumb">
+    <li><a ui-sref="dashboard"><i class="fa fa-dashboard"></i>我的面板</a></li>
+    <li><a class="active">银行列表</a></li>
+  </ol>
+</section>
+<section class="content">
+  <div class="box box-danger">
+    <div class="box-header">
+      <h3 class="box-title"></h3>
+      <div class="box-tools">
+        <div class="input-group input-group-sm" style="width: 150px;">
+          <input type="text" name="table_search" class="form-control pull-right" ng-model="search.name" placeholder="银行名称">
+          <div class="input-group-btn">
+            <button type="button" class="btn btn-default" ng-click="query()"><i class="fa fa-search"></i></button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="box-body table-responsive no-padding">
+      <table class="table table-hover">
+        <tbody>
+          <tr>
+            <th style="width: 10px">#</th>
+            <th style="width: 90px;">名称</th>
+            <th>地区</th>
+            <th>地址</th>
+            <th>备注</th>
+            <th class="opt-col">操作</th>
+          </tr>
+          <tr ng-repeat="item in data.items">
+            <td ng-bind="($index+1)+'.'"></td>
+            <td ng-bind="item.name"></td>
+            <td ng-bind="item.area"></td>
+            <td ng-bind="item.address"></td>
+            <td ng-bind="item.memo"></td>
+            <td class="opt-col">
+              <a class="fa fa-info-circle" ui-sref="bank_view({id: item.id})" title="详情"></a>
+              <a class="fa fa-pencil orange" ui-sref="bank_edit({id: item.id})" title="修改"></a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="box-footer clearfix">
+      <a ui-sref="bank_add" class="btn btn-sm btn-info btn-flat pull-left">新增银行</a>
+      <div pagination page-data="data.page" page-click="go(idx)"></div>
+    </div>
+  </div>
+</section>
