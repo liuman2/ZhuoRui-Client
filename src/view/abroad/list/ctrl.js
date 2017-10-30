@@ -2,7 +2,7 @@ var dateHelper = require('js/utils/dateHelper');
 var moment = require('moment');
 moment.locale('zh-cn');
 module.exports = function($scope, $http, $cookieStore, $state, $stateParams) {
-
+  
   $scope.search = {
     index: 1,
     size: 20,
@@ -18,6 +18,14 @@ module.exports = function($scope, $http, $cookieStore, $state, $stateParams) {
     orderBy: {
       field: 'code',
       order: 'desc'
+    }
+  }
+
+  var searchStorage = sessionStorage.getItem('SEARCH_STORAGE');
+  if (searchStorage) {
+    var preSearch = JSON.parse(searchStorage);
+    if (preSearch.key == $state.current.name) {
+      $scope.search = preSearch.search;
     }
   }
 
@@ -42,13 +50,11 @@ module.exports = function($scope, $http, $cookieStore, $state, $stateParams) {
   $scope.goAnnual = function (item) {
     var url = '';
     if (!item.annual_date) {
-      url = $state.href('annual_add', { order_type: 'reg_abroad', order_id: item.id });
-      window.open(url,'_blank');
+      $state.go('annual_add', { order_type: 'reg_abroad', order_id: item.id });
     }
 
     if (item.annual_id) {
-      url = $state.href('annual_view', { id: item.annual_id });
-      window.open(url,'_blank');
+      $state.go('annual_view', { id: item.annual_id });
     }
   }
 
@@ -190,9 +196,7 @@ module.exports = function($scope, $http, $cookieStore, $state, $stateParams) {
     }
 
     // $state.go("history", { module_id: 'abroad', code: item.code, source_id: item.id, customer_id: item.customer_id });
-
-    var url = $state.href('history', { module_id: 'abroad', code: item.code, source_id: item.id, customer_id: item.customer_id });
-    window.open(url,'_blank');
+    $state.go('history', { module_id: 'abroad', code: item.code, source_id: item.id, customer_id: item.customer_id });
   }
 
   $scope.progress = function(item, t) {
@@ -306,6 +310,13 @@ module.exports = function($scope, $http, $cookieStore, $state, $stateParams) {
       params: $scope.search
     }).success(function(data) {
       $scope.data = data;
+
+      var searchSession = {
+        key: $state.current.name,
+        search: angular.copy($scope.search)
+      }
+
+      sessionStorage.setItem('SEARCH_STORAGE', JSON.stringify(searchSession));
     });
   }
 

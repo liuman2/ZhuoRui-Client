@@ -1,11 +1,19 @@
 var moment = require('moment');
 moment.locale('zh-cn');
-module.exports = function($scope, $http, $state, $stateParams) {
+module.exports = function ($scope, $http, $state, $stateParams) {
   $scope.search = {
     index: 1,
     size: 20,
     name: "",
     type: $state.current.name.indexOf('notice') > -1 ? 1 : 2
+  }
+
+  var searchStorage = sessionStorage.getItem('SEARCH_STORAGE');
+  if (searchStorage) {
+    var preSearch = JSON.parse(searchStorage);
+    if (preSearch.key == $state.current.name) {
+      $scope.search = preSearch.search;
+    }
   }
 
   $scope.data = {
@@ -20,67 +28,67 @@ module.exports = function($scope, $http, $state, $stateParams) {
 
   $scope.title = $state.current.name.indexOf('notice') > -1 ? '公司公告' : '会议纪要';
 
-  $scope.cancel = function(item) {
+  $scope.cancel = function (item) {
     $.confirm({
       title: false,
       content: '您确认要撤销吗？',
       confirmButton: '确定',
       cancelButton: '取消',
-      confirm: function() {
+      confirm: function () {
         $http({
           method: 'GET',
           url: '/Notice/Cancel',
           params: {
             id: item.id
           }
-        }).success(function(data) {
+        }).success(function (data) {
           load_data();
         });
       }
     });
   }
 
-  $scope.release = function(item) {
+  $scope.release = function (item) {
     $.confirm({
       title: false,
       content: '您确认要发布该公告吗？',
       confirmButton: '确定',
       cancelButton: '取消',
-      confirm: function() {
+      confirm: function () {
         $http({
           method: 'GET',
           url: '/Notice/Release',
           params: {
             id: item.id
           }
-        }).success(function(data) {
+        }).success(function (data) {
           load_data();
         });
       }
     });
   }
 
-  $scope.delete = function(item) {
+  $scope.delete = function (item) {
     $.confirm({
       title: false,
       content: '您确认要删除？',
       confirmButton: '确定',
       cancelButton: '取消',
-      confirm: function() {
+      confirm: function () {
         $http({
           method: 'GET',
           url: '/Notice/Delete',
           params: {
             id: item.id
           }
-        }).success(function(data) {
+        }).success(function (data) {
           load_data();
         });
       }
     });
   }
 
-  $scope.add = function() {
+  $scope.add = function () {
     switch ($state.current.name) {
       case 'notice':
         $state.go("notice_add");
@@ -93,12 +101,12 @@ module.exports = function($scope, $http, $state, $stateParams) {
     }
   }
 
-  $scope.go = function(index) {
+  $scope.go = function (index) {
     $scope.search.index = index;
     load_data();
   }
 
-  $scope.getStatus = function(status) {
+  $scope.getStatus = function (status) {
     switch (status) {
       case 0:
         return '待发布';
@@ -109,7 +117,7 @@ module.exports = function($scope, $http, $state, $stateParams) {
     }
   }
 
-  $scope.format = function(dt, str) {
+  $scope.format = function (dt, str) {
     if (!dt) {
       return '';
     }
@@ -121,9 +129,15 @@ module.exports = function($scope, $http, $state, $stateParams) {
       method: 'GET',
       params: $scope.search,
       url: '/Notice/Search'
-    }).success(function(data) {
-      console.log(data)
+    }).success(function (data) {
       $scope.data = data;
+
+      var searchSession = {
+        key: $state.current.name,
+        search: angular.copy($scope.search)
+      }
+
+      sessionStorage.setItem('SEARCH_STORAGE', JSON.stringify(searchSession));
     });
   }
 

@@ -97,7 +97,7 @@
                   <i class="fa fa-wrench"></i>
                 </button>
                 <ul class="dropdown-menu" role="menu">
-                  <li><a class="fa fa-info-circle" target="_blank" ui-sref="patent_view({id: item.id})"> 详情</a></li>
+                  <li><a class="fa fa-info-circle"  ui-sref="patent_view({id: item.id})"> 详情</a></li>
                   <li><a href="javascript:;" class="fa fa-hourglass-half" ng-click="progress(item, 'p')"> 进度反馈</a></li>
                   <li><a href="javascript:;" class="fa fa-hourglass-half" ng-click="progress(item, 'w')"> 完善注册资料</a></li>
                   <li class="divider"></li>
@@ -105,7 +105,7 @@
                   <!-- <li><a href="javascript:;" class="fa fa-trash-o" ng-click="delete(item)"> 删除</a></li> -->
                   <li class="divider"></li>
                   <li><a href="javascript:;" class="fa fa-history" ng-click="history(item)"> 变更记录</a></li>
-                  <li><a class="fa fa-clock-o" target="_blank" ui-sref="patent_timeline({id: item.id, name: 'patent', code: item.code, source: 'list'})"> 操作日志</a></li>
+                  <li><a class="fa fa-clock-o" ui-sref="patent_timeline({id: item.id, name: 'patent', code: item.code, source: 'list'})"> 操作日志</a></li>
                 </ul>
               </div>
             </td>

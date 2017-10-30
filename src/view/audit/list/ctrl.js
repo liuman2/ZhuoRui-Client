@@ -32,6 +32,14 @@ module.exports = function($scope, $http, $state, $stateParams) {
     }
   }
 
+  var searchStorage = sessionStorage.getItem('SEARCH_STORAGE');
+  if (searchStorage) {
+    var preSearch = JSON.parse(searchStorage);
+    if (preSearch.key == $state.current.name) {
+      $scope.search = preSearch.search;
+    }
+  }
+
   $scope.data = {
     items: [],
     page: {
@@ -191,6 +199,13 @@ module.exports = function($scope, $http, $state, $stateParams) {
       params: $scope.search
     }).success(function(data) {
       $scope.data = data;
+
+      var searchSession = {
+        key: $state.current.name,
+        search: angular.copy($scope.search)
+      }
+
+      sessionStorage.setItem('SEARCH_STORAGE', JSON.stringify(searchSession));
     });
   }
 

@@ -1,7 +1,7 @@
 var dateHelper = require('js/utils/dateHelper');
 var moment = require('moment');
 moment.locale('zh-cn');
-module.exports = function($scope, $http, $state, $stateParams) {
+module.exports = function ($scope, $http, $state, $stateParams) {
   var dInput = $('.date-input');
 
   $.datetimepicker.setLocale('ch');
@@ -10,7 +10,7 @@ module.exports = function($scope, $http, $state, $stateParams) {
     // maxDate: new Date(),
     format: 'Y-m-d',
     scrollInput: false,
-    onChangeDateTime: function(current_time, $input) {
+    onChangeDateTime: function (current_time, $input) {
       console.log(current_time)
     }
   });
@@ -25,7 +25,15 @@ module.exports = function($scope, $http, $state, $stateParams) {
     type: '收件'
   }
 
-  $scope.getTitle = function(item, i) {
+  var searchStorage = sessionStorage.getItem('SEARCH_STORAGE');
+  if (searchStorage) {
+    var preSearch = JSON.parse(searchStorage);
+    if (preSearch.key == $state.current.name) {
+      $scope.search = preSearch.search;
+    }
+  }
+
+  $scope.getTitle = function (item, i) {
     if (item.review_status == -1) {
       $('#tool-tip' + i).tooltipster({
         theme: 'tooltipster-sideTip-shadow',
@@ -37,7 +45,7 @@ module.exports = function($scope, $http, $state, $stateParams) {
     return '';
   }
 
-  $scope.getOrderType = function(source) {
+  $scope.getOrderType = function (source) {
     switch (source) {
       case 'reg_abroad':
         return '境外注册';
@@ -52,7 +60,7 @@ module.exports = function($scope, $http, $state, $stateParams) {
     }
   }
 
-  $scope.delete = function(item) {
+  $scope.delete = function (item) {
     if (item.review_status == 1) {
       $.alert({
         title: false,
@@ -67,21 +75,21 @@ module.exports = function($scope, $http, $state, $stateParams) {
       content: '您确认要删除？',
       confirmButton: '确定',
       cancelButton: '取消',
-      confirm: function() {
+      confirm: function () {
         $http({
           method: 'GET',
           url: '/Letter/Delete',
           params: {
             id: item.id
           }
-        }).success(function(data) {
+        }).success(function (data) {
           load_data();
         });
       }
     });
   }
 
-  $scope.getStatus = function(item) {
+  $scope.getStatus = function (item) {
     switch (item.review_status) {
       case 0:
         return '未审核';
@@ -101,18 +109,18 @@ module.exports = function($scope, $http, $state, $stateParams) {
     }
   };
 
-  $scope.query = function() {
+  $scope.query = function () {
     load_data();
   };
 
-  $scope.format = function(dt, str) {
+  $scope.format = function (dt, str) {
     if (!dt) {
       return '';
     }
     return moment(dt).format(str);
   }
 
-  $scope.go = function(index) {
+  $scope.go = function (index) {
     $scope.search.index = index;
     load_data();
   };
@@ -125,8 +133,15 @@ module.exports = function($scope, $http, $state, $stateParams) {
       method: 'GET',
       url: '/Letter/Search',
       params: $scope.search
-    }).success(function(data) {
+    }).success(function (data) {
       $scope.data = data;
+
+      var searchSession = {
+        key: $state.current.name,
+        search: angular.copy($scope.search)
+      }
+
+      sessionStorage.setItem('SEARCH_STORAGE', JSON.stringify(searchSession));
     });
   }
 

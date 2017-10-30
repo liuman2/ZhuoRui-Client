@@ -1,7 +1,7 @@
 var dateHelper = require('js/utils/dateHelper');
 var moment = require('moment');
 moment.locale('zh-cn');
-module.exports = function($scope, $http, $state, $stateParams) {
+module.exports = function ($scope, $http, $state, $stateParams) {
   var dInput = $('.date-input');
 
   $.datetimepicker.setLocale('ch');
@@ -10,7 +10,7 @@ module.exports = function($scope, $http, $state, $stateParams) {
     maxDate: new Date(),
     format: 'Y-m-d',
     scrollInput: false,
-    onChangeDateTime: function(current_time, $input) {
+    onChangeDateTime: function (current_time, $input) {
       console.log(current_time)
     }
   });
@@ -33,6 +33,15 @@ module.exports = function($scope, $http, $state, $stateParams) {
     }
   }
 
+  var searchStorage = sessionStorage.getItem('SEARCH_STORAGE');
+  if (searchStorage) {
+    var preSearch = JSON.parse(searchStorage);
+    if (preSearch.key == $state.current.name) {
+      $scope.search = preSearch.search;
+    }
+  }
+
+
   $scope.data = {
     items: [],
     page: {
@@ -43,16 +52,16 @@ module.exports = function($scope, $http, $state, $stateParams) {
     }
   };
 
-  $scope.query = function() {
+  $scope.query = function () {
     load_data();
   };
 
-  $scope.go = function(index) {
+  $scope.go = function (index) {
     $scope.search.index = index;
     load_data();
   };
 
-  $scope.getTitle = function(item, i) {
+  $scope.getTitle = function (item, i) {
     if (item.review_status == 0) {
       $('#tool-tip' + i).tooltipster({
         theme: 'tooltipster-sideTip-shadow',
@@ -64,20 +73,16 @@ module.exports = function($scope, $http, $state, $stateParams) {
     return '';
   }
 
-  $scope.history = function(item) {
+  $scope.history = function (item) {
     if (item.status != 4) {
       alert('还未完成的订单没法做变更记录，请直接修改。');
       return;
     }
 
-    // $state.go("history", { module_id: 'patent', code: item.code, source_id: item.id, customer_id: item.customer_id });
-
-    var url = $state.href('history', { module_id: 'patent', code: item.code, source_id: item.id, customer_id: item.customer_id });
-    window.open(url,'_blank');
-
+    $state.go("history", { module_id: 'patent', code: item.code, source_id: item.id, customer_id: item.customer_id });
   }
 
-  $scope.delete = function(item) {
+  $scope.delete = function (item) {
     if (item.status == 4) {
       alert('订单已完成不能删除');
       return;
@@ -98,12 +103,12 @@ module.exports = function($scope, $http, $state, $stateParams) {
       params: {
         id: item.id
       }
-    }).success(function(data) {
+    }).success(function (data) {
       load_data();
     });
   }
 
-  $scope.edit = function(item) {
+  $scope.edit = function (item) {
     /*if (item.status == 4) {
       alert('订单已完成不能修改');
       return;
@@ -117,7 +122,7 @@ module.exports = function($scope, $http, $state, $stateParams) {
     $state.go("patent_edit", { id: item.id });
   }
 
-  $scope.progress = function(item, t) {
+  $scope.progress = function (item, t) {
     // if (item.status == 4) {
     //     alert('订单已完成，无需再更新进度');
     //     return;
@@ -144,11 +149,11 @@ module.exports = function($scope, $http, $state, $stateParams) {
     $state.go(".progress", { id: item.id, module_name: 'Patent', type: t }, { location: false });
   }
 
-  $scope.$on('PROGRESS_MODAL_DONE', function(e) {
+  $scope.$on('PROGRESS_MODAL_DONE', function (e) {
     load_data();
   });
 
-  $scope.getOrderStatus = function(status, orderStatus) {
+  $scope.getOrderStatus = function (status, orderStatus) {
     if (orderStatus != 0) {
       if (orderStatus == 1) {
         return '转出'
@@ -179,7 +184,7 @@ module.exports = function($scope, $http, $state, $stateParams) {
     }
   }
 
-  $scope.getReviewStatus = function(status, review_status) {
+  $scope.getReviewStatus = function (status, review_status) {
     switch (review_status) {
       case -1:
         return '未审核';
@@ -197,7 +202,7 @@ module.exports = function($scope, $http, $state, $stateParams) {
     }
   }
 
-  $scope.format = function(dt, str) {
+  $scope.format = function (dt, str) {
     if (!dt) {
       return '';
     }
@@ -213,8 +218,15 @@ module.exports = function($scope, $http, $state, $stateParams) {
       method: 'GET',
       url: '/Patent/Search',
       params: $scope.search
-    }).success(function(data) {
+    }).success(function (data) {
       $scope.data = data;
+
+      var searchSession = {
+        key: $state.current.name,
+        search: angular.copy($scope.search)
+      }
+
+      sessionStorage.setItem('SEARCH_STORAGE', JSON.stringify(searchSession));
     });
   }
 
@@ -232,19 +244,19 @@ module.exports = function($scope, $http, $state, $stateParams) {
       cursor: 'e-resize'
     })
 
-    $(th).each(function(index, ele) {
+    $(th).each(function (index, ele) {
       const _width = $(ele).width()
       $(ele).width(_width)
     })
 
-    $(th).mousedown(function(e) {
+    $(th).mousedown(function (e) {
       start = $(this);
       pressed = true;
       startX = e.pageX;
       startWidth = $(this).width();
     })
 
-    $(document).mousemove(function(e) {
+    $(document).mousemove(function (e) {
       if (pressed) {
         var width = startWidth + (e.pageX - startX)
         width = width < min ? min : width
@@ -252,7 +264,7 @@ module.exports = function($scope, $http, $state, $stateParams) {
       }
     })
 
-    $(document).mouseup(function() {
+    $(document).mouseup(function () {
       if (pressed) pressed = false;
     })
 

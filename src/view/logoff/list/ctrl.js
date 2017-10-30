@@ -1,12 +1,20 @@
 var dateHelper = require('js/utils/dateHelper');
 var moment = require('moment');
 moment.locale('zh-cn');
-module.exports = function($scope, $http, $state, $stateParams, $cookieStore) {
+module.exports = function ($scope, $http, $state, $stateParams, $cookieStore) {
 
   $scope.search = {
     title: '',
     order_status: '',
     area: ''
+  }
+
+  var searchStorage = sessionStorage.getItem('SEARCH_STORAGE');
+  if (searchStorage) {
+    var preSearch = JSON.parse(searchStorage);
+    if (preSearch.key == $state.current.name) {
+      $scope.search = preSearch.search;
+    }
   }
 
   if ($scope.opers == undefined) {
@@ -26,18 +34,18 @@ module.exports = function($scope, $http, $state, $stateParams, $cookieStore) {
     items: []
   };
 
-  $scope.query = function() {
+  $scope.query = function () {
     load_data();
   };
 
-  $scope.format = function(dt, str) {
+  $scope.format = function (dt, str) {
     if (!dt) {
       return '';
     }
     return moment(dt).format(str);
   }
 
-  $scope.getMonth = function(item) {
+  $scope.getMonth = function (item) {
     // item.month <= 0 ? '-' : item.month
     var dt = item.date_setup;
     var t2 = moment();
@@ -56,7 +64,7 @@ module.exports = function($scope, $http, $state, $stateParams, $cookieStore) {
     return item.month <= 0 ? '-' : item.month
   }
 
-  $scope.getRedWarning = function(item) {
+  $scope.getRedWarning = function (item) {
     if (item.month > 0) {
       return true;
     }
@@ -93,9 +101,9 @@ module.exports = function($scope, $http, $state, $stateParams, $cookieStore) {
     }
   }
 
-  $scope.getOrderStatus = function(status) {
+  $scope.getOrderStatus = function (status) {
     status = status - 0;
-    switch(status) {
+    switch (status) {
       case 1:
         return '转出';
       case 2:
@@ -105,7 +113,7 @@ module.exports = function($scope, $http, $state, $stateParams, $cookieStore) {
     }
   }
 
-  $scope.revert = function(item) {
+  $scope.revert = function (item) {
     var status = ['转出', '注销', '暂不年检'];
     var msg = `${item.order_type_name}订单【${item.order_name || item.order_code}】，已${status[item.order_status - 1]}，确定要恢复年检吗？`;
     $.confirm({
@@ -113,7 +121,7 @@ module.exports = function($scope, $http, $state, $stateParams, $cookieStore) {
       content: msg,
       confirmButton: '确定',
       cancelButton: '取消',
-      confirm: function() {
+      confirm: function () {
         $http({
           method: 'GET',
           url: '/Annual/Revert',
@@ -121,7 +129,7 @@ module.exports = function($scope, $http, $state, $stateParams, $cookieStore) {
             id: item.id,
             type: item.order_type,
           }
-        }).success(function(data) {
+        }).success(function (data) {
           load_data();
         });
       }
@@ -133,8 +141,16 @@ module.exports = function($scope, $http, $state, $stateParams, $cookieStore) {
       method: 'GET',
       url: '/Annual/OffOrders',
       params: $scope.search
-    }).success(function(data) {
+    }).success(function (data) {
       $scope.data = data;
+
+
+      var searchSession = {
+        key: $state.current.name,
+        search: angular.copy($scope.search)
+      }
+
+      sessionStorage.setItem('SEARCH_STORAGE', JSON.stringify(searchSession));
     });
   }
 

@@ -1,7 +1,7 @@
 var dateHelper = require('js/utils/dateHelper');
 var moment = require('moment');
 moment.locale('zh-cn');
-module.exports = function($scope, $http, $state, $stateParams, $cookieStore) {
+module.exports = function ($scope, $http, $state, $stateParams, $cookieStore) {
 
   $scope.search = {
     customer_id: '',
@@ -35,7 +35,7 @@ module.exports = function($scope, $http, $state, $stateParams, $cookieStore) {
     items: []
   };
 
-  $scope.query = function() {
+  $scope.query = function () {
 
     load_data();
   };
@@ -43,28 +43,25 @@ module.exports = function($scope, $http, $state, $stateParams, $cookieStore) {
   function go2Timeline(item) {
     console.log(item);
     var url = '';
-    switch(item.order_type) {
+    switch (item.order_type) {
       case 'reg_abroad':
-        url = $state.href('abroad_timeline', { id: item.id, name: 'reg_abroad', code: item.order_code, source: 'warning' });
-        window.open(url,'_blank');
+        $state.go('abroad_timeline', { id: item.id, name: 'reg_abroad', code: item.order_code, source: 'warning' });
         break;
       case 'reg_internal':
-        url = $state.href('internal_timeline', { id: item.id, name: 'reg_internal', code: item.order_code, source: 'warning' });
-        window.open(url,'_blank');
+        $state.go('internal_timeline', { id: item.id, name: 'reg_internal', code: item.order_code, source: 'warning' });
+
         break;
       case 'trademark':
-        url = $state.href('trademark_timeline', { id: item.id, name: 'trademark', code: item.order_code, source: 'warning' });
-        window.open(url,'_blank');
+        $state.go('trademark_timeline', { id: item.id, name: 'trademark', code: item.order_code, source: 'warning' });
         break;
       case 'patent':
-        url = $state.href('patent_timeline', { id: item.id, name: 'patent', code: item.order_code, source: 'warning' });
-        window.open(url,'_blank');
+        $state.go('patent_timeline', { id: item.id, name: 'patent', code: item.order_code, source: 'warning' });
         break;
     }
 
   }
 
-  $scope.new_annual = function(item, type) {
+  $scope.new_annual = function (item, type) {
     switch (type) {
       case 'annual':
         $state.go("annual_add", { order_type: item.order_type, order_id: item.id });
@@ -78,7 +75,7 @@ module.exports = function($scope, $http, $state, $stateParams, $cookieStore) {
           content: '您确认该笔订单' + (new Date()).getFullYear() + '年度已经年检？',
           confirmButton: '确定',
           cancelButton: '取消',
-          confirm: function() {
+          confirm: function () {
             console.log(item.order_type)
             $http({
               method: 'POST',
@@ -87,7 +84,7 @@ module.exports = function($scope, $http, $state, $stateParams, $cookieStore) {
                 orderType: item.order_type,
                 orderId: item.id
               }
-            }).success(function(data) {
+            }).success(function (data) {
               load_data();
             });
           }
@@ -103,7 +100,7 @@ module.exports = function($scope, $http, $state, $stateParams, $cookieStore) {
           content: '您确认要转出该笔订单，转出后不能再年检',
           confirmButton: '确定',
           cancelButton: '取消',
-          confirm: function() {
+          confirm: function () {
             console.log(item.order_type)
             $http({
               method: 'POST',
@@ -113,7 +110,7 @@ module.exports = function($scope, $http, $state, $stateParams, $cookieStore) {
                 orderId: item.id,
                 status: 1
               }
-            }).success(function(data) {
+            }).success(function (data) {
               load_data();
             });
           }
@@ -126,7 +123,7 @@ module.exports = function($scope, $http, $state, $stateParams, $cookieStore) {
           content: '您确认要注销该笔订单，注销后不能再年检',
           confirmButton: '确定',
           cancelButton: '取消',
-          confirm: function() {
+          confirm: function () {
             console.log(item.order_type)
             $http({
               method: 'POST',
@@ -136,7 +133,7 @@ module.exports = function($scope, $http, $state, $stateParams, $cookieStore) {
                 orderId: item.id,
                 status: 2
               }
-            }).success(function(data) {
+            }).success(function (data) {
               load_data();
             });
           }
@@ -149,7 +146,7 @@ module.exports = function($scope, $http, $state, $stateParams, $cookieStore) {
           content: '您确定不年检这笔订单？',
           confirmButton: '确定',
           cancelButton: '取消',
-          confirm: function() {
+          confirm: function () {
             console.log(item.order_type)
             $http({
               method: 'POST',
@@ -159,7 +156,7 @@ module.exports = function($scope, $http, $state, $stateParams, $cookieStore) {
                 orderId: item.id,
                 status: 3
               }
-            }).success(function(data) {
+            }).success(function (data) {
               load_data();
             });
           }
@@ -171,7 +168,7 @@ module.exports = function($scope, $http, $state, $stateParams, $cookieStore) {
     }
   };
 
-  $scope.getRedWarning = function(item) {
+  $scope.getRedWarning = function (item) {
     if (item.month > 0) {
       return true;
     }
@@ -208,7 +205,7 @@ module.exports = function($scope, $http, $state, $stateParams, $cookieStore) {
     }
   }
 
-  $scope.getMonth = function(item) {
+  $scope.getMonth = function (item) {
 
     // item.month <= 0 ? '-' : item.month
     var dt = item.date_setup;
@@ -228,14 +225,14 @@ module.exports = function($scope, $http, $state, $stateParams, $cookieStore) {
     return item.month <= 0 ? '-' : item.month
   }
 
-  $scope.format = function(dt, str) {
+  $scope.format = function (dt, str) {
     if (!dt) {
       return '';
     }
     return moment(dt).format(str);
   }
 
-  $scope.$on('FORSALE_MODAL_DONE', function(e) {
+  $scope.$on('FORSALE_MODAL_DONE', function (e) {
     load_data();
   });
 
@@ -244,7 +241,7 @@ module.exports = function($scope, $http, $state, $stateParams, $cookieStore) {
       method: 'GET',
       url: '/Annual/Warning',
       params: $scope.search
-    }).success(function(data) {
+    }).success(function (data) {
       $scope.data = data;
     });
   }
@@ -263,19 +260,19 @@ module.exports = function($scope, $http, $state, $stateParams, $cookieStore) {
       cursor: 'e-resize'
     })
 
-    $(th).each(function(index, ele) {
+    $(th).each(function (index, ele) {
       const _width = $(ele).width()
       $(ele).width(_width)
     })
 
-    $(th).mousedown(function(e) {
+    $(th).mousedown(function (e) {
       start = $(this);
       pressed = true;
       startX = e.pageX;
       startWidth = $(this).width();
     })
 
-    $(document).mousemove(function(e) {
+    $(document).mousemove(function (e) {
       if (pressed) {
         var width = startWidth + (e.pageX - startX)
         width = width < min ? min : width
@@ -283,7 +280,7 @@ module.exports = function($scope, $http, $state, $stateParams, $cookieStore) {
       }
     })
 
-    $(document).mouseup(function() {
+    $(document).mouseup(function () {
       if (pressed) pressed = false;
     })
 

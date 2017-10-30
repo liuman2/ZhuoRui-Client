@@ -1,7 +1,7 @@
 var dateHelper = require('js/utils/dateHelper');
 var moment = require('moment');
 moment.locale('zh-cn');
-module.exports = function($scope, $http, $state, $stateParams) {
+module.exports = function ($scope, $http, $state, $stateParams) {
 
     $scope.customer_id = $state.params.customer_id;
     $scope.module = {
@@ -156,6 +156,14 @@ module.exports = function($scope, $http, $state, $stateParams) {
         status: ''
     };
 
+    var searchStorage = sessionStorage.getItem('SEARCH_STORAGE');
+    if (searchStorage) {
+        var preSearch = JSON.parse(searchStorage);
+        if (preSearch.key == $state.current.name) {
+            $scope.search = preSearch.search;
+        }
+    }
+
     $scope.data = {
         items: [],
         page: {
@@ -166,20 +174,20 @@ module.exports = function($scope, $http, $state, $stateParams) {
         }
     };
 
-    $scope.query = function() {
+    $scope.query = function () {
         load_data();
     };
 
-    $scope.showChange = function() {
+    $scope.showChange = function () {
         $scope.showChanges = !$scope.showChanges;
     }
 
-    $scope.go = function(index) {
+    $scope.go = function (index) {
         $scope.search.index = index;
         load_data();
     };
 
-    $scope.edit = function(item) {
+    $scope.edit = function (item) {
         if (item.status == 4) {
             $.alert({
                 title: false,
@@ -198,14 +206,10 @@ module.exports = function($scope, $http, $state, $stateParams) {
             return;
         }
 
-        // $state.go("history_edit", {module_id: $scope.module.id, code:$scope.module.code, source_id: $scope.module.source_id, id: item.id});
-
-        var url = $state.href('history_edit', {module_id: $scope.module.id, code:$scope.module.code, source_id: $scope.module.source_id, id: item.id});
-        window.open(url,'_blank');
-
+        $state.go("history_edit", { module_id: $scope.module.id, code: $scope.module.code, source_id: $scope.module.source_id, id: item.id });
     }
 
-    $scope.delete = function(item) {
+    $scope.delete = function (item) {
         if (item.status == 4) {
             $.alert({
                 title: false,
@@ -230,21 +234,21 @@ module.exports = function($scope, $http, $state, $stateParams) {
             content: '您确认要删除吗？',
             confirmButton: '确定',
             cancelButton: '取消',
-            confirm: function() {
+            confirm: function () {
                 $http({
                     method: 'GET',
                     url: '/History/Delete',
                     params: {
                         id: item.id
                     }
-                }).success(function(data) {
+                }).success(function (data) {
                     load_data();
                 });
             }
         });
     }
 
-    $scope.getOrderStatus = function(status) {
+    $scope.getOrderStatus = function (status) {
         switch (status) {
             case 0:
                 return '未提交';
@@ -259,7 +263,7 @@ module.exports = function($scope, $http, $state, $stateParams) {
         }
     }
 
-    $scope.getTitle = function(item) {
+    $scope.getTitle = function (item) {
         if (item.review_status == 0) {
             $('.tooltip-author').tooltipster({
                 theme: 'tooltipster-sideTip-shadow',
@@ -271,7 +275,7 @@ module.exports = function($scope, $http, $state, $stateParams) {
         return '';
     }
 
-    $scope.getReviewStatus = function(status, review_status) {
+    $scope.getReviewStatus = function (status, review_status) {
         switch (review_status) {
             case -1:
                 return '未审核';
@@ -282,7 +286,7 @@ module.exports = function($scope, $http, $state, $stateParams) {
         }
     }
 
-    $scope.format = function(dt, str) {
+    $scope.format = function (dt, str) {
         if (!dt) {
             return '';
         }
@@ -294,7 +298,7 @@ module.exports = function($scope, $http, $state, $stateParams) {
             method: 'GET',
             url: '/History/List',
             params: $scope.search
-        }).success(function(data) {
+        }).success(function (data) {
             data.items = data.items || [];
 
             for (var i = 0, max = data.items.length; i < max; i++) {
@@ -305,6 +309,13 @@ module.exports = function($scope, $http, $state, $stateParams) {
                 }
             }
             $scope.data = data;
+
+            var searchSession = {
+                key: $state.current.name,
+                search: angular.copy($scope.search)
+            }
+
+            sessionStorage.setItem('SEARCH_STORAGE', JSON.stringify(searchSession));
         });
     }
 
