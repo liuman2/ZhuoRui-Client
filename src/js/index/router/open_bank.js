@@ -55,6 +55,25 @@ var router = function($stateProvider, $urlRouterProvider) {
         }
       }
     })
+    .state('bank_edit.contact_edit', {
+      url: '/bank/edit/contact/{index:.*}',
+      params: {
+        index: null,
+        contactId: null,
+        name: null,
+        tel: null,
+        email: null,
+        memo: null,
+      },
+      stateName: '联系人',
+      views: {
+        'contact': {
+          template: require('view/openbank/info/modal.html'),
+          controller: require('view/openbank/info/modal')
+        }
+      }
+    })
+
 };
 
 module.exports = router;

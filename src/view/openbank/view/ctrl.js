@@ -12,62 +12,14 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
     actionView();
   }
 
-  $scope.delete = function(item) {
-    $.confirm({
-      title: false,
-      content: '您确认要删除吗？',
-      confirmButton: '确定',
-      cancelButton: '取消',
-      confirm: function() {
-        $http({
-          method: 'GET',
-          url: '/Customer/DeleteBank',
-          params: {
-            id: item.id
-          }
-        }).success(function(data) {
-          actionView();
-        });
-      }
-    });
-  }
-
   $scope.edit = function() {
     // $state.go('customer_edit({id: ' + id + '})');
-    $state.go("customer_edit", { id: id });
-  }
-
-  $scope.deleteAttachment = function(item) {
-    $.confirm({
-      title: false,
-      content: '您确认要删除吗？',
-      confirmButton: '确定',
-      cancelButton: '取消',
-      confirm: function() {
-        $http({
-          method: 'GET',
-          url: '/Attachment/Delete',
-          params: {
-            id: item.id
-          }
-        }).success(function(data) {
-          loadAttachments();
-        });
-      }
-    });
+    $state.go("bank_edit", { id: id });
   }
 
   $scope.cancel = function() {
-    $state.go('customer');
+    $state.go('open_bank');
   }
-
-  $scope.$on('BANK_MODAL_DONE', function(e) {
-    actionView();
-  });
-
-  $scope.$on('ATTACHMENT_MODAL_DONE', function(e) {
-    loadAttachments();
-  });
 
   $scope.format = function(dt, str) {
     if (!dt) {
@@ -76,98 +28,19 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
     return moment(dt).format(str);
   }
 
-  $scope.getStatus = function(item) {
-    switch (item.status) {
-      case 0:
-        return '未提交';
-      case 1:
-        return '已提交';
-      case 2:
-        return '财务已审核';
-      case 3:
-        return '提交人已审核';
-      case 4:
-        return '完成';
-    }
-  }
-
-  $scope.getReviewStatus = function(item) {
-    switch (item.review_status) {
-      case -1:
-        return '未审核';
-      case 0:
-        return '驳回';
-      case 1:
-        return '审核通过';
-    }
-  }
-
-  $scope.orderDetail = function(item) {
-    switch (item.order_type) {
-      case 'reg_abroad':
-        $state.go("abroad_view", { id: item.id });
-        break;
-      case 'reg_internal':
-        $state.go("internal_view", { id: item.id });
-        break;
-      case 'trademark':
-        $state.go("trademark_view", { id: item.id });
-        break;
-      case 'patent':
-        $state.go("patent_view", { id: item.id });
-        break;
-      case 'audit':
-        $state.go("audit_view", { id: item.id });
-        break;
-      case 'annual_exam':
-        $state.go("annual_view", { id: item.id });
-        break;
-    }
-  }
 
   function actionView() {
     $http({
       method: 'GET',
-      url: '/Customer/Get',
+      url: '/BusinessBank/Get',
       params: {
         id: id
       }
     }).success(function(data) {
-      var customer = data.customer;
+      var bank = data.bank;
       var contacts = data.contacts || [];
-
-      customer.assistantList = customer.assistantList || [];
-
-      $scope.data = customer;
+      $scope.data = bank;
       $scope.data.contactList = contacts;
-
-      getOrders();
-      loadAttachments();
-    });
-  }
-
-  function loadAttachments() {
-    $http({
-      method: 'GET',
-      url: '/Attachment/List',
-      params: {
-        source_id: id,
-        source_name: 'customer'
-      }
-    }).success(function(data) {
-      $scope.attachments = data || [];
-    });
-  }
-
-  function getOrders() {
-    $http({
-      method: 'GET',
-      url: '/Customer/GetBusinessByCustomerId',
-      params: {
-        customerId: id
-      }
-    }).success(function(data) {
-      $scope.orders = data;
     });
   }
 };
