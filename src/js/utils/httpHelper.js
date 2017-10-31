@@ -52,7 +52,6 @@ module.exports = exports = function($httpProvider) {
         return config;
       },
       'response': function(response) {
-        console.log(response.config)
         if (response.config.needLoading === true) {
           // $(response.config.loadingElement).loading('stop');
           layer.closeAll();

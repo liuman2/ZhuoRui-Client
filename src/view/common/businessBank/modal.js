@@ -30,11 +30,66 @@ module.exports = function($scope, $state, $http, $timeout) {
     name: '',
     address: '',
     manager: '',
+    manager_id: '',
     tel: '',
     date_setup: '',
     memo: '',
     is_audit: 0,
     audit_id: null,
+  }
+
+  $scope.banks = [];
+
+  $http({
+    method: 'GET',
+    url: '/BusinessBank/All',
+  }).success(function(data) {
+    $scope.banks = data || [];
+  });
+
+  $scope.bankChange = function() {
+    if (!$scope.data.bank_id) {
+      $scope.contacts = [];
+      $scope.data.manager = '';
+      return;
+    }
+
+    var arrs = $scope.banks.filter(function(item, i) {
+      return item.id == $scope.data.bank_id;
+    });
+    if (arrs.length) {
+      $scope.data.address = arrs[0].address;
+    }
+
+    $http({
+      method: 'GET',
+      url: '/BusinessBank/GetContactByBankId',
+      params: {
+        bankId: $scope.data.bank_id
+      }
+    }).success(function(data) {
+      $scope.contacts = data || [];
+    });
+  }
+
+  $scope.contactChange = function() {
+    if (!$scope.data.manager_id) {
+      return;
+    }
+    $scope.contacts = $scope.contacts || [];
+    if (!$scope.contacts.length) {
+      return;
+    }
+
+    var arrs = $scope.contacts.filter(function(item, i) {
+      return item.id == $scope.data.manager_id;
+    });
+    if (!arrs.length) {
+      return;
+    }
+
+    $scope.data.tel = arrs[0].tel;
+    $scope.data.email = arrs[0].email;
   }
 
   $scope.save = function() {
