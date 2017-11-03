@@ -29,6 +29,7 @@
               <option value="1">转出</option>
               <option value="2">注销</option>
               <option value="3">暂不年检</option>
+              <option value="6">除名</option>
             </select>
           </div>
         </div>
@@ -81,7 +82,7 @@
             <td ng-bind="item.waiter"></td>
             <td ng-bind="getOrderStatus(item.order_status)"></td>
             <td class="opt-col">
-              <a href="javascript:;" ng-click="revert(item)" ng-if="item.order_status != 2"> 恢复年检</a>
+              <a href="javascript:;" ng-click="revert(item)" ng-if="item.order_status == 3"> 恢复年检</a>
             </td>
           </tr>
         </tbody>

@@ -135,6 +135,10 @@
                     <a href="javascript:;" ng-click="new_annual(item, 'not_annual')" ng-if="opers.indexOf(5) > -1 && item.order_type == 'reg_abroad'"> 暂不年检</a>
                   </li>
                   <li>
+                    <a href="javascript:;" ng-click="new_annual(item, 'expulsion')" ng-if="opers.indexOf(5) > -1 && item.order_type == 'reg_abroad'"> 除名</a>
+                  </li>
+
+                  <li>
                     <a href="javascript:;" ng-click="new_annual(item, 'for_sale')" ng-if="opers.indexOf(5) > -1"> 待售</a>
                   </li>
                   <li class="divider"></li>

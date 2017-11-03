@@ -103,6 +103,8 @@ module.exports = function ($scope, $http, $state, $stateParams, $cookieStore) {
 
   $scope.getOrderStatus = function (status) {
     status = status - 0;
+    // order_status 0-正常，1-转出，2-注销，3-暂不年检 4-待售 5-卖出  6-除名
+
     switch (status) {
       case 1:
         return '转出';
@@ -110,6 +112,12 @@ module.exports = function ($scope, $http, $state, $stateParams, $cookieStore) {
         return '注销';
       case 3:
         return '暂不年检';
+      case 4:
+        return '待售';
+      case 5:
+        return '卖出';
+      case 6:
+        return '除名';
     }
   }
 

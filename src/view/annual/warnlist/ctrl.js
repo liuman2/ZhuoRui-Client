@@ -94,7 +94,7 @@ module.exports = function ($scope, $http, $state, $stateParams, $cookieStore) {
         go2Timeline(item);
         break;
       case 'out':
-        // 0 正常 1 转出 2 注销 3 暂不年检
+        // 0 正常 1 转出 2 注销 3 暂不年检 4 待售 5 转卖 6 除名
         $.confirm({
           title: false,
           content: '您确认要转出该笔订单，转出后不能再年检',
@@ -140,7 +140,7 @@ module.exports = function ($scope, $http, $state, $stateParams, $cookieStore) {
         });
         break;
       case 'not_annual':
-        // 0 正常 1 转出 2 注销 3 暂不年检 4 待售 5 转卖
+        // 0 正常 1 转出 2 注销 3 暂不年检 4 待售 5 转卖 6 除名
         $.confirm({
           title: false,
           content: '您确定不年检这笔订单？',
@@ -164,6 +164,28 @@ module.exports = function ($scope, $http, $state, $stateParams, $cookieStore) {
         break;
       case 'for_sale':
         $state.go('.forsale', { order_id: item.id, order_type: item.order_type }, { location: false });
+        break;
+      case 'expulsion':
+        // 0 正常 1 转出 2 注销 3 暂不年检 4 待售 5 转卖 6 除名
+        $.confirm({
+          title: false,
+          content: '您确定要除名这笔订单？',
+          confirmButton: '确定',
+          cancelButton: '取消',
+          confirm: function () {
+            $http({
+              method: 'POST',
+              url: '/Annual/SetOrderStatus',
+              params: {
+                orderType: item.order_type,
+                orderId: item.id,
+                status: 6
+              }
+            }).success(function (data) {
+              load_data();
+            });
+          }
+        });
         break;
     }
   };

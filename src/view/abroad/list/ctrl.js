@@ -2,7 +2,7 @@ var dateHelper = require('js/utils/dateHelper');
 var moment = require('moment');
 moment.locale('zh-cn');
 module.exports = function($scope, $http, $cookieStore, $state, $stateParams) {
-  
+
   $scope.search = {
     index: 1,
     size: 20,
@@ -254,6 +254,9 @@ module.exports = function($scope, $http, $cookieStore, $state, $stateParams) {
       }
       if (orderStatus == 5) {
         return '卖出'
+      }
+      if (orderStatus == 6) {
+        return '除名'
       }
     }
     switch (status) {
