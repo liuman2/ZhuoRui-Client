@@ -233,6 +233,9 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
         if (!calEvent.editable) {
           return;
         }
+        if (calEvent.is_notify === 1) {
+          return;
+        }
 
         var copyEvent = angular.copy(calEvent);
 
@@ -257,7 +260,7 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
       }
     })
   }
-
+  
   $scope.$on('EVENT_MODAL_DONE', function(e) {
     initCalendar();
     $("#calendar").fullCalendar('refetchEvents');
@@ -265,5 +268,5 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
   });
 
   initCalendar();
-  getTodayEvents();
+  getTodayEvents(); 
 };

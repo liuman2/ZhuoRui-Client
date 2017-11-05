@@ -182,3 +182,12 @@ input[type=checkbox][disabled] {
 .loading-overlay {
   z-index: 9999!important;
 }
+.layui-layer-title {
+  color: #fff!important;
+  background-color: #dd4b39!important;
+}
+
+.tr-done {
+  text-decoration: line-through;
+  color: #ccc;
+}

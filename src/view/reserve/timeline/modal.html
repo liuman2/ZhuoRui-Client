@@ -26,6 +26,25 @@
                             <textarea class="form-control" rows="3" name="content" ng-model="timeline.content" data-rule="required; length[~100];" placeholder="活动的主要内容"></textarea>
                         </div>
                     </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label"></label>
+                        <div class="col-sm-8">
+                            <input type="checkbox" id="is_notify" ng-model="timeline.is_notify" ng-checked="timeline.is_notify" ng-change="notifyChange()" style="position: absolute; top: 7px;">
+                            <label class="control-label" for="is_notify" style="margin-left: 18px; font-weight: normal;">加入日程并提醒</label>
+                        </div>
+                    </div>
+                    <div class="form-group" ng-if="timeline.is_notify==true">
+                        <label class="col-sm-2 control-label">提醒时间<span class="required">*</span></label>
+                        <div class="col-sm-8">
+                            <input type="text" id="date_notify" name="date_notify" class="form-control date-input" ng-model="timeline.date_notify" data-rule="required;">
+                        </div>
+                    </div>
+                    <div class="form-group" ng-if="timeline.is_notify==true">
+                        <label class="col-sm-2 control-label">事件待办截止日<span class="required">*</span></label>
+                        <div class="col-sm-8">
+                            <input type="text" id="dealt_date" name="dealt_date" class="form-control date-input" ng-model="timeline.dealt_date" data-rule="required;">
+                        </div>
+                    </div>
                 </form>
             </div>
             <div class="modal-footer">

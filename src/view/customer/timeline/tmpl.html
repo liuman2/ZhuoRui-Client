@@ -39,10 +39,10 @@
                             <span ng-bind="(item.is_system == '0'  ? '日期：' : '') + format(item.date_business, 'YYYY-MM-DD')" style="margin-right: 10px;"></span>
                             <span ng-bind="(item.is_system == '0'  ? '内容：' : '') + item.content"></span>
                         </div>
-                        <div class="timeline-footer" ng-if="item.is_system == '0'">
+                        <!-- <div class="timeline-footer" ng-if="item.is_system == '0'">
                             <a class="btn btn-primary btn-xs" ui-sref=".edit({tid: {{item.id}}})" ui-sref-opts="{location:false}">修改</a>
                             <a class="btn btn-danger btn-xs" ng-click="delete(item)">删除</a>
-                        </div>
+                        </div> -->
                     </div>
                 </li>
             </ul>

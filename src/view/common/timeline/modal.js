@@ -27,7 +27,24 @@ module.exports = function($scope, $state, $http, $timeout) {
     content: '',
     date_business: '',
     log_type: '',
+
+    is_notify: false,
+    date_notify: '',
   }
+
+  $scope.notifyChange = function () {
+    if ($scope.timelineModal.is_notify) {
+        $timeout(function () {
+            var date_notify = $('#date_notify');
+            date_notify.datetimepicker({
+                timepicker: false,
+                format: 'Y-m-d',
+                scrollInput: false,
+                minDate: new Date(),
+            });
+        });
+    }
+}
 
   $scope.save = function() {
     jForm.isValid(function(v) {
@@ -62,8 +79,29 @@ module.exports = function($scope, $state, $http, $timeout) {
     });
   }
 
+  $scope.logTypeChange = function() {
+    if($scope.timelineModal.log_type == 1) {
+      $scope.timelineModal.is_notify = 1;
+      
+      $timeout(function () {
+        var date_notify = $('#date_notify');
+        date_notify.datetimepicker({
+            timepicker: false,
+            format: 'Y-m-d',
+            scrollInput: false,
+            minDate: new Date(),
+        });
+    });
+    }
+  }
+
   function actionAdd() {
     $scope.timelineModal.date_business = $('#date_business').val();
+
+    if ($scope.timelineModal.is_notify) {
+      $scope.timelineModal.date_notify = $('#date_notify').val();
+  }
+
     $http({
       method: 'POST',
       url: '/Timeline/Add',
