@@ -40,7 +40,7 @@
                 name="income_rate"
                 ng-model="income.rate"
                 ng-disabled="income.currency=='人民币'"
-                data-rule-money="[/^(([1-9]\d{0,9})|0)(\.\d{1,2})?$/, '请填写2位数的数值']"
+                data-rule-money="[/^(([1-9]\d{0,9})|0)(\.\d{1,4})?$/, '请填写1-4位小数的数值']"
                 data-rule="required;money;"
               >
             </div>

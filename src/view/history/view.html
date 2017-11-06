@@ -52,8 +52,8 @@
         <li ng-class="{'active': activeTab == 0}" ng-show="!data.logoff"><a data-toggle="tab" ng-click="onTab(0)">基础变更</a></li>
         <li ng-class="{'active': activeTab == 1}" ng-show="!data.logoff"><a data-toggle="tab"  ng-click="onTab(1)">股东变更</a></li>
         <li ng-class="{'active': activeTab == 2}" ng-show="!data.logoff"><a data-toggle="tab" ng-click="onTab(2)">董事变更</a></li>
-        <li ng-class="{'active': activeTab == 3}"><a data-toggle="tab" ng-show="data.logoff != 2" ng-click="onTab(3)">注销</a></li>
-        <li ng-class="{'active': activeTab == 4}"><a data-toggle="tab" ng-show="data.logoff != 1" ng-click="onTab(4)">转卖</a></li>
+        <li ng-class="{'active': activeTab == 3}"><a data-toggle="tab" ng-show="data.logoff == 1" ng-click="onTab(3)">注销</a></li>
+        <li ng-class="{'active': activeTab == 4}"><a data-toggle="tab" ng-show="data.logoff == 2" ng-click="onTab(4)">转卖</a></li>
       </ul>
       <div class="tab-content">
         <div class="tab-pane" ng-class="{'active': activeTab == 0}">
