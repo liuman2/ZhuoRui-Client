@@ -1,4 +1,4 @@
-module.exports = function($scope, $state, $http, $cookieStore) {
+module.exports = function ($scope, $state, $http, $cookieStore) {
     var jForm = $('#login-form');
 
     jForm.validator({
@@ -8,7 +8,7 @@ module.exports = function($scope, $state, $http, $cookieStore) {
     });
 
     $scope.data = {
-        username: '',
+        username: localStorage.getItem('CURRENT_USER') || '',
         password: ''
     }
     $scope.error_msg = '';
@@ -18,20 +18,22 @@ module.exports = function($scope, $state, $http, $cookieStore) {
         e.keyCode == 13 && $scope.login();
     }
 
-    $scope.login = function() {
-        jForm.isValid(function(v) {
+    $scope.login = function () {
+        jForm.isValid(function (v) {
             if (v) {
                 $http.post('/Account/SignIn', $scope.data, {
                     errorHandler: false
-                }).then(function(xhr) {
+                }).then(function (xhr) {
                     if (!xhr.data.success) {
                         $scope.error_msg = "用户名或密码错误";
                         return;
                     }
-
                     $cookieStore.put('USER_INFO', xhr.data.user);
+
+                    localStorage.setItem('CURRENT_USER', $scope.data.username);
+
                     location.href = '/index.html';
-                }, function(xhr) {
+                }, function (xhr) {
 
                 });
             }

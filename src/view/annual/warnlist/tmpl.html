@@ -106,7 +106,7 @@
             <th class="opt-col" style="width: 100px">操作</th>
           </tr>
           <tr ng-repeat="item in data.items">
-            <td ng-bind="($index+1)+'.'"></td>
+            <td ng-bind="(($index + 1)+((data.page.current_index-1)*50))+'.'"></td>
             <td ng-bind="item.order_code"></td>
             <!-- <td ng-bind="item.order_type_name"></td> -->
             <td ng-bind="item.order_name" ng-attr-title="{{item.order_name}}"></td>
@@ -154,6 +154,9 @@
           </tr>
         </tbody>
       </table>
+    </div>
+    <div class="box-footer clearfix">
+      <div pagination page-data="data.page" page-click="go(idx)"></div>
     </div>
   </div>
 </section>

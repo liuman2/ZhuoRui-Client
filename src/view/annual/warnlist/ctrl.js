@@ -7,7 +7,8 @@ module.exports = function ($scope, $http, $state, $stateParams, $cookieStore, $t
     customer_id: '',
     waiter_id: '',
     salesman_id: '',
-    name: ''
+    name: '',
+    index: 1,
   }
 
   var searchStorage = sessionStorage.getItem('SEARCH_STORAGE');
@@ -40,11 +41,21 @@ module.exports = function ($scope, $http, $state, $stateParams, $cookieStore, $t
   }
 
   $scope.data = {
-    items: []
+    items: [],
+    page: {
+      current_index: 0,
+      current_size: 0,
+      total_page: 0,
+      total_size: 0
+    }
+  };
+
+  $scope.go = function (index) {
+    $scope.search.index = index;
+    load_data();
   };
 
   $scope.query = function () {
-
     load_data();
   };
 
