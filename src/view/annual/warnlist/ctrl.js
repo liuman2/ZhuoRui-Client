@@ -1,13 +1,21 @@
 var dateHelper = require('js/utils/dateHelper');
 var moment = require('moment');
 moment.locale('zh-cn');
-module.exports = function ($scope, $http, $state, $stateParams, $cookieStore) {
+module.exports = function ($scope, $http, $state, $stateParams, $cookieStore, $timeout) {
 
   $scope.search = {
     customer_id: '',
     waiter_id: '',
     salesman_id: '',
     name: ''
+  }
+
+  var searchStorage = sessionStorage.getItem('SEARCH_STORAGE');
+  if (searchStorage) {
+    var preSearch = JSON.parse(searchStorage);
+    if (preSearch.key == $state.current.name) {
+      $scope.search = preSearch.search;
+    }
   }
 
   if ($scope.opers == undefined) {
@@ -58,15 +66,20 @@ module.exports = function ($scope, $http, $state, $stateParams, $cookieStore) {
         $state.go('patent_timeline', { id: item.id, name: 'patent', code: item.order_code, source: 'warning' });
         break;
     }
+  }
 
+  function setScrollTop() {
+    // sessionStorage.setItem('SCROLL_TOP', document.documentElement.scrollTop);
   }
 
   $scope.new_annual = function (item, type) {
     switch (type) {
       case 'annual':
+        setScrollTop();
         $state.go("annual_add", { order_type: item.order_type, order_id: item.id });
         break;
       case 'audit':
+        setScrollTop();
         $state.go("audit_add_s", { order_type: item.order_type, order_id: item.id });
         break;
       case 'done':
@@ -91,6 +104,7 @@ module.exports = function ($scope, $http, $state, $stateParams, $cookieStore) {
         });
         break;
       case 'log':
+        setScrollTop();
         go2Timeline(item);
         break;
       case 'out':
@@ -163,6 +177,7 @@ module.exports = function ($scope, $http, $state, $stateParams, $cookieStore) {
         });
         break;
       case 'for_sale':
+        setScrollTop();
         $state.go('.forsale', { order_id: item.id, order_type: item.order_type }, { location: false });
         break;
       case 'expulsion':
@@ -265,6 +280,19 @@ module.exports = function ($scope, $http, $state, $stateParams, $cookieStore) {
       params: $scope.search
     }).success(function (data) {
       $scope.data = data;
+
+      var searchSession = {
+        key: $state.current.name,
+        search: angular.copy($scope.search)
+      }
+      sessionStorage.setItem('SEARCH_STORAGE', JSON.stringify(searchSession));
+
+      // var scrollTop = sessionStorage.getItem('SCROLL_TOP');
+      // if (scrollTop) {
+      //   $timeout(function() {
+      //     $(document).scrollTop(scrollTop - 0);
+      //   }, 3000);
+      // }
     });
   }
 

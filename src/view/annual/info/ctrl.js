@@ -16,6 +16,13 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
     }
   });
 
+  var startYear = (new Date).getFullYear();
+  $scope.years = [];
+
+  for (var i = startYear-1; i < startYear + 3; i++) {
+    $scope.years.push(i);
+  }
+
   var order_type = $state.params.order_type,
     order_id = $state.params.order_id;
 
@@ -62,7 +69,8 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
     currency: '',
     rate: '',
     accountant_id: '',
-    date_setup_for_ann: ''
+    date_setup_for_ann: '',
+    start_annual: '',
   }
 
   $scope.getAnnDateName = function() {
