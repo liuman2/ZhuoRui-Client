@@ -9,12 +9,20 @@ module.exports = function($scope, $state, $http, $timeout) {
   $scope.timeline = {
     title: '',
     sref: '',
-    code: code
+    code: code,
   };
 
   $scope.search = {
-    name: ''
+    name: '',
+    show_type: 9,
   }
+
+  $scope.onTab = function(type) {
+    $scope.search.show_type = type;
+    getTimeline();
+  }
+
+  $scope.activeTab = 9;
 
   switch (source_name) {
     case 'reg_abroad':
@@ -92,7 +100,6 @@ module.exports = function($scope, $state, $http, $timeout) {
       var masterId = $state.params.masterid;
       $scope.timeline.sref = 'audit_view({id: ' + masterId + '})';
       break;
-
   }
 
   $scope.data = {
@@ -120,7 +127,8 @@ module.exports = function($scope, $state, $http, $timeout) {
       params: {
         source_id: source_id,
         source_name: source_name,
-        name: $scope.search.name
+        name: $scope.search.name,
+        show_type: $scope.search.show_type,
       }
     }).success(function(data) {
       $scope.data = data;

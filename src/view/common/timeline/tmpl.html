@@ -33,32 +33,45 @@
       </div>
     </div>
     <div class="box-body">
-      <ul class="timeline">
-        <li ng-repeat="item in data.items">
-          <i class="fa fa-clock-o bg-blue"></i>
-          <div class="timeline-item">
-            <span class="time">
-              <i class="fa fa-user" ng-if="item.creator"></i>
-              <span ng-if="item.creator" ng-bind="item.creator" style="margin-right: 10px;"></span>
-              <i class="fa fa-clock-o"></i>
-              <span ng-bind="format(item.date_created, 'YYYY-MM-DD HH:mm:ss')"></span>
-            </span>
-            <h3 class="timeline-header">
-              <a href="javascript:;" ng-bind="getTitle(item)"></a>
-            </h3>
-            <div class="timeline-body">
-              <span ng-if="item.is_system == '0'" ng-bind="(item.log_type == 1  ? '待办日期：' : '日期：') + format(item.date_business, 'YYYY-MM-DD')"
-                style="margin-right: 10px;"></span>
-              <span ng-bind="(item.is_system == '0'  ? '内容：' : '') + item.content"></span>
-            </div>
-            <!-- <div class="timeline-footer" ng-if="item.is_system == '0'">
-              <a class="btn btn-primary btn-xs" ui-sref=".edit({tid: {{item.id}}})" ui-sref-opts="{location:false}">修改</a>
-              <a class="btn btn-danger btn-xs" ng-click="delete(item)">删除</a>
-            </div> -->
+
+      <div class="nav-tabs-custom">
+        <ul class="nav nav-tabs">
+          <li ng-class="{'active': activeTab == 9}"><a data-toggle="tab" ng-click="onTab(9)">订单日志</a></li>
+          <li ng-class="{'active': activeTab == 1}"><a data-toggle="tab" ng-click="onTab(1)">年检日志</a></li>
+        </ul>
+        <div class="tab-content">
+          <ul class="timeline">
+            <li ng-repeat="item in data.items">
+              <i class="fa fa-clock-o bg-blue"></i>
+              <div class="timeline-item">
+                <span class="time">
+                  <i class="fa fa-user" ng-if="item.creator"></i>
+                  <span ng-if="item.creator" ng-bind="item.creator" style="margin-right: 10px;"></span>
+                  <i class="fa fa-clock-o"></i>
+                  <span ng-bind="format(item.date_created, 'YYYY-MM-DD HH:mm:ss')"></span>
+                </span>
+                <h3 class="timeline-header">
+                  <a href="javascript:;" ng-bind="getTitle(item)"></a>
+                </h3>
+                <div class="timeline-body">
+                  <span ng-if="item.is_system == '0'" ng-bind="(item.log_type == 1  ? '待办日期：' : '日期：') + format(item.date_business, 'YYYY-MM-DD')"
+                    style="margin-right: 10px;"></span>
+                  <span ng-bind="(item.is_system == '0'  ? '内容：' : '') + item.content"></span>
+                </div>
+                <!-- <div class="timeline-footer" ng-if="item.is_system == '0'">
+                  <a class="btn btn-primary btn-xs" ui-sref=".edit({tid: {{item.id}}})" ui-sref-opts="{location:false}">修改</a>
+                  <a class="btn btn-danger btn-xs" ng-click="delete(item)">删除</a>
+                </div> -->
+              </div>
+            </li>
+          </ul>
+
+          <div ng-if="!data.items.length">
+            暂无数据
           </div>
-        </li>
-      </ul>
-    </div>    
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 <div ui-view="add"></div>
