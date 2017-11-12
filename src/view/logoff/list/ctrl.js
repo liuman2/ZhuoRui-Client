@@ -144,6 +144,31 @@ module.exports = function ($scope, $http, $state, $stateParams, $cookieStore) {
     });
   }
 
+  $scope.detail = function(item) {
+    switch(item.order_type) {
+      case 'reg_abroad':
+        $state.go("abroad_view", {
+          id: item.id
+        });
+        break;
+      case 'reg_internal':
+        $state.go("internal_view", {
+          id: item.id
+        });
+        break;
+      case 'trademark':
+        $state.go("trademark_view", {
+          id: item.id
+        });
+        break;
+      case 'patent':
+        $state.go("patent_view", {
+          id: item.id
+        });
+        break;
+    }
+  }
+
   function load_data() {
     $http({
       method: 'GET',

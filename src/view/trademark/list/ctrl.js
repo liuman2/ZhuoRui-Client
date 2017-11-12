@@ -100,10 +100,10 @@ module.exports = function ($scope, $http, $state, $stateParams) {
   }
 
   $scope.history = function (item) {
-    if (item.status != 4) {
+    if (item.status < 3) {
       $.alert({
         title: false,
-        content: '还未完成的订单没法做变更记录，请直接修改。',
+        content: '还未提交的订单没法做变更记录，请直接修改。',
         confirmButton: '确定'
       });
       return;

@@ -121,8 +121,8 @@ module.exports = function ($scope, $http, $state, $stateParams) {
   }
 
   $scope.history = function (item) {
-    if (item.status != 4) {
-      alert('还未完成的订单没法做变更记录，请直接修改。');
+    if (item.status < 3) {
+      alert('还未提交的订单没法做变更记录，请直接修改。');
       return;
     }
 

@@ -33,7 +33,26 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
   $scope.action = 'add';
 
   $scope.customerInfo = null;
+  $scope.activeTab = 0;
+  $scope.onTab = function(activeIndex) {
+    $scope.activeTab = activeIndex;
+    if (activeIndex == 0) {
+      return;
+    }
 
+    $http({
+      method: 'GET',
+      url: '/Timeline/GetTimelines',
+      params: {
+        source_id: order_id,
+        source_name: order_type,
+        name: '',
+        show_type: activeIndex === 1 ? 9 : 1,
+      }
+    }).success(function(data) {
+      $scope.timelines = data;
+    });
+  }
   switch ($state.current.name) {
     case 'annual_add':
       $scope.action = 'add';
@@ -94,6 +113,11 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
   $scope.save = function() {
     var isCurrencyValid = valid_currency();
     jForm.isValid(function(v) {
+      if(!v) {
+        $scope.activeTab = 0;
+        $scope.$apply();
+        return;
+      }
       if (v) {
         if (!isCurrencyValid) {
           return;
@@ -164,6 +188,13 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
       return '';
     }
     return moment(dt).format(str);
+  }
+
+  $scope.getTitle = function(item) {
+    if (item.log_type === 1) {
+      return item.title + '(年检)';
+    }
+    return item.title;
   }
 
   $scope.editContact = function(index, contact) {
