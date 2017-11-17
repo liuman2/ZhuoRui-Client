@@ -32,6 +32,7 @@
                         <th>助理</th>
                         <th>客户来源</th>
                         <th>介绍人</th>
+                        <th>创建日期</th>
                         <th class="opt-col">操作</th>
                     </tr>
                     <tr ng-repeat="item in data.items">
@@ -44,7 +45,7 @@
                         <td ng-bind="item.assistant_name"></td>
                         <td ng-bind="item.source"></td>
                         <td ng-bind="item.source_name"></td>
-
+                        <td ng-bind="format(item.date_created, 'YYYY-MM-DD HH:mm')"></td>
                         <td class="opt-col">
                             <a class="fa fa-info-circle" ui-sref="reserve.detail.view({id: item.id})" title="详情"></a>
                             <a class="fa fa-pencil orange" ui-sref="reserve.detail.edit({id: item.id})" title="修改"></a>
