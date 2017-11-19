@@ -82,7 +82,7 @@
             <td ng-bind="item.waiter"></td>
             <td ng-bind="getOrderStatus(item.order_status)"></td>
             <td class="opt-col">
-              <a href="javascript:;" ng-click="revert(item)" ng-if="item.order_status == 3"> 恢复年检</a>
+              <a href="javascript:;" ng-click="revert(item)" ng-if="item.order_status == 3 || item.order_status == 1"> 恢复年检</a>
               <a href="javascript:;" ng-click="detail(item)"> 详情</a>
             </td>
           </tr>

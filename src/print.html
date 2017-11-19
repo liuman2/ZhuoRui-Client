@@ -95,7 +95,7 @@
       </tr>
       <tr style="height:30px;">
         <td ng-bind="'档案号:'+printData.code"></td>
-        <td ng-bind="printData.date">
+        <td ng-bind="printData.header_date">
         </td>
         <td ng-bind="'项目：'+printData.project">
         </td>
@@ -206,11 +206,23 @@
         <td class="tal" ng-bind="getOthers(printData)"></td>
       </tr>
       <tr>
-        <td class="tac">入账信息</td>
+        <td class="tac">收款银行</td>
         <td class="tal">
-          <!-- <span>银行名称+卡号后4位：</span> -->
-          <span ng-bind="printData.pay_info"></span>
+          <table style="height: 100%;">
+            <tr>
+              <td style="border:none;padding:0;min-width:50%;border-right: 1px solid;">
+                <span ng-bind="printData.pay_info"></span>
+              </td>
+              <td style="border:none;padding:0;border-right: 1px solid;">
+                <span style="margin-left:5px;">入账时间</span>                
+              </td>
+              <td style="border:none;padding:0;padding-left:5px;">
+                <span ng-bind="printData.income_date"></span>
+              </td>
+            </tr>
+          </table>
         </td>
+
       </tr>
       <tr>
         <td class="tac">收款方式</td>
