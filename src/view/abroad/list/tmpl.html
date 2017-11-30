@@ -73,6 +73,7 @@
             <th style="width:100px;">注册进度</th>
             <th ng-click="orderBy('date_created')" class="ordertable">录入时间</th>
             <th ng-click="orderBy('date_setup')" class="ordertable" style="width:80px;">成立日期</th>
+            <th style="">最近年检</th>
             <th class="tar" style="width:110px;">成交金额</th>
             <th style="width:80px;">年检</th>
             <th class="opt-col">操作</th>
@@ -94,6 +95,7 @@
             </td>
             <td ng-bind="format(item.date_created, 'YYYY-MM-DD HH:MM')"></td>
             <td ng-bind="format(item.date_setup, 'YYYY-MM-DD')"></td>
+            <td ng-bind="item.annual_year"></td>
             <td class="tar" ng-bind="item.amount_transaction"></td>
             <td>
               <a href="javascript:;" ng-click="goAnnual(item)" ng-bind="getAnnual(item)"></a>

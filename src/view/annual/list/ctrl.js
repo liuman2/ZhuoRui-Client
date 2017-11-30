@@ -263,5 +263,15 @@ module.exports = function ($scope, $http, $state, $stateParams) {
 
   }
 
+  $scope.export = function (eve) {
+    var url = "/Annual/Export",
+      iframe = document.createElement("iframe");
+
+    iframe.src = url;
+    iframe.style.display = "none";
+    document.body.appendChild(iframe);
+    eve.stopPropagation();
+  }
+
   resizable('table th');
 }
