@@ -73,6 +73,16 @@ var router = function($stateProvider, $urlRouterProvider) {
         }
       }
     })
+    .state('bank_edit.contact_add', {
+      url: '/bank/new/contact',
+      stateName: '联系人',
+      views: {
+        'contact': {
+          template: require('view/openbank/info/modal.html'),
+          controller: require('view/openbank/info/modal')
+        }
+      }
+    })
 
 };
 

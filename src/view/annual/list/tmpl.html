@@ -133,7 +133,7 @@
                 <ul class="dropdown-menu" role="menu">
                   <li><a class="fa fa-info-circle" ui-sref="annual_view({id: item.id})"> 详情</a></li>
                   <li><a href="javascript:;" class="fa fa-hourglass-half" ng-click="progress(item, 'p')"> 进度反馈</a></li>
-                  <li class="divider"></li>
+                  <li class="dividAer"></li>
                   <li><a href="javascript:;" class="fa fa-pencil" ng-click="edit(item)"> 修改</a></li>
                   <!-- <li><a href="javascript:;" class="fa fa-trash-o" ng-click="delete(item)"> 删除</a></li> -->
                   <li class="divider"></li>
@@ -146,6 +146,7 @@
       </table>
     </div>
     <div class="box-footer clearfix">
+        <a class="btn btn-sm btn-info btn-flat pull-left" style="margin-left: 10px;" ng-click="export($event)">导出</a>
       <div pagination page-data="data.page" page-click="go(idx)"></div>
     </div>
   </div>
