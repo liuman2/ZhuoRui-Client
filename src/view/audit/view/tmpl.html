@@ -184,7 +184,7 @@
               <!-- <button type="button" class="btn btn-box-tool" ui-sref="audit_edit({id: id})" ng-if="data.status == 0 || data.review_status == 0" ui-sref-opts="{reload:true}">修改</button> -->
               <button type="button" class="btn btn-box-tool" ui-sref="audit_edit({id: id})" ui-sref-opts="{reload:true}">修改</button>
               <button type="button" class="btn btn-box-tool" ng-click="submitAudit()" ng-if="data.status == 0 || data.review_status == 0">提交审核</button>
-              <button type="button" class="btn btn-box-tool" ng-click="passAudit()" ng-if="data.status==1 && opers.indexOf(3) > -1">财务审核通过</button>
+              <button type="button" class="btn btn-box-tool" ng-click="passAuditF()" ng-if="data.status==1 && opers.indexOf(3) > -1">财务审核通过</button>
               <button type="button" class="btn btn-box-tool" ng-click="refuseAudit()" ng-if="data.status==1 && opers.indexOf(3) > -1">财务审核驳回</button>
               <button type="button" class="btn btn-box-tool" ng-click="passAudit()" ng-if="data.status > 1 && data.status < 3 && opers.indexOf(4) > -1">提交审核通过</button>
               <button type="button" class="btn btn-box-tool" ng-click="refuseAudit()" ng-if="data.status > 1 && data.status < 3 && opers.indexOf(4) > -1">提交审核驳回</button>
@@ -290,6 +290,14 @@
                   <span class="form-span" ng-bind="data.trader_name"></span>
                 </div>
               </div>
+
+              <div class="form-group">
+                <label class="col-sm-2 control-label">供应商</label>
+                <div class="col-sm-8">
+                  <span class="form-span" ng-bind="data.supplier_name"></span>
+                </div>
+              </div>
+
               <div class="form-group">
                 <label class="col-sm-2 control-label">助理</label>
                 <div class="col-sm-8">
@@ -397,7 +405,7 @@
               <!-- <button type="button" class="btn btn-box-tool" ui-sref=".editsub({sub_id: item.id})"  ui-sref-opts="{location:false}" ng-if="item.status == 0 || item.review_status == 0">修改</button> -->
               <button type="button" class="btn btn-box-tool" ui-sref=".editsub({sub_id: item.id})"  ui-sref-opts="{location:false}">修改</button>
               <button type="button" class="btn btn-box-tool" ng-click="submitSubAudit(item.id)" ng-if="item.status == 0 || item.review_status == 0">提交审核</button>
-              <button type="button" class="btn btn-box-tool" ng-click="passSubAudit(item.id)" ng-if="item.status==1 && opers.indexOf(3) > -1">财务审核通过</button>
+              <button type="button" class="btn btn-box-tool" ng-click="passSubAuditF(item.id)" ng-if="item.status==1 && opers.indexOf(3) > -1">财务审核通过</button>
               <button type="button" class="btn btn-box-tool" ng-click="refuseSubAudit(item.id)" ng-if="item.status==1 && opers.indexOf(3) > -1">财务审核驳回</button>
               <button type="button" class="btn btn-box-tool" ng-click="passSubAudit(item.id)" ng-if="item.status > 1 && item.status < 3 && opers.indexOf(4) > -1">提交审核通过</button>
               <button type="button" class="btn btn-box-tool" ng-click="refuseSubAudit(item.id)" ng-if="item.status > 1 && item.status < 3 && opers.indexOf(4) > -1">提交审核驳回</button>
@@ -507,6 +515,13 @@
                 <label class="col-sm-2 control-label">渠道商</label>
                 <div class="col-sm-8">
                   <span class="form-span" ng-bind="item.trader_name"></span>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="col-sm-2 control-label">供应商</label>
+                <div class="col-sm-8">
+                  <span class="form-span" ng-bind="item.supplier_name"></span>
                 </div>
               </div>
 

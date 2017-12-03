@@ -179,7 +179,8 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
           url: '/RegInternal/PassAudit',
           params: {
             id: $scope.data.id,
-            waiter_id: 0
+            waiter_id: 0,
+            supplier_id: 0,
           }
         }).success(function(data) {
           actionView();

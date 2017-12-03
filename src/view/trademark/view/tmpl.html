@@ -15,7 +15,7 @@
         <!-- <button type="button" class="btn btn-info" ui-sref="trademark_edit({id: id})" ng-if="data.status == 0 || data.review_status == 0" ui-sref-opts="{reload:true}">修改</button> -->
         <button type="button" class="btn btn-info" ui-sref="trademark_edit({id: id})" ui-sref-opts="{reload:true}">修改</button>
         <button type="button" class="btn btn-primary" ng-click="submitAudit()" ng-if="data.status == 0 || data.review_status == 0">提交审核</button>
-        <button type="button" class="btn btn-success" ng-click="passAudit()" ng-if="data.status==1 && opers.indexOf(3) > -1">财务审核通过</button>
+        <button type="button" class="btn btn-success" ng-click="passAuditF()" ng-if="data.status==1 && opers.indexOf(3) > -1">财务审核通过</button>
         <button type="button" class="btn btn-danger" ng-click="refuseAudit()" ng-if="data.status==1 && opers.indexOf(3) > -1">财务审核驳回</button>
         <button type="button" class="btn btn-success" ng-click="passAudit()" ng-if="data.status > 1 && data.status < 3 && opers.indexOf(4) > -1">提交审核通过</button>
         <button type="button" class="btn btn-danger" ng-click="refuseAudit()" ng-if="data.status > 1 && data.status < 3 && opers.indexOf(4) > -1">提交审核驳回</button>
@@ -347,6 +347,13 @@
           <label class="col-sm-2 control-label">渠道商</label>
           <div class="col-sm-8">
             <span class="form-span" ng-bind="data.trader_name"></span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-sm-2 control-label">供应商</label>
+          <div class="col-sm-8">
+            <span class="form-span" ng-bind="data.supplier_name"></span>
           </div>
         </div>
 

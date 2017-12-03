@@ -161,9 +161,11 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
         });
       }
     });
-
-
   }
+
+  // $scope.passAudit = function () {
+  //   $state.go(".pass", { module_name: 'Annual' }, { location: false });
+  // }
 
   $scope.refuseAudit = function() {
     $state.go(".audit", { module_name: 'Annual' }, { location: false });

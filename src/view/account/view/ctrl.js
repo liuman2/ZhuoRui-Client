@@ -199,6 +199,7 @@ module.exports = function($scope, $state, $http, $q, $timeout, $cookieStore) {
             subId: subId,
             period: index + 1,
             waiter_id: 0,
+            supplier_id: 0,
             code: $scope.data.code,
           }
         }).success(function(data) {

@@ -1,7 +1,7 @@
 var moment = require('moment');
 moment.locale('zh-cn');
 
-module.exports = function($scope, $state, $http, $q, $timeout, $cookieStore) {
+module.exports = function ($scope, $state, $http, $q, $timeout, $cookieStore) {
 
   var id = $state.params.id || null;
 
@@ -19,7 +19,7 @@ module.exports = function($scope, $state, $http, $q, $timeout, $cookieStore) {
   }
 
   $scope.activeTab = 0;
-  $scope.onTab = function(activeIndex) {
+  $scope.onTab = function (activeIndex) {
     $scope.activeTab = activeIndex;
   }
 
@@ -29,8 +29,8 @@ module.exports = function($scope, $state, $http, $q, $timeout, $cookieStore) {
   $scope.historyShareholder = [];
   $scope.historyDirectory = [];
 
-  $scope.getChangeName = function(type) {
-    switch(type) {
+  $scope.getChangeName = function (type) {
+    switch (type) {
       case 'new':
         return '新进';
       case 'exit':
@@ -42,7 +42,7 @@ module.exports = function($scope, $state, $http, $q, $timeout, $cookieStore) {
     }
   }
 
-  $scope.deleteIncome = function(item) {
+  $scope.deleteIncome = function (item) {
     if ($scope.data.status > 0) {
       $.alert({
         title: false,
@@ -76,14 +76,14 @@ module.exports = function($scope, $state, $http, $q, $timeout, $cookieStore) {
       content: '您确认要删除吗？',
       confirmButton: '确定',
       cancelButton: '取消',
-      confirm: function() {
+      confirm: function () {
         $http({
           method: 'GET',
           url: '/Income/Delete',
           params: {
             id: item.id
           }
-        }).success(function(data) {
+        }).success(function (data) {
           actionView();
         });
       }
@@ -96,68 +96,72 @@ module.exports = function($scope, $state, $http, $q, $timeout, $cookieStore) {
     balance: 0
   };
 
-  $scope.edit = function() {
+  $scope.edit = function () {
     $state.go("abroad_edit", {
       id: id
     });
   }
 
-  $scope.format = function(dt, str) {
+  $scope.format = function (dt, str) {
     if (!dt) {
       return '';
     }
     return moment(dt).format(str);
   }
 
-  $scope.cancel = function() {
+  $scope.cancel = function () {
     $state.go('abroad');
   }
 
-  $scope.submitAudit = function() {
+  $scope.submitAudit = function () {
     $.confirm({
       title: false,
       content: '您确认要提交审核？提交后不可再编辑',
       confirmButton: '确定',
       cancelButton: '取消',
-      confirm: function() {
+      confirm: function () {
         $http({
           method: 'GET',
           url: '/RegAbroad/Submit',
           params: {
             id: $scope.data.id
           }
-        }).success(function(data) {
+        }).success(function (data) {
           actionView();
         });
       }
     });
   }
 
-  $scope.passAudit = function() {
+  $scope.passAuditF = function () {
     $.confirm({
       title: false,
       content: '您确认通过审核？',
       confirmButton: '确定',
       cancelButton: '取消',
-      confirm: function() {
+      confirm: function () {
         $http({
           method: 'GET',
           url: '/RegAbroad/PassAudit',
           params: {
             id: $scope.data.id
           }
-        }).success(function(data) {
+        }).success(function (data) {
           actionView();
         });
       }
     });
   }
 
-  $scope.refuseAudit = function() {
+  $scope.refuseAudit = function () {
     $state.go(".audit", { module_name: 'RegAbroad' }, { location: false });
   }
 
-  $scope.getOrderStatus = function() {
+  $scope.passAudit = function () {
+    $state.go(".pass", { module_name: 'RegAbroad' }, { location: false });
+  }
+
+  $scope.getOrderStatus = function () {
     switch ($scope.data.status) {
       case 0:
         return '未提交';
@@ -172,7 +176,7 @@ module.exports = function($scope, $state, $http, $q, $timeout, $cookieStore) {
     }
   }
 
-  $scope.getTitle = function(item) {
+  $scope.getTitle = function (item) {
     if (item.review_status == 0) {
       $('.tooltip-author').tooltipster({
         theme: 'tooltipster-sideTip-shadow',
@@ -184,7 +188,7 @@ module.exports = function($scope, $state, $http, $q, $timeout, $cookieStore) {
     return '';
   }
 
-  $scope.getHistoryTitle = function(key) {
+  $scope.getHistoryTitle = function (key) {
     var titleInfo = '无变更记录'
     if ($scope.historyRecord && $scope.historyRecord[key]) {
       var titleInfo = $scope.historyRecord[key];
@@ -203,7 +207,7 @@ module.exports = function($scope, $state, $http, $q, $timeout, $cookieStore) {
     });
   }
 
-  $scope.getReviewStatus = function() {
+  $scope.getReviewStatus = function () {
     switch ($scope.data.review_status) {
       case -1:
         return '未审核';
@@ -214,7 +218,7 @@ module.exports = function($scope, $state, $http, $q, $timeout, $cookieStore) {
     }
   }
 
-  $scope.progress = function(t) {
+  $scope.progress = function (t) {
     // if ($scope.data.status == 4) {
     //     alert('订单已完成，无需再更新进度');
     //     return;
@@ -241,27 +245,27 @@ module.exports = function($scope, $state, $http, $q, $timeout, $cookieStore) {
     $state.go(".progress", { id: $scope.data.id, module_name: 'RegAbroad', type: t }, { location: false });
   }
 
-  $scope.printReceipt = function(t) {
+  $scope.printReceipt = function (t) {
     $state.go(".receipt", { type: t, source_name: 'reg_abroad' }, { location: false });
   }
 
-  $scope.$on('PROGRESS_MODAL_DONE', function(e) {
+  $scope.$on('PROGRESS_MODAL_DONE', function (e) {
     actionView();
   });
 
-  $scope.$on('INCOME_MODAL_DONE', function(e) {
+  $scope.$on('INCOME_MODAL_DONE', function (e) {
     actionView();
   });
 
-  $scope.$on('REFUSE_MODAL_DONE', function(e) {
+  $scope.$on('REFUSE_MODAL_DONE', function (e) {
     actionView();
   });
 
-  $scope.$on('FINISH_MODAL_DONE', function(e) {
+  $scope.$on('FINISH_MODAL_DONE', function (e) {
     actionView();
   });
 
-  $scope.$on('CREATOR_MODAL_DONE', function(e) {
+  $scope.$on('CREATOR_MODAL_DONE', function (e) {
     actionView();
   });
 
@@ -272,7 +276,7 @@ module.exports = function($scope, $state, $http, $q, $timeout, $cookieStore) {
       params: {
         id: id
       }
-    }).success(function(data) {
+    }).success(function (data) {
       $scope.historyRecord = data.historyReocrd;
 
       $scope.data = data.order;
@@ -291,31 +295,31 @@ module.exports = function($scope, $state, $http, $q, $timeout, $cookieStore) {
   }
 
   $scope.attachments = [];
-  $scope.deleteAttachment = function(item) {
+  $scope.deleteAttachment = function (item) {
     $.confirm({
       title: false,
       content: '您确认要删除吗？',
       confirmButton: '确定',
       cancelButton: '取消',
-      confirm: function() {
+      confirm: function () {
         $http({
           method: 'GET',
           url: '/Attachment/Delete',
           params: {
             id: item.id
           }
-        }).success(function(data) {
+        }).success(function (data) {
           loadAttachments();
         });
       }
     });
   }
 
-  $scope.updateBank = function(item) {
+  $scope.updateBank = function (item) {
     // $state.go(".bank", { order_id: item.id, module_name: 'reg_abroad', customer_id: item.customer_id }, { location: false });
   }
 
-  $scope.getHolderHistory = function(type) {
+  $scope.getHolderHistory = function (type) {
     if (type == '股东' && $scope.holderViewHistory) {
       $scope.holderViewHistory = false;
       return;
@@ -333,7 +337,7 @@ module.exports = function($scope, $state, $http, $q, $timeout, $cookieStore) {
         source: 'reg_abroad',
         type: type,//'股东'
       }
-    }).success(function(data) {
+    }).success(function (data) {
       if (type == '股东') {
         $scope.historyShareholder = data || [];
         $scope.holderViewHistory = true;
@@ -353,18 +357,18 @@ module.exports = function($scope, $state, $http, $q, $timeout, $cookieStore) {
         source_id: id,
         source_name: 'reg_abroad'
       }
-    }).success(function(data) {
+    }).success(function (data) {
       $scope.attachments = data || [];
     });
   }
 
-  $scope.$on('ATTACHMENT_MODAL_DONE', function(e) {
+  $scope.$on('ATTACHMENT_MODAL_DONE', function (e) {
     loadAttachments();
   });
 
-  $scope.getOrderAnnType = function(status) {
+  $scope.getOrderAnnType = function (status) {
     var statusName = status - 0;
-    switch(statusName) {
+    switch (statusName) {
       case 0:
         return '正常年检';
       case 1:

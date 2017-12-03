@@ -95,6 +95,16 @@ var router = function($stateProvider, $urlRouterProvider) {
         }
       }
     })
+    .state('audit_view.pass', {
+      url: '/pass/{module_name:.*}',
+      views: {
+        'modal': {
+          template: require('view/common/audit/pass.html'),
+          controller: require('view/common/audit/pass')
+        }
+      }
+    })
+
     .state('audit_view.subaudit', {
       url: '/audit/{module_name:.*}/{subId:.*}',
       views: {
@@ -104,6 +114,16 @@ var router = function($stateProvider, $urlRouterProvider) {
         }
       }
     })
+    .state('audit_view.subpass', {
+      url: '/pass/{module_name:.*}/{subId:.*}',
+      views: {
+        'modal': {
+          template: require('view/common/audit/pass.html'),
+          controller: require('view/common/audit/pass')
+        }
+      }
+    })
+
     .state('audit_view.done', {
       url: '/done/{module_name:.*}',
       views: {

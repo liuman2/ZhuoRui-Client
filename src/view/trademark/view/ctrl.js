@@ -105,7 +105,7 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
 
   }
 
-  $scope.passAudit = function() {
+  $scope.passAuditF = function() {
     $.confirm({
       title: false,
       content: '您确认通过审核？',
@@ -116,7 +116,8 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
           method: 'GET',
           url: '/Trademark/PassAudit',
           params: {
-            id: $scope.data.id
+            id: $scope.data.id,
+            supplier_id: 0,
           }
         }).success(function(data) {
           actionView();
@@ -127,6 +128,10 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
 
   $scope.refuseAudit = function() {
     $state.go(".audit", { module_name: 'Trademark' }, { location: false });
+  }
+
+  $scope.passAudit = function () {
+    $state.go(".pass", { module_name: 'Trademark' }, { location: false });
   }
 
   $scope.done = function() {

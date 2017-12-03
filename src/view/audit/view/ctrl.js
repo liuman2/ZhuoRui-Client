@@ -190,7 +190,7 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
     return $scope.subs[$scope.subs.length - 1].status < 3;
   }
 
-  $scope.passAudit = function() {
+  $scope.passAuditF = function() {
     $.confirm({
       title: false,
       content: '您确认通过审核？',
@@ -201,7 +201,8 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
           method: 'GET',
           url: '/Audit/PassAudit',
           params: {
-            id: $scope.data.id
+            id: $scope.data.id,
+            supplier_id: 0,
           }
         }).success(function(data) {
           actionView();
@@ -210,7 +211,11 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
     });
   }
 
-  $scope.passSubAudit = function(sub_id) {
+  $scope.passAudit = function () {
+    $state.go(".pass", { module_name: 'Audit' }, { location: false });
+  }
+
+  $scope.passSubAuditF = function(sub_id) {
     $.confirm({
       title: false,
       content: '您确认通过审核？',
@@ -221,13 +226,22 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
           method: 'GET',
           url: '/AuditSub/PassAudit',
           params: {
-            id: sub_id
+            id: sub_id,
+            supplier_id: 0,
           }
         }).success(function(data) {
           actionView();
         });
       }
     });
+  }
+
+  $scope.passAudit = function () {
+    $state.go(".pass", { module_name: 'Audit' }, { location: false });
+  }
+
+  $scope.passSubAudit = function (sub_id) {
+    $state.go(".subpass", { module_name: 'AuditSub', subId: sub_id }, { location: false });
   }
 
   $scope.refuseAudit = function() {

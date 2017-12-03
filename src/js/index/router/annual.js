@@ -156,6 +156,15 @@ var router = function($stateProvider, $urlRouterProvider) {
         }
       }
     })
+    .state('annual_view.pass', {
+      url: '/pass/{module_name:.*}/{id:.*}',
+      views: {
+        'modal': {
+          template: require('view/common/audit/pass.html'),
+          controller: require('view/common/audit/pass')
+        }
+      }
+    })
     .state('annual_view.done', {
       url: '/done/{module_name:.*}',
       views: {

@@ -22,7 +22,7 @@ var profileRouter = require('./router/profile');
 var messageRouter = require('./router/message');
 var accountRouter = require('./router/account');
 var bankRouter = require('./router/open_bank');
-
+var supplierRouter = require('./router/supplier');
 module.exports = function($stateProvider, $urlRouterProvider) {
 
   $urlRouterProvider.otherwise('/dashboard');
@@ -369,5 +369,6 @@ module.exports = function($stateProvider, $urlRouterProvider) {
   profileRouter($stateProvider, $urlRouterProvider);
   messageRouter($stateProvider, $urlRouterProvider);
   accountRouter($stateProvider, $urlRouterProvider);
-  bankRouter($stateProvider, $urlRouterProvider);
+  bankRouter($stateProvider, $urlRouterProvider);  
+  supplierRouter($stateProvider, $urlRouterProvider);
 };
