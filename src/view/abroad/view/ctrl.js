@@ -144,7 +144,8 @@ module.exports = function ($scope, $state, $http, $q, $timeout, $cookieStore) {
           method: 'GET',
           url: '/RegAbroad/PassAudit',
           params: {
-            id: $scope.data.id
+            id: $scope.data.id,
+            supplier_id: 0,
           }
         }).success(function (data) {
           actionView();

@@ -9,7 +9,8 @@ module.exports = function($scope, $state, $http, $timeout) {
 
     $scope.supplier = {
         id: null,
-        name: ''
+        name: '',
+        memo: '',
     }
 
     $scope.save = function() {
@@ -43,6 +44,18 @@ module.exports = function($scope, $state, $http, $timeout) {
         $http({
             method: 'POST',
             url: '/supplier/Add',
+            needLoading: true,
+            data: $scope.supplier
+        }).success(function(data) {
+            $scope.$emit('SUP_MODAL_DONE');
+            $state.go('^', { reload: true });
+        });
+    }
+
+    function actionUpdate() {
+        $http({
+            method: 'POST',
+            url: '/supplier/Update',
             needLoading: true,
             data: $scope.supplier
         }).success(function(data) {

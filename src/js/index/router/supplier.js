@@ -17,6 +17,15 @@ var router = function ($stateProvider, $urlRouterProvider) {
                 }
             }
         })
+        .state('supplier.edit', {
+            url: '/edit/{id:.*}',
+            views: {
+                'add': {
+                    template: require('view/supplier/list/modal.html'),
+                    controller: require('view/supplier/list/modal')
+                }
+            }
+        })
 };
 
 module.exports = router;

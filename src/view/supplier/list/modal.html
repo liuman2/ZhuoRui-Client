@@ -14,6 +14,12 @@
                             <input type="text" class="form-control" ng-model="supplier.name" name="name" data-rule="required; length[~120];" placeholder="名称">
                         </div>
                     </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">备注</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" ng-model="supplier.memo" name="memo" data-rule="length[~300];" placeholder="备注">
+                        </div>
+                    </div>
                 </form>
             </div>
             <div class="modal-footer">

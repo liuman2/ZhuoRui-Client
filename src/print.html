@@ -226,21 +226,35 @@
       </tr>
       <tr>
         <td class="tac">收款方式</td>
-        <td class="tal m">
-          <label>
-            <input type="checkbox" name="pay_way1" ng-true-value="转账" ng-model="printData.pay_way" onclick="return false"> 转账
-          </label>
-          <label>
-            <input type="checkbox" name="pay_way2" ng-true-value="现金" ng-model="printData.pay_way" onclick="return false"> 现金
-          </label>
-          <label>
-            <input type="checkbox" name="pay_way3" ng-true-value="其他方式" ng-model="printData.pay_way" onclick="return false"> 其他方式
-          </label>
-          <label>
-            <input type="checkbox" name="pay_way4" ng-true-value="先提交,未付款" ng-model="printData.pay_way" onclick="return false"> 先提交未付款
-          </label>
-        </td>
+        <td class="tal">
+          <table style="height: 100%;">
+            <tr>
+              <td class="tal m" style="border: none; border-right: 1px solid #333; width: 80%;">
+                <label>
+                  <input type="checkbox" name="pay_way1" ng-true-value="转账" ng-model="printData.pay_way" onclick="return false"> 转账
+                </label>
+                <label>
+                  <input type="checkbox" name="pay_way2" ng-true-value="现金" ng-model="printData.pay_way" onclick="return false"> 现金
+                </label>
+                <label>
+                  <input type="checkbox" name="pay_way3" ng-true-value="其他方式" ng-model="printData.pay_way" onclick="return false"> 其他方式
+                </label>
+                <label>
+                  <input type="checkbox" name="pay_way4" ng-true-value="先提交,未付款" ng-model="printData.pay_way" onclick="return false"> 先提交未付款
+                </label>
+              </td>
+              <td style="border:none;padding:0;border-right: 1px solid;width: 70px;">
+                <span style="margin-left:5px;">供应商</span>                
+              </td>
+              <td style="border:none;padding:0;padding-left:5px;">
+                <span ng-bind="printData.supplier_id"></span>
+              </td>
+            </tr>
+          </table>
+
+        
       </tr>
+
       <tr>
         <td class="tac">金&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;额</td>
         <td class="tar" ng-bind="currenct2Chinese(printData.received)"></td>

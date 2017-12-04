@@ -22,16 +22,19 @@
                 <tbody>
                     <tr>
                         <th style="width: 10px">#</th>
-                        <th>供应商名称</th>                        
-                        <!-- <th class="opt-col">操作</th> -->
+                        <th style="width: 80px">代号</th>
+                        <th>供应商名称</th>
+                        <th>备注</th>
+                        <th class="opt-col">操作</th>
                     </tr>
                     <tr ng-repeat="item in data.items">
                         <td ng-bind="($index+1)+'.'"></td>
-                        
-                        <td ng-bind="item.name"></td>                        
-                        <!-- <td class="opt-col">
-                            <a title="删除" ng-click="delete(item.id)">删除</a>
-                        </td> -->
+                        <td ng-bind="item.id"></td>                      
+                        <td ng-bind="item.name"></td>
+                        <td ng-bind="item.memo"></td>
+                        <td class="opt-col">
+                            <a class="fa fa-pencil green" ui-sref=".edit({id: {{item.id}}})" ui-sref-opts="{location:false}" title="修改"></a>
+                        </td>
                     </tr>
                 </tbody>
             </table>
