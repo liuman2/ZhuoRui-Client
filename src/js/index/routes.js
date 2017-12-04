@@ -148,6 +148,15 @@ module.exports = function($stateProvider, $urlRouterProvider) {
         }
       }
     })
+    .state('history_view.pass', {
+      url: '/audit/{module_name:.*}/{id:.*}',
+      views: {
+        'modal': {
+          template: require('view/common/audit/pass.html'),
+          controller: require('view/common/audit/pass')
+        }
+      }
+    })
     .state('history_view.receipt', {
       url: '/history/receipt/{type:.*}/{source_name:.*}',
       views: {

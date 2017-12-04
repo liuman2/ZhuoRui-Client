@@ -104,6 +104,9 @@ module.exports = function ($scope, $state, $http, $timeout) {
       case "Annual":
         url = '/Annual/PassAudit';
         break;
+      case "History":
+        url = '/History/PassAudit';
+        break;
     }
 
     $http({
