@@ -52,7 +52,7 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
         params.page = params.page || 1;
         $.map(data.items, function(item) {
           item.id = item.order_id;
-          item.text = item.order_name;
+          item.text = item.order_name || item.order_name_en;
         });
         if (!data.page) {
           data.page = {
@@ -68,6 +68,26 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
           }
         };
       }
+    },
+    templateResult: function (state) {
+      if (!state.order_id) {
+        return state.text;
+      }
+
+      var $state = $(
+        '<div class="custom-select-item">\
+            <div>\
+              <label class="caption">档案号: </label><span>' + state['order_code'] + '</span>\
+            </div>\
+            <div>\
+              <label class="caption">中文名: </label><span>' + (state['order_name'] || '') + '</span>\
+            </div>\
+            <div>\
+              <label class="caption">英文名: </label><span>' + (state['order_name_en'] || '') + '</span>\
+            </div>\
+        </div>'
+      );
+      return $state;
     }
   });
 
@@ -91,7 +111,7 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
           params.page = params.page || 1;
           $.map(data.items, function(item) {
             item.id = item.order_id;
-            item.text = item.order_name;
+            item.text = item.order_name || item.order_name_en;
           });
           if (!data.page) {
             data.page = {
@@ -106,6 +126,26 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
             }
           };
         }
+      },
+      templateResult: function (state) {
+        if (!state.order_id) {
+          return state.text;
+        }
+
+        var $state = $(
+          '<div class="custom-select-item">\
+              <div>\
+                <label class="caption">档案号: </label><span>' + state['order_code'] + '</span>\
+              </div>\
+              <div>\
+                <label class="caption">中文名: </label><span>' + (state['order_name'] || '') + '</span>\
+              </div>\
+              <div>\
+                <label class="caption">英文名: </label><span>' + (state['order_name_en'] || '') + '</span>\
+              </div>\
+          </div>'
+        );
+        return $state;
       }
     });
 

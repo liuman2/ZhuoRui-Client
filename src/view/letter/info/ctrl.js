@@ -1,5 +1,5 @@
 var httpHelper = require('js/utils/httpHelper');
-module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
+module.exports = function ($scope, $state, $http, $cookieStore, $timeout) {
   var id = $state.params.id || null,
     dInput = $('.date-input'),
     jForm = $('#letter_form');
@@ -12,7 +12,7 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
     step: 5,
     scrollInput: false,
     format: 'Y-m-d H:i',
-    onChangeDateTime: function(current_time, $input) {
+    onChangeDateTime: function (current_time, $input) {
       console.log(current_time)
     }
   });
@@ -25,7 +25,7 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
     ajax: {
       url: httpHelper.url("Letter/SearchOrder"),
       dataType: 'json',
-      data: function(params) {
+      data: function (params) {
         console.log(params)
         var _params = {};
         _params['name'] = params.term || '';
@@ -34,11 +34,11 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
         _params['size'] = 10;
         return _params;
       },
-      processResults: function(data, params) {
+      processResults: function (data, params) {
         params.page = params.page || 1;
-        $.map(data.items, function(item) {
+        $.map(data.items, function (item) {
           item.id = item.order_id;
-          item.text = item.order_name;
+          item.text = item.order_name || item.order_name_en;
         });
         if (!data.page) {
           data.page = {
@@ -54,10 +54,30 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
           }
         };
       }
+    },
+    templateResult: function (state) {
+      if (!state.order_id) {
+        return state.text;
+      }
+
+      var $state = $(
+        '<div class="custom-select-item">\
+            <div>\
+              <label class="caption">档案号: </label><span>' + state['order_code'] + '</span>\
+            </div>\
+            <div>\
+              <label class="caption">中文名: </label><span>' + (state['order_name'] || '') + '</span>\
+            </div>\
+            <div>\
+              <label class="caption">英文名: </label><span>' + (state['order_name_en'] || '') + '</span>\
+            </div>\
+        </div>'
+      );
+      return $state;
     }
   });
   var orderList = [];
-  $scope.typeChange = function(index) {
+  $scope.typeChange = function (index) {
     if ($scope.action == 'update') {
       $("#orderSelect2").val(null).trigger('change');
       return;
@@ -69,7 +89,7 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
       ajax: {
         url: httpHelper.url("Letter/SearchOrder"),
         dataType: 'json',
-        data: function(params) {
+        data: function (params) {
           console.log(params)
           var _params = {};
           _params['name'] = params.term || '';
@@ -78,11 +98,11 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
           _params['size'] = 10;
           return _params;
         },
-        processResults: function(data, params) {
+        processResults: function (data, params) {
           params.page = params.page || 1;
-          $.map(data.items, function(item) {
+          $.map(data.items, function (item) {
             item.id = item.order_id;
-            item.text = item.order_name;
+            item.text = item.order_name || item.order_name_en;
           });
           if (!data.page) {
             data.page = {
@@ -97,12 +117,32 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
             }
           };
         }
+      },
+      templateResult: function (state) {
+        if (!state.order_id) {
+          return state.text;
+        }
+
+        var $state = $(
+          '<div class="custom-select-item">\
+              <div>\
+                <label class="caption">档案号: </label><span>' + state['order_code'] + '</span>\
+              </div>\
+              <div>\
+                <label class="caption">中文名: </label><span>' + (state['order_name'] || '') + '</span>\
+              </div>\
+              <div>\
+                <label class="caption">英文名: </label><span>' + (state['order_name_en'] || '') + '</span>\
+              </div>\
+          </div>'
+        );
+        return $state;
       }
     });
 
     $("#orderSelect" + index).val(null).trigger('change');
 
-    $("#orderSelect" + index).on("change", function(e) {
+    $("#orderSelect" + index).on("change", function (e) {
       var orders = orderList || $('#orderSelect' + index).select2('data');
       if (!orders.length) {
         if ($scope.action == 'add') {
@@ -120,7 +160,7 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
       }
       if ($scope.action == 'add') {
         $scope.data.orders[index].order_id = $('#orderSelect' + index).val();
-        var selectOrders = $.grep(orders, function(o) {
+        var selectOrders = $.grep(orders, function (o) {
           return o.id == $scope.data.orders[index].order_id;
         });
         $scope.data.orders[index].order_name = selectOrders[0].order_name;
@@ -134,7 +174,7 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
       }
       if ($scope.action == 'update') {
         $scope.data.order_id = $('#orderSelect' + index).val();
-        var selectOrders = $.grep(orders, function(o) {
+        var selectOrders = $.grep(orders, function (o) {
           return o.id == $scope.data.order_id;
         });
         $scope.data.order_name = selectOrders[0].order_name;
@@ -143,7 +183,7 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
       }
     });
 
-    $("#auditSelect" + index).on("change", function(e) {
+    $("#auditSelect" + index).on("change", function (e) {
       var members = $scope.memberList;
       if (!members.length) {
         if ($scope.action == 'add') {
@@ -163,7 +203,7 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
     });
   }
 
-  $scope.onAdd = function() {
+  $scope.onAdd = function () {
     $scope.data.orders.push({
       order_source: '',
       order_id: '',
@@ -188,7 +228,7 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
     }
   }
 
-  $('#orderSelect2').on("change", function(e) {
+  $('#orderSelect2').on("change", function (e) {
     $scope.getSelectShow();
     var orders = $('#orderSelect2').select2('data');
     if (!orders.length) {
@@ -204,7 +244,7 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
     var order_id = $(e.target).val();
     // $scope.data.order_id = order_id;
 
-    var selectOrders = $.grep(orders, function(o) {
+    var selectOrders = $.grep(orders, function (o) {
       return o.order_id == order_id;
     });
 
@@ -248,7 +288,7 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
       params: {
         id: customerId
       }
-    }).success(function(data) {
+    }).success(function (data) {
       console.log(data)
       setMailArea(data.customer);
       $scope.data.address = data.customer.address || '';
@@ -313,7 +353,7 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
         size: 9999,
         name: ''
       }
-    }).success(function(data) {
+    }).success(function (data) {
       $scope.memberList = data.items || [];
     });
   }
@@ -325,7 +365,7 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
     actionView();
   }
 
-  $scope.getFormTitle = function() {
+  $scope.getFormTitle = function () {
     if (!!id) {
       return '编辑寄件'
     }
@@ -410,10 +450,10 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
     }
   }
 
-  $scope.save = function() {
+  $scope.save = function () {
     var isOrderValid = valid_order();
     var isAuditValid = valid_audit();
-    jForm.isValid(function(v) {
+    jForm.isValid(function (v) {
       if (v) {
         if (!isOrderValid) {
           return;
@@ -422,7 +462,7 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
           return;
         }
 
-        if(!valid_add()) {
+        if (!valid_add()) {
           return;
         }
 
@@ -453,7 +493,7 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
             c: submitData,
             orders: submitData.orders || []
           }
-        }).success(function(data) {
+        }).success(function (data) {
           if ($scope.action == 'add') {
             $.alert({
               title: false,
@@ -473,7 +513,7 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
     });
   }
 
-  $scope.cancel = function() {
+  $scope.cancel = function () {
     if ($scope.action == 'add') {
       $state.go("letter");
     } else {
@@ -484,20 +524,20 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
   }
 
   $scope.mailProvinceList = AREA_Module.area.provinceList;
-  $scope.changeMailProvince = function() {
+  $scope.changeMailProvince = function () {
     $scope.city = '';
     $scope.county = '';
   }
 
-  $scope.changeMailCity = function() {
+  $scope.changeMailCity = function () {
     $scope.county = '';
   }
 
-  $scope.getSelectShow = function() {
+  $scope.getSelectShow = function () {
     return !!$('#orderSelect2').val();
   }
 
-  $scope.selectSource = function() {
+  $scope.selectSource = function () {
     if (!$scope.data.order_id) {
       $.alert({
         title: false,
@@ -510,10 +550,10 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
     $state.go(".source", null, { location: false });
   }
 
-  $scope.$on('SOURCE_DONE', function(e, s) {
+  $scope.$on('SOURCE_DONE', function (e, s) {
     console.log(s)
-      // $scope.data.source_id = s.id;
-      // $scope.data.source_code = s.code;
+    // $scope.data.source_id = s.id;
+    // $scope.data.source_code = s.code;
 
     $scope.data.receiver = s.name;
     $scope.data.tel = s.mobile;
@@ -528,14 +568,14 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
       params: {
         id: id
       }
-    }).success(function(data) {
+    }).success(function (data) {
       if (data.date_at.indexOf('T') > -1) {
         data.date_at = data.date_at.split('T')[0];
       }
 
       $scope.data = data;
       setMailArea(data);
-      $timeout(function() {
+      $timeout(function () {
         if (data.order_name) {
           var option = "<option value='" + data.order_id + "'>" + data.order_name + "</option>";
           $('#orderSelect2').append(option).val(data.order_id).trigger('change');

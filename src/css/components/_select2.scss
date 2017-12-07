@@ -82,7 +82,12 @@
   label {
     min-width: 50px;
     text-align: left;
-  }
+  }  
+  
+}
+
+.select2-results__option {
+  border-bottom: 1px solid #ccc !important;
 }
 
 .select2-dropdown .select2-search__field:focus,
