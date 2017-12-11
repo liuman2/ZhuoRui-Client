@@ -430,6 +430,16 @@
               <span id="waiterSelect2-validator" class="select-validator"></span>
             </div>
           </div>
+
+          <div class="form-group" ng-if="data.need_annual==1">
+            <label class="col-sm-2 control-label">年检金额<span class="required">*</span></label>
+            <div class="col-sm-8">
+              <input type="text" class="form-control" name="annual_price" ng-model="data.annual_price"  data-rule-money="[/^(([1-9]\d{0,9})|0)(\.\d{1,2})?$/, '请填写2位小数的数值']" data-rule="required;money;">
+              <span id="annual_price-validator" class="select-validator"></span>
+            </div>
+          </div>
+
+
           <div class="form-group">
             <label class="col-sm-2 control-label">注册提成所有人</label>
             <div class="col-sm-8">

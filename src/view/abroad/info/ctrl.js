@@ -69,6 +69,7 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
     shareholderList: [],
     directorList: [],
     need_annual: '',
+    annual_price: null,
   }
 
   if (!!id) {
@@ -123,7 +124,8 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
           return;
         }
 
-        if (!$('select[name="need_annual"]').isValid()) {
+        if (!$('select[name="need_annual"]').isValid()||
+        !$('input[name="annual_price"]').isValid()) {
 
           $scope.activeTab = 4;
           $scope.$apply();

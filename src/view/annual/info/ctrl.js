@@ -270,6 +270,8 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
       $scope.data.waiter_name = data.waiter_name;
       $scope.data.order_owner = data.order_owner;
 
+      $scope.data.amount_transaction = data.annual_price;
+
       if (data.date_setup && data.date_setup.indexOf('T') > -1) {
         $scope.data.date_setup_for_ann = data.date_setup.split('T')[0];
       }
