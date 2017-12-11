@@ -5,6 +5,11 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
 
   var id = $state.params.id || null;
 
+  $scope.activeTab = 0;
+  $scope.onTab = function(activeIndex) {
+    $scope.activeTab = activeIndex;
+  }
+  
   if (!!id) {
     $scope.id = id;
     actionView();
@@ -41,7 +46,7 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
       });
       return;
     }
-
+    
     $.confirm({
       title: false,
       content: '您确认要删除吗？',

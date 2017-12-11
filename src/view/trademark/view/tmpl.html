@@ -107,316 +107,278 @@
         </div>
       </div>
     </div>
-    <div class="box box-danger">
-      <div class="box-header with-border">
-        <h3 class="box-title">注册信息</h3>
-        <div class="box-tools">
-          <div class="box-tools pull-right">
-            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-            </button>
-          </div>
-        </div>
-      </div>
-      <div class="box-body">
-        <div class="form-group">
-          <label class="col-sm-2 control-label">商标名称</label>
-          <div class="col-sm-8">
-            <span class="form-span" ng-bind="data.name"></span>
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="col-sm-2 control-label">申请人</label>
-          <div class="col-sm-8">
-            <span class="form-span" ng-bind="data.applicant"></span>
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="col-sm-2 control-label">申请人地址</label>
-          <div class="col-sm-8">
-            <span class="form-span" ng-bind="data.address"></span>
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="col-sm-2 control-label">商标类别</label>
-          <div class="col-sm-8">
-            <span class="form-span" ng-bind="data.trademark_type"></span>
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="col-sm-2 control-label">商标地区</label>
-          <div class="col-sm-8">
-            <span class="form-span" ng-bind="data.region"></span>
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="col-sm-2 control-label">注册方式</label>
-          <div class="col-sm-8">
-            <span class="form-span" ng-bind="data.reg_mode"></span>
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="col-sm-2 control-label">成交日期</label>
-          <div class="col-sm-8">
-            <span class="form-span" ng-bind="format(data.date_transaction, 'YYYY-MM-DD')"></span>
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="col-sm-2 control-label">成交金额</label>
-          <div class="col-sm-8">
-            <span class="form-span" ng-bind="data.amount_transaction"></span>
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="col-sm-2 control-label">交易币别</label>
-          <div class="col-sm-8">
-            <span class="form-span" ng-bind="data.currency"></span>
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="col-sm-2 control-label">其他事项</label>
-          <div class="col-sm-8">
-            <textarea class="form-control" rows="3" name="description" ng-model="data.description" readonly style="background:#fff;"></textarea>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="box box-danger">
-      <div class="box-header with-border">
-        <h3 class="box-title">注册进度</h3>
-        <div class="box-tools">
-          <div class="box-tools pull-right">
-            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-            </button>
-          </div>
-        </div>
-      </div>
-      <div class="box-body">
-        <!-- <div class="form-group">
-          <label class="col-sm-2 control-label">商标进度</label>
-          <div class="col-sm-8">
-            <span class="form-span" ng-bind="!!data.progress? (' ' + data.progress) : ' 无进度信息'"></span>
-          </div>
-        </div> -->
-        <div class="form-group">
-          <label class="col-sm-2 control-label">回执时间</label>
-          <div class="col-sm-2">
-            <span class="form-span" ng-bind="format(data.date_receipt, 'YYYY-MM-DD')"></span>
-          </div>
-          <div class="col-sm-4">
-            <span class="form-span" ng-bind="data.receipt_memo"></span>
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="col-sm-2 control-label">受理时间</label>
-          <div class="col-sm-2">
-            <span class="form-span" ng-bind="format(data.date_accept, 'YYYY-MM-DD')"></span>
-          </div>
-          <div class="col-sm-4">
-            <span class="form-span" ng-bind="data.accept_memo"></span>
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="col-sm-2 control-label" ng-bind="data.trial_type + '时间'"></label>
-          <div class="col-sm-2">
-            <span class="form-span" ng-bind="format(data.date_trial, 'YYYY-MM-DD')"></span>
-          </div>
-          <div class="col-sm-4">
-            <span class="form-span" ng-bind="data.trial_memo"></span>
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="col-sm-2 control-label">注册时间</label>
-          <div class="col-sm-8">
-            <span class="form-span" ng-bind="format(data.date_regit, 'YYYY-MM-DD')"></span>
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="col-sm-2 control-label">续展周期</label>
-          <div class="col-sm-8" ng-if="data.exten_period">
-            <span class="form-span" ng-bind="data.exten_period + ' 年'"></span>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="box box-danger">
-      <div class="box-header with-border">
-        <h3 class="box-title">收款记录</h3>
-        <div class="box-tools pull-right">
-          <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-          </button>
-        </div>
-      </div>
-      <div class="box-body table-responsive no-padding">
-        <table class="table table-hover">
-          <tbody>
-            <tr>
-              <th style="width: 10px">#</th>
-              <th>付款人</th>
-              <th>收款银行</th>
-              <th>收款账号</th>
-              <th>收款金额</th>
-              <th>币别</th>
-              <th>汇率</th>
-              <th>收款方式</th>
-              <th>收款时间</th>
-              <th>附件</th>
-              <th>备注</th>
-              <th class="opt-col">操作</th>
-            </tr>
-            <tr ng-repeat="item in incomes.items">
-              <td ng-bind="($index+1)+'.'"></td>
-              <td ng-bind="item.payer"></td>
-              <td ng-bind="item.bank"></td>
-              <td ng-bind="item.account"></td>
-              <td ng-bind="item.amount"></td>
-              <td ng-bind="item.currency"></td>
-                  <td ng-bind="item.rate"></td>
-              <td ng-bind="item.pay_way"></td>
-              <td ng-bind="format(item.date_pay, 'YYYY-MM-DD')"></td>
-              <td>
-                <a href="{{item.attachment_url}}" target="_blank" ng-if="item.attachment_url.length">
-                  <img ng-src="{{item.attachment_url}}" width="22" height="22">
-                </a>
-              </td>
-              <td ng-bind="item.description"></td>
-              <td class="opt-col">
-                <a ng-if="data.status == 0" class="fa fa-pencil orange" ui-sref=".income_edit({tid: {{item.id}}})" ui-sref-opts="{location:false}" title="修改"></a>
-                <!-- <a ng-if="data.status == 0" href="javascript:;" class="fa fa-trash-o red" ng-click="deleteIncome(item)" title="删除"></a> -->
-                <a href="/print.html?m=trademark_line&id={{item.id}}" target="_blank">打印</a>
-              </td>
-            </tr>
-            <tr>
-              <td></td>
-              <td class="summary" colspan="2">
-                <div>
-                  <span>本币: </span>
-                  <span class="num">人民币</span>
-                </div>
-                <div>
-                  <span>应收款: </span>
-                  <span class="num receivable" ng-bind="incomes.amount"></span>
-                </div>
-                <div>
-                  <span>已收款: </span>
-                  <span class="num received" ng-bind="incomes.total"></span>
-                </div>
-                <div>
-                  <span>未收款: </span>
-                  <span class="num balance" ng-bind="incomes.balance"></span>
-                </div>
-              </td>
-              <td class="summary" colspan="2">
-              </td>
-              <td class="summary" colspan="7">
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="box-footer clearfix">
-        <button type="button" class="btn btn-info" ui-sref=".income_add({source_name: 'trademark', customer_id: data.customer_id})" ui-sref-opts="{location:false}">新增</button>
-        <button type="button" class="btn btn-info" ng-click="printReceipt('new')">新增收据</button>
-        <button type="button" class="btn btn-info" ng-click="printReceipt('print')">打印收据</button>
-      </div>
-    </div>
-    <div class="box box-danger">
-      <div class="box-header with-border">
-        <h3 class="box-title">其他信息</h3>
-        <div class="box-tools">
-          <div class="box-tools pull-right">
-            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-            </button>
-          </div>
-        </div>
-      </div>
-      <div class="box-body">
-        <div class="form-group">
-          <label class="col-sm-2 control-label">客户归属</label>
-          <div class="col-sm-8">
-            <span class="form-span" ng-bind="data.salesman"></span>
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="col-sm-2 control-label">订单归属</label>
-          <div class="col-sm-8">
-            <span class="form-span" ng-bind="data.creator"></span>
-            <button type="button" class="btn btn-info" ng-if="userInfo.username=='admin'" ui-sref=".creator()" ui-sref-opts="{location:false}">修改</button>
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="col-sm-2 control-label">渠道商</label>
-          <div class="col-sm-8">
-            <span class="form-span" ng-bind="data.trader_name"></span>
-          </div>
-        </div>
 
-        <div class="form-group">
-          <label class="col-sm-2 control-label">供应商</label>
-          <div class="col-sm-8">
-            <span class="form-span" ng-bind="data.supplier_name"></span>
+    <div class="nav-tabs-custom">
+      <ul class="nav nav-tabs">
+        <li ng-class="{'active': activeTab == 0}"><a data-toggle="tab"  ng-click="onTab(0)">注册信息</a></li>
+        <li ng-class="{'active': activeTab == 1}"><a data-toggle="tab" ng-click="onTab(1)">其他信息</a></li>
+        <li ng-class="{'active': activeTab == 2}"><a data-toggle="tab" ng-click="onTab(2)">注册进度</a></li>
+        <li ng-class="{'active': activeTab == 3}"><a data-toggle="tab" ng-click="onTab(3)">收款记录</a></li>
+        <li ng-class="{'active': activeTab == 4}"><a data-toggle="tab" ng-click="onTab(4)">附件</a></li>
+      </ul>
+      <div class="tab-content">
+        <!-- 注册信息 -->
+        <div class="tab-pane" ng-class="{'active': activeTab == 0}">
+          <div class="form-group">
+            <label class="col-sm-2 control-label">商标名称</label>
+            <div class="col-sm-8">
+              <span class="form-span" ng-bind="data.name"></span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">申请人</label>
+            <div class="col-sm-8">
+              <span class="form-span" ng-bind="data.applicant"></span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">申请人地址</label>
+            <div class="col-sm-8">
+              <span class="form-span" ng-bind="data.address"></span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">商标类别</label>
+            <div class="col-sm-8">
+              <span class="form-span" ng-bind="data.trademark_type"></span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">商标地区</label>
+            <div class="col-sm-8">
+              <span class="form-span" ng-bind="data.region"></span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">注册方式</label>
+            <div class="col-sm-8">
+              <span class="form-span" ng-bind="data.reg_mode"></span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">成交日期</label>
+            <div class="col-sm-8">
+              <span class="form-span" ng-bind="format(data.date_transaction, 'YYYY-MM-DD')"></span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">成交金额</label>
+            <div class="col-sm-8">
+              <span class="form-span" ng-bind="data.amount_transaction"></span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">交易币别</label>
+            <div class="col-sm-8">
+              <span class="form-span" ng-bind="data.currency"></span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">其他事项</label>
+            <div class="col-sm-8">
+              <textarea class="form-control" rows="3" name="description" ng-model="data.description" readonly style="background:#fff;"></textarea>
+            </div>
           </div>
         </div>
-
-        <div class="form-group">
-          <label class="col-sm-2 control-label">助理</label>
-          <div class="col-sm-8">
-            <span class="form-span" ng-bind="data.assistant_name"></span>
+        <!-- 其他信息 -->
+        <div class="tab-pane" ng-class="{'active': activeTab == 1}">
+          <div class="form-group">
+            <label class="col-sm-2 control-label">客户归属</label>
+            <div class="col-sm-8">
+              <span class="form-span" ng-bind="data.salesman"></span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">订单归属</label>
+            <div class="col-sm-8">
+              <span class="form-span" ng-bind="data.creator"></span>
+              <button type="button" class="btn btn-info" ng-if="userInfo.username=='admin'" ui-sref=".creator()" ui-sref-opts="{location:false}">修改</button>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">渠道商</label>
+            <div class="col-sm-8">
+              <span class="form-span" ng-bind="data.trader_name"></span>
+            </div>
+          </div>
+  
+          <div class="form-group">
+            <label class="col-sm-2 control-label">供应商</label>
+            <div class="col-sm-8">
+              <span class="form-span" ng-bind="data.supplier_name"></span>
+            </div>
+          </div>
+  
+          <div class="form-group">
+            <label class="col-sm-2 control-label">助理</label>
+            <div class="col-sm-8">
+              <span class="form-span" ng-bind="data.assistant_name"></span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">年检客服<span class="required">*</span></label>
+            <div class="col-sm-8">
+              <span class="form-span" ng-bind="data.waiter_name"></span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">经理</label>
+            <div class="col-sm-8">
+              <span class="form-span" ng-bind="data.manager_name"></span>
+            </div>
           </div>
         </div>
-        <div class="form-group">
-          <label class="col-sm-2 control-label">年检客服<span class="required">*</span></label>
-          <div class="col-sm-8">
-            <span class="form-span" ng-bind="data.waiter_name"></span>
+        <!-- 注册进度 -->
+        <div class="tab-pane" ng-class="{'active': activeTab == 2}">
+          <div class="form-group">
+            <label class="col-sm-2 control-label">回执时间</label>
+            <div class="col-sm-2">
+              <span class="form-span" ng-bind="format(data.date_receipt, 'YYYY-MM-DD')"></span>
+            </div>
+            <div class="col-sm-4">
+              <span class="form-span" ng-bind="data.receipt_memo"></span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">受理时间</label>
+            <div class="col-sm-2">
+              <span class="form-span" ng-bind="format(data.date_accept, 'YYYY-MM-DD')"></span>
+            </div>
+            <div class="col-sm-4">
+              <span class="form-span" ng-bind="data.accept_memo"></span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label" ng-bind="data.trial_type + '时间'"></label>
+            <div class="col-sm-2">
+              <span class="form-span" ng-bind="format(data.date_trial, 'YYYY-MM-DD')"></span>
+            </div>
+            <div class="col-sm-4">
+              <span class="form-span" ng-bind="data.trial_memo"></span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">注册时间</label>
+            <div class="col-sm-8">
+              <span class="form-span" ng-bind="format(data.date_regit, 'YYYY-MM-DD')"></span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">续展周期</label>
+            <div class="col-sm-8" ng-if="data.exten_period">
+              <span class="form-span" ng-bind="data.exten_period + ' 年'"></span>
+            </div>
           </div>
         </div>
-        <div class="form-group">
-          <label class="col-sm-2 control-label">经理</label>
-          <div class="col-sm-8">
-            <span class="form-span" ng-bind="data.manager_name"></span>
+        <!-- 收款记录 -->
+        <div class="tab-pane" ng-class="{'active': activeTab == 3}">
+          <div class="box-body table-responsive no-padding">
+            <table class="table table-hover">
+              <tbody>
+                <tr>
+                  <th style="width: 10px">#</th>
+                  <th>付款人</th>
+                  <th>收款银行</th>
+                  <th>收款账号</th>
+                  <th>收款金额</th>
+                  <th>币别</th>
+                  <th>汇率</th>
+                  <th>收款方式</th>
+                  <th>收款时间</th>
+                  <th>附件</th>
+                  <th>备注</th>
+                  <th class="opt-col">操作</th>
+                </tr>
+                <tr ng-repeat="item in incomes.items">
+                  <td ng-bind="($index+1)+'.'"></td>
+                  <td ng-bind="item.payer"></td>
+                  <td ng-bind="item.bank"></td>
+                  <td ng-bind="item.account"></td>
+                  <td ng-bind="item.amount"></td>
+                  <td ng-bind="item.currency"></td>
+                      <td ng-bind="item.rate"></td>
+                  <td ng-bind="item.pay_way"></td>
+                  <td ng-bind="format(item.date_pay, 'YYYY-MM-DD')"></td>
+                  <td>
+                    <a href="{{item.attachment_url}}" target="_blank" ng-if="item.attachment_url.length">
+                      <img ng-src="{{item.attachment_url}}" width="22" height="22">
+                    </a>
+                  </td>
+                  <td ng-bind="item.description"></td>
+                  <td class="opt-col">
+                    <a ng-if="data.status == 0" class="fa fa-pencil orange" ui-sref=".income_edit({tid: {{item.id}}})" ui-sref-opts="{location:false}" title="修改"></a>
+                    <!-- <a ng-if="data.status == 0" href="javascript:;" class="fa fa-trash-o red" ng-click="deleteIncome(item)" title="删除"></a> -->
+                    <a href="/print.html?m=trademark_line&id={{item.id}}" target="_blank">打印</a>
+                  </td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td class="summary" colspan="2">
+                    <div>
+                      <span>本币: </span>
+                      <span class="num">人民币</span>
+                    </div>
+                    <div>
+                      <span>应收款: </span>
+                      <span class="num receivable" ng-bind="incomes.amount"></span>
+                    </div>
+                    <div>
+                      <span>已收款: </span>
+                      <span class="num received" ng-bind="incomes.total"></span>
+                    </div>
+                    <div>
+                      <span>未收款: </span>
+                      <span class="num balance" ng-bind="incomes.balance"></span>
+                    </div>
+                  </td>
+                  <td class="summary" colspan="2">
+                  </td>
+                  <td class="summary" colspan="7">
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="box-footer clearfix">
+            <button type="button" class="btn btn-info" ui-sref=".income_add({source_name: 'trademark', customer_id: data.customer_id})" ui-sref-opts="{location:false}">新增</button>
+            <button type="button" class="btn btn-info" ng-click="printReceipt('new')">新增收据</button>
+            <button type="button" class="btn btn-info" ng-click="printReceipt('print')">打印收据</button>
           </div>
         </div>
-      </div>
-    </div>
-    <div class="box box-danger">
-      <div class="box-header with-border">
-        <h3 class="box-title">附件</h3>
-        <div class="box-tools">
-          <div class="box-tools pull-right">
-            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-            </button>
+        <!-- 附件 -->
+        <div class="tab-pane" ng-class="{'active': activeTab == 3}">
+          <div class="box-body table-responsive no-padding">
+            <table class="table table-hover">
+              <tbody>
+                <tr>
+                  <th style="width: 10px">#</th>
+                  <th>名称</th>
+                  <th>附件</th>
+                  <th>上传时间</th>
+                  <th>备注</th>
+                  <th class="opt-col">操作</th>
+                </tr>
+                <tr ng-repeat="item in attachments">
+                  <td ng-bind="($index+1)+'.'"></td>
+                  <td ng-bind="item.name"></td>
+                  <td>
+                    <a href="{{item.attachment_url}}" target="_blank" ng-if="item.attachment_url.length">
+                              点击查看
+                          </a>
+                  </td>
+                  <td ng-bind="format(item.date_created, 'YYYY-MM-DD')"></td>
+                  <td ng-bind="item.description"></td>
+                  <td class="opt-col">
+                    <a href="javascript:;" class="fa fa-trash-o red" ng-click="deleteAttachment(item)" title="删除"></a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="box-footer clearfix">
+            <button type="button" class="btn btn-info" ui-sref=".attachment({source_name: 'trademark', source_id: data.id})" ui-sref-opts="{location:false}">新增</button>
           </div>
         </div>
-      </div>
-      <div class="box-body table-responsive no-padding">
-        <table class="table table-hover">
-          <tbody>
-            <tr>
-              <th style="width: 10px">#</th>
-              <th>名称</th>
-              <th>附件</th>
-              <th>上传时间</th>
-              <th>备注</th>
-              <th class="opt-col">操作</th>
-            </tr>
-            <tr ng-repeat="item in attachments">
-              <td ng-bind="($index+1)+'.'"></td>
-              <td ng-bind="item.name"></td>
-              <td>
-                <a href="{{item.attachment_url}}" target="_blank" ng-if="item.attachment_url.length">
-                          点击查看
-                      </a>
-              </td>
-              <td ng-bind="format(item.date_created, 'YYYY-MM-DD')"></td>
-              <td ng-bind="item.description"></td>
-              <td class="opt-col">
-                <a href="javascript:;" class="fa fa-trash-o red" ng-click="deleteAttachment(item)" title="删除"></a>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="box-footer clearfix">
-        <button type="button" class="btn btn-info" ui-sref=".attachment({source_name: 'trademark', source_id: data.id})" ui-sref-opts="{location:false}">新增</button>
       </div>
     </div>
   </form>

@@ -29,6 +29,11 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
       break;
   }
 
+  $scope.activeTab = 0;
+  $scope.onTab = function(activeIndex) {
+    $scope.activeTab = activeIndex;
+  }
+
   var user = $cookieStore.get('USER_INFO');
 
   $scope.data = {
