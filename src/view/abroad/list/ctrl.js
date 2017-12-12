@@ -21,6 +21,8 @@ module.exports = function($scope, $http, $cookieStore, $state, $stateParams) {
     }
   }
 
+  $scope.banks = [];
+
   var searchStorage = sessionStorage.getItem('SEARCH_STORAGE');
   if (searchStorage) {
     var preSearch = JSON.parse(searchStorage);
@@ -300,6 +302,14 @@ module.exports = function($scope, $http, $cookieStore, $state, $stateParams) {
   $scope.getIndex = function(index) {
     return index + 1 + ($scope.search.index - 1) * $scope.search.size;
   }
+  
+  $http({
+    method: 'GET',
+    url: '/BusinessBank/All',
+  }).success(function(data) {
+    $scope.banks = data || [];
+  });
+
 
   function load_data() {
     // $scope.search.start_time = $('#start_time').val();

@@ -41,13 +41,21 @@
             </select>
           </div>
         </div>
-        <div class="col-md-3">
+        <!-- <div class="col-md-3">
           <div class="form-group">
             <select class="form-control select2" name="area" ng-model="search.area">
               <option value="">全部区域</option>
               <option value="XM">厦门</option>
               <option value="QZ">泉州</option>
               <option value="QD">青岛</option>
+            </select>
+          </div>
+        </div> -->
+        <div class="col-md-3">
+          <div class="form-group">
+            <select class="form-control select2" ng-model="search.bank_id">
+              <option value="">所有开户行</option>
+              <option ng-repeat="option in banks" value="{{option.id}}">{{option.name}}</option>
             </select>
           </div>
         </div>

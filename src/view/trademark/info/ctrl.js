@@ -1,5 +1,5 @@
 var httpHelper = require('js/utils/httpHelper');
-module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
+module.exports = function ($scope, $state, $http, $cookieStore, $timeout) {
   var id = $state.params.id || null,
     dInput = $('.date-input'),
     jForm = $('#trademark_form');
@@ -9,7 +9,7 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
     timepicker: false,
     format: 'Y-m-d',
     scrollInput: false,
-    onChangeDateTime: function(current_time, $input) {
+    onChangeDateTime: function (current_time, $input) {
       console.log(current_time)
     }
   });
@@ -30,7 +30,7 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
   }
 
   $scope.activeTab = 0;
-  $scope.onTab = function(activeIndex) {
+  $scope.onTab = function (activeIndex) {
     $scope.activeTab = activeIndex;
   }
 
@@ -64,14 +64,14 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
   function initDate(newValue) {
     if (newValue != undefined) {
       if (newValue == "1") {
-        $timeout(function() {
+        $timeout(function () {
           var dInput = $('.date-input');
           dInput.datetimepicker({
             timepicker: false,
             scrollInput: false,
             maxDate: new Date(),
             format: 'Y-m-d',
-            onChangeDateTime: function(current_time, $input) {
+            onChangeDateTime: function (current_time, $input) {
               console.log(current_time)
             }
           });
@@ -80,15 +80,15 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
     }
   }
 
-  $scope.$watch(function() {
+  $scope.$watch(function () {
     return $scope.data.is_old;
-  }, function(newValue, oldValue) {
+  }, function (newValue, oldValue) {
     initDate(newValue);
   });
 
   jForm.validator({
     rules: {
-      'code': function(ele, params) {
+      'code': function (ele, params) {
         if (ele.value.length !== 8) {
           return false;
         }
@@ -96,7 +96,7 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
           return false;
         }
 
-         var arrs = ['XM', 'QZ', 'QD']
+        var arrs = ['XM', 'QZ', 'QD']
         var areaCode = ele.value.substr(0, 2);
         if (['XM', 'QZ', 'QD'].indexOf(areaCode) < 0) {
           return false;
@@ -115,16 +115,33 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
     }
   });
 
-  $scope.save = function() {
+  $scope.save = function () {
     var isCustomerValid = valid_customer();
     var isWaiterVaild = valid_waiter();
     var isRegionValid = true; // valid_region();
     var isCurrencyValid = true; // valid_currency();
     var isRegMode = true; // valid_reg_mode();
 
-    jForm.isValid(function(v) {
+    jForm.isValid(function (v) {
+      if (!v) {
+        if (!$('select[name="type"]').isValid() ||
+          !$('input[name="name"]').isValid()) {
+
+          $scope.activeTab = 0;
+          $scope.$apply();
+          return;
+        }
+      }
+
       if (v) {
         if (!isCustomerValid || !isWaiterVaild || !isRegionValid || !isCurrencyValid || !isRegMode) {
+
+          if (!isWaiterVaild) {
+            $scope.activeTab = 1;
+            $scope.$apply();
+          }
+
+
           return;
         }
 
@@ -158,7 +175,7 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
           url: url,
           needLoading: true,
           data: submitData
-        }).success(function(data) {
+        }).success(function (data) {
           $state.go("trademark_view", {
             id: data.id
           });
@@ -167,7 +184,7 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
     });
   }
 
-  $scope.cancel = function() {
+  $scope.cancel = function () {
     if ($scope.action == 'add') {
       $state.go("trademark");
     } else {
@@ -177,11 +194,11 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
     }
   }
 
-  $('#customerSelect2').on("change", function(e) {
+  $('#customerSelect2').on("change", function (e) {
     var customer_id = $(e.target).val();
 
     var customers = $('#customerSelect2').select2('data');
-    var select_customers = $.grep(customers, function(c) {
+    var select_customers = $.grep(customers, function (c) {
       return c.id == customer_id;
     });
 
@@ -214,7 +231,7 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
     }
   });
 
-  $('#currencySelect2').on("change", function(e) {
+  $('#currencySelect2').on("change", function (e) {
     var currency = $(e.target).val();
     if (currency == "人民币") {
       $scope.data.rate = 1;
@@ -247,7 +264,7 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
       params: {
         id: id
       }
-    }).success(function(data) {
+    }).success(function (data) {
       // if (data.date_receipt.indexOf('T') > -1) {
       //     data.date_receipt = data.date_receipt.split('T')[0];
       // }
