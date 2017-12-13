@@ -313,6 +313,19 @@
             </div>
           </div>
         </div>
+
+        <div class="form-group">
+          <label class="col-sm-2 control-label">注册提成所有人</label>
+          <div class="col-sm-8">
+            <select ui-select2 class="form-control select2" id="cut_ownerSelect2" allowclear="true" name="cut_owner" ng-view="cut_owner_name" ng-model="data.cut_owner" url="Member/List" paging="true" style="width: 100%;"></select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-2 control-label">年检提成所有人</label>
+          <div class="col-sm-8">
+            <select ui-select2 class="form-control select2" id="annual_ownerSelect2" allowclear="true" name="annual_owner" ng-view="annual_owner_name" ng-model="data.annual_owner" url="Member/List" paging="true" style="width: 100%;"></select>
+          </div>
+        </div>
         <div class="tab-pane" ng-class="{'active': activeTab == 0}" ng-if="data.is_old == 1 || data.is_annual == 1" style="padding-bottom: 50px;">
           <div class="form-group">
             <label class="col-sm-2 control-label">回执时间</label>

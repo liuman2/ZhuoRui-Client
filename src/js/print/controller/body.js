@@ -81,6 +81,8 @@ module.exports = function($scope, $http, $state, $stateParams, $location, $timeo
     switch(mname) {
       case "abroad":
       case "abroad_line":
+      case "trademark":
+      case "trademark_line":
         return "注册提成：";
       case "history":
       case "history_line":
@@ -98,6 +100,8 @@ module.exports = function($scope, $http, $state, $stateParams, $location, $timeo
     switch(mname) {
       case "abroad":
       case "abroad_line":
+      case "trademark":
+      case "trademark_line":
         return $scope.printData.manager_name;
       case "history":
       case "history_line":
