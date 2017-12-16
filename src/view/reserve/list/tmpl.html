@@ -12,8 +12,18 @@
         <div class="box-header">
             <h3 class="box-title"></h3>
             <div class="box-tools">
-                <div class="input-group input-group-sm" style="width: 150px;">
-                    <input type="text" name="table_search" class="form-control pull-right" ng-model="search.name" placeholder="客户名称">
+                <select 
+                    name="search_type"  
+                    class="form-control" 
+                    ng-model="searchType" 
+                    ng-change="searchTypeChange()" 
+                    style="position: absolute;right: 240px;top: 0px;height: 30px;padding: 0px 12px;"
+                >
+                    <option value="name">按客户名称搜索</option>
+                    <option value="contact">按联系人搜索</option>
+                </select>
+                <div class="input-group input-group-sm" style="width: 236px;">
+                    <input type="text" name="table_search" class="form-control pull-right" ng-model="search.name" ng-attr-placeholder="{{typePlaceholder}}">
                     <div class="input-group-btn">
                         <button type="button" class="btn btn-default" ng-click="query()"><i class="fa fa-search"></i></button>
                     </div>

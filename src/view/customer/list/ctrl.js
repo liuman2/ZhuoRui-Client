@@ -6,9 +6,11 @@ module.exports = function ($scope, $http, $state, $cookieStore, $stateParams) {
     $scope.search = {
         userId: $scope.userInfo.id,
         index: 1,
-        size: 20,
-        name: ""
+        size: 20,        
+        name: "",        
     }
+
+    $scope.searchType  = "name";
 
     var searchStorage = sessionStorage.getItem('SEARCH_STORAGE');
     if (searchStorage) {
@@ -58,6 +60,14 @@ module.exports = function ($scope, $http, $state, $cookieStore, $stateParams) {
         }
         return moment(dt).format(str);
     }
+    $scope.typePlaceholder = '客户名称';
+    $scope.searchTypeChange = function() {
+        var searchType = {
+            name: '客户名称',
+            contact: '联系人姓名, 电话, QQ, 邮箱, 微信'
+        }
+        $scope.typePlaceholder = searchType[$scope.searchType];
+    }
 
     $scope.export = function (eve) {
         var url = "/Customer/Export",
@@ -79,6 +89,7 @@ module.exports = function ($scope, $http, $state, $cookieStore, $stateParams) {
     };
 
     function load_data() {
+        $scope.search.type = $scope.searchType;
         $http({
             method: 'GET',
             url: '/Customer/Search',

@@ -9,7 +9,7 @@ module.exports = function ($scope, $http, $state, $stateParams) {
         size: 20,
         name: ""
     }
-
+    $scope.searchType  = "name";
     var searchStorage = sessionStorage.getItem('SEARCH_STORAGE');
     if (searchStorage) {
         var preSearch = JSON.parse(searchStorage);
@@ -42,6 +42,15 @@ module.exports = function ($scope, $http, $state, $stateParams) {
             return '';
         }
         return moment(dt).format(str);
+    }
+
+    $scope.typePlaceholder = '客户名称';
+    $scope.searchTypeChange = function() {
+        var searchType = {
+            name: '客户名称',
+            contact: '联系人姓名, 电话, QQ, 邮箱, 微信'
+        }
+        $scope.typePlaceholder = searchType[$scope.searchType];
     }
 
     $scope.delete = function (item) {
@@ -85,6 +94,7 @@ module.exports = function ($scope, $http, $state, $stateParams) {
     }
 
     function load_data() {
+        $scope.search.type = $scope.searchType;
         $http({
             method: 'GET',
             url: '/Reserve/Search',
