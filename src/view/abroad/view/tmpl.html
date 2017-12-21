@@ -562,6 +562,7 @@
                 <tr>
                   <th style="width: 10px">#</th>
                   <th>银行名称</th>
+                  <th>支行</th>
                   <th>地址</th>
                   <th>客户经理</th>
                   <th>联系方式</th>
@@ -572,6 +573,7 @@
                 <tr ng-repeat="item in banks">
                   <td ng-bind="($index+1)+'.'"></td>
                   <td ng-bind="item.name"></td>
+                  <td ng-bind="item.branch"></td>
                   <td ng-bind="item.address"></td>
                   <td ng-bind="item.manager"></td>
                   <td ng-bind="item.tel"></td>
