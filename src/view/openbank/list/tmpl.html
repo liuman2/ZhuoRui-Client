@@ -23,6 +23,7 @@
           <tr>
             <th style="width: 10px">#</th>
             <th style="width: 300px;">名称</th>
+            <th style="width: 150px;">支行</th>
             <th>地区</th>
             <th>地址</th>
             <th>备注</th>
@@ -31,6 +32,7 @@
           <tr ng-repeat="item in data.items">
             <td ng-bind="($index+1)+'.'"></td>
             <td ng-bind="item.name"></td>
+            <td ng-bind="item.branch"></td>
             <td ng-bind="item.area"></td>
             <td ng-bind="item.address"></td>
             <td ng-bind="item.memo"></td>

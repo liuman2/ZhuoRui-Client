@@ -59,6 +59,7 @@ module.exports = function($scope, $state, $http, $timeout) {
     });
     if (arrs.length) {
       $scope.data.address = arrs[0].address;
+      $scope.data.branch = arrs[0].branch;
     }
 
     $http({
