@@ -36,6 +36,7 @@ module.exports = function($scope, $state, $http, $timeout) {
     memo: '',
     is_audit: 0,
     audit_id: null,
+    area: '',
   }
 
   $scope.banks = [];
@@ -60,6 +61,7 @@ module.exports = function($scope, $state, $http, $timeout) {
     if (arrs.length) {
       $scope.data.address = arrs[0].address;
       $scope.data.branch = arrs[0].branch;
+      $scope.data.area = arrs[0].area;
     }
 
     $http({
