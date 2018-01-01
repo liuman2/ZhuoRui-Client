@@ -97,7 +97,7 @@
         <td ng-bind="'档案号:'+printData.code"></td>
         <td ng-bind="printData.header_date">
         </td>
-        <td ng-bind="'项目：'+printData.project">
+        <td ng-bind="'归属：'+printData.project">
         </td>
       </tr>
     </table>
@@ -130,7 +130,23 @@
       </tr>
       <tr ng-if="printData.print_type != 'patent' && printData.print_type != 'trademark'">
         <td class="tac">收款事由</td>
-        <td class="tal" ng-bind="printData.reason"></td>
+        <!-- <td class="tal" ng-bind="printData.reason"></td> -->
+        <td class="tal">
+          <table style="height: 100%;">
+            <tr>
+              <td style="border:none;padding:0;min-width:50%;border-right: 1px solid;">
+                <span ng-bind="printData.reason"></span>
+              </td>
+              <td style="border:none;padding:0;border-right: 1px solid;">
+                <span style="margin-left:5px;">款项性质</span>
+              </td>
+              <td style="border:none;padding:0;padding-left:5px;">
+                <span ng-bind="printData.income_type"></span>
+              </td>
+            </tr>
+          </table>
+        </td>
+
         <td rowspan="4" class="memo">
           <div>订单总金额</div>
           <div ng-bind="printData.amount"></div>
@@ -214,7 +230,7 @@
                 <span ng-bind="printData.pay_info"></span>
               </td>
               <td style="border:none;padding:0;border-right: 1px solid;">
-                <span style="margin-left:5px;">入账时间</span>                
+                <span style="margin-left:5px;">入账时间</span>
               </td>
               <td style="border:none;padding:0;padding-left:5px;">
                 <span ng-bind="printData.income_date"></span>
@@ -244,7 +260,7 @@
                 </label>
               </td>
               <td style="border:none;padding:0;border-right: 1px solid;width: 70px;">
-                <span style="margin-left:5px;">供应商</span>                
+                <span style="margin-left:5px;">供应商</span>
               </td>
               <td style="border:none;padding:0;padding-left:5px;">
                 <span ng-bind="printData.supplier_id"></span>
@@ -252,7 +268,7 @@
             </tr>
           </table>
 
-        
+
       </tr>
 
       <tr>

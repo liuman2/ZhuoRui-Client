@@ -51,6 +51,24 @@
               <input type="text" class="form-control" name="amount" ng-model="income.amount" data-rule="required; range[0~9999999]">
             </div>
           </div>
+
+          <div class="form-group">
+            <label class="col-sm-2 control-label">款项性质<span class="required">*</span></label>
+            <div class="col-sm-8">
+              <select
+                class="form-control select2"
+                name="income_type"
+                ng-model="income.type"
+                data-rule="required;"
+              >
+                <option value="">请选择</option>
+                <option value="定金">定金</option>
+                <option value="余款">余款</option>
+                <option value="全款">全款</option>
+              </select>
+            </div>
+          </div>
+
           <div class="form-group">
             <label class="col-sm-2 control-label">收款银行<span class="required">*</span></label>
             <div class="col-sm-8">
