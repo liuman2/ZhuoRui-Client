@@ -125,6 +125,27 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
     }
   }
 
+  $scope.history = function(item) {
+    switch (item.order_type) {
+      case 'reg_abroad':
+        $state.go('history', { module_id: 'abroad', code: item.order_code, source_id: item.id, customer_id: id });
+        break;
+      case 'reg_internal':
+        $state.go('history', { module_id: 'internal', code: item.order_code, source_id: item.id, customer_id: id });
+        break;
+      case 'trademark':
+        $state.go('history', { module_id: 'trademark', code: item.order_code, source_id: item.id, customer_id: id });
+        break;
+      case 'patent':
+        $state.go('history', { module_id: 'patent', code: item.order_code, source_id: item.id, customer_id: id });
+        break;
+      case 'audit':
+        break;
+      case 'annual_exam':
+        break;
+    }
+  }
+
   function actionView() {
     $http({
       method: 'GET',
