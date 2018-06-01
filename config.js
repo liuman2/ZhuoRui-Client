@@ -6,7 +6,7 @@ var config = {
   proxy: {
     '/*': {
       // target: 'http://192.168.84.56:4696',
-      target: 'http://192.168.1.121:4696',
+      target: 'http://192.168.0.2:4696',
       secure: false
     }
   },

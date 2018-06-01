@@ -187,7 +187,7 @@ module.exports = function($scope, $state, $http, $timeout) {
     },
     filePostName: 'file',
     isSingleMode: true,
-    fileSizeLimit: 20 * 1024,
+    fileSizeLimit: 5 * 1024,
     accept: 'image/*',
     uploadStart: function() {
       $('#btnUpload').attr('disabled', true);
@@ -205,13 +205,13 @@ module.exports = function($scope, $state, $http, $timeout) {
       $scope.$apply();
     },
     typeError: function() {
-      alert('格式错误');
+      alert('格式错误，图片只支持jpg格式');
       $('#btnUpload').attr('disabled', false);
       $scope.btnUploadText = '上传';
       $scope.$apply();
     },
     sizeError: function() {
-      alert('文件大小不能超过20M');
+      alert('图片大小不能超过5M');
       $('#btnUpload').attr('disabled', false);
       $scope.btnUploadText = '上传';
       $scope.$apply();

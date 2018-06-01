@@ -128,14 +128,15 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
       },
       eventRender: function(event, element) {
         if (event.is_repeat && event.repeat_type == 1) {
-          var theDate = moment(event.start);
-          var repeatStart = moment(event.repeat_start);
-          var repeatEnd = moment(event.repeat_end);
+          var eventStartDay = moment(event.start).format('YYYY-MM-DD');
+          var repeatStart = moment(event.repeat_start).format('YYYY-MM-DD');
+          var repeatEnd = moment(event.repeat_end).format('YYYY-MM-DD');
 
-          if (event.start.isBefore(repeatStart)) {
+          
+          if (moment(eventStartDay).isBefore(moment(repeatStart))) {
             return false;
           }
-          if (event.start.isAfter(repeatEnd)) {
+          if (moment(eventStartDay).isAfter(moment(repeatEnd))) {
             return false;
           }
         }
@@ -143,7 +144,7 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
         var copyEvent = angular.copy(event);
         var end = '';
         if (copyEvent.end) {
-          end = moment(copyEvent.end).format('YYYY-MM-DD HH:mm');
+          end = moment(copyEvent.repeat_end).format('YYYY-MM-DD HH:mm');
         }
         var priority = '';
         var forp = '';
@@ -199,7 +200,7 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
           <div class="mb-10" ><span class="column">性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;质:</span><span class="column-value">' + (propertyArr[copyEvent.property] || '其它') + '</span></div>\
           <div class="mb-10" style="display:' + propertyDisplay + ';"><span class="column">会议类型:</span><span class="column-value">' + (copyEvent.meeting_type || '') + '</span></div>\
           <div class="mb-10" style="display:' + propertyDisplay + ';"><span class="column">主&nbsp;&nbsp;持&nbsp;&nbsp;人:</span><span class="column-value">' + (copyEvent.presenter || '') + '</span></div>\
-          <div class="mb-10"><span class="column">开始时间:</span><span class="column-value">' + moment(copyEvent.start).format('YYYY-MM-DD HH:mm') + '</span></div>\
+          <div class="mb-10"><span class="column">开始时间:</span><span class="column-value">' + moment(copyEvent.repeat_start).format('YYYY-MM-DD HH:mm') + '</span></div>\
           <div class="mb-10" style="display:' + endDisplay + ';"><span class="column">结束时间:</span><span class="column-value">' + end + '</span></div>\
           <div class="mb-10"><span class="column">重复事件:</span><span class="column-value">' + (copyEvent.is_repeat == 1 ? '是' : '否') + '</span></div>\
           <div class="mb-10"><span class="column">地&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;点:</span><span class="column-value">' + copyEvent.location + '</span></div>\
@@ -240,7 +241,7 @@ module.exports = function($scope, $state, $http, $q, $timeout) {
         var copyEvent = angular.copy(calEvent);
 
         if (typeof(copyEvent.start) == 'object') {
-          copyEvent.start = moment(copyEvent.start).format('YYYY-MM-DD HH:mm');
+          copyEvent.start = moment(copyEvent.repeat_start).format('YYYY-MM-DD HH:mm');
           copyEvent.start = copyEvent.start.replace('T', ' ');
         }
         if (typeof(copyEvent.end) == 'object') {
