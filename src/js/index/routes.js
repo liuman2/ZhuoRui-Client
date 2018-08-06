@@ -23,6 +23,7 @@ var messageRouter = require('./router/message');
 var accountRouter = require('./router/account');
 var bankRouter = require('./router/open_bank');
 var supplierRouter = require('./router/supplier');
+var taxRouter = require('./router/tax');
 module.exports = function($stateProvider, $urlRouterProvider) {
 
   $urlRouterProvider.otherwise('/dashboard');
@@ -380,4 +381,5 @@ module.exports = function($stateProvider, $urlRouterProvider) {
   accountRouter($stateProvider, $urlRouterProvider);
   bankRouter($stateProvider, $urlRouterProvider);  
   supplierRouter($stateProvider, $urlRouterProvider);
+  taxRouter($stateProvider, $urlRouterProvider);
 };
