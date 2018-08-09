@@ -1,0 +1,70 @@
+<section class="content-header">
+  <!-- <h1>
+        订单日志
+        <small>{{timeline.title}}</small>
+    </h1> -->
+  <ol class="breadcrumb">
+    <li>
+      <a ui-sref="dashboard">
+        <i class="fa fa-dashboard"></i>我的面板</a>
+    </li>
+    <li>
+      <a ui-sref="{{timeline.sref}}">{{timeline.title}}</a>
+    </li>
+    <li class="active">日志详情</li>
+  </ol>
+</section>
+<section class="content">
+  <div class="box box-danger">
+    <div class="box-header with-border">
+      <h3 class="box-title"></h3>
+      <div class="box-tools pull-right" style="display: -webkit-flex;">
+        <div class="input-group input-group-sm" style="width: 150px;">
+          <input type="text" name="table_search" class="form-control pull-right" ng-model="search.name" placeholder="关键字">
+          <div class="input-group-btn">
+            <button type="button" class="btn btn-default" ng-click="query()">
+              <i class="fa fa-search"></i>
+            </button>
+          </div>
+        </div>
+        <!-- <button type="button" class="btn btn-box-tool" ui-sref=".add" ui-sref-opts="{location:false}">
+          <i class="fa fa-plus-square"> 添加</i>
+        </button> -->
+      </div>
+    </div>
+    <div class="box-body">
+
+      <div class="nav-tabs-custom">
+        <!-- <ul class="nav nav-tabs">
+          <li ng-class="{'active': activeTab == 9}"><a data-toggle="tab" ng-click="onTab(9)">订单日志</a></li>
+          <li ng-class="{'active': activeTab == 1}"><a data-toggle="tab" ng-click="onTab(1)">年检日志</a></li>
+        </ul> -->
+        <ul class="timeline">
+          <li ng-repeat="item in data.items">
+            <i class="fa fa-clock-o bg-blue"></i>
+            <div class="timeline-item">
+              <span class="time">
+                <i class="fa fa-user" ng-if="item.creator"></i>
+                <span ng-if="item.creator" ng-bind="item.creator" style="margin-right: 10px;"></span>
+                <i class="fa fa-clock-o"></i>
+                <span ng-bind="format(item.date_created, 'YYYY-MM-DD HH:mm:ss')"></span>
+              </span>
+              <h3 class="timeline-header">
+                <a href="javascript:;" ng-bind="getTitle(item)"></a>
+              </h3>
+              <div class="timeline-body">
+                <span ng-if="item.is_system == '0'" ng-bind="(item.log_type == 1  ? '待办日期：' : '日期：') + format(item.date_business, 'YYYY-MM-DD')"
+                  style="margin-right: 10px;"></span>
+                <span ng-bind="(item.is_system == '0'  ? '内容：' : '') + item.content"></span>
+              </div>
+            </div>
+          </li>
+        </ul>
+
+        <div ng-if="!data.items.length">
+          暂无数据
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -55,16 +55,19 @@
             <td ng-bind="item.name_en" ng-attr-title="{{item.name_en}}"></td>
             <td ng-bind="format(item.date_setup, 'YYYY-MM-DD')"></td>
             <td class="opt-col">
-              <div class="btn-group">
+              <div class="btn-group" >
                 <button type="button" class="btn btn-box-tool dropdown-toggle" data-toggle="dropdown">
                   <i class="fa fa-wrench"></i>
                 </button>
                 <ul class="dropdown-menu" role="menu">
-                  <li>
-                    <a href="javascript:;" ng-click="toAudit(item)"> 转审计</a>
+                  <li ng-if="item.sent_date != null">
+                    <a href="javascript:;" ng-click="toAudit(item)">转审计</a>
+                  </li>
+                  <li ng-if="item.sent_date != null">
+                    <a href="javascript:;" ng-click="noAudit(item)">零申报</a>
                   </li>
                   <li>
-                    <a href="javascript:;" ng-click="new_annual(item, 'annual')"> 零申报</a>
+                      <a href="javascript:;" ui-sref="tax_list({orderId: item.id})">税表记录</a>
                   </li>
                 </ul>
               </div>
@@ -79,3 +82,4 @@
   </div>
 </section>
 <div ui-view="modal"></div>
+<div ui-view="attachment"></div>

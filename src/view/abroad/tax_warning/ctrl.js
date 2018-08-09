@@ -85,7 +85,7 @@ module.exports = function ($scope, $http, $state, $stateParams, $cookieStore, $t
     // sessionStorage.setItem('SCROLL_TOP', document.documentElement.scrollTop);
   }
 
-  $scope.sendDate = function(item) {
+  $scope.sendDate = function (item) {
     // $state.go("audit_add_s", { order_type: item.order_type, order_id: item.id });
     // ui-sref=".sendDate"
     $state.go('.sendDate', {
@@ -97,64 +97,60 @@ module.exports = function ($scope, $http, $state, $stateParams, $cookieStore, $t
   }
 
   $scope.toAudit = function (item) {
-    
-  };
-
-  $scope.getRedWarning = function (item) {
-    if (item.month > 0) {
-      return true;
-    }
-    // return item.month > 0;
-    var dt = item.date_setup;
-    if (dt && dt.indexOf('T') > -1) {
-      dt = dt.split('T')[0];
-
-      var t1 = moment(dt);
-      var t2 = moment();
-
-      if (t1.year() == t2.year()) {
-        return false;
+    console.log(item);
+    $http({
+      method: 'GET',
+      url: '/RegAbroad/CheckAudit',
+      params: {
+        id: item.id
+      }
+    }).success(function (data) {
+      if (data.isExist) {
+        $state.go("audit_view", {
+          id: data.auditId
+        });
+        return;
       }
 
-      if (t1.month() == t2.month()) {
-        if (t1.date() <= t2.date()) {
-          return true;
-        }
-        return false;
-      }
-
-      var m2 = moment().add(2, 'month');
-      var m1 = new Date(m2.year(), t1.month(), t1.date());
-      if (m1.getMonth() == m2.month()) {
-        return false;
-      }
-      if (m1 >= m2) {
-        return false;
-      }
-      return true;
-    } else {
-      return false;
-    }
+      $state.go("audit_add_tax", { order_id: item.id, order_type: 'reg_abroad' });
+    });
   }
 
-  $scope.getMonth = function (item) {
+  $scope.noAudit = function (item) {
+    // ui-sref=".attachment({source_name: 'reg_abroad', source_id: data.id})" ui-sref-opts="{location:false}"
+    // tax_record_id
 
-    // item.month <= 0 ? '-' : item.month
-    var dt = item.date_setup;
-    var t2 = moment();
-    if (dt && dt.indexOf('T') > -1) {
-      dt = dt.split('T')[0];
-      var t1 = moment(dt);
-      if (t1.year() == t2.year()) {
-        return '-';
+    $http({
+      method: 'GET',
+      url: '/RegAbroad/CheckAudit',
+      params: {
+        id: item.id
       }
-    }
+    }).success(function (data) {
+      if (data.isExist) {
+        $.alert({
+          title: false,
+          content: '该订单已经有审计记录，不能进行零申报',
+          confirmButton: '确定'
+        });
+        return;
+      }
 
-    if (item.annual_year == t2.year()) {
-      return '-';
-    }
+      // code: null,
+      //   orderId: null,
+      //   recordId: null,
+      //   name_cn: null,
+      //   name_en: null,
 
-    return item.month <= 0 ? '-' : item.month
+      // $state.go(".noaduit", { source_name: 'tax_tecord', source_id: item.tax_record_id }, { location: false });
+      $state.go('.noaduit', {
+        orderId: item.id,
+        recordId: item.tax_record_id,
+        code: item.code,
+        name_cn: item.name_cn,
+        name_en: item.name_en
+      }, { location: false });
+    });
   }
 
   $scope.format = function (dt, str) {

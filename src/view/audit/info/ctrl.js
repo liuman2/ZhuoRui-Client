@@ -4,11 +4,17 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
     dInput = $('.date-input'),
     jForm = $('#audit_form');
 
+  // var isFromTax = $state.params.source === 'tax'
+  // var regAbroadId = 0;
+  // if (isFromTax) {
+  //   regAbroadId = $state.params.sourceId;
+  // }
+
   var order_type = '';
   var order_id = '';
   $scope.current_name = $state.current.name;
 
-  if ($state.current.name == 'audit_add_s') {
+  if ($state.current.name == 'audit_add_s' || $state.current.name == 'audit_add_tax') {
     order_type = $state.params.order_type || null;
     order_id = $state.params.order_id || null;
   }
@@ -88,7 +94,7 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
     actionView();
   }
 
-  if ($state.current.name == 'audit_add_s') {
+  if ($state.current.name == 'audit_add_s' || $state.current.name == 'audit_add_tax') {
     $scope.action = 'add';
     $scope.data.is_old = 0;
     if (order_type == 'reg_internal') {
@@ -263,6 +269,10 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
   }
 
   $scope.cancel = function() {
+    if ($state.current.name == 'audit_add_tax') {
+      $state.go("tax_warning");
+      return;
+    }
     if ($scope.action == 'add') {
       $state.go("audit");
     } else {
@@ -279,7 +289,7 @@ module.exports = function($scope, $state, $http, $cookieStore, $timeout) {
   });
 
   $('#customerSelect2').on("change", function(e) {
-    if ($state.current.name == 'audit_add_s') {
+    if ($state.current.name == 'audit_add_s' || $state.current.name == 'audit_add_tax') {
       return;
     }
     var customer_id = $(e.target).val();
