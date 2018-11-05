@@ -45,6 +45,12 @@
                             <input type="text" id="dealt_date" name="dealt_date" class="form-control date-input" ng-model="timeline.dealt_date" data-rule="required;">
                         </div>
                     </div>
+                    <div class="form-group" ng-if="timeline.is_notify==true">
+                        <label class="col-sm-2 control-label">并提醒</label>
+                        <div class="col-sm-8">
+                          <select ui-select2 multiple class="form-control select2" id="notifyPeople" name="notifyPeople" ng-view="waiter_name" ng-model="data.waiter_id" url="Member/List" paging="true" style="width: 100%;"></select>
+                        </div>
+                      </div>
                 </form>
             </div>
             <div class="modal-footer">

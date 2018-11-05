@@ -18,6 +18,7 @@
                 >
                     <option value="name">按客户名称搜索</option>
                     <option value="contact">按联系人搜索</option>
+                    <option value="tag">按标签搜索</option>
                 </select>
                 <div class="input-group input-group-sm" style="width: 236px;">
                     <input type="text" name="table_search" class="form-control pull-right" ng-model="search.name" ng-attr-placeholder="{{typePlaceholder}}">
@@ -32,10 +33,11 @@
                 <tbody>
                     <tr>
                         <th style="width: 10px">#</th>
-                        <th style="width: 90px;">客户编号</th>
+                        <!-- <th style="width: 90px;">客户编号</th> -->
                         <th>客户名称</th>
                         <!-- <th>联系人</th> -->
                         <!-- <th>联系电话</th> -->
+                        <th>标签</th>
                         <th>业务员</th>
                         <th>助理1</th>
                         <th>助理2</th>
@@ -47,11 +49,11 @@
                     </tr>
                     <tr ng-repeat="item in data.items">
                         <td ng-bind="($index+1)+'.'"></td>
-                         <td ng-bind="item.code"></td>
+                         <!-- <td ng-bind="item.code"></td> -->
                         <td ng-bind="item.name"></td>
                         <!-- <td ng-bind="item.contact"></td> -->
                         <!-- <td ng-bind="item.mobile"></td> -->
-
+                        <td ng-bind="item.tag"></td>
                         <td ng-bind="item.salesman"></td>
                         <td ng-bind="item.assistant_name"></td>
                         <td ng-bind="item.assistantNames"></td>
@@ -59,12 +61,21 @@
                         <td ng-bind="item.source_name"></td>
                         <td ng-bind="item.business_count"></td>
                         <td ng-bind="format(item.date_created, 'YYYY-MM-DD HH:mm')"></td>
+
                         <td class="opt-col">
-                            <a class="fa fa-reply orange"  title="转为意向客户" ng-click="transferBack(item.id)"></a>
-                            <a class="fa fa-info-circle" ui-sref="customer_view({id: item.id})" title="详情"></a>
-                            <a class="fa fa-pencil orange" ui-sref="customer_edit({id: item.id})" title="修改"></a>
-                            <a class="fa fa-clock-o green" ui-sref="customer_timeline({id: item.id})" title="查看日志"></a>
-                        </td>
+                            <div class="btn-group">
+                              <button type="button" class="btn btn-box-tool dropdown-toggle" data-toggle="dropdown">
+                                <i class="fa fa-wrench"></i>
+                              </button>
+                              <ul class="dropdown-menu" role="menu">
+                                <li><a class="fa fa-reply orange" ng-click="transferBack(item.id)"> 转为意向客户</a></li>
+                                <li><a class="fa fa-info-circle" ui-sref="customer_view({id: item.id})"> 详情</a></li>
+                                <li><a class="fa fa-pencil orange" ui-sref="customer_edit({id: item.id})"> 修改</a></li>
+                                <li><a class="fa fa-clock-o green" ui-sref="customer_timeline({id: item.id})"> 查看日志</a></li>
+                                <li><a class="fa fa-tags green" ng-click="onTag(item)"> 标签</a></li>
+                              </ul>
+                            </div>
+                          </td>
                     </tr>
                 </tbody>
             </table>
@@ -76,3 +87,4 @@
         </div>
     </div>
 </section>
+<div ui-view="tag"></div>

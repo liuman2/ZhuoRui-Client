@@ -97,23 +97,63 @@ module.exports = function ($scope, $http, $state, $stateParams, $cookieStore, $t
   }
 
   $scope.toAudit = function (item) {
-    console.log(item);
-    $http({
-      method: 'GET',
-      url: '/RegAbroad/CheckAudit',
-      params: {
-        id: item.id
-      }
-    }).success(function (data) {
-      if (data.isExist) {
-        $state.go("audit_view", {
-          id: data.auditId
-        });
-        return;
-      }
+    $.confirm({
+      title: false,
+      content: '该税表之前已经转了审计或已经有了对应的审计记录(审计账期)，请按[标识为已转审计], 否则按[去新增审计]按钮',
+      confirmButton: '去新增审计',
+      cancelButton: '标识为已转审计',
+      confirm: function () {
+        $http({
+          method: 'GET',
+          url: '/RegAbroad/CheckAudit',
+          params: {
+            id: item.id
+          }
+        }).success(function (data) {
+          if (data.isExist) {
+            $state.go("audit_view", {
+              id: data.auditId
+            });
+            return;
+          }
 
-      $state.go("audit_add_tax", { order_id: item.id, order_type: 'reg_abroad' });
+          $state.go("audit_add_tax", { order_id: item.id, order_type: 'reg_abroad' });
+        });
+      },
+      cancel: function () {
+
+        $http({
+          method: 'GET',
+          url: '/RegAbroad/CheckAudit',
+          params: {
+            id: item.id
+          }
+        }).success(function (data) {
+          if (!data.isExist) {
+            $.alert({
+              title: false,
+              content: '系统没查询到该税表对应的审计订单，请按[去新增审计]新增订单',
+              confirmButton: '确定'
+            });
+            return;
+          }
+
+          $http({
+            method: 'GET',
+            url: '/RegAbroad/SetAudit',
+            params: {
+              orderId: item.id,
+              id: item.tax_record_id
+            }
+          }).success(function () {
+            load_data();
+          });
+        });
+      }
     });
+
+
+
   }
 
   $scope.noAudit = function (item) {

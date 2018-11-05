@@ -5,7 +5,7 @@ var config = {
   },
   proxy: {
     '/*': {
-      // target: 'http://192.168.84.56:4696',
+      // target: 'http://oa.hkzrqy.com/',
       target: 'http://192.168.0.2:4696',
       secure: false
     }

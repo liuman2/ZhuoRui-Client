@@ -5,7 +5,7 @@ var views_customer = {
   }
 };
 
-var router = function($stateProvider, $urlRouterProvider) {
+var router = function ($stateProvider, $urlRouterProvider) {
 
   $stateProvider
     .state('customer', { // list
@@ -14,6 +14,20 @@ var router = function($stateProvider, $urlRouterProvider) {
       stateName: '客户列表',
       template: require('view/customer/list/tmpl.html'),
       controller: require('view/customer/list/ctrl')
+    })
+    .state('customer.tag', {
+      url: '/customer/tag',
+      stateName: '标签',
+      views: {
+        'tag': {
+          template: require('view/customer/list/tag.html'),
+          controller: require('view/customer/list/tag')
+        }
+      },
+      params: {
+        customerId: null,
+        tags: null,
+      },
     })
     .state('customer_add', {
       parent: 'list',
@@ -110,7 +124,7 @@ var router = function($stateProvider, $urlRouterProvider) {
       }
     })
 
-  .state('customer_view.bank_add', {
+    .state('customer_view.bank_add', {
       url: '/new',
       views: {
         'modal': {
@@ -153,7 +167,7 @@ var router = function($stateProvider, $urlRouterProvider) {
       }
     })
 
-  .state('customer_add.dictionary', {
+    .state('customer_add.dictionary', {
       url: '/dictionary',
       params: {
         group: null

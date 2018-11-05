@@ -1,0 +1,48 @@
+<div class="modal" style="display: block;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" ui-sref="^">
+          <span aria-hidden="true">×</span></button>
+        <h4 class="modal-title" ng-bind="title">标签</h4>
+      </div>
+      <div class="modal-body">
+        <form class="form-horizontal" id="tag_modal">
+          <!-- <div class="form-group" ng-repeat="tag in customerTag.tags">
+            <label class="col-sm-2 control-label" ng-bind="$index == 0 ? '标签' : ''"></label>
+            <div class="col-sm-6">
+              <input type="text" class="form-control" id="tag{{$index}}" name="tag[$index]" ng-model="tag.tag" data-rule="required; length[~10];" />
+            </div>
+            <div class="col-sm-2">
+              <a ng-show="$index > 0" href="javascript:;" style="display: inline-block; line-height: 30px;" ng-click="removeTag($index)">删除</a>
+            </div>
+          </div>
+          <div class="form-group" ng-show="customerTag.tags.length < 3">
+            <label class="col-sm-2 control-label"></label>
+            <div class="col-sm-8">
+              <a href="javascript:;" ng-click="addTag()">添加标签</a>
+            </div>
+          </div> -->
+          
+          <div class="form-group">
+            <label class="col-sm-2 control-label">标签</label>
+            <div class="col-sm-8">
+                <select
+                  multiple
+                  class="form-control select2"
+                  id="customerTag"
+                  name="customerTag"
+                  style="width: 100%;"
+                >
+                </select>              
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default pull-left" data-dismiss="modal" ui-sref="^">取消</button>
+        <button type="button" class="btn btn-primary" ng-click="save()">确定</button>
+      </div>
+    </div>
+  </div>
+</div>

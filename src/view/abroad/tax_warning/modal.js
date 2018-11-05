@@ -18,9 +18,12 @@ module.exports = function ($scope, $state, $http, $timeout) {
     var jForm = $('#tax_modal');
     jForm.validator({
         rules: {},
-        fields: {}
+        fields: {
+            sent_date: "发出时间:match[lt, end_date, date]; required;",
+            end_date: "截止时间:match[gt, sent_date, date]; required;",
+        }
     });
-    
+
     $scope.data = {
         order_id: order_id,
         code: code,
@@ -38,6 +41,7 @@ module.exports = function ($scope, $state, $http, $timeout) {
 
     function actionAdd() {
         $scope.data.sent_date = $('#sent_date').val();
+        $scope.data.end_date = $('#end_date').val();
         $http({
             method: 'POST',
             url: '/RegAbroad/InsertTaxDate',

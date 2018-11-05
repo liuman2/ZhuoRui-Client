@@ -54,6 +54,26 @@ module.exports = function($scope, $state, $http, $timeout) {
           }
         };
       }
+    },
+    templateResult: function (state) {
+      if (!state.order_id) {
+        return state.text;
+      }
+
+      var $state = $(
+        '<div class="custom-select-item">\
+            <div>\
+              <label class="caption">档案号: </label><span>' + state['order_code'] + '</span>\
+            </div>\
+            <div>\
+              <label class="caption">中文名: </label><span>' + (state['order_name'] || '') + '</span>\
+            </div>\
+            <div>\
+              <label class="caption">英文名: </label><span>' + (state['order_name_en'] || '') + '</span>\
+            </div>\
+        </div>'
+      );
+      return $state;
     }
   });
 

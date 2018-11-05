@@ -1,4 +1,4 @@
-module.exports = function($scope, $state, $http, $timeout) {
+module.exports = function ($scope, $state, $http, $timeout) {
   var tid = $state.params.tid || null,
     dInput = $('.date-input');
 
@@ -8,7 +8,7 @@ module.exports = function($scope, $state, $http, $timeout) {
     format: 'Y-m-d',
     scrollInput: false,
     // maxDate: new Date(),
-    onChangeDateTime: function(current_time, $input) {
+    onChangeDateTime: function (current_time, $input) {
       console.log(current_time)
     }
   });
@@ -34,20 +34,20 @@ module.exports = function($scope, $state, $http, $timeout) {
 
   $scope.notifyChange = function () {
     if ($scope.timelineModal.is_notify) {
-        $timeout(function () {
-            var date_notify = $('#date_notify');
-            date_notify.datetimepicker({
-                timepicker: false,
-                format: 'Y-m-d',
-                scrollInput: false,
-                minDate: new Date(),
-            });
+      $timeout(function () {
+        var date_notify = $('#date_notify');
+        date_notify.datetimepicker({
+          timepicker: false,
+          format: 'Y-m-d',
+          scrollInput: false,
+          minDate: new Date(),
         });
+      });
     }
-}
+  }
 
-  $scope.save = function() {
-    jForm.isValid(function(v) {
+  $scope.save = function () {
+    jForm.isValid(function (v) {
       if (v) {
         if (tid) {
           actionUpdate();
@@ -70,7 +70,7 @@ module.exports = function($scope, $state, $http, $timeout) {
       params: {
         id: tid
       }
-    }).success(function(data) {
+    }).success(function (data) {
       if (data.date_business.indexOf('T') > -1) {
         data.date_business = data.date_business.split('T')[0];
       }
@@ -79,19 +79,19 @@ module.exports = function($scope, $state, $http, $timeout) {
     });
   }
 
-  $scope.logTypeChange = function() {
-    if($scope.timelineModal.log_type == 1) {
+  $scope.logTypeChange = function () {
+    if ($scope.timelineModal.log_type == 1) {
       $scope.timelineModal.is_notify = 1;
-      
+
       $timeout(function () {
         var date_notify = $('#date_notify');
         date_notify.datetimepicker({
-            timepicker: false,
-            format: 'Y-m-d',
-            scrollInput: false,
-            minDate: new Date(),
+          timepicker: false,
+          format: 'Y-m-d',
+          scrollInput: false,
+          minDate: new Date(),
         });
-    });
+      });
     }
   }
 
@@ -100,14 +100,19 @@ module.exports = function($scope, $state, $http, $timeout) {
 
     if ($scope.timelineModal.is_notify) {
       $scope.timelineModal.date_notify = $('#date_notify').val();
-  }
 
+      var notifyPeople = $('#notifyPeople').val();
+      if (notifyPeople) {
+        $scope.timelineModal.notifyPeople = notifyPeople.join(',');
+      }
+    }
+        
     $http({
       method: 'POST',
       url: '/Timeline/Add',
       needLoading: true,
       data: $scope.timelineModal
-    }).success(function(data) {
+    }).success(function (data) {
       $scope.$emit('R_TIMELINE_MODAL_DONE');
       $state.go('^', { reload: true });
     });
@@ -115,12 +120,20 @@ module.exports = function($scope, $state, $http, $timeout) {
 
   function actionUpdate() {
     $scope.timelineModal.date_business = $('#date_business').val();
+
+    if ($scope.timelineModal.is_notify) {
+      var notifyPeople = $('#notifyPeople').val();
+      if (notifyPeople) {
+        $scope.timelineModal.notifyPeople = notifyPeople.join(',');
+      }
+    }
+
     $http({
       method: 'POST',
       url: '/Timeline/Update',
       needLoading: true,
       data: $scope.timelineModal
-    }).success(function(data) {
+    }).success(function (data) {
       $scope.$emit('R_TIMELINE_MODAL_DONE');
       $state.go('^', { reload: true });
     });

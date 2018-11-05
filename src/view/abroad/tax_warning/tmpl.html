@@ -38,7 +38,8 @@
           <tr>
             <th style="width: 10px">#</th>
             <th style="width: 100px">档案号</th>
-            <th style="width: 150px">税表发出时间</th>
+            <th style="width: 150px">税表发出日期</th>
+            <th style="width: 150px">税表截止日期</th>
             <th style="max-width: 100px">中文名称</th>
             <th style="max-width: 100px">英文名称</th>
             <th style="width: 100px">证书日期</th>
@@ -51,6 +52,7 @@
               <span ng-bind="format(item.sent_date, 'YYYY-MM-DD')"></span>
               <a href="javascript:;" ng-if="opers.indexOf(7) > -1 && item.sent_date == null" ng-click="sendDate(item)">填写</a>
             </td>
+            <td ng-bind="format(item.end_date, 'YYYY-MM-DD')">
             <td ng-bind="item.name_cn" ng-attr-title="{{item.name_cn}}"></td>
             <td ng-bind="item.name_en" ng-attr-title="{{item.name_en}}"></td>
             <td ng-bind="format(item.date_setup, 'YYYY-MM-DD')"></td>
