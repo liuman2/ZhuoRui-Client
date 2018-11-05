@@ -18,6 +18,7 @@
             <th style="width: 150px">税表发出时间</th>
             <th style="max-width: 100px">处理方式</th>
             <th style="max-width: 100px">审计档案号</th>
+            
             <th style="max-width: 100px">附件</th>
             <th style="max-width: 100px">备注</th>
             <th class="opt-col" style="width: 100px">操作</th>
@@ -27,6 +28,7 @@
             <td ng-bind="format(item.sent_date, 'YYYY-MM-DD')"></td>
             <td ng-bind="getDealWay(item.deal_way)"></td>
             <td ng-bind="item.audit_code"></td>
+            
             <td>
               <a href="{{item.attachment}}" target="_blank" ng-if="item.attachment.length">
                 点击查看

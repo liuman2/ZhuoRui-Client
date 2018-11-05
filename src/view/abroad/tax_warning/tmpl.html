@@ -42,6 +42,8 @@
             <th style="width: 150px">税表截止日期</th>
             <th style="max-width: 100px">中文名称</th>
             <th style="max-width: 100px">英文名称</th>
+            <th style="max-width: 100px">上次处理方式</th>
+            <th style="max-width: 100px">账期</th>
             <th style="width: 100px">证书日期</th>
             <th class="opt-col" style="width: 100px">操作</th>
           </tr>
@@ -55,6 +57,8 @@
             <td ng-bind="format(item.end_date, 'YYYY-MM-DD')">
             <td ng-bind="item.name_cn" ng-attr-title="{{item.name_cn}}"></td>
             <td ng-bind="item.name_en" ng-attr-title="{{item.name_en}}"></td>
+            <td ng-bind="item.deal_way"></td>
+            <td ng-bind="item.period" ng-attr-title="{{item.period}}"></td>
             <td ng-bind="format(item.date_setup, 'YYYY-MM-DD')"></td>
             <td class="opt-col">
               <div class="btn-group" >
