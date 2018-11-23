@@ -92,7 +92,9 @@ module.exports = function ($scope, $http, $state, $stateParams, $cookieStore, $t
       orderId: item.id,
       code: item.code,
       name_cn: item.name_cn,
-      name_en: item.name_en
+      name_en: item.name_en,
+      end_date: item.end_date,
+      tax_record_id: item.tax_record_id
     }, { location: false });
   }
 
@@ -194,6 +196,17 @@ module.exports = function ($scope, $http, $state, $stateParams, $cookieStore, $t
   }
 
   $scope.format = function (dt, str) {
+    if (!dt) {
+      return '';
+    }
+    return moment(dt).format(str);
+  }
+
+  $scope.formatSentDate = function(dt, ed, str) {
+    if (!dt && ed) {
+      return '无税表';
+    }
+
     if (!dt) {
       return '';
     }

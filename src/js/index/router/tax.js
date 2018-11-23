@@ -26,6 +26,8 @@ var router = function ($stateProvider, $urlRouterProvider) {
         orderId: null,
         name_cn: null,
         name_en: null,
+        end_date: null,
+        tax_record_id: null,
       },
       url: '/senddate',
       views: {

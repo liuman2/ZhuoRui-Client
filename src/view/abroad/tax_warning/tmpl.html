@@ -26,6 +26,25 @@
           </div>
         </div>
         <div class="col-md-3">
+          <div class="form-group">
+            <select class="form-control" ng-model="search.month">
+              <option value="">成立月份</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
+              <option value="10">10</option>
+              <option value="11">11</option>
+              <option value="12">12</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-md-3">
           <a class="btn btn-sm btn-info btn-flat" ng-click="query()">查询</a>
         </div>
       </div>
@@ -45,13 +64,14 @@
             <th style="max-width: 100px">上次处理方式</th>
             <th style="max-width: 100px">账期</th>
             <th style="width: 100px">证书日期</th>
+            <th style="width: 100px">距证书时间</th>
             <th class="opt-col" style="width: 100px">操作</th>
           </tr>
           <tr ng-repeat="item in data.items">
             <td ng-bind="(($index + 1)+((data.page.current_index-1)*50))+'.'"></td>
             <td ng-bind="item.code"></td>
             <td>
-              <span ng-bind="format(item.sent_date, 'YYYY-MM-DD')"></span>
+              <span ng-bind="formatSentDate(item.sent_date, item.end_date, 'YYYY-MM-DD')"></span>
               <a href="javascript:;" ng-if="opers.indexOf(7) > -1 && item.sent_date == null" ng-click="sendDate(item)">填写</a>
             </td>
             <td ng-bind="format(item.end_date, 'YYYY-MM-DD')">
@@ -60,6 +80,7 @@
             <td ng-bind="item.deal_way"></td>
             <td ng-bind="item.period" ng-attr-title="{{item.period}}"></td>
             <td ng-bind="format(item.date_setup, 'YYYY-MM-DD')"></td>
+            <td ng-bind="item.diff_date"></td>
             <td class="opt-col">
               <div class="btn-group" >
                 <button type="button" class="btn btn-box-tool dropdown-toggle" data-toggle="dropdown">
